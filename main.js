@@ -1291,6 +1291,9 @@ function renderKeyNotes(keyNotes) {
     `).join('');
 }
 
+// ============================================
+// UPDATE: renderReviewSummary
+// ============================================
 function renderReviewSummary(summary) {
     const container = document.getElementById('reviews-summary-container');
     if (!container) return;
@@ -1301,32 +1304,45 @@ function renderReviewSummary(summary) {
             <div class="stars">${summary.stars}</div>
             <p>${summary.recommendation}</p>
         </div>
+        
         <div class="review-bars">
             ${summary.bars.map(bar => `
                 <div class="bar-item">
                     <span class="bar-label">${bar.label}</span>
-                    <div class="bar-container"><div class="bar-fill" style="width: ${bar.width};"></div></div>
+                    <div class="bar-container">
+                        <div class="bar-fill" style="width: ${bar.width};"></div>
+                    </div>
+                    <span style="font-size: 0.8rem; color: #666; width: 35px;">${bar.width}</span>
                 </div>
             `).join('')}
         </div>
     `;
 }
 
+// ============================================
+// UPDATE: renderReviews
+// ============================================
 function renderReviews(reviews) {
     const container = document.getElementById('review-list-container');
     if (!container) return;
 
     container.innerHTML = reviews.map(review => `
-        <div class="review-card">
+        <div class="review-card fade-in">
             <div class="review-header">
                 <div class="review-author">
-                    <img src="${review.avatar}" alt="Reviewer">
-                    <span>${review.author}</span>
+                    <img src="${review.avatar}" alt="${review.author}">
+                    <div class="author-info">
+                        <span class="author-name">${review.author}</span>
+                        <span class="review-date">${review.date}</span>
+                    </div>
                 </div>
-                <div class="review-rating"><span class="stars">${review.rating}</span></div>
+                <div class="review-rating">
+                    <span class="stars">${review.rating}</span>
+                </div>
             </div>
-            <div class="review-body">${review.body}</div>
-            <div class="review-date">${review.date}</div>
+            <div class="review-body">
+                "${review.body}"
+            </div>
         </div>
     `).join('');
 }
