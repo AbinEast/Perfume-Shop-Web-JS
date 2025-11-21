@@ -1,0 +1,1934 @@
+// ============================================
+// 1. GLOBAL VARIABLES & CONFIGURATION
+// ============================================
+
+const products = {
+    'floral-essence': {
+        name: "Floral Essence",
+        price: "$89.00",
+        priceNum: 89.00,
+        description: "A beautiful bouquet of fresh spring flowers",
+        image: "https://img.freepik.com/premium-photo/discover-luxurious-perfumes-every-mood-style-occasion_1197721-145317.jpg",
+        category: "female",
+        scent: "floral",
+        ratingStars: "★★★★★",
+        ratingCount: "198"
+    },
+    'amber-nights': {
+        name: "Amber Nights",
+        price: "$125.00",
+        priceNum: 125.00,
+        description: "A warm, mysterious, and seductive scent",
+        image: "https://cdn11.bigcommerce.com/s-ojfjzuqgaj/images/stencil/1200w/products/241913/908284/q9wo1TK51LCBaa9pa_xAvjR94__29378.1758593496.jpg?c=1",
+        category: "unisex",
+        scent: "oriental",
+        ratingStars: "★★★★★",
+        ratingCount: "214"
+    },
+    'royal-rose': {
+        name: "Royal Rose",
+        price: "$95.00",
+        priceNum: 95.00,
+        description: "A modern interpretation of a classic rose",
+        image: "https://img.freepik.com/premium-photo/discover-luxurious-perfumes-every-mood-style-occasion_1197721-145147.jpg",
+        category: "female",
+        scent: "floral",
+        ratingStars: "★★★★☆",
+        ratingCount: "156"
+    },
+    'golden-aura': {
+        name: "Golden Aura",
+        price: "$110.00",
+        priceNum: 110.00,
+        description: "Radiate confidence with this luminous fragrance",
+        image: "https://veloaraluxury.com/cdn/shop/files/Grafior_-_perfume_3.jpg?v=1760876506&width=800",
+        category: "male",
+        scent: "oriental",
+        ratingStars: "★★★★★",
+        ratingCount: "187"
+    },
+    'aroma-bliss': {
+        name: "Aroma Bliss",
+        price: "$175.00",
+        priceNum: 175.00,
+        description: "A calming and therapeutic blend",
+        image: "https://images.pexels.com/photos/965730/pexels-photo-965730.jpeg",
+        category: "unisex",
+        scent: "floral",
+        ratingStars: "★★★★★",
+        ratingCount: "203"
+    },
+    'timeless-oud': {
+        name: "Timeless Oud",
+        price: "$225.00",
+        priceNum: 225.00,
+        description: "Deep, rich, and sophisticated oud wood",
+        image: "https://images.pexels.com/photos/4925692/pexels-photo-4925692.jpeg",
+        category: "female",
+        scent: "woody",
+        ratingStars: "★★★★★",
+        ratingCount: "312"
+    },
+    'velvet-petal': {
+        name: "Velvet Petal",
+        price: "$159.00",
+        priceNum: 159.00,
+        description: "A soft, powdery, and romantic floral scent",
+        image: "https://images.pexels.com/photos/14496154/pexels-photo-14496154.jpeg",
+        category: "female",
+        scent: "floral",
+        ratingStars: "★★★★☆",
+        ratingCount: "76"
+    },
+    'amber-elite': {
+        name: "Amber Elite",
+        price: "$195.00",
+        priceNum: 195.00,
+        description: "The ultimate expression of amber",
+        image: "https://images.pexels.com/photos/31847826/pexels-photo-31847826.jpeg",
+        category: "male",
+        scent: "woody",
+        ratingStars: "★★★★★",
+        ratingCount: "189"
+    },
+    'diamond-aura': {
+        name: "Diamond Aura",
+        price: "$210.00",
+        priceNum: 210.00,
+        description: "A bright, sparkling, and crisp fragrance",
+        image: "https://images.pexels.com/photos/28460123/pexels-photo-28460123.jpeg",
+        category: "male",
+        scent: "fresh",
+        ratingStars: "★★★★★",
+        ratingCount: "245"
+    },
+    'citrus-harmony': {
+        name: "Citrus Harmony",
+        price: "$138.00",
+        priceNum: 138.00,
+        description: "Zesty and uplifting grapefruit and lemon",
+        image: "https://images.pexels.com/photos/12528067/pexels-photo-12528067.jpeg",
+        category: "unisex",
+        scent: "fresh",
+        ratingStars: "★★★★☆",
+        ratingCount: "92"
+    },
+    'sapphire-mystique': {
+        name: "Sapphire Mystique",
+        price: "$182.00",
+        priceNum: 182.00,
+        description: "Deep, aquatic, and aromatic fragrance",
+        image: "https://images.pexels.com/photos/32438858/pexels-photo-32438858.jpeg",
+        category: "male",
+        scent: "fresh",
+        ratingStars: "★★★★★",
+        ratingCount: "167"
+    },
+    'golden-harmony': {
+        name: "Golden Harmony",
+        price: "$205.00",
+        priceNum: 205.00,
+        description: "A balanced blend of spice, sweet, and wood",
+        image: "https://images.pexels.com/photos/11711829/pexels-photo-11711829.jpeg",
+        category: "unisex",
+        scent: "woody",
+        ratingStars: "★★★★★",
+        ratingCount: "278"
+    }
+};
+
+// ============================================
+// 2. UTILITY FUNCTIONS
+// ============================================
+
+function goToProduct(productId) {
+    window.location.href = `product_detail.html?id=${productId}`;
+}
+
+// ============================================
+// 3. HEADER & NAVIGATION
+// ============================================
+
+function setupHeaderScroll() {
+    const header = document.getElementById('header');
+    if (!header) return;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            header.classList.add('scrolled');
+        } else {
+            header.classList.remove('scrolled');
+        }
+    });
+}
+
+function setupMobileNav() {
+    const hamburgerBtn = document.getElementById('hamburger-button');
+    const mobileNavMenu = document.getElementById('mobile-nav-menu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+    const body = document.body;
+
+    if (!hamburgerBtn || !mobileNavMenu) return;
+
+    hamburgerBtn.addEventListener('click', () => {
+        body.classList.toggle('nav-open');
+        mobileNavMenu.classList.toggle('open');
+    });
+
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            body.classList.remove('nav-open');
+            mobileNavMenu.classList.remove('open');
+        });
+    });
+}
+
+function setupNavigationIcons() {
+    const iconButtons = document.querySelectorAll('.icon-btn');
+    
+    // Search button (1st icon)
+    if (iconButtons[0]) {
+        iconButtons[0].addEventListener('click', () => {
+            openSearch();
+        });
+    }
+    
+    // Profile button (2nd icon)
+    if (iconButtons[1]) {
+        iconButtons[1].addEventListener('click', () => {
+            window.location.href = 'profile.html';
+        });
+    }
+    
+    // Wishlist button (3rd icon)
+    if (iconButtons[2]) {
+        iconButtons[2].addEventListener('click', () => {
+            window.location.href = 'wishlist.html';
+        });
+    }
+    
+    // Cart button (4th icon)
+    if (iconButtons[3]) {
+        iconButtons[3].addEventListener('click', () => {
+            window.location.href = 'cart.html';
+        });
+    }
+}
+
+// ============================================
+// 4. SEARCH FUNCTIONALITY
+// ============================================
+
+function openSearch() {
+    const searchOverlay = document.getElementById('searchOverlay');
+    const searchInput = document.getElementById('searchInput');
+    
+    if (!searchOverlay) return;
+    
+    showPopularSearches();
+    searchOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => {
+        if (searchInput) searchInput.focus();
+    }, 300);
+}
+
+function closeSearch() {
+    const searchOverlay = document.getElementById('searchOverlay');
+    const searchInput = document.getElementById('searchInput');
+    
+    if (!searchOverlay) return;
+    
+    searchOverlay.classList.remove('active');
+    document.body.style.overflow = '';
+    if (searchInput) searchInput.value = '';
+    showPopularSearches();
+}
+
+function performSearch(query) {
+    if (!query.trim()) {
+        showPopularSearches();
+        return;
+    }
+
+    const searchTerm = query.toLowerCase();
+    const results = [];
+
+    for (const [id, product] of Object.entries(products)) {
+        const searchableText = `${product.name} ${product.description} ${product.keywords}`.toLowerCase();
+        if (searchableText.includes(searchTerm)) {
+            results.push({ id, ...product });
+        }
+    }
+
+    displayResults(results);
+}
+
+function displayResults(results) {
+    const searchResults = document.getElementById('searchResults');
+    if (!searchResults) return;
+
+    if (results.length === 0) {
+        searchResults.innerHTML = `
+            <div class="no-results">
+                <div class="no-results-icon">🔍</div>
+                <h3>No results found</h3>
+                <p>Try searching for something else</p>
+            </div>
+        `;
+        return;
+    }
+
+    searchResults.innerHTML = results.map(product => `
+        <div class="search-result-item" onclick="goToProduct('${product.id}')">
+            <img src="${product.image}" alt="${product.name}" class="result-image">
+            <div class="result-info">
+                <h3>${product.name}</h3>
+                <p>${product.description}</p>
+                <div class="result-price">${product.price}</div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function showPopularSearches() {
+    const searchResults = document.getElementById('searchResults');
+    if (!searchResults) return;
+
+    searchResults.innerHTML = `
+        <div class="popular-searches">
+            <h3>Popular Searches</h3>
+            <div class="popular-tags">
+                <span class="popular-tag" data-search="amber">Amber</span>
+                <span class="popular-tag" data-search="oud">Oud</span>
+                <span class="popular-tag" data-search="floral">Floral</span>
+                <span class="popular-tag" data-search="citrus">Citrus</span>
+                <span class="popular-tag" data-search="luxury">Luxury</span>
+                <span class="popular-tag" data-search="rose">Rose</span>
+            </div>
+        </div>
+    `;
+
+    document.querySelectorAll('.popular-tag').forEach(tag => {
+        tag.addEventListener('click', function() {
+            const searchTerm = this.getAttribute('data-search');
+            const searchInput = document.getElementById('searchInput');
+            if (searchInput) {
+                searchInput.value = searchTerm;
+                performSearch(searchTerm);
+            }
+        });
+    });
+}
+
+function setupSearchListeners() {
+    const closeSearchBtn = document.getElementById('closeSearch');
+    const searchOverlay = document.getElementById('searchOverlay');
+    const searchInput = document.getElementById('searchInput');
+
+    if (closeSearchBtn) {
+        closeSearchBtn.addEventListener('click', closeSearch);
+    }
+
+    if (searchOverlay) {
+        searchOverlay.addEventListener('click', function(e) {
+            if (e.target === searchOverlay) {
+                closeSearch();
+            }
+        });
+    }
+
+    if (searchInput) {
+        searchInput.addEventListener('input', function(e) {
+            performSearch(e.target.value);
+        });
+    }
+
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && searchOverlay && searchOverlay.classList.contains('active')) {
+            closeSearch();
+        }
+    });
+}
+
+// ============================================
+// 5. CART MANAGEMENT
+// ============================================
+
+function updateCartBadge() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+    const badge = document.getElementById('cart-badge');
+    
+    if (badge) {
+        badge.textContent = totalItems;
+        badge.style.display = totalItems > 0 ? 'flex' : 'none';
+    }
+}
+
+class ShoppingCartManager {
+    constructor() {
+        this.cart = this.loadCart();
+        this.render();
+        this.updateBadge();
+    }
+
+    loadCart() {
+        const saved = localStorage.getItem('cart');
+        return saved ? JSON.parse(saved) : [];
+    }
+
+    saveCart() {
+        localStorage.setItem('cart', JSON.stringify(this.cart));
+        this.updateBadge();
+    }
+
+    addToCart(productId, quantity = 1, size = '50ml') {
+        const existingItem = this.cart.find(item => item.id === productId && item.size === size);
+        
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            this.cart.push({ id: productId, quantity, size });
+        }
+        
+        this.saveCart();
+        this.render();
+    }
+
+    updateQuantity(productId, size, newQuantity) {
+        const item = this.cart.find(item => item.id === productId && item.size === size);
+        if (item) {
+            if (newQuantity <= 0) {
+                this.removeFromCart(productId, size);
+            } else {
+                item.quantity = newQuantity;
+                this.saveCart();
+                this.render();
+            }
+        }
+    }
+
+    removeFromCart(productId, size) {
+        this.cart = this.cart.filter(item => !(item.id === productId && item.size === size));
+        this.saveCart();
+        this.render();
+    }
+
+    clearCart() {
+        if (confirm('Are you sure you want to clear your cart?')) {
+            this.cart = [];
+            this.saveCart();
+            this.render();
+        }
+    }
+
+    getSubtotal() {
+        return this.cart.reduce((total, item) => {
+            const product = products[item.id];
+            return total + (product ? product.priceNum * item.quantity : 0);
+        }, 0);
+    }
+
+    getTotal() {
+        const subtotal = this.getSubtotal();
+        const shipping = subtotal > 0 ? 10 : 0;
+        const tax = subtotal * 0.1;
+        return subtotal + shipping + tax;
+    }
+
+    updateBadge() {
+        updateCartBadge();
+    }
+
+    render() {
+        const container = document.getElementById('cart-content');
+        if (!container) return;
+        
+        if (this.cart.length === 0) {
+            container.innerHTML = `
+                <div class="empty-cart fade-in">
+                    <div class="empty-icon"></div>
+                    <h2>Your Cart is Empty</h2>
+                    <p>Looks like you haven't added anything to your cart yet</p>
+                    <button class="btn-shop-now" onclick="window.location.href='shop.html'">Shop Now</button>
+                </div>
+            `;
+            return;
+        }
+
+        const itemsHtml = this.cart.map(item => {
+            const product = products[item.id];
+            if (!product) return '';
+            
+            return `
+                <div class="cart-item">
+                    <img src="${product.image}" alt="${product.name}" class="item-image" onclick="goToProduct('${item.id}')">
+                    <div class="item-details">
+                        <div class="item-name" onclick="goToProduct('${item.id}')">${product.name}</div>
+                        <div class="item-size">Size: ${item.size}</div>
+                        <div class="quantity-controls">
+                            <button class="quantity-btn" onclick="cartManager.updateQuantity('${item.id}', '${item.size}', ${item.quantity - 1})">−</button>
+                            <span class="quantity-display">${item.quantity}</span>
+                            <button class="quantity-btn" onclick="cartManager.updateQuantity('${item.id}', '${item.size}', ${item.quantity + 1})">+</button>
+                        </div>
+                    </div>
+                    <div class="item-actions">
+                        <div class="item-price">$${(product.priceNum * item.quantity).toFixed(2)}</div>
+                        <button class="remove-item" onclick="cartManager.removeFromCart('${item.id}', '${item.size}')">Remove</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        const subtotal = this.getSubtotal();
+        const shipping = subtotal > 0 ? 10 : 0;
+        const tax = subtotal * 0.1;
+        const total = this.getTotal();
+
+        container.innerHTML = `
+            <div class="cart-content fade-in">
+                <div class="cart-items">
+                    ${itemsHtml}
+                </div>
+                
+                <div class="cart-summary">
+                    <h2 class="summary-title">Order Summary</h2>
+                    
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span>$${subtotal.toFixed(2)}</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span>$${shipping.toFixed(2)}</span>
+                    </div>
+                    
+                    <div class="summary-row">
+                        <span>Tax (10%)</span>
+                        <span>$${tax.toFixed(2)}</span>
+                    </div>
+                    
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span>$${total.toFixed(2)}</span>
+                    </div>
+                    
+                    <div class="promo-code">
+                        <input type="text" class="promo-input" placeholder="Enter promo code" id="promoInput">
+                        <button class="btn-apply" onclick="applyPromoCode()">Apply Code</button>
+                    </div>
+                    
+                    <button class="btn-checkout" onclick="window.location.href='checkout.html'">Proceed to Checkout</button>
+                    <button class="btn-continue" onclick="window.location.href='shop.html'">Continue Shopping</button>
+                </div>
+            </div>
+        `;
+    }
+}
+
+function applyPromoCode() {
+    const input = document.getElementById('promoInput');
+    if (!input) return;
+    
+    const code = input.value.trim().toUpperCase();
+    
+    const validCodes = {
+        'SAVE10': 10,
+        'LUXURY20': 20,
+        'WELCOME15': 15
+    };
+    
+    if (validCodes[code]) {
+        alert(`Promo code applied! You saved ${validCodes[code]}%`);
+        input.value = '';
+    } else if (code) {
+        alert('Invalid promo code. Try SAVE10, LUXURY20, or WELCOME15');
+    }
+}
+
+function checkout() {
+    alert('Proceeding to checkout... (This would redirect to checkout page)');
+}
+
+// ============================================
+// 6. WISHLIST MANAGEMENT
+// ============================================
+
+function updateWishlistBadge() {
+    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    const badge = document.getElementById('wishlist-badge');
+    
+    if (badge) {
+        badge.textContent = wishlist.length;
+        badge.style.display = wishlist.length > 0 ? 'flex' : 'none';
+    }
+}
+
+class WishlistManager {
+    constructor() {
+        this.wishlist = this.loadWishlist();
+        this.render();
+        this.updateBadge();
+    }
+
+    loadWishlist() {
+        const saved = localStorage.getItem('wishlist');
+        return saved ? JSON.parse(saved) : [];
+    }
+
+    saveWishlist() {
+        localStorage.setItem('wishlist', JSON.stringify(this.wishlist));
+        this.updateBadge();
+    }
+
+    addToWishlist(productId) {
+        if (!this.wishlist.includes(productId)) {
+            this.wishlist.push(productId);
+            this.saveWishlist();
+            this.render();
+        }
+    }
+
+    removeFromWishlist(productId) {
+        this.wishlist = this.wishlist.filter(id => id !== productId);
+        this.saveWishlist();
+        this.render();
+    }
+
+    clearWishlist() {
+        if (confirm('Are you sure you want to clear your entire wishlist?')) {
+            this.wishlist = [];
+            this.saveWishlist();
+            this.render();
+        }
+    }
+
+    updateBadge() {
+        updateWishlistBadge();
+    }
+
+    render() {
+        const container = document.getElementById('wishlist-content');
+        if (!container) return;
+        
+        if (this.wishlist.length === 0) {
+            container.innerHTML = `
+                <div class="empty-wishlist fade-in">
+                    <div class="empty-icon">💛</div>
+                    <h2>Your Wishlist is Empty</h2>
+                    <p>Start adding your favorite fragrances to your wishlist</p>
+                    <button class="btn-shop-now" onclick="window.location.href='shop.html'">Shop Now</button>
+                </div>
+            `;
+            return;
+        }
+
+        const productsHtml = this.wishlist.map(productId => {
+            const product = products[productId];
+            if (!product) return '';
+            
+            return `
+                <div class="wishlist-item fade-in">
+                    <div class="wishlist-image" style="background-image: url('${product.image}');" onclick="goToProduct('${productId}')">
+                        <button class="remove-btn" onclick="event.stopPropagation(); wishlistManager.removeFromWishlist('${productId}')">×</button>
+                    </div>
+                    <div class="wishlist-info">
+                        <div class="wishlist-name" onclick="goToProduct('${productId}')">${product.name}</div>
+                        <div class="wishlist-rating">
+                            <span class="stars">${product.ratingStars}</span>
+                            <span class="rating-count">(${product.ratingCount})</span>
+                        </div>
+                        <div class="wishlist-price">${product.price}</div>
+                        <button class="btn-add-to-cart" onclick="addToCartFromWishlist('${productId}')">Add to Cart</button>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        container.innerHTML = `
+            <div class="wishlist-actions fade-in">
+                <div class="wishlist-count">
+                    <span>${this.wishlist.length} ${this.wishlist.length === 1 ? 'Item' : 'Items'}</span> in your wishlist
+                </div>
+                <button class="btn-clear-all" onclick="wishlistManager.clearWishlist()">Clear All</button>
+            </div>
+            <div class="wishlist-grid">
+                ${productsHtml}
+            </div>
+        `;
+    }
+}
+
+function addToCartFromWishlist(productId) {
+    const product = products[productId];
+    if (!product) return;
+    
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    
+    const existingItem = cart.find(item => item.id === productId);
+    if (existingItem) {
+        existingItem.quantity += 1;
+    } else {
+        cart.push({ id: productId, quantity: 1, size: '50ml' });
+    }
+    
+    localStorage.setItem('cart', JSON.stringify(cart));
+    updateCartBadge();
+    
+    alert(`${product.name} has been added to your cart!`);
+}
+
+// ============================================
+// 7. SMOOTH SCROLLING & ANIMATIONS
+// ============================================
+
+function setupSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            if(target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+}
+
+function setupScrollAnimations() {
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                if (entry.target.classList.contains('product-card') || 
+                    entry.target.classList.contains('collection-card')) {
+                    const cards = Array.from(entry.target.parentNode.children);
+                    const cardIndex = cards.indexOf(entry.target);
+                    setTimeout(() => {
+                        entry.target.classList.add('visible');
+                    }, cardIndex * 100);
+                } else {
+                    entry.target.classList.add('visible');
+                }
+            }
+        });
+    }, {
+        threshold: 0.15,
+        rootMargin: '0px 0px -100px 0px'
+    });
+
+    const elementsToReveal = document.querySelectorAll('.reveal-on-scroll, .fade-in');
+    elementsToReveal.forEach(el => {
+        observer.observe(el);
+    });
+}
+
+function setupLoadingAnimation() {
+    window.addEventListener('load', () => {
+        document.body.style.opacity = '0';
+        setTimeout(() => {
+            document.body.style.transition = 'opacity 0.5s ease';
+            document.body.style.opacity = '1';
+        }, 100);
+    });
+}
+
+// ============================================
+// 9. PROFILE PAGE FUNCTIONALITY (REVISED)
+// ============================================
+
+function setupProfilePage() {
+    // 1. Setup Edit Profile button
+    const editProfileBtn = document.getElementById('btn-edit-profile');
+    if (editProfileBtn) {
+        editProfileBtn.addEventListener('click', toggleEditMode);
+    }
+    
+    // 2. Setup Sign Out button
+    const signOutBtn = document.getElementById('btn-signout');
+    if (signOutBtn) {
+        signOutBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if(confirm('Are you sure you want to sign out?')) {
+                // Optional: localStorage.clear(); 
+                window.location.href = 'index.html';
+            }
+        });
+    }
+    
+    // 3. Load user profile data
+    loadUserProfile();
+    
+    // 4. Load recent orders
+    loadRecentOrders();
+}
+
+function toggleEditMode() {
+    const editBtn = document.getElementById('btn-edit-profile');
+    const inputs = document.querySelectorAll('#profile-form input, #profile-form textarea');
+    
+    const isEditing = editBtn.textContent === 'Save Changes';
+    
+    if (isEditing) {
+        // --- SAVE MODE ---
+        const profileData = {
+            firstName: document.getElementById('profile-fname').value,
+            lastName: document.getElementById('profile-lname').value,
+            email: document.getElementById('profile-email').value,
+            phone: document.getElementById('profile-phone').value,
+            address: document.getElementById('addr-street').value,
+            city: document.getElementById('addr-city').value,
+            postalCode: document.getElementById('addr-postal').value,
+            country: document.getElementById('addr-country').value,
+            bio: document.getElementById('profile-bio').value
+        };
+        
+        // Simpan ke localStorage
+        localStorage.setItem('userProfile', JSON.stringify(profileData));
+        
+        // Disable inputs kembali
+        inputs.forEach(input => input.readOnly = true);
+        inputs.forEach(input => input.style.borderBottom = '1px solid #333'); // Reset style
+        
+        // Ubah tombol kembali ke Edit
+        editBtn.textContent = 'Edit Profile';
+        editBtn.style.background = '';
+        editBtn.style.color = '';
+        
+        // Update tampilan nama di Sidebar secara realtime
+        updateProfileName(profileData.firstName, profileData.lastName, profileData.email);
+        
+        showNotification('Profile updated successfully!', 'success');
+        
+    } else {
+        // --- EDIT MODE ---
+        inputs.forEach(input => {
+            input.readOnly = false;
+            input.style.borderBottom = '1px solid var(--gold)'; // Visual cue
+        });
+        
+        // Fokus ke nama depan
+        document.getElementById('profile-fname').focus();
+        
+        // Ubah tombol menjadi Save
+        editBtn.textContent = 'Save Changes';
+        editBtn.style.background = 'var(--gold)';
+        editBtn.style.color = '#000';
+    }
+}
+
+function loadUserProfile() {
+    const savedProfile = localStorage.getItem('userProfile');
+    // Default data jika pengguna belum pernah edit profile
+    const defaultData = {
+        firstName: 'John',
+        lastName: 'Doe',
+        email: 'johndoe@email.com',
+        phone: '+62 812-3456-7890',
+        address: '',
+        city: '',
+        postalCode: '',
+        country: '',
+        bio: ''
+    };
+
+    const profile = savedProfile ? JSON.parse(savedProfile) : defaultData;
+    
+    // Helper function untuk set value jika elemen ada
+    const setVal = (id, val) => {
+        const el = document.getElementById(id);
+        if(el) el.value = val || '';
+    };
+
+    setVal('profile-fname', profile.firstName);
+    setVal('profile-lname', profile.lastName);
+    setVal('profile-email', profile.email);
+    setVal('profile-phone', profile.phone);
+    setVal('addr-street', profile.address);
+    setVal('addr-city', profile.city);
+    setVal('addr-postal', profile.postalCode);
+    setVal('addr-country', profile.country);
+    setVal('profile-bio', profile.bio);
+
+    updateProfileName(profile.firstName, profile.lastName, profile.email);
+    
+    // Pastikan input read-only saat awal load
+    const inputs = document.querySelectorAll('#profile-form input, #profile-form textarea');
+    inputs.forEach(input => input.readOnly = true);
+}
+
+function updateProfileName(firstName, lastName, email) {
+    const nameElement = document.querySelector('.profile-name');
+    const emailElement = document.querySelector('.profile-email');
+    
+    if (nameElement) nameElement.textContent = `${firstName} ${lastName}`;
+    if (emailElement) emailElement.textContent = email;
+}
+
+function loadRecentOrders() {
+    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    const orderList = document.querySelector('.order-list');
+    
+    if (!orderList) return;
+
+    // Hapus konten dummy (hardcoded HTML) terlebih dahulu
+    orderList.innerHTML = '';
+
+    if (orders.length === 0) {
+        orderList.innerHTML = `
+            <div style="text-align:center; padding: 2rem; color: #666;">
+                <p>No recent orders found.</p>
+                <a href="shop.html" style="color: var(--gold); text-decoration: none; font-size: 0.9rem;">Start Shopping</a>
+            </div>`;
+        return;
+    }
+    
+    // Ambil 2 order terbaru
+    const recentOrders = [...orders].reverse().slice(0, 2);
+    
+    orderList.innerHTML = recentOrders.map(order => {
+        const orderDate = new Date(order.date).toLocaleDateString('en-US', { 
+            year: 'numeric', month: 'short', day: 'numeric' 
+        });
+        
+        const itemsHtml = order.items.map(item => {
+            const product = products[item.id];
+            // Fallback jika produk tidak ditemukan di database js
+            const img = product ? product.image : 'https://via.placeholder.com/60';
+            const name = product ? product.name : 'Unknown Product';
+            
+            return `
+                <div class="order-item">
+                    <img src="${img}" class="item-img" alt="${name}">
+                    <div class="item-info">
+                        <h4>${name}</h4>
+                        <p>${item.quantity} x ${item.size || '50ml'}</p>
+                    </div>
+                </div>
+            `;
+        }).join('');
+
+        return `
+            <div class="order-card">
+                <div class="order-header">
+                    <span class="order-id">Order #${order.orderNumber}</span>
+                    <span class="order-status ${order.status === 'Delivered' ? 'delivered' : ''}">${order.status}</span>
+                </div>
+                ${itemsHtml}
+                <div class="order-footer">
+                    <span class="order-date">Placed on ${orderDate}</span>
+                    <span class="order-total">${order.total}</span>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function showAllOrders() {
+    const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+    
+    if (orders.length === 0) {
+        showNotification('You have no orders yet!', 'info');
+        return;
+    }
+    
+    // Create modal for all orders
+    const modal = document.createElement('div');
+    modal.className = 'order-modal search-overlay active'; // Use search-overlay styles for consistency
+    modal.style.display = 'flex';
+    
+    modal.innerHTML = `
+        <div class="search-container" style="background: #000; padding: 2rem; border-radius: 20px; border: 1px solid var(--gold-dark); max-height: 80vh; overflow-y: auto;">
+            <div class="search-header">
+                <h2>All Orders</h2>
+                <button class="close-search" onclick="closeOrderModal()">×</button>
+            </div>
+            <div class="order-list">
+                ${[...orders].reverse().map(order => {
+                    const orderDate = new Date(order.date).toLocaleDateString('en-US', { 
+                        year: 'numeric', month: 'short', day: 'numeric' 
+                    });
+                    
+                    return `
+                        <div class="order-card" style="margin-bottom: 2rem;">
+                            <div class="order-header">
+                                <span class="order-id">#${order.orderNumber}</span>
+                                <span class="order-status">${order.status}</span>
+                            </div>
+                            ${order.items.map(item => {
+                                const product = products[item.id];
+                                const img = product ? product.image : '';
+                                const name = product ? product.name : 'Unknown';
+                                return `
+                                    <div class="order-item">
+                                        <img src="${img}" class="item-img" alt="${name}">
+                                        <div class="item-info">
+                                            <h4>${name}</h4>
+                                            <p>Qty: ${item.quantity}</p>
+                                        </div>
+                                    </div>
+                                `;
+                            }).join('')}
+                            <div class="order-footer">
+                                <span class="order-date">${orderDate}</span>
+                                <span class="order-total">${order.total}</span>
+                            </div>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden';
+}
+
+function closeOrderModal() {
+    const modal = document.querySelector('.order-modal');
+    if (modal) {
+        modal.remove();
+        document.body.style.overflow = '';
+    }
+}
+
+function showNotification(message, type = 'success') {
+    const notification = document.createElement('div');
+    notification.className = `notification notification-${type}`;
+    notification.textContent = message;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => notification.classList.add('show'), 10);
+    
+    setTimeout(() => {
+        notification.classList.remove('show');
+        setTimeout(() => notification.remove(), 300);
+    }, 3000);
+}
+
+// ============================================
+// 8. PRODUCT DETAIL PAGE
+// ============================================
+
+const allProductsData = {
+    'luxurious-elixir': {
+        name: "Luxurious Elixir",
+        price: "$250.00",
+        priceNum: 250.00,
+        ratingStars: "★★★★★",
+        ratingCount: "124",
+        shortDescription: "Step into a world of unparalleled opulence with Luxurious Elixir, an exquisite fragrance that captures the enchanting brilliance of gold and gemstones.",
+        mainImage: "https://images.pexels.com/photos/8823444/pexels-photo-8823444.jpeg",
+        productDetails: "Step into a world of unparalleled opulence with Luxurious Elixir, an exquisite fragrance that evokes the enchanting brilliance of gold and gemstones. This masterful blend opens with a radiant burst of citrus and sweet fruits, leading into a heart of golden gardenia and velvety silicone. The base notes of rich amber, creamy sandalwood, and mystical oudwood create a lasting impression of warmth, sophistication, and spirit.",
+        overtureTitle: "The Golden Overture",
+        overtureContent: "Luxurious Elixir opens with a grand flourish of radiant citrus and sun-kissed fruits, reminiscent of golden rays caressing your senses. This luminous beginning sets the stage for a heart of velvety gardenia and innovative silicone, adding a modern, smooth texture. As it settles, a harmonious blend of warm amber, creamy sandalwood, and exotic oudwood unfurls, enveloping you in a serene embrace of ultimate luxury and refinement.",
+        keyNotes: [
+            { title: "Top Note", notes: "Citrus Accord, Sweetened Fruits", img: "https://plus.unsplash.com/premium_photo-1671379086168-a5d018d583cf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZnJ1aXR8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000" },
+            { title: "Heart Note", notes: "Golden Gardenia, Silicone", img: "https://cdn.pixabay.com/photo/2022/04/17/00/21/white-flower-7137170_960_720.jpg" },
+            { title: "Base Note", notes: "Amber, Sandalwood, Oudwood", img: "https://www.thespruceeats.com/thmb/FYBg5VkZqQ6yHm1HF_nqWVbtqd8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-121141406-5755c349c5a34222b81d72c07a112c76.jpg" }
+        ],
+        reviewSummary: {
+            score: "4.5",
+            stars: "★★★★☆",
+            recommendation: "90% of reviews recommend this product",
+            bars: [
+                { label: "5 Stars", width: "75%" },
+                { label: "4 Stars", width: "15%" },
+                { label: "3 Stars", width: "5%" },
+                { label: "2 Stars", width: "3%" },
+                { label: "1 Star", width: "2%" }
+            ]
+        },
+        reviews: [
+            { author: "Jessica M.", avatar: "https://i.pravatar.cc/150?img=11", rating: "★★★★★", body: "This is wonderful. I was interested in this selection, looking for a combination of sweetness and elegance in a perfume. I like this perfume, and this scent is lovely.", date: "October 30, 2025" },
+            { author: "David K.", avatar: "https://i.pravatar.cc/150?img=25", rating: "★★★☆☆", body: "The scent is ok, and nice way to finish it's not overpowering. Just pleasant scent. I am happy with purchase.", date: "October 28, 2025" },
+            { author: "Sarah L.", avatar: "https://i.pravatar.cc/150?img=33", rating: "★★★★★", body: "I had a sample and fell in love with this fragrance so I had to buy my first bottle. This fragrance is my treat for me. Makes me create a game to get my things done to get this treat.", date: "October 24, 2025" }
+        ],
+        discoverMore: ['amber-elite', 'aroma-bliss', 'timeless-oud', 'golden-harmony']
+    },
+    'floral-essence': {
+        name: "Floral Essence",
+        price: "$89.00",
+        priceNum: 89.00,
+        ratingStars: "★★★★★",
+        ratingCount: "198",
+        shortDescription: "A beautiful bouquet of fresh spring flowers, captured in a bottle.",
+        mainImage: "https://img.freepik.com/premium-photo/discover-luxurious-perfumes-every-mood-style-occasion_1197721-145317.jpg",
+        productDetails: "Floral Essence captures the vibrant, uplifting spirit of a garden in full bloom. It's an elegant and timeless fragrance designed for those who appreciate classic beauty. Light, airy, and unmistakably feminine.",
+        overtureTitle: "The Blossom Overture",
+        overtureContent: "Floral Essence opens with a fresh, dewy burst of Peony and Freesia. This bright introduction leads gracefully into a heart of classic Rose and Magnolia, creating a sophisticated floral bouquet that is both modern and timeless.",
+        keyNotes: [
+            { title: "Top Note", notes: "Peony, Freesia", img: "https://plus.unsplash.com/premium_photo-1671379086168-a5d018d583cf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZnJ1aXR8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000" },
+            { title: "Heart Note", notes: "Rose, Magnolia", img: "https://cdn.pixabay.com/photo/2022/04/17/00/21/white-flower-7137170_960_720.jpg" },
+            { title: "Base Note", notes: "Soft Musk, Cedar", img: "https://www.thespruceeats.com/thmb/FYBg5VkZqQ6yHm1HF_nqWVbtqd8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-121141406-5755c349c5a34222b81d72c07a112c76.jpg" }
+        ],
+        discoverMore: ['royal-rose', 'velvet-petal', 'diamond-aura', 'golden-harmony']
+    },
+    'amber-nights': {
+        name: "Amber Nights",
+        price: "$125.00",
+        priceNum: 125.00,
+        ratingStars: "★★★★★",
+        ratingCount: "214",
+        shortDescription: "A warm, mysterious, and seductive scent for unforgettable evenings.",
+        mainImage: "https://cdn11.bigcommerce.com/s-ojfjzuqgaj/images/stencil/1200w/products/241913/908284/q9wo1TK51LCBaa9pa_xAvjR94__29378.1758593496.jpg?c=1",
+        productDetails: "Amber Nights wraps you in warmth and mystery. Perfect for evening wear, this sophisticated fragrance combines rich amber with exotic spices and woods.",
+        overtureTitle: "The Evening Overture",
+        overtureContent: "As dusk falls, Amber Nights reveals its captivating character with warm amber, spicy cardamom, and deep woody notes.",
+        keyNotes: [
+            { title: "Top Note", notes: "Bergamot, Cardamom", img: "https://plus.unsplash.com/premium_photo-1671379086168-a5d018d583cf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZnJ1aXR8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000" },
+            { title: "Heart Note", notes: "Amber, Jasmine", img: "https://cdn.pixabay.com/photo/2022/04/17/00/21/white-flower-7137170_960_720.jpg" },
+            { title: "Base Note", notes: "Patchouli, Vanilla", img: "https://www.thespruceeats.com/thmb/FYBg5VkZqQ6yHm1HF_nqWVbtqd8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-121141406-5755c349c5a34222b81d72c07a112c76.jpg" }
+        ],
+        discoverMore: ['amber-elite', 'timeless-oud', 'sapphire-mystique', 'golden-harmony']
+    },
+    'royal-rose': {
+        name: "Royal Rose",
+        price: "$95.00",
+        priceNum: 95.00,
+        ratingStars: "★★★★☆",
+        ratingCount: "156",
+        shortDescription: "A modern interpretation of a classic rose, elegant and timeless.",
+        mainImage: "https://img.freepik.com/premium-photo/discover-luxurious-perfumes-every-mood-style-occasion_1197721-145147.jpg",
+        discoverMore: ['floral-essence', 'velvet-petal', 'diamond-aura', 'golden-aura']
+    },
+    'golden-aura': {
+        name: "Golden Aura",
+        price: "$110.00",
+        priceNum: 110.00,
+        ratingStars: "★★★★★",
+        ratingCount: "187",
+        shortDescription: "Radiate confidence with this luminous and warm solar fragrance.",
+        mainImage: "https://veloaraluxury.com/cdn/shop/files/Grafior_-_perfume_3.jpg?v=1760876506&width=800",
+        discoverMore: ['diamond-aura', 'citrus-harmony', 'sapphire-mystique', 'golden-harmony']
+    },
+    'aroma-bliss': {
+        name: "Aroma Bliss",
+        price: "$175.00",
+        priceNum: 175.00,
+        ratingStars: "★★★★★",
+        ratingCount: "203",
+        shortDescription: "A calming and therapeutic blend of lavender, chamomile, and sage.",
+        mainImage: "https://images.pexels.com/photos/965730/pexels-photo-965730.jpeg",
+        discoverMore: ['floral-essence', 'velvet-petal', 'royal-rose', 'citrus-harmony']
+    },
+    'timeless-oud': {
+        name: "Timeless Oud",
+        price: "$225.00",
+        priceNum: 225.00,
+        ratingStars: "★★★★★",
+        ratingCount: "312",
+        shortDescription: "A deep, rich, and sophisticated fragrance built around precious oud wood.",
+        mainImage: "https://images.pexels.com/photos/4925692/pexels-photo-4925692.jpeg",
+        discoverMore: ['amber-elite', 'amber-nights', 'sapphire-mystique', 'golden-harmony']
+    },
+    'velvet-petal': {
+        name: "Velvet Petal Night",
+        price: "$159.00",
+        priceNum: 159.00,
+        ratingStars: "★★★★☆",
+        ratingCount: "76",
+        shortDescription: "A soft, powdery, and romantic floral scent with a hint of musk.",
+        mainImage: "https://images.pexels.com/photos/14496154/pexels-photo-14496154.jpeg",
+        discoverMore: ['floral-essence', 'royal-rose', 'aroma-bliss', 'diamond-aura']
+    },
+    'amber-elite': {
+        name: "Amber Elite",
+        price: "$195.00",
+        priceNum: 195.00,
+        ratingStars: "★★★★★",
+        ratingCount: "189",
+        shortDescription: "The ultimate expression of amber, refined with incense and patchouli.",
+        mainImage: "https://images.pexels.com/photos/31847826/pexels-photo-31847826.jpeg",
+        discoverMore: ['amber-nights', 'timeless-oud', 'golden-harmony', 'sapphire-mystique']
+    },
+    'diamond-aura': {
+        name: "Diamond Aura",
+        price: "$210.00",
+        priceNum: 210.00,
+        ratingStars: "★★★★★",
+        ratingCount: "245",
+        shortDescription: "A bright, sparkling, and crisp fragrance that feels effervescent.",
+        mainImage: "https://images.pexels.com/photos/28460123/pexels-photo-28460123.jpeg",
+        discoverMore: ['golden-aura', 'citrus-harmony', 'floral-essence', 'royal-rose']
+    },
+    'citrus-harmony': {
+        name: "Citrus Harmony",
+        price: "$138.00",
+        priceNum: 138.00,
+        ratingStars: "★★★★☆",
+        ratingCount: "92",
+        shortDescription: "A zesty and uplifting chorus of grapefruit, lemon, and vetiver.",
+        mainImage: "https://images.pexels.com/photos/12528067/pexels-photo-12528067.jpeg",
+        discoverMore: ['diamond-aura', 'golden-aura', 'sapphire-mystique', 'aroma-bliss']
+    },
+    'sapphire-mystique': {
+        name: "Sapphire Mystique",
+        price: "$182.00",
+        priceNum: 182.00,
+        ratingStars: "★★★★★",
+        ratingCount: "167",
+        shortDescription: "A deep, aquatic, and aromatic fragrance with a touch of spice.",
+        mainImage: "https://images.pexels.com/photos/32438858/pexels-photo-32438858.jpeg",
+        discoverMore: ['timeless-oud', 'amber-elite', 'golden-harmony', 'citrus-harmony']
+    },
+    'golden-harmony': {
+        name: "Golden Harmony",
+        price: "$205.00",
+        priceNum: 205.00,
+        ratingStars: "★★★★★",
+        ratingCount: "278",
+        shortDescription: "A perfectly balanced blend of spice, sweet, and wood.",
+        mainImage: "https://images.pexels.com/photos/11711829/pexels-photo-11711829.jpeg",
+        discoverMore: ['golden-aura', 'amber-elite', 'timeless-oud', 'diamond-aura']
+    }
+};
+
+// Default data untuk produk yang tidak memiliki data lengkap
+const defaultProductData = {
+    productDetails: "This exquisite fragrance is crafted with the finest ingredients to create a unique and memorable scent experience.",
+    overtureTitle: "The Signature Overture",
+    overtureContent: "This fragrance opens with captivating notes that evolve into a sophisticated heart, settling into a lasting base that leaves an unforgettable impression.",
+    keyNotes: [
+        { title: "Top Note", notes: "Fresh & Vibrant", img: "https://plus.unsplash.com/premium_photo-1671379086168-a5d018d583cf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZnJ1aXR8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000" },
+        { title: "Heart Note", notes: "Elegant & Refined", img: "https://cdn.pixabay.com/photo/2022/04/17/00/21/white-flower-7137170_960_720.jpg" },
+        { title: "Base Note", notes: "Warm & Lasting", img: "https://www.thespruceeats.com/thmb/FYBg5VkZqQ6yHm1HF_nqWVbtqd8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-121141406-5755c349c5a34222b81d72c07a112c76.jpg" }
+    ],
+    reviewSummary: {
+        score: "4.5",
+        stars: "★★★★☆",
+        recommendation: "85% of reviews recommend this product",
+        bars: [
+            { label: "5 Stars", width: "65%" },
+            { label: "4 Stars", width: "20%" },
+            { label: "3 Stars", width: "10%" },
+            { label: "2 Stars", width: "3%" },
+            { label: "1 Star", width: "2%" }
+        ]
+    },
+    reviews: [
+        { author: "John D.", avatar: "https://i.pravatar.cc/150?img=12", rating: "★★★★★", body: "Absolutely love this fragrance! It's become my signature scent.", date: "November 10, 2025" },
+        { author: "Emily R.", avatar: "https://i.pravatar.cc/150?img=45", rating: "★★★★☆", body: "Great quality and long-lasting. Highly recommend!", date: "November 5, 2025" }
+    ]
+};
+
+function loadProductData() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id') || 'luxurious-elixir';
+    const product = allProductsData[productId];
+
+    if (!product) {
+        console.error('Product not found:', productId);
+        return;
+    }
+
+    // Update page title
+    document.title = `${product.name} - Local Face`;
+
+    // Update breadcrumb
+    const breadcrumbName = document.getElementById('breadcrumb-product-name');
+    if (breadcrumbName) breadcrumbName.textContent = product.name;
+
+    // Update main product info
+    const mainImage = document.getElementById('product-main-image');
+    if (mainImage) {
+        mainImage.src = product.mainImage;
+        mainImage.alt = product.name;
+    }
+
+    const productName = document.getElementById('product-name');
+    if (productName) productName.textContent = product.name;
+
+    const productDescShort = document.getElementById('product-description-short');
+    if (productDescShort) productDescShort.textContent = product.shortDescription || product.productDetails || defaultProductData.productDetails;
+
+    const productStars = document.getElementById('product-stars');
+    if (productStars) productStars.textContent = product.ratingStars;
+
+    const productReviewCount = document.getElementById('product-review-count');
+    if (productReviewCount) productReviewCount.textContent = `(${product.ratingCount} Reviews)`;
+
+    const productPrice = document.getElementById('product-price');
+    if (productPrice) productPrice.textContent = product.price;
+
+    // Update product details sections
+    const detailsContent = document.getElementById('product-details-content');
+    if (detailsContent) detailsContent.textContent = product.productDetails || defaultProductData.productDetails;
+
+    const overtureTitle = document.getElementById('product-overture-title');
+    if (overtureTitle) overtureTitle.textContent = product.overtureTitle || defaultProductData.overtureTitle;
+
+    const overtureContent = document.getElementById('product-overture-content');
+    if (overtureContent) overtureContent.textContent = product.overtureContent || defaultProductData.overtureContent;
+
+    // Render key notes
+    renderKeyNotes(product.keyNotes || defaultProductData.keyNotes);
+
+    // Render review summary
+    renderReviewSummary(product.reviewSummary || defaultProductData.reviewSummary);
+
+    // Render reviews
+    renderReviews(product.reviews || defaultProductData.reviews);
+
+    // Render discover more
+    renderDiscoverMore(product.discoverMore || ['amber-elite', 'aroma-bliss', 'timeless-oud', 'golden-harmony']);
+}
+
+function renderKeyNotes(keyNotes) {
+    const container = document.getElementById('key-notes-container');
+    if (!container) return;
+
+    container.innerHTML = keyNotes.map(note => `
+        <div class="key-note-item">
+            <h3>${note.title}</h3>
+            <p>${note.notes}</p>
+            <img src="${note.img}" alt="${note.title}">
+        </div>
+    `).join('');
+}
+
+function renderReviewSummary(summary) {
+    const container = document.getElementById('reviews-summary-container');
+    if (!container) return;
+
+    container.innerHTML = `
+        <div class="review-summary-score">
+            <div class="score-number">${summary.score}</div>
+            <div class="stars">${summary.stars}</div>
+            <p>${summary.recommendation}</p>
+        </div>
+        <div class="review-bars">
+            ${summary.bars.map(bar => `
+                <div class="bar-item">
+                    <span class="bar-label">${bar.label}</span>
+                    <div class="bar-container"><div class="bar-fill" style="width: ${bar.width};"></div></div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+function renderReviews(reviews) {
+    const container = document.getElementById('review-list-container');
+    if (!container) return;
+
+    container.innerHTML = reviews.map(review => `
+        <div class="review-card">
+            <div class="review-header">
+                <div class="review-author">
+                    <img src="${review.avatar}" alt="Reviewer">
+                    <span>${review.author}</span>
+                </div>
+                <div class="review-rating"><span class="stars">${review.rating}</span></div>
+            </div>
+            <div class="review-body">${review.body}</div>
+            <div class="review-date">${review.date}</div>
+        </div>
+    `).join('');
+}
+
+function renderDiscoverMore(productIds) {
+    const container = document.getElementById('discover-more-grid');
+    if (!container) return;
+
+    container.innerHTML = productIds.map(id => {
+        const product = allProductsData[id];
+        if (!product) return '';
+        
+        return `
+            <div class="product-card" onclick="goToProduct('${id}')">
+                <div class="product-image" style="background-image: url('${product.mainImage}');"></div>
+                <div class="product-info">
+                    <div class="product-name">${product.name}</div>
+                    <div class="product-rating">
+                        <span class="stars">${product.ratingStars}</span>
+                        <span class="rating-count">(${product.ratingCount})</span>
+                    </div>
+                    <div class="product-price">${product.price}</div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+function setupQuantityButtons() {
+    const qtyDisplay = document.getElementById('qty-display');
+    const increaseBtn = document.getElementById('increase-qty');
+    const decreaseBtn = document.getElementById('decrease-qty');
+    
+    if (!qtyDisplay || !increaseBtn || !decreaseBtn) return;
+    
+    let quantity = 1;
+
+    increaseBtn.addEventListener('click', () => {
+        quantity++;
+        qtyDisplay.textContent = quantity;
+    });
+    
+    decreaseBtn.addEventListener('click', () => {
+        if (quantity > 1) {
+            quantity--;
+            qtyDisplay.textContent = quantity;
+        }
+    });
+}
+
+function setupAddToBagButton() {
+    const addToBagBtn = document.querySelector('.btn-add-to-bag');
+    if (!addToBagBtn) return;
+
+    addToBagBtn.addEventListener('click', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id') || 'luxurious-elixir';
+        const qtyDisplay = document.getElementById('qty-display');
+        const quantity = qtyDisplay ? parseInt(qtyDisplay.textContent) : 1;
+        
+        // Load cart
+        let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+        
+        // Check if product already exists
+        const existingItem = cart.find(item => item.id === productId);
+        if (existingItem) {
+            existingItem.quantity += quantity;
+        } else {
+            cart.push({ id: productId, quantity: quantity, size: '50ml' });
+        }
+        
+        // Save cart
+        localStorage.setItem('cart', JSON.stringify(cart));
+        
+        // Update badge
+        updateCartBadge();
+        
+        // Show notification
+        const product = allProductsData[productId];
+        if (product) {
+            alert(`${product.name} has been added to your cart!`);
+        }
+    });
+}
+
+function setupWishlistButton() {
+    const wishlistBtn = document.querySelector('.btn-wishlist');
+    if (!wishlistBtn) return;
+
+    wishlistBtn.addEventListener('click', () => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const productId = urlParams.get('id') || 'luxurious-elixir';
+        
+        // Load wishlist
+        let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        
+        // Toggle wishlist
+        if (wishlist.includes(productId)) {
+            wishlist = wishlist.filter(id => id !== productId);
+            alert('Removed from wishlist');
+            wishlistBtn.textContent = '🤍';
+        } else {
+            wishlist.push(productId);
+            alert('Added to wishlist');
+            wishlistBtn.textContent = '❤️';
+        }
+        
+        // Save wishlist
+        localStorage.setItem('wishlist', JSON.stringify(wishlist));
+        
+        // Update badge
+        updateWishlistBadge();
+    });
+    
+    // Set initial state
+    const urlParams = new URLSearchParams(window.location.search);
+    const productId = urlParams.get('id') || 'luxurious-elixir';
+    const wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    
+    if (wishlist.includes(productId)) {
+        wishlistBtn.textContent = '❤️';
+    } else {
+        wishlistBtn.textContent = '🤍';
+    }
+}
+
+// ============================================
+// 9. INITIALIZATION
+// ============================================
+
+let cartManager;
+let wishlistManager;
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize basic functionality
+    setupHeaderScroll();
+    setupMobileNav();
+    setupNavigationIcons();
+    setupSearchListeners();
+    setupSmoothScroll();
+    setupScrollAnimations();
+    setupLoadingAnimation();
+    initShopFilters();
+    
+    // Update badges
+    updateCartBadge();
+    updateWishlistBadge();
+    
+    // Initialize cart manager if on cart page
+    if (document.getElementById('cart-content')) {
+        cartManager = new ShoppingCartManager();
+    }
+    
+    // Initialize wishlist manager if on wishlist page
+    if (document.getElementById('wishlist-content')) {
+        wishlistManager = new WishlistManager();
+    }
+    
+    // Initialize product detail page if on product detail page
+    if (document.getElementById('product-main-image')) {
+        loadProductData();
+        setupQuantityButtons();
+        setupAddToBagButton();
+        setupWishlistButton();
+    }
+
+    // Initialize profile page if on profile page
+    if (document.querySelector('.profile-container')) {
+        setupProfilePage();
+    }
+});
+
+// ============================================
+// Checkout
+// ============================================
+ // Load cart and display order summary
+        function loadOrderSummary() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const orderItems = document.getElementById('orderItems');
+            
+            if (cart.length === 0) {
+                window.location.href = 'cart.html';
+                return;
+            }
+
+            // Display items
+            orderItems.innerHTML = cart.map(item => {
+                const product = products[item.id];
+                if (!product) return '';
+                
+                return `
+                    <div class="order-item">
+                        <img src="${product.image}" alt="${product.name}" class="item-image">
+                        <div class="item-details">
+                            <div class="item-name">${product.name}</div>
+                            <div class="item-size">Size: ${item.size}</div>
+                            <div class="item-quantity">Qty: ${item.quantity}</div>
+                        </div>
+                        <div class="item-price">$${(product.priceNum * item.quantity).toFixed(2)}</div>
+                    </div>
+                `;
+            }).join('');
+
+            // Calculate totals
+            const subtotal = cart.reduce((total, item) => {
+                const product = products[item.id];
+                return total + (product ? product.priceNum * item.quantity : 0);
+            }, 0);
+
+            const shipping = 10;
+            const tax = subtotal * 0.1;
+            const total = subtotal + shipping + tax;
+
+            document.getElementById('summarySubtotal').textContent = `$${subtotal.toFixed(2)}`;
+            document.getElementById('summaryShipping').textContent = `$${shipping.toFixed(2)}`;
+            document.getElementById('summaryTax').textContent = `$${tax.toFixed(2)}`;
+            document.getElementById('summaryTotal').textContent = `$${total.toFixed(2)}`;
+        }
+
+        // Payment method selection logic
+        document.querySelectorAll('.payment-option').forEach(option => {
+            option.addEventListener('click', function() {
+                // 1. Hapus kelas 'selected' dari semua opsi
+                document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
+                
+                // 2. Tambahkan kelas 'selected' ke opsi yang diklik
+                this.classList.add('selected');
+                
+                const method = this.getAttribute('data-method');
+                const cardDetails = document.getElementById('cardDetails');
+                const paypalDetails = document.getElementById('paypalDetails');
+                
+                // Reset tampilan & validasi dulu (sembunyikan semua)
+                cardDetails.style.display = 'none';
+                paypalDetails.style.display = 'none';
+                
+                // Reset required inputs (agar form tidak error saat submit)
+                if(document.getElementById('cardNumber')) document.getElementById('cardNumber').required = false;
+                if(document.getElementById('expiryDate')) document.getElementById('expiryDate').required = false;
+                if(document.getElementById('cvv')) document.getElementById('cvv').required = false;
+                if(document.getElementById('paypalEmail')) document.getElementById('paypalEmail').required = false;
+
+                // 3. Tampilkan input sesuai metode yang dipilih
+                if (method === 'credit-card' || method === 'debit-card') {
+                    // Jika Kartu Kredit/Debit
+                    cardDetails.style.display = 'block';
+                    document.getElementById('cardNumber').required = true;
+                    document.getElementById('expiryDate').required = true;
+                    document.getElementById('cvv').required = true;
+                } else if (method === 'paypal') {
+                    // ⭐ Jika PayPal
+                    paypalDetails.style.display = 'block';
+                    document.getElementById('paypalEmail').required = true;
+                }
+            });
+        });
+
+        // Card number formatting
+        document.getElementById('cardNumber')?.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\s/g, '');
+            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
+            e.target.value = formattedValue;
+        });
+
+        // Expiry date formatting
+        document.getElementById('expiryDate')?.addEventListener('input', function(e) {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length >= 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2, 4);
+            }
+            e.target.value = value;
+        });
+
+        // CVV validation
+        document.getElementById('cvv')?.addEventListener('input', function(e) {
+            e.target.value = e.target.value.replace(/\D/g, '');
+        });
+
+        // Form submission
+        document.getElementById('placeOrderBtn').addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const form = document.getElementById('checkoutForm');
+            const selectedPayment = document.querySelector('.payment-option.selected');
+            
+            if (!form.checkValidity()) {
+                form.reportValidity();
+                return;
+            }
+            
+            if (!selectedPayment) {
+                alert('Please select a payment method');
+                return;
+            }
+            
+            // Simulate processing
+            this.disabled = true;
+            this.textContent = 'Processing...';
+            
+            setTimeout(() => {
+                // Generate order number
+                const orderNum = 'LF-' + Math.floor(100000 + Math.random() * 900000);
+                document.getElementById('orderNumber').textContent = 'Order #' + orderNum;
+                
+                // --- PERBAIKAN DIMULAI DI SINI ---
+                
+                // 1. AMBIL data cart dulu SEBELUM dihapus
+                const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+                
+                // 2. BARU Hapus cart dari storage
+                localStorage.removeItem('cart');
+                
+                // 3. Simpan ke riwayat order (menggunakan variabel 'cart' yang sudah diamankan di langkah 1)
+                const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+                
+                orders.push({
+                    orderNumber: orderNum,
+                    date: new Date().toISOString(),
+                    items: cart, // Sekarang data ini tidak akan kosong
+                    total: document.getElementById('summaryTotal').textContent,
+                    status: 'Processing'
+                });
+                
+                localStorage.setItem('orders', JSON.stringify(orders));
+                
+                // --- PERBAIKAN SELESAI ---
+
+                // Show success modal
+                document.getElementById('successModal').classList.add('active');
+                
+            }, 2000);
+        });
+
+        // Load order summary on page load
+        window.addEventListener('DOMContentLoaded', loadOrderSummary);
+        
+// ============================================
+// FILTER LOGIC SYSTEM
+// ============================================
+
+function initShopFilters() {
+    // 1. Ambil elemen DOM
+    const grid = document.getElementById('shopProductGrid');
+    const categorySelect = document.getElementById('categoryFilter');
+    const scentSelect = document.getElementById('scentFilter');
+    const sortSelect = document.getElementById('sortFilter');
+    const countDisplay = document.getElementById('filter-count');
+
+    // Jika elemen grid tidak ditemukan (misal di halaman Home), hentikan fungsi
+    if (!grid) return;
+
+    // 2. Fungsi Utama Render
+    function filterAndRender() {
+        // Ambil value dari dropdown
+        const catVal = categorySelect ? categorySelect.value : 'all';
+        const scentVal = scentSelect ? scentSelect.value : 'all';
+        const sortVal = sortSelect ? sortSelect.value : 'featured';
+
+        console.log(`Filtering: Cat=${catVal}, Scent=${scentVal}, Sort=${sortVal}`); // Debugging
+
+        // Konversi object 'products' menjadi array agar bisa difilter
+        let filtered = Object.entries(products).map(([id, item]) => ({
+            id: id,
+            ...item // copy semua properti (name, price, category, dll)
+        }));
+
+        // Filter Kategori
+        if (catVal !== 'all') {
+            filtered = filtered.filter(p => p.category === catVal);
+        }
+
+        // Filter Aroma
+        if (scentVal !== 'all') {
+            filtered = filtered.filter(p => p.scent === scentVal);
+        }
+
+        // Sorting
+        if (sortVal === 'price-high') {
+            filtered.sort((a, b) => b.priceNum - a.priceNum);
+        } else if (sortVal === 'price-low') {
+            filtered.sort((a, b) => a.priceNum - b.priceNum);
+        }
+        // 'featured' tidak perlu sort karena urutan array sudah sesuai urutan object di atas
+
+        // Update teks jumlah produk
+        if (countDisplay) {
+            countDisplay.textContent = `Showing ${filtered.length} Masterpieces`;
+        }
+
+        // Render ke HTML
+        if (filtered.length === 0) {
+            grid.innerHTML = `
+                <div style="grid-column: 1/-1; text-align: center; padding: 5rem 0; color: #888;">
+                    <h3 style="font-family: 'Playfair Display'; font-size: 1.5rem; color: var(--gold);">No perfumes found</h3>
+                    <p>Try adjusting your filters to find what you're looking for.</p>
+                </div>
+            `;
+        } else {
+            grid.innerHTML = filtered.map((product, index) => {
+                // Tentukan badge (opsional)
+                let badgeHtml = '';
+                if(product.priceNum > 200) badgeHtml = '<div class="product-badge">Exclusive</div>';
+                else if(product.ratingCount > 200) badgeHtml = '<div class="product-badge">Bestseller</div>';
+
+                return `
+                <div class="product-card fade-in-up" 
+                     style="animation-delay: ${index * 0.05}s;" 
+                     onclick="goToProduct('${product.id}')">
+                    <div class="product-image-wrapper">
+                        ${badgeHtml}
+                        <div class="product-image" style="background-image: url('${product.image}');"></div>
+                    </div>
+                    <div class="product-info">
+                        <h3 class="product-name">${product.name}</h3>
+                        <div class="product-meta">
+                            <span class="product-price">${product.price}</span>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }).join('');
+        }
+    }
+
+    // 3. Pasang Event Listeners (Jalankan saat dropdown berubah)
+    if (categorySelect) categorySelect.addEventListener('change', filterAndRender);
+    if (scentSelect) scentSelect.addEventListener('change', filterAndRender);
+    if (sortSelect) sortSelect.addEventListener('change', filterAndRender);
+
+    // 4. Jalankan sekali saat halaman dimuat pertama kali
+    filterAndRender();
+}
+
+// ============================================
+// 11. WISHLIST MODAL (NEW FEATURE)
+// ============================================
+
+function showWishlistModal() {
+    // 1. Ambil data wishlist dari LocalStorage
+    const wishlistIds = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    
+    // 2. Jika kosong, tampilkan notifikasi saja
+    if (wishlistIds.length === 0) {
+        showNotification('Your wishlist is currently empty.', 'info');
+        return;
+    }
+    
+    // 3. Buat Modal (Menggunakan style yang sama dengan Order History / Search Overlay)
+    const modal = document.createElement('div');
+    modal.className = 'wishlist-modal search-overlay active'; // Gunakan class search-overlay agar style sama
+    modal.style.display = 'flex';
+    
+    // 4. Generate Konten HTML
+    // Kita menggunakan style 'order-card' agar konsisten, tapi disesuaikan isinya untuk produk
+    const itemsHtml = wishlistIds.map(id => {
+        const product = products[id];
+        if (!product) return ''; // Skip jika produk tidak ditemukan
+
+        return `
+            <div class="order-card" style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+                
+                <div style="display: flex; align-items: center; gap: 1.5rem; flex: 1;">
+                    <img src="${product.image}" class="item-img" alt="${product.name}" 
+                         onclick="window.location.href='product_detail.html?id=${id}'" 
+                         style="cursor: pointer; width: 80px; height: 80px;">
+                    
+                    <div class="item-info">
+                        <h4 onclick="window.location.href='product_detail.html?id=${id}'" 
+                            style="cursor: pointer; font-size: 1.1rem; margin-bottom: 0.2rem;">
+                            ${product.name}
+                        </h4>
+                        <p style="color: var(--gold); margin-bottom: 0.5rem;">${product.price}</p>
+                        <div style="font-size: 0.8rem; color: #666;">${product.ratingStars} (${product.ratingCount})</div>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end;">
+                    <button onclick="quickAddToCart('${id}')" 
+                            style="background: var(--gold); color: #000; border: none; padding: 0.5rem 1rem; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 0.8rem;">
+                        Add to Cart
+                    </button>
+                    <button onclick="removeFromWishlistModal('${id}', this)" 
+                            style="background: transparent; border: 1px solid #333; color: #888; padding: 0.4rem 0.8rem; border-radius: 50px; cursor: pointer; font-size: 0.75rem;">
+                        Remove
+                    </button>
+                </div>
+
+            </div>
+        `;
+    }).join('');
+
+    // 5. Susun Struktur Modal
+    modal.innerHTML = `
+        <div class="search-container" style="background: #000; padding: 2rem; border-radius: 20px; border: 1px solid var(--gold-dark); max-height: 80vh; overflow-y: auto; width: 100%; max-width: 700px;">
+            <div class="search-header" style="position: sticky; top: 0; background: #000; z-index: 10; padding-bottom: 1rem; border-bottom: 1px solid #222;">
+                <h2 style="font-family: 'Playfair Display', serif; color: var(--gold);">My Wishlist</h2>
+                <button class="close-search" onclick="closeWishlistModal()">×</button>
+            </div>
+            <div class="order-list" style="margin-top: 1rem;">
+                ${itemsHtml}
+            </div>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+    document.body.style.overflow = 'hidden'; // Mencegah scroll background
+}
+
+// Fungsi Menutup Modal
+function closeWishlistModal() {
+    const modal = document.querySelector('.wishlist-modal');
+    if (modal) {
+        modal.remove();
+        document.body.style.overflow = '';
+    }
+}
+
+// Helper: Add to Cart langsung dari Modal
+// Helper: Add to Cart langsung dari Modal (VERSI PERBAIKAN)
+function quickAddToCart(productId) {
+    // 1. Cek apakah data produk ada
+    const product = products[productId];
+    if (!product) {
+        console.error("Product not found");
+        return;
+    }
+
+    // 2. Ambil data keranjang saat ini dari penyimpanan browser (LocalStorage)
+    let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    
+    // 3. Cek apakah produk sudah ada di keranjang (default size 50ml)
+    const existingItem = cart.find(item => item.id === productId && item.size === '50ml');
+
+    if (existingItem) {
+        // Jika ada, tambah jumlahnya
+        existingItem.quantity += 1;
+    } else {
+        // Jika belum ada, masukkan sebagai item baru
+        cart.push({ 
+            id: productId, 
+            quantity: 1, 
+            size: '50ml' 
+        });
+    }
+
+    // 4. Simpan kembali ke penyimpanan browser
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // 5. Update angka merah (Badge) di icon keranjang header
+    if (typeof updateCartBadge === 'function') {
+        updateCartBadge();
+    } else if (window.cartManager) {
+        window.cartManager.updateBadge();
+    }
+
+    // 6. Berikan notifikasi sukses
+    // Jika Anda punya fungsi showNotification (custom), gunakan itu. Jika tidak, pakai alert biasa.
+    if (typeof showNotification === 'function') {
+        showNotification(`${product.name} has been added to your cart!`, 'success');
+    } else {
+        alert(`${product.name} has been added to your cart!`);
+    }
+}
+
+// Helper: Hapus dari Wishlist & Update Tampilan Modal
+function removeFromWishlistModal(productId, btnElement) {
+    // 1. Hapus dari localStorage
+    let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    wishlist = wishlist.filter(id => id !== productId);
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+    
+    // 2. Update visual badge
+    if(window.wishlistManager) window.wishlistManager.updateBadge();
+    else updateWishlistBadge(); // Fallback
+
+    // 3. Hapus elemen kartu dari modal secara visual
+    // Mencari elemen pembungkus .order-card terdekat dan menghapusnya
+    const card = btnElement.closest('.order-card');
+    if(card) {
+        card.style.opacity = '0';
+        setTimeout(() => {
+            card.remove();
+            // Jika habis, tutup modal
+            if(wishlist.length === 0) closeWishlistModal();
+        }, 300);
+    }
+}
+
+// ============================================
+// EXPORT FUNCTIONS TO WINDOW
+// ============================================
+window.showWishlistModal = showWishlistModal;
+window.closeWishlistModal = closeWishlistModal;
+window.quickAddToCart = quickAddToCart;
+window.removeFromWishlistModal = removeFromWishlistModal;
+window.resetFilters = resetFilters;
+window.goToProduct = goToProduct;
+window.openSearch = openSearch;
+window.closeSearch = closeSearch;
+window.applyPromoCode = applyPromoCode;
+window.checkout = checkout;
+window.addToCartFromWishlist = addToCartFromWishlist;
+window.showAllOrders = showAllOrders;
+window.ShoppingCartManager = ShoppingCartManager;
+window.WishlistManager = WishlistManager;

@@ -1,0 +1,1319 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Local Face - Essence of Elegance</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4a574;
+            --gold-light: #f0d7b8;
+            --gold-dark: #8e6a42;
+            --black: #050505;
+            --dark-grey: #0f0f0f;
+            --text-muted: #a1a1a1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom Scrollbar - Tanda website premium */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--black);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(to bottom, var(--gold-dark), var(--gold));
+            border-radius: 4px;
+        }
+        
+        ::selection {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        body.nav-open {
+            overflow: hidden;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            line-height: 1.8; /* Line height lebih besar untuk kesan lega */
+            color: #fff;
+            background-color: var(--black);
+            overflow-x: hidden;
+        }
+
+        /* HEADER & NAV */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px); /* Blur lebih halus */
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 2rem 0;
+            transition: all 0.5s ease;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.05);
+        }
+
+        header.scrolled {
+            padding: 1rem 0;
+            background: rgba(5, 5, 5, 0.95);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        nav {
+            max-width: 1600px; /* Container lebih lebar */
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 4px;
+            cursor: pointer;
+            z-index: 2001;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 4rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 0.8rem; /* Font kecil + Spacing lebar = Mewah */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 400;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.4s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: all 0.4s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            z-index: 2001;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            transition: all 0.4s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn:hover {
+            color: var(--gold);
+            transform: translateY(-3px);
+        }
+        
+        .icon-svg {
+            width: 20px; /* Ikon sedikit lebih kecil lebih elegan */
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .wishlist-badge, .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--gold);
+            color: #000;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            font-size: 0.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* HAMBURGER & MOBILE NAV */
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 2001;
+        }
+        
+        .hamburger-btn .bar {
+            display: block;
+            width: 30px;
+            height: 1px; /* Garis tipis */
+            margin: 6px 0;
+            background-color: #fff;
+            transition: all 0.4s ease;
+        }
+        
+        body.nav-open .hamburger-btn .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        body.nav-open .hamburger-btn .bar:nth-child(2) { opacity: 0; }
+        body.nav-open .hamburger-btn .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .mobile-nav.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .mobile-nav-links {
+            list-style: none;
+            text-align: center;
+        }
+        
+        .mobile-nav-links li {
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+        
+        .mobile-nav-links a {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-style: italic;
+            transition: transform 0.5s, color 0.3s;
+            transform: translateY(100%);
+        }
+
+        .mobile-nav.open .mobile-nav-links a {
+            transform: translateY(0);
+            transition-delay: 0.2s;
+        }
+        
+        .mobile-nav-links a:hover {
+            color: var(--gold);
+        }
+
+        /* --- SEARCH OVERLAY (Struktur & Fungsi dari File 1, Desain dari File 2) --- */
+        .search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 3000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .search-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .search-container {
+            max-width: 800px;
+            width: 100%;
+            margin-top: 10vh;
+            transform: translateY(30px);
+            transition: transform 0.4s ease;
+        }
+
+        .search-overlay.active .search-container {
+            transform: translateY(0);
+        }
+
+        .search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .search-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+
+        .close-search {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-search:hover {
+            color: var(--gold);
+            transform: rotate(90deg);
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .search-input {
+            width: 100%;
+            background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            color: #fff;
+            padding: 1.5rem 4rem 1.5rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212, 165, 116, 0.3);
+        }
+
+        .search-icon-input {
+            position: absolute;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            stroke: var(--gold);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .search-results {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+
+        /* Scrollbar untuk search results */
+        .search-results::-webkit-scrollbar { width: 6px; }
+        .search-results::-webkit-scrollbar-track { background: #0f0f0f; }
+        .search-results::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 10px; }
+
+        .search-result-item {
+            display: grid;
+            grid-template-columns: 100px 1fr; /* Gambar sedikit lebih kecil dari original */
+            gap: 1.5rem;
+            background: linear-gradient(145deg, #0f0f0f, #121212);
+            border: 1px solid rgba(212, 165, 116, 0.1);
+            border-radius: 15px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-items: center;
+        }
+
+        .search-result-item:hover {
+            border-color: var(--gold);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(212, 165, 116, 0.1);
+        }
+
+        .result-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .result-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 0.3rem;
+            letter-spacing: 1px;
+        }
+
+        .result-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-price {
+            color: var(--gold);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .popular-searches h3 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.2);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .popular-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .popular-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .popular-tag:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(212, 165, 116, 0.1);
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--text-muted);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3));
+            height: 100vh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        .hero-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+            /* Efek Zoom Out pelan */
+            animation: zoomEffect 20s infinite alternate ease-in-out; 
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            /* Gradient lebih "kaya" dari sekadar hitam transparan */
+            background: radial-gradient(circle at center, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.8) 100%);
+            z-index: 0;
+        }
+
+        @keyframes zoomEffect {
+            from { transform: scale(1); }
+            to { transform: scale(1.15); }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+            max-width: 1000px;
+            padding: 2rem;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 6rem;
+            line-height: 1;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease forwards 0.5s;
+        }
+
+        .hero h1 .line-1 {
+            display: block;
+            font-size: 2rem;
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 300;
+            letter-spacing: 8px;
+            margin-bottom: 1rem;
+            text-transform: uppercase;
+        }
+
+        .hero h1 .line-2 {
+            display: block;
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: #ccc;
+            letter-spacing: 1px;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease forwards 0.8s;
+        }
+
+        .btn-primary {
+            background: transparent;
+            color: var(--gold);
+            padding: 1rem 3rem;
+            border: 1px solid var(--gold);
+            border-radius: 0; /* Sudut tajam lebih high fashion */
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            opacity: 0;
+            animation: fadeInUp 1.2s ease forwards 1.1s;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--gold);
+            transition: width 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            color: #000;
+            box-shadow: 0 0 30px rgba(212, 165, 116, 0.4);
+        }
+
+        /* GLOBAL SECTION STYLES */
+        .section-padding {
+            padding: 10rem 4rem;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 6rem;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4rem;
+            color: #fff;
+            font-weight: 400;
+            margin-bottom: 1rem;
+        }
+
+        .section-title i {
+            color: var(--gold);
+            font-weight: 400;
+        }
+
+        .section-subtitle {
+            color: var(--gold);
+            font-family: 'Montserrat', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.8rem;
+            display: block;
+            margin-bottom: 1rem;
+        }
+
+        /* WELCOME SECTION */
+        .welcome {
+            background: linear-gradient(180deg, var(--black) 0%, var(--dark-grey) 50%, var(--black) 100%);
+            position: relative;
+        }
+        
+        .welcome p {
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            font-size: 1.1rem;
+            line-height: 2.2;
+        }
+
+        .signature {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 2rem;
+            color: var(--gold);
+            margin-top: 2rem;
+            display: inline-block;
+            letter-spacing: 2px;
+        }
+
+        /* VALUES SECTION */
+        .values {
+            background: linear-gradient(180deg, var(--black) 0%, var(--dark-grey) 50%, var(--black) 100%);
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            max-width: 1600px;
+            margin: 0 auto;
+            min-height: 700px;
+            background: var(--dark-grey);
+        }
+
+        .values-img {
+            background-size: cover;
+            background-position: center;
+            min-height: 700px;
+            position: relative;
+            overflow: hidden;
+            opacity: 0.8;
+        }
+
+        .values-content {
+            padding: 8rem 6rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .value-item {
+            margin-bottom: 4rem;
+            padding-left: 2rem;
+            border-left: 2px solid rgba(201, 169, 97, 0.2);
+            transition: all 0.4s ease;
+        }
+
+        .value-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold-light);
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+        }
+
+        .value-item p {
+            color: var(--text-muted);
+            font-weight: 300;
+            line-height: 2;
+        }
+
+         .value-item:hover {
+            border-left-color: var(--gold);
+            padding-left: 2.5rem;
+        }
+
+        /* BEST SELLING SECTION */
+        .best-selling {
+            background: linear-gradient(180deg, var(--black) 0%, var(--dark-grey) 50%, var(--black) 100%);
+        }
+
+        .product-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: var(--dark-grey);
+            border-radius: 0;
+            overflow: hidden;
+            transition: all 0.5s ease;
+            cursor: pointer;
+            position: relative;
+            border: 1px solid rgba(212, 165, 116, 0.1);
+            padding: 1rem 1rem 2rem;
+        }
+
+        .product-card:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(212, 165, 116, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .product-image-wrapper {
+            height: 300px;
+            margin-bottom: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 1s ease;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            text-align: center;
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            transition: color 0.3s;
+        }
+
+        .product-price {
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        .product-card:hover .product-name {
+            color: var(--gold);
+        }
+
+        /* COLLECTIONS */
+        .collections-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+        }
+
+        .collection-item {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+        }
+
+        .collection-item.large {
+            grid-row: span 2;
+            height: 1032px; /* 500*2 + gap 32 */
+        }
+
+        .collection-bg {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.8s ease;
+        }
+
+        .collection-item:hover .collection-bg {
+            transform: scale(1.05);
+        }
+
+        .collection-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            padding: 3rem;
+        }
+
+        .collection-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-style: italic;
+            color: #fff;
+            transform: translateY(20px);
+            opacity: 0.8;
+            transition: all 0.5s ease;
+        }
+
+        .collection-item:hover .collection-title {
+            transform: translateY(0);
+            color: var(--gold);
+            opacity: 1;
+        }
+
+        /* PROMO SECTION */
+        .promo {
+            height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3));
+            background-size: cover;
+            background-position: center;
+            background-attachment: scroll;
+        }
+
+        .promo::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+        }
+
+        .promo-content {
+            position: relative;
+            z-index: 1;
+            max-width: 800px;
+            padding: 2rem;
+        }
+
+        .promo-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            color: var(--gold);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+            line-height: 1.2;
+        }
+
+        .promo-content p {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            letter-spacing: 1px;
+        }
+
+        footer {
+            background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+            padding: 5rem 4rem 2rem;
+            border-top: 1px solid rgba(212, 165, 116, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr repeat(4, 1fr);
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 2rem;
+            color: #d4a574;
+            font-weight: 500;
+            letter-spacing: 2px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            color: #999;
+            line-height: 2;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #999;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #d4a574;
+            transition: width 0.3s ease;
+        }
+
+        .footer-section a:hover::after {
+            width: 100%;
+        }
+
+        .footer-section a:hover {
+            color: #d4a574;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4a574;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            font-weight: 600;
+        }
+
+        .social-icon:hover {
+            background: linear-gradient(135deg, #d4a574, #c49563);
+            color: #000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(212, 165, 116, 0.4);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid #222;
+            color: #666;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* UTILITIES FOR ANIMATION */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1s ease, transform 1s ease;
+        }
+
+        .reveal-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes fadeInUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* MEDIA QUERIES */
+        @media (max-width: 1024px) {
+            .hero h1 {
+                font-size: 4rem;
+            }
+            .product-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+            .values-img {
+                min-height: 400px;
+            }
+            .nav-links {
+                display: none;
+            }
+            .hamburger-btn {
+                display: block;
+            }
+            nav {
+                padding: 0 2rem;
+            }
+            .section-padding {
+                padding: 6rem 2rem;
+            }
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 3rem;
+            }
+            .hero h1 .line-1 {
+                font-size: 1rem;
+                letter-spacing: 4px;
+            }
+            .section-title {
+                font-size: 2.5rem;
+            }
+            .collections-grid {
+                grid-template-columns: 1fr;
+            }
+            .collection-item.large {
+                height: 400px;
+                grid-row: auto;
+            }
+            .collection-item {
+                height: 400px;
+            }
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .promo-content {
+                padding: 2rem;
+                width: 90%;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <nav>
+            <div class="logo" onclick="window.location.href='index.html'">Local Face</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Collection</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="service.html">Service</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button class="icon-btn" id="search-button">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <button class="icon-btn" onclick="window.location.href='profile.html'">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </button>
+                <button class="icon-btn" onclick="window.location.href='wishlist.html'">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    <span class="wishlist-badge" id="wishlist-badge">0</span>
+                </button>
+                <button class="icon-btn" onclick="window.location.href='cart.html'">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </button>
+                <button class="hamburger-btn" id="hamburger-button">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="mobile-nav" id="mobile-nav-menu">
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Collection</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="service.html">Service</a></li>
+        </ul>
+    </div>
+
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h2>Search Products</h2>
+                <button class="close-search" id="closeSearch">×</button>
+            </div>
+
+            <div class="search-input-wrapper">
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="searchInput" 
+                    placeholder="Search for perfumes, fragrances, collections..."
+                    autocomplete="off"
+                >
+                <svg class="search-icon-input" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+
+            <div class="search-results" id="searchResults">
+                <div class="popular-searches">
+                    <h3>Popular Searches</h3>
+                    <div class="popular-tags">
+                        <span class="popular-tag" data-search="amber">Amber</span>
+                        <span class="popular-tag" data-search="oud">Oud</span>
+                        <span class="popular-tag" data-search="floral">Floral</span>
+                        <span class="popular-tag" data-search="citrus">Citrus</span>
+                        <span class="popular-tag" data-search="luxury">Luxury</span>
+                        <span class="popular-tag" data-search="rose">Rose</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="hero" id="home">
+        <div class="hero-bg" style="background-image: url('https://images.pexels.com/photos/10873814/pexels-photo-10873814.jpeg');"></div>
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>
+                <span class="line-1">The Essence of</span>
+                <span class="line-2">Victory & Seduction</span>
+            </h1>
+            <p>Unveil your true aura with a fragrance crafted for the extraordinary.</p>
+            <button class="btn-primary" onclick="window.location.href='shop.html'">Discover Collection</button>
+        </div>
+    </section>
+
+    <section class="section-padding welcome reveal-on-scroll">
+        <div class="section-header">
+            <span class="section-subtitle">The Philosophy</span>
+            <h2 class="section-title">Welcome to <i>Local Face</i></h2>
+        </div>
+        <div style="text-align: center;">
+            <p>Perfume is the unseen, unforgettable, ultimate accessory of fashion. It heralds your arrival and prolongs your departure. At Local Face, we curate scents that do not just smell good, but tell a story. Your story.</p>
+            <p>From the sun-drenched fields of Grasse to the spice markets of the Orient, our ingredients are selected with uncompromising standards.</p>
+        </div>
+    </section>
+
+    <section class="values-grid reveal-on-scroll">
+        <div class="values-img" style="background-image: url('https://images.pexels.com/photos/5760878/pexels-photo-5760878.jpeg');"></div>
+        <div class="values-content">
+            <div class="section-header" style="text-align: left; margin-bottom: 3rem;">
+                <span class="section-subtitle">Our Promise</span>
+                <h2 class="section-title" style="font-size: 3rem;">The <i>Local Face</i> Difference</h2>
+            </div>
+            <div class="value-item">
+                <h3>Uncompromising Quality</h3>
+                <p>We partner with master perfumers who treat every drop as liquid art, ensuring longevity and sillage that captivates.</p>
+            </div>
+            <div class="value-item">
+                <h3>Sustainable Sourcing</h3>
+                <p>Our commitment extends beyond luxury to the planet, using ethically sourced, rare ingredients.</p>
+            </div>
+            <div class="value-item">
+                <h3>Artisan Craftsmanship</h3>
+                <p>Each bottle is a testament to meticulous design, meant to be cherished long after the last drop.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding best-selling" id="shop">
+        <div class="section-header">
+            <span class="section-subtitle">A Scent For Every Aura</span>
+            <h2 class="section-title">Best Selling <i>Masterpieces</i></h2>
+        </div>
+        <div class="product-grid">
+            <div class="product-card reveal-on-scroll" onclick="goToProduct('floral-essence')">
+                <div class="product-image-wrapper">
+                    <div class="product-image" style="background-image: url('https://img.freepik.com/premium-photo/discover-luxurious-perfumes-every-mood-style-occasion_1197721-145317.jpg');"></div>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Floral Essence</div>
+                    <div class="product-price">$89.00</div>
+                </div>
+            </div>
+            
+            <div class="product-card reveal-on-scroll" onclick="goToProduct('amber-nights')">
+                <div class="product-image-wrapper">
+                    <div class="product-image" style="background-image: url('https://cdn11.bigcommerce.com/s-ojfjzuqgaj/images/stencil/1200w/products/241913/908284/q9wo1TK51LCBaa9pa_xAvjR94__29378.1758593496.jpg?c=1');"></div>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Amber Nights</div>
+                    <div class="product-price">$125.00</div>
+                </div>
+            </div>
+
+            <div class="product-card reveal-on-scroll" onclick="goToProduct('royal-rose')">
+                <div class="product-image-wrapper">
+                    <div class="product-image" style="background-image: url('https://img.freepik.com/premium-photo/discover-luxurious-perfumes-every-mood-style-occasion_1197721-145147.jpg');"></div>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Royal Rose</div>
+                    <div class="product-price">$95.00</div>
+                </div>
+            </div>
+
+            <div class="product-card reveal-on-scroll" onclick="goToProduct('golden-aura')">
+                <div class="product-image-wrapper">
+                    <div class="product-image" style="background-image: url('https://veloaraluxury.com/cdn/shop/files/Grafior_-_perfume_3.jpg?v=1760876506&width=800');"></div>
+                </div>
+                <div class="product-info">
+                    <div class="product-name">Golden Aura</div>
+                    <div class="product-price">$110.00</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-padding collections">
+        <div class="section-header">
+            <span class="section-subtitle">Curated Scents</span>
+            <h2 class="section-title">Explore <i>Collections</i></h2>
+        </div>
+        <div class="collections-grid">
+            <div class="collection-item large reveal-on-scroll" onclick="window.location.href='shop.html'">
+                <div class="collection-bg" style="background-image: url('https://neeshperfumes.com/cdn/shop/collections/LCollection_D_1.jpg?v=1761209777');"></div>
+                <div class="collection-overlay">
+                    <div class="collection-title">The Elixir Collection</div>
+                </div>
+            </div>
+            <div class="collection-item reveal-on-scroll" onclick="window.location.href='shop.html'">
+                <div class="collection-bg" style="background-image: url('https://images-static.nykaa.com/media/catalog/product/1/4/1460deeOSCAR00000095_3.jpg?tr=w-500');"></div>
+                <div class="collection-overlay">
+                    <div class="collection-title">Pour Femme</div>
+                </div>
+            </div>
+            <div class="collection-item reveal-on-scroll" onclick="window.location.href='shop.html'">
+                <div class="collection-bg" style="background-image: url('https://rukminim2.flixcart.com/image/704/1056/xif0q/perfume/g/p/r/80-blue-luxury-perfume-gift-set-20-ml-x-4-eau-de-parfum-envy-men-original-imaheb7bucpyk3n6.jpeg?q=20&crop=false');"></div>  
+                <div class="collection-overlay">
+                    <div class="collection-title">Pour Homme</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="promo" style="background-image: url('https://images.pexels.com/photos/30238400/pexels-photo-30238400.jpeg');">
+        <div class="promo-content">
+            <h2>Experience Luxury in a Bottle</h2>
+            <p>Visit our flagship store or explore our entire collection online to find your perfect signature scent.</p>
+            <button class="btn-primary" onclick="window.location.href='shop.html'">Explore Our Collection</button>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content reveal-on-scroll" id="contact"> 
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Local Face is your destination for premium fragrances. We offer an exquisite collection of perfumes that embody luxury and sophistication.</p>
+                <div class="social-icons">
+                    <div class="social-icon">f</div>
+                    <div class="social-icon">t</div>
+                    <div class="social-icon">i</div>
+                    <div class="social-icon">y</div>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="service.html">Service</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Track Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="#">Email Us</a></li>
+                    <li><a href="#">Call Us</a></li>
+                    <li><a href="#">Store Locator</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get special offers and updates.</p>
+                <button class="btn-primary" style="margin-top: 1rem; padding: 0.8rem 2rem;">Subscribe</button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Local Face. All rights reserved.</p>
+        </div>
+    </footer>
+<script src="main.js"></script>
+</body> 
+</html>

@@ -1,0 +1,1347 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Collection - Local Face</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4a574;
+            --gold-light: #f0d7b8;
+            --gold-dark: #8e6a42;
+            --black: #050505;
+            --dark-grey: #0f0f0f;
+            --text-muted: #a1a1a1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--black); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, var(--gold-dark), var(--gold)); border-radius: 4px; }
+        
+        ::selection { background: var(--gold); color: var(--black); }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--black);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        body.nav-open { overflow: hidden; }
+
+        /* HEADER & NAV */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px); /* Blur lebih halus */
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 2rem 0;
+            transition: all 0.5s ease;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.05);
+        }
+
+        header.scrolled {
+            padding: 1rem 0;
+            background: rgba(5, 5, 5, 0.95);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        nav {
+            max-width: 1600px; /* Container lebih lebar */
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 4px;
+            cursor: pointer;
+            z-index: 2001;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 4rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 0.8rem; /* Font kecil + Spacing lebar = Mewah */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 400;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.4s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: all 0.4s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            z-index: 2001;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            transition: all 0.4s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn:hover {
+            color: var(--gold);
+            transform: translateY(-3px);
+        }
+        
+        .icon-svg {
+            width: 20px; /* Ikon sedikit lebih kecil lebih elegan */
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .wishlist-badge, .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--gold);
+            color: #000;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            font-size: 0.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* HAMBURGER & MOBILE NAV */
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 2001;
+        }
+        
+        .hamburger-btn .bar {
+            display: block;
+            width: 30px;
+            height: 1px; /* Garis tipis */
+            margin: 6px 0;
+            background-color: #fff;
+            transition: all 0.4s ease;
+        }
+        
+        body.nav-open .hamburger-btn .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        body.nav-open .hamburger-btn .bar:nth-child(2) { opacity: 0; }
+        body.nav-open .hamburger-btn .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .mobile-nav.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .mobile-nav-links {
+            list-style: none;
+            text-align: center;
+        }
+        
+        .mobile-nav-links li {
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+        
+        .mobile-nav-links a {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-style: italic;
+            transition: transform 0.5s, color 0.3s;
+            transform: translateY(100%);
+        }
+
+        .mobile-nav.open .mobile-nav-links a {
+            transform: translateY(0);
+            transition-delay: 0.2s;
+        }
+        
+        .mobile-nav-links a:hover {
+            color: var(--gold);
+        }
+
+        /* --- SEARCH OVERLAY (Struktur & Fungsi dari File 1, Desain dari File 2) --- */
+        .search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 3000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .search-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .search-container {
+            max-width: 800px;
+            width: 100%;
+            margin-top: 10vh;
+            transform: translateY(30px);
+            transition: transform 0.4s ease;
+        }
+
+        .search-overlay.active .search-container {
+            transform: translateY(0);
+        }
+
+        .search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .search-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+
+        .close-search {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-search:hover {
+            color: var(--gold);
+            transform: rotate(90deg);
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .search-input {
+            width: 100%;
+            background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            color: #fff;
+            padding: 1.5rem 4rem 1.5rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212, 165, 116, 0.3);
+        }
+
+        .search-icon-input {
+            position: absolute;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            stroke: var(--gold);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .search-results {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+
+        /* Scrollbar untuk search results */
+        .search-results::-webkit-scrollbar { width: 6px; }
+        .search-results::-webkit-scrollbar-track { background: #0f0f0f; }
+        .search-results::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 10px; }
+
+        .search-result-item {
+            display: grid;
+            grid-template-columns: 100px 1fr; /* Gambar sedikit lebih kecil dari original */
+            gap: 1.5rem;
+            background: linear-gradient(145deg, #0f0f0f, #121212);
+            border: 1px solid rgba(212, 165, 116, 0.1);
+            border-radius: 15px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-items: center;
+        }
+
+        .search-result-item:hover {
+            border-color: var(--gold);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(212, 165, 116, 0.1);
+        }
+
+        .result-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .result-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 0.3rem;
+            letter-spacing: 1px;
+        }
+
+        .result-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-price {
+            color: var(--gold);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .popular-searches h3 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.2);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .popular-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .popular-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .popular-tag:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(212, 165, 116, 0.1);
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--text-muted);
+        }
+
+        /* --- PAGE HEADER --- */
+        .page-header {
+            height: 50vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+            margin-top: 80px;
+            background-attachment: fixed;
+            background-size: cover;
+            background-position: center;
+            overflow: hidden;
+        }
+        
+        .page-header::after {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.6), var(--black));
+        }
+
+        .header-content { position: relative; z-index: 2; }
+        
+        .header-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 400;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+        
+        .header-title span { color: var(--gold); font-style: italic; }
+        
+        .breadcrumb {
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+        
+        .breadcrumb a { color: #fff; text-decoration: none; transition: 0.3s; }
+        .breadcrumb a:hover { color: var(--gold); }
+
+        /* --- SHOP CONTAINER --- */
+        .shop-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 4rem 4rem 8rem;
+        }
+
+        /* --- FILTERS (UPDATED) --- */
+.filters-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 3rem;
+    padding: 1.5rem 0;
+    border-top: 1px solid rgba(255,255,255,0.05);
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    flex-wrap: wrap;
+    gap: 1.5rem;
+}
+
+.filter-count { 
+    color: var(--text-muted); 
+    font-size: 0.85rem; 
+    font-family: 'Playfair Display', serif;
+    font-style: italic;
+    letter-spacing: 1px;
+}
+
+.filter-groups { 
+    display: flex; 
+    gap: 1rem; 
+    flex-wrap: wrap;
+}
+
+.custom-select-wrapper { 
+    position: relative; 
+    display: inline-block; 
+}
+
+.custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 500;
+    
+    /* PERBAIKAN DI SINI */
+    letter-spacing: 0.0px; /* Sedikit dikurangi dari 1.5px agar lebih muat */
+    padding: 0.8rem 3rem 0.8rem 1.5rem; /* Padding kanan diperlebar (3rem) agar teks tidak menabrak panah */
+    width: auto; /* Membiarkan lebar menyesuaikan isi teks */
+    min-width: fit-content; /* Memastikan tombol melebar sesuai teks terpanjang */
+    
+    text-transform: uppercase;
+    cursor: pointer;
+    border-radius: 50px;
+    transition: all 0.3s ease;
+}
+
+.custom-select:hover { 
+    border-color: var(--gold); 
+    color: var(--black);
+    background: rgba(212, 165, 116, 0.05);
+}
+
+.custom-select:focus { 
+    outline: none; 
+    border-color: var(--gold); 
+    box-shadow: 0 0 15px rgba(212, 165, 116, 0.2);
+}
+
+/* Panah Custom */
+.custom-select-wrapper::after {
+    content: '';
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    width: 6px;
+    height: 6px;
+    border-right: 1px solid var(--gold);
+    border-bottom: 1px solid var(--gold);
+    transform: translateY(-60%) rotate(45deg); /* Membentuk panah chevron v */
+    pointer-events: none;
+    transition: all 0.3s;
+}
+
+.custom-select-wrapper:hover::after {
+    transform: translateY(-60%) rotate(45deg) scale(1.2);
+}
+
+/* Responsive untuk Mobile */
+@media (max-width: 768px) {
+    .filters-bar { 
+        flex-direction: column; 
+        align-items: flex-start; 
+        gap: 1.5rem; 
+    }
+    
+    .filter-groups { 
+        width: 100%; 
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .custom-select-wrapper, .custom-select {
+        width: 100%;
+    }
+}
+
+        /* --- PRODUCT GRID --- */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            column-gap: 2rem;
+            row-gap: 5rem;
+        }
+
+        .product-card { cursor: pointer; }
+
+        .product-image-wrapper {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 3/4; 
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+            background: #111;
+        }
+         
+        .product-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 1s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .product-card:hover .product-image { transform: scale(1.1); }
+
+        .product-badge {
+            position: absolute; top: 1rem; left: 1rem;
+            background: rgba(255,255,255,0.9); color: #000;
+            padding: 0.3rem 0.8rem; font-size: 0.7rem;
+            text-transform: uppercase; letter-spacing: 1px; font-weight: 600;
+            z-index: 2;
+        }
+        
+        .product-info { text-align: center; transition: transform 0.3s ease; }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem; margin-bottom: 0.5rem;
+            color: #fff; letter-spacing: 0.5px; transition: color 0.3s;
+        }
+
+        .product-card:hover .product-name { color: var(--gold); }
+
+        .product-meta {
+            display: flex; justify-content: center; align-items: center;
+            gap: 1rem; font-size: 0.9rem; color: var(--text-muted);
+        }
+
+        .product-price { color: #fff; font-weight: 500; }
+
+        .special-offers {
+            margin-top: 8rem;
+        }
+
+        .special-offers h2 {
+            font-family: 'Playfair Display', serif;
+            text-align: center;
+            font-size: 3.5rem;
+            color: #d4a574;
+            font-weight: 400;
+            letter-spacing: 3px;
+            margin-bottom: 5rem;
+            position: relative;
+            width: 100%;
+        }
+
+        .special-offers h2::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, #d4a574, transparent);
+        }
+
+        .offers-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 3rem;
+        }
+
+        .offer-card {
+            background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+            border-radius: 20px;
+            overflow: hidden;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            transition: all 0.4s;
+            border: 1px solid rgba(212, 165, 116, 0.1);
+            cursor: pointer;
+        }
+
+        .offer-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(212, 165, 116, 0.3);
+            border-color: rgba(212, 165, 116, 0.3);
+        }
+
+        .offer-image {
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            min-height: 350px;
+            transition: transform 0.4s ease;
+        }
+
+        .offer-card:hover .offer-image {
+            transform: scale(1.1);
+        }
+
+        .offer-content {
+            padding: 3rem;
+        }
+
+        .offer-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #d4a574;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            letter-spacing: 2px;
+        }
+
+        .offer-subtitle {
+            color: #aaa;
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+            font-size: 1.05rem;
+            letter-spacing: 0.5px;
+        }
+
+        .offer-discount {
+            font-size: 1.5rem;
+            color: #fff;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, #d4a574, #f0d7b8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 1px;
+        }
+
+        .offer-description {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 0.95rem;
+            line-height: 1.8;
+        }
+
+        .btn-shop {
+            background: linear-gradient(135deg, #d4a574 0%, #c49563 100%);
+            color: #000;
+            border: none;
+            padding: 1rem 2.5rem;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            transition: all 0.4s;
+            letter-spacing: 1.5px;
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-shop::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f0d7b8 0%, #d4a574 100%);
+            transition: left 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn-shop:hover::before {
+            left: 0;
+        }
+
+        .btn-shop:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(212, 165, 116, 0.5);
+        }
+
+        .btn-underline {
+            background: none; border: none; color: #fff;
+            text-transform: uppercase; letter-spacing: 2px; font-size: 0.8rem;
+            padding-bottom: 5px; border-bottom: 1px solid var(--gold);
+            cursor: pointer; transition: all 0.3s;
+        }
+
+        .btn-underline:hover { color: var(--gold); padding-bottom: 8px; }
+
+        /* --- FOOTER --- */
+        footer {
+            background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+            padding: 5rem 4rem 2rem;
+            border-top: 1px solid rgba(212, 165, 116, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr repeat(4, 1fr);
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 2rem;
+            color: #d4a574;
+            font-weight: 500;
+            letter-spacing: 2px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            color: #999;
+            line-height: 2;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #999;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #d4a574;
+            transition: width 0.3s ease;
+        }
+
+        .footer-section a:hover::after {
+            width: 100%;
+        }
+
+        .footer-section a:hover {
+            color: #d4a574;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4a574;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            font-weight: 600;
+        }
+
+        .social-icon:hover {
+            background: linear-gradient(135deg, #d4a574, #c49563);
+            color: #000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(212, 165, 116, 0.4);
+        }
+        
+        .btn-primary {
+            background: transparent;
+            color: var(--gold);
+            padding: 1rem 3rem;
+            border: 1px solid var(--gold);
+            border-radius: 0;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--gold);
+            transition: width 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            color: #000;
+            box-shadow: 0 0 30px rgba(212, 165, 116, 0.4);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid #222;
+            color: #666;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        .fade-in-up {
+            opacity: 0; transform: translateY(30px); animation: fadeInUp 0.8s ease forwards;
+        }
+        
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .product-grid { grid-template-columns: repeat(2, 1fr); column-gap: 1.5rem; }
+            .nav-links { display: none; }
+            .hamburger-btn { display: block; }
+            .shop-container { padding: 4rem 2rem; }
+            nav { padding: 0 2rem; }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 { font-size: 3rem; }
+            .filters-bar { flex-direction: column; align-items: flex-start; gap: 1rem; }
+            .offers-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .offer-card {
+                grid-template-columns: 1fr;
+            }
+
+            .section-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .shop-container {
+                padding: 0 2rem 5rem;
+            }
+
+            .special-offers h2 {
+                font-size: 2.5rem;
+            }
+            .footer-content { grid-template-columns: 1fr; }
+            .search-result-item { grid-template-columns: 70px 1fr; gap: 1rem; }
+            .result-image { width: 70px; height: 70px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <nav>
+            <div class="logo" onclick="window.location.href='index.html'">Local Face</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Collection</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="service.html">Service</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button class="icon-btn" id="search-button">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <button class="icon-btn" onclick="window.location.href='profile.html'">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </button>
+                <button class="icon-btn" onclick="window.location.href='wishlist.html'">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    <span class="wishlist-badge" id="wishlist-badge">0</span>
+                </button>
+                <button class="icon-btn" onclick="window.location.href='cart.html'">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </button>
+                <button class="hamburger-btn" id="hamburger-button">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="mobile-nav" id="mobile-nav-menu">
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Collection</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="service.html">Service</a></li>
+        </ul>
+    </div>
+
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h2>Search Products</h2>
+                <button class="close-search" id="closeSearch">×</button>
+            </div>
+
+            <div class="search-input-wrapper">
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="searchInput" 
+                    placeholder="Search for perfumes, fragrances, collections..."
+                    autocomplete="off"
+                >
+                <svg class="search-icon-input" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </div>
+
+            <div class="search-results" id="searchResults">
+                <div class="popular-searches" id="popularSearchesBlock">
+                    <h3>Popular Searches</h3>
+                    <div class="popular-tags">
+                        <span class="popular-tag" onclick="fillSearch('Amber')">Amber</span>
+                        <span class="popular-tag" onclick="fillSearch('Oud')">Oud</span>
+                        <span class="popular-tag" onclick="fillSearch('Floral')">Floral</span>
+                        <span class="popular-tag" onclick="fillSearch('Citrus')">Citrus</span>
+                        <span class="popular-tag" onclick="fillSearch('Luxury')">Luxury</span>
+                        <span class="popular-tag" onclick="fillSearch('Rose')">Rose</span>
+                    </div>
+                </div>
+                </div>
+        </div>
+    </div>
+    
+    <div class="page-header" style="background-image: url('https://images.pexels.com/photos/19663386/pexels-photo-19663386.jpeg');">
+        <div class="header-content fade-in-up">
+            <h1 class="header-title">The <span>Collection</span></h1>
+            <div class="breadcrumb">
+                <a href="index.html">Home</a> &nbsp;/&nbsp; <span>Shop</span>
+            </div>
+        </div>
+    </div>
+    
+    <div class="shop-container">
+        
+        <div class="filters-bar fade-in-up" style="animation-delay: 0.2s;">
+    <span class="filter-count" id="filter-count">Showing all items</span>
+    <div class="filter-groups">
+        <div class="custom-select-wrapper">
+            <select class="custom-select" id="categoryFilter">
+                <option value="all">Category: All</option>
+                <option value="male">For Male</option>
+                <option value="female">For Female</option>
+                <option value="unisex">Unisex</option>
+            </select>
+        </div>
+
+        <div class="custom-select-wrapper">
+            <select class="custom-select" id="scentFilter">
+                <option value="all">Scent: All</option>
+                <option value="woody">Woody</option>
+                <option value="floral">Floral</option>
+                <option value="oriental">Oriental</option>
+                <option value="fresh">Fresh / Citrus</option>
+            </select>
+        </div>
+
+        <div class="custom-select-wrapper">
+            <select class="custom-select" id="sortFilter">
+                <option value="featured">Sort By: Featured</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="price-low">Price: Low to High</option>
+            </select>
+        </div>
+    </div>
+</div>
+
+        <div class="product-grid" id="shopProductGrid">
+            <div class="product-card fade-in-up" style="animation-delay: 0.3s;" onclick="goToProduct('floral-essence')">
+                <div class="product-image-wrapper">
+                    <div class="product-image" style="background-image: url('https://img.freepik.com/premium-photo/discover-luxurious-perfumes-every-mood-style-occasion_1197721-145317.jpg');"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Floral Essence</h3>
+                    <div class="product-meta">
+                        <span class="product-price">$89.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card fade-in-up" style="animation-delay: 0.4s;" onclick="goToProduct('amber-nights')">
+                <div class="product-image-wrapper">
+                    <div class="product-badge">Bestseller</div>
+                    <div class="product-image" style="background-image: url('https://cdn11.bigcommerce.com/s-ojfjzuqgaj/images/stencil/1200w/products/241913/908284/q9wo1TK51LCBaa9pa_xAvjR94__29378.1758593496.jpg?c=1');"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Amber Nights</h3>
+                    <div class="product-meta">
+                        <span class="product-price">$125.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card fade-in-up" style="animation-delay: 0.5s;" onclick="goToProduct('royal-rose')">
+                <div class="product-image-wrapper">
+                    <div class="product-image" style="background-image: url('https://img.freepik.com/premium-photo/discover-luxurious-perfumes-every-mood-style-occasion_1197721-145147.jpg');"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Royal Rose</h3>
+                    <div class="product-meta">
+                        <span class="product-price">$95.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card fade-in-up" style="animation-delay: 0.6s;" onclick="goToProduct('golden-aura')">
+                <div class="product-image-wrapper">
+                    <div class="product-image" style="background-image: url('https://veloaraluxury.com/cdn/shop/files/Grafior_-_perfume_3.jpg?v=1760876506&width=800');"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Golden Aura</h3>
+                    <div class="product-meta">
+                        <span class="product-price">$110.00</span>
+                    </div>
+                </div>
+            </div>
+
+             <div class="product-card fade-in-up" onclick="goToProduct('aroma-bliss')">
+                <div class="product-image-wrapper">
+                    <div class="product-image" style="background-image: url('https://images.pexels.com/photos/965730/pexels-photo-965730.jpeg');"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Aroma Bliss</h3>
+                    <div class="product-meta">
+                        <span class="product-price">$175.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card fade-in-up" onclick="goToProduct('timeless-oud')">
+                <div class="product-image-wrapper">
+                    <div class="product-image" style="background-image: url('https://images.pexels.com/photos/4925692/pexels-photo-4925692.jpeg');"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Timeless Oud</h3>
+                    <div class="product-meta">
+                        <span class="product-price">$225.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card fade-in-up" onclick="goToProduct('velvet-petal')">
+                <div class="product-image-wrapper">
+                    <div class="product-image" style="background-image: url('https://images.pexels.com/photos/14496154/pexels-photo-14496154.jpeg');"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Velvet Petal</h3>
+                    <div class="product-meta">
+                        <span class="product-price">$159.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card fade-in-up" onclick="goToProduct('amber-elite')">
+                <div class="product-image-wrapper">
+                    <div class="product-badge">New Arrival</div>
+                    <div class="product-image" style="background-image: url('https://images.pexels.com/photos/31847826/pexels-photo-31847826.jpeg');"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Amber Elite</h3>
+                    <div class="product-meta">
+                        <span class="product-price">$195.00</span>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card fade-in-up" onclick="goToProduct('diamond-aura')">
+                <div class="product-image-wrapper">
+                    <div class="product-image" style="background-image: url('https://images.pexels.com/photos/28460123/pexels-photo-28460123.jpeg');"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Diamond Aura</h3>
+                    <div class="product-meta">
+                        <span class="product-price">$210.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card fade-in-up" onclick="goToProduct('citrus-harmony')">
+                <div class="product-image-wrapper">
+                    <div class="product-image" style="background-image: url('https://images.pexels.com/photos/12528067/pexels-photo-12528067.jpeg');"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Citrus Harmony</h3>
+                    <div class="product-meta">
+                        <span class="product-price">$138.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card fade-in-up" onclick="goToProduct('sapphire-mystique')">
+                <div class="product-image-wrapper">
+                    <div class="product-image" style="background-image: url('https://images.pexels.com/photos/32438858/pexels-photo-32438858.jpeg');"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Sapphire Mystique</h3>
+                    <div class="product-meta">
+                        <span class="product-price">$182.00</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card fade-in-up" onclick="goToProduct('golden-harmony')">
+                <div class="product-image-wrapper">
+                    <div class="product-badge">New Arrival</div>
+                    <div class="product-image" style="background-image: url('https://images.pexels.com/photos/11711829/pexels-photo-11711829.jpeg');"></div>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-name">Golden Harmony</h3>
+                    <div class="product-meta">
+                        <span class="product-price">$205.00</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="special-offers">
+            <h2 class="fade-in">Special Offers</h2>
+            <div class="offers-grid">
+                <div class="offer-card fade-in" onclick="goToProduct('citrus-harmony')">
+                    <div class="offer-image" style="background-image: url('https://images.pexels.com/photos/12528067/pexels-photo-12528067.jpeg');"></div>
+                    <div class="offer-content">
+                        <div class="offer-discount">Limited Time: 20% OFF</div>
+                        <h3 class="offer-title">Citrus Harmony</h3>
+                        <p class="offer-subtitle">Embrace the Uplifting Harmony</p>
+                        <p class="offer-description">Dive into a world of calm with Citrus Harmony, a fragrance that captures the essence of balance and tranquility.</p>
+                        <button class="btn-shop">Shop Now</button>
+                    </div>
+                </div>
+
+                <div class="offer-card fade-in" onclick="goToProduct('golden-harmony')">
+                    <div class="offer-content">
+                        <div class="offer-discount">Limited Time: 25% OFF</div>
+                        <h3 class="offer-title">Golden Harmony</h3>
+                        <p class="offer-subtitle">Unleash Your Divine Glow</p>
+                        <p class="offer-description">Radiate with celestial elegance. Golden Harmony is a fragrance that captures heaven's essence in every drop.</p>
+                        <button class="btn-shop">Shop Now</button>
+                    </div>
+                    <div class="offer-image" style="background-image: url('https://images.pexels.com/photos/11711829/pexels-photo-11711829.jpeg');"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content reveal-on-scroll" id="contact"> 
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Local Face is your destination for premium fragrances. We offer an exquisite collection of perfumes that embody luxury and sophistication.</p>
+                <div class="social-icons">
+                    <div class="social-icon">f</div>
+                    <div class="social-icon">t</div>
+                    <div class="social-icon">i</div>
+                    <div class="social-icon">y</div>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="#values">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Track Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="#">Email Us</a></li>
+                    <li><a href="#">Call Us</a></li>
+                    <li><a href="#">Store Locator</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get special offers and updates.</p>
+                <button class="btn-primary" style="margin-top: 1rem; padding: 0.8rem 2rem;">Subscribe</button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Local Face. All rights reserved.</p>
+        </div>
+    </footer>
+<script src="main.js"></script>
+</body>
+</html>

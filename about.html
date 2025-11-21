@@ -1,0 +1,917 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Maison - Local Face Story</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #d4a574;
+            --gold-light: #f0d7b8;
+            --gold-dark: #8e6a42;
+            --black: #050505;
+            --dark-grey: #0f0f0f;
+            --text-muted: #a1a1a1;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--black); }
+        ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, var(--gold-dark), var(--gold)); border-radius: 4px; }
+        ::selection { background: var(--gold); color: var(--black); }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--black);
+            color: #fff;
+            line-height: 1.8;
+            overflow-x: hidden;
+        }
+
+        body.nav-open { overflow: hidden; }
+
+        /* HEADER & NAV */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(5, 5, 5, 0.8);
+            backdrop-filter: blur(15px); /* Blur lebih halus */
+            -webkit-backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 2rem 0;
+            transition: all 0.5s ease;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.05);
+        }
+
+        header.scrolled {
+            padding: 1rem 0;
+            background: rgba(5, 5, 5, 0.95);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
+        nav {
+            max-width: 1600px; /* Container lebih lebar */
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 4rem;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            font-weight: 600;
+            color: var(--gold);
+            letter-spacing: 4px;
+            cursor: pointer;
+            z-index: 2001;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 4rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 0.8rem; /* Font kecil + Spacing lebar = Mewah */
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 400;
+            position: relative;
+            padding: 0.5rem 0;
+            transition: color 0.4s ease;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 1px;
+            background: var(--gold);
+            transition: all 0.4s ease;
+            transform: translateX(-50%);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-icons {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            z-index: 2001;
+        }
+
+        .icon-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            transition: all 0.4s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon-btn:hover {
+            color: var(--gold);
+            transform: translateY(-3px);
+        }
+        
+        .icon-svg {
+            width: 20px; /* Ikon sedikit lebih kecil lebih elegan */
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            fill: none;
+        }
+
+        .wishlist-badge, .cart-badge {
+            position: absolute;
+            top: -6px;
+            right: -6px;
+            background: var(--gold);
+            color: #000;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            font-size: 0.6rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* HAMBURGER & MOBILE NAV */
+        .hamburger-btn {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            z-index: 2001;
+        }
+        
+        .hamburger-btn .bar {
+            display: block;
+            width: 30px;
+            height: 1px; /* Garis tipis */
+            margin: 6px 0;
+            background-color: #fff;
+            transition: all 0.4s ease;
+        }
+        
+        body.nav-open .hamburger-btn .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        body.nav-open .hamburger-btn .bar:nth-child(2) { opacity: 0; }
+        body.nav-open .hamburger-btn .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .mobile-nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #000;
+            z-index: 2000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.5s ease;
+        }
+        
+        .mobile-nav.open {
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .mobile-nav-links {
+            list-style: none;
+            text-align: center;
+        }
+        
+        .mobile-nav-links li {
+            margin: 2rem 0;
+            overflow: hidden;
+        }
+        
+        .mobile-nav-links a {
+            display: block;
+            text-decoration: none;
+            color: #fff;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-style: italic;
+            transition: transform 0.5s, color 0.3s;
+            transform: translateY(100%);
+        }
+
+        .mobile-nav.open .mobile-nav-links a {
+            transform: translateY(0);
+            transition-delay: 0.2s;
+        }
+        
+        .mobile-nav-links a:hover {
+            color: var(--gold);
+        }
+
+        /* --- SEARCH OVERLAY (Struktur & Fungsi dari File 1, Desain dari File 2) --- */
+        .search-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.98);
+            backdrop-filter: blur(20px);
+            z-index: 3000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            flex-direction: column;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .search-overlay.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .search-container {
+            max-width: 800px;
+            width: 100%;
+            margin-top: 10vh;
+            transform: translateY(30px);
+            transition: transform 0.4s ease;
+        }
+
+        .search-overlay.active .search-container {
+            transform: translateY(0);
+        }
+
+        .search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .search-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: var(--gold);
+            letter-spacing: 2px;
+        }
+
+        .close-search {
+            background: none;
+            border: none;
+            color: #fff;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-search:hover {
+            color: var(--gold);
+            transform: rotate(90deg);
+        }
+
+        .search-input-wrapper {
+            position: relative;
+            margin-bottom: 3rem;
+        }
+
+        .search-input {
+            width: 100%;
+            background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            color: #fff;
+            padding: 1.5rem 4rem 1.5rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-family: 'Montserrat', sans-serif;
+            letter-spacing: 0.5px;
+            transition: all 0.3s;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--gold);
+            box-shadow: 0 0 20px rgba(212, 165, 116, 0.3);
+        }
+
+        .search-icon-input {
+            position: absolute;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 24px;
+            height: 24px;
+            stroke: var(--gold);
+            stroke-width: 2;
+            fill: none;
+        }
+
+        .search-results {
+            max-height: 60vh;
+            overflow-y: auto;
+            padding-right: 1rem;
+        }
+
+        /* Scrollbar untuk search results */
+        .search-results::-webkit-scrollbar { width: 6px; }
+        .search-results::-webkit-scrollbar-track { background: #0f0f0f; }
+        .search-results::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 10px; }
+
+        .search-result-item {
+            display: grid;
+            grid-template-columns: 100px 1fr; /* Gambar sedikit lebih kecil dari original */
+            gap: 1.5rem;
+            background: linear-gradient(145deg, #0f0f0f, #121212);
+            border: 1px solid rgba(212, 165, 116, 0.1);
+            border-radius: 15px;
+            padding: 1.2rem;
+            margin-bottom: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-items: center;
+        }
+
+        .search-result-item:hover {
+            border-color: var(--gold);
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(212, 165, 116, 0.1);
+        }
+
+        .result-image {
+            width: 100px;
+            height: 100px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .result-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 0.3rem;
+            letter-spacing: 1px;
+        }
+
+        .result-info p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-price {
+            color: var(--gold);
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .popular-searches h3 {
+            color: var(--gold);
+            font-size: 1.2rem;
+            margin-bottom: 1.5rem;
+            letter-spacing: 1px;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.2);
+            display: inline-block;
+            padding-bottom: 0.5rem;
+        }
+
+        .popular-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .popular-tag {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--text-muted);
+            padding: 0.6rem 1.2rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .popular-tag:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(212, 165, 116, 0.1);
+        }
+        
+        .no-results {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--text-muted);
+        }
+
+        /* --- HERO SECTION (Parallax) --- */
+        .about-hero {
+            height: 80vh; position: relative; display: flex; align-items: center;
+            justify-content: center; overflow: hidden;
+        }
+        .hero-bg {
+            position: absolute; inset: 0;
+            background-image: url('https://images.pexels.com/photos/8667539/pexels-photo-8667539.jpeg');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            filter: brightness(0.3); transform: scale(1.1);
+        }
+        .hero-content {
+            position: relative; z-index: 2; text-align: center; max-width: 800px; padding: 0 2rem;
+        }
+        .hero-subtitle {
+            display: block; color: var(--gold); letter-spacing: 4px;
+            font-size: 0.9rem; text-transform: uppercase; margin-bottom: 1.5rem;
+            animation: fadeIn 1s ease 0.5s backwards;
+        }
+        .hero-title {
+            font-family: 'Playfair Display', serif; font-size: 5rem;
+            line-height: 1.1; margin-bottom: 2rem; font-weight: 400;
+            animation: fadeInUp 1s ease 0.7s backwards;
+        }
+        .hero-title span { font-style: italic; color: var(--gold-light); }
+
+        /* --- STORY SECTION (Split Layout) --- */
+        .story-container {
+            max-width: 1400px; margin: 0 auto; padding: 10rem 4rem;
+            display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center;
+        }
+        .story-text h2 {
+            font-family: 'Playfair Display', serif; font-size: 3rem;
+            margin-bottom: 2rem; color: #fff;
+        }
+        .story-text p {
+            color: var(--text-muted); margin-bottom: 1.5rem;
+            font-size: 1.05rem; font-weight: 300;
+        }
+        .story-text .highlight {
+            font-family: 'Playfair Display', serif; font-size: 1.4rem;
+            font-style: italic; color: var(--gold); line-height: 1.6;
+            margin: 2rem 0; border-left: 2px solid var(--gold); padding-left: 2rem;
+        }
+        .story-visual { position: relative; height: 700px; }
+        .story-img-main {
+            width: 85%; height: 100%; object-fit: cover;
+            position: absolute; right: 0; top: 0; border-radius: 2px; filter: sepia(20%);
+        }
+        .story-img-accent {
+            position: absolute; left: 0; bottom: -50px;
+            width: 50%; height: 300px; object-fit: cover;
+            border: 10px solid var(--black); z-index: 2;
+        }
+
+        /* --- PHILOSOPHY (Textured Background) --- */
+        .philosophy-section {
+            background: #0a0a0a; padding: 8rem 4rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .philosophy-grid {
+            max-width: 1400px; margin: 0 auto;
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 4rem;
+        }
+        .philosophy-card {
+            text-align: center; padding: 2rem; transition: transform 0.4s;
+        }
+        .philosophy-card:hover { transform: translateY(-10px); }
+        .philo-icon { width: 60px; height: 60px; margin: 0 auto 2rem; color: var(--gold); }
+        .philosophy-card h3 {
+            font-family: 'Playfair Display', serif; font-size: 1.8rem;
+            margin-bottom: 1rem; color: #fff;
+        }
+        .philosophy-card p { color: #888; font-size: 0.95rem; font-weight: 300; }
+
+        /* --- PARALLAX QUOTE --- */
+        .quote-section {
+            padding: 12rem 2rem; text-align: center;
+            background-image: url('https://images.pexels.com/photos/15233413/pexels-photo-15233413.jpeg');
+            background-attachment: scroll; background-size: cover; background-position: center;
+            position: relative;
+        }
+        .quote-section::before {
+            content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.75);
+        }
+        .quote-content {
+            position: relative; z-index: 2; max-width: 900px; margin: 0 auto;
+        }
+        .quote-text {
+            font-family: 'Playfair Display', serif; font-size: 3rem;
+            font-style: italic; color: #fff; line-height: 1.4; margin-bottom: 2rem;
+        }
+        .quote-author {
+            color: var(--gold); letter-spacing: 2px; text-transform: uppercase; font-size: 0.9rem;
+        }
+
+        /* --- CTA SECTION --- */
+        .cta-section { padding: 8rem 0; text-align: center; background: var(--black); }
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif; font-size: 3rem; margin-bottom: 2rem;
+        }
+        .btn-gold {
+            display: inline-block; padding: 1rem 3rem;
+            border: 1px solid var(--gold); color: var(--gold);
+            text-transform: uppercase; letter-spacing: 3px; text-decoration: none;
+            transition: all 0.4s; position: relative; overflow: hidden;
+        }
+        .btn-gold::before {
+            content: ''; position: absolute; top: 0; left: 0; width: 0; height: 100%;
+            background: var(--gold); transition: 0.4s; z-index: -1;
+        }
+        .btn-gold:hover { color: #000; }
+        .btn-gold:hover::before { width: 100%; }
+
+        footer {
+            background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+            padding: 5rem 4rem 2rem;
+            border-top: 1px solid rgba(212, 165, 116, 0.1);
+        }
+
+        .footer-content {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr repeat(4, 1fr);
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .footer-section h3 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 2rem;
+            color: #d4a574;
+            font-weight: 500;
+            letter-spacing: 2px;
+            font-size: 1.2rem;
+        }
+
+        .footer-section p {
+            color: #999;
+            line-height: 2;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            font-weight: 300;
+        }
+
+        .footer-section ul {
+            list-style: none;
+        }
+
+        .footer-section ul li {
+            margin-bottom: 1rem;
+        }
+
+        .footer-section a {
+            color: #999;
+            text-decoration: none;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .footer-section a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: #d4a574;
+            transition: width 0.3s ease;
+        }
+
+        .footer-section a:hover::after {
+            width: 100%;
+        }
+
+        .footer-section a:hover {
+            color: #d4a574;
+        }
+
+        .social-icons {
+            display: flex;
+            gap: 1.2rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #d4a574;
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            font-weight: 600;
+        }
+
+        .social-icon:hover {
+            background: linear-gradient(135deg, #d4a574, #c49563);
+            color: #000;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(212, 165, 116, 0.4);
+        }
+        
+        .btn-primary {
+            background: transparent;
+            color: var(--gold);
+            padding: 1rem 3rem;
+            border: 1px solid var(--gold);
+            border-radius: 0;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            font-weight: 500;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;
+            height: 100%;
+            background: var(--gold);
+            transition: width 0.4s ease;
+            z-index: -1;
+        }
+
+        .btn-primary:hover::before {
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            color: #000;
+            box-shadow: 0 0 30px rgba(212, 165, 116, 0.4);
+        }
+
+        .footer-bottom {
+            text-align: center;
+            padding-top: 3rem;
+            border-top: 1px solid #222;
+            color: #666;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+        }
+
+        /* Animations */
+        .reveal-on-scroll { opacity: 0; transform: translateY(40px); transition: 1s ease; }
+        .reveal-on-scroll.visible { opacity: 1; transform: translateY(0); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .story-container { grid-template-columns: 1fr; gap: 4rem; padding: 6rem 2rem; }
+            .story-visual { height: 500px; margin-top: 2rem; }
+            .story-img-main { width: 100%; }
+            .story-img-accent { display: none; }
+            .philosophy-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .nav-links { display: none; }
+            .hamburger-btn { display: block; }
+            .hero-title { font-size: 3.5rem; }
+            .footer-content { grid-template-columns: 1fr 1fr; }
+            nav { padding: 0 2rem; }
+        }
+        @media (max-width: 768px) {
+            .hero-title { font-size: 2.8rem; }
+            .quote-text { font-size: 1.8rem; }
+            .footer-content { grid-template-columns: 1fr; }
+            .search-container { margin-top: 5vh; }
+            .search-header h2 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <header id="header">
+        <nav>
+            <div class="logo" onclick="window.location.href='index.html'">Local Face</div>
+            <ul class="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Collection</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="service.html">Service</a></li>
+            </ul>
+            <div class="nav-icons">
+                <button class="icon-btn" id="search-button">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <circle cx="11" cy="11" r="8"></circle>
+                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                    </svg>
+                </button>
+                <button class="icon-btn" onclick="window.location.href='profile.html'">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                </button>
+                <button class="icon-btn" onclick="window.location.href='wishlist.html'">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                    </svg>
+                    <span class="wishlist-badge" id="wishlist-badge">0</span>
+                </button>
+                <button class="icon-btn" onclick="window.location.href='cart.html'">
+                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                        <line x1="3" y1="6" x2="21" y2="6"></line>
+                        <path d="M16 10a4 4 0 0 1-8 0"></path>
+                    </svg>
+                    <span class="cart-badge" id="cart-badge">0</span>
+                </button>
+                <button class="hamburger-btn" id="hamburger-button">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <div class="mobile-nav" id="mobile-nav-menu">
+        <ul class="mobile-nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="shop.html">Collection</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="service.html">Service</a></li>
+        </ul>
+    </div>
+
+    <div class="search-overlay" id="searchOverlay">
+        <div class="search-container">
+            <div class="search-header">
+                <h2>Search Products</h2>
+                <button class="close-search" id="closeSearch">×</button>
+            </div>
+
+            <div class="search-input-wrapper">
+                <input 
+                    type="text" 
+                    class="search-input" 
+                    id="searchInput" 
+                    placeholder="Search for perfumes, fragrances, collections..."
+                    autocomplete="off"
+                >
+                <svg class="search-icon-input" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+
+            <div class="search-results" id="searchResults">
+                <div class="popular-searches">
+                    <h3>Popular Searches</h3>
+                    <div class="popular-tags">
+                        <span class="popular-tag" data-search="amber">Amber</span>
+                        <span class="popular-tag" data-search="oud">Oud</span>
+                        <span class="popular-tag" data-search="floral">Floral</span>
+                        <span class="popular-tag" data-search="citrus">Citrus</span>
+                        <span class="popular-tag" data-search="luxury">Luxury</span>
+                        <span class="popular-tag" data-search="rose">Rose</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="about-hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <span class="hero-subtitle">The Maison</span>
+            <h1 class="hero-title">About<br><span>Local Face</span></h1>
+            <p style="color: #ccc; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">At Local Face, we believe that perfumes are more than just scents. We are committed to providing our customers with the highest level of personalized service.</p>
+        </div>
+    </section>
+
+    <section class="story-container">
+        <div class="story-text reveal-on-scroll">
+            <h2>A Story of<br><i>Authenticity</i></h2>
+            <p>Local Face was founded with a passion for transforming spaces, both internal and external, through the art of perfume. We believe in creating a haven for perfume lovers, curators, and crafters.</p>
+            <div class="highlight">
+                "Locally inspired fragrances, backed by the quality and artisans of cultures around the world."
+            </div>
+            <p>From our humble beginnings to becoming a trusted name in luxury fragrances, we've remained committed to excellence, authenticity, and the art of scent crafting. Set out on a journey to unite a distinct fragrance story wrapped in the heart and soul of different cultures.</p>
+            <p>Every bottle tells a story, and we're honored to be part of yours.</p>
+        </div>
+        <div class="story-visual reveal-on-scroll" style="transition-delay: 0.2s;">
+            <img src="https://images.pexels.com/photos/1895015/pexels-photo-1895015.jpeg" alt="Perfume Crafting" class="story-img-main">
+            <img src="https://images.pexels.com/photos/30238400/pexels-photo-30238400.jpeg" alt="Detail" class="story-img-accent">
+        </div>
+    </section>
+
+    <section class="philosophy-section">
+        <div class="philosophy-grid">
+            <div class="philosophy-card reveal-on-scroll">
+                <svg class="philo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/><path d="M2 12h20"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+                <h3>Locally Inspired</h3>
+                <p>Meticulously crafted with inspiration from diverse local traditions. From ancient medinas to vibrant gardens, each fragrance tells a different story.</p>
+            </div>
+            <div class="philosophy-card reveal-on-scroll" style="transition-delay: 0.1s;">
+                <svg class="philo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M12 22a10 10 0 0 0 10-10c0-10-10-10-10-10S2 2 2 12a10 10 0 0 0 10 10z"></path><path d="M12 12a2.5 2.5 0 0 0 0-5 2.5 2.5 0 0 0 0 5z"></path></svg>
+                <h3>High-Quality Ingredients</h3>
+                <p>We collaborate with expert perfumers in the luxury French tradition to source the rarest and finest ingredients from around the world.</p>
+            </div>
+            <div class="philosophy-card reveal-on-scroll" style="transition-delay: 0.2s;">
+                <svg class="philo-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+                <h3>Personalized Service</h3>
+                <p>Our fragrance specialists are dedicated to understanding your unique preferences and guiding you to find the perfect match.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="quote-section">
+        <div class="quote-content reveal-on-scroll">
+            <div class="quote-text">"We believe in creating beauty that doesn't compromise our planet's future, harvesting responsibly, designing eternally."</div>
+            <div class="quote-author">— The Local Face Commitment</div>
+        </div>
+    </section>
+
+    <section class="cta-section reveal-on-scroll">
+        <h2>Want to be a part of our journey?</h2>
+        <p style="color: #888; margin-bottom: 3rem;">Visit our store and immerse yourself in the world of Local Face.</p>
+        <a href="shop.html" class="btn-gold">Shop Now</a>
+    </section>
+
+    <footer>
+        <div class="footer-content reveal-on-scroll" id="contact"> 
+            <div class="footer-section">
+                <h3>About Us</h3>
+                <p>Local Face is your destination for premium fragrances. We offer an exquisite collection of perfumes that embody luxury and sophistication.</p>
+                <div class="social-icons">
+                    <div class="social-icon">f</div>
+                    <div class="social-icon">t</div>
+                    <div class="social-icon">i</div>
+                    <div class="social-icon">y</div>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="shop.html">Shop</a></li>
+                    <li><a href="#values">About</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Customer Service</h3>
+                <ul>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Shipping Info</a></li>
+                    <li><a href="#">Returns</a></li>
+                    <li><a href="#">Track Order</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Contact</h3>
+                <ul>
+                    <li><a href="#">Email Us</a></li>
+                    <li><a href="#">Call Us</a></li>
+                    <li><a href="#">Store Locator</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h3>Newsletter</h3>
+                <p>Subscribe to get special offers and updates.</p>
+                <button class="btn-primary" style="margin-top: 1rem; padding: 0.8rem 2rem;">Subscribe</button>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2024 Local Face. All rights reserved.</p>
+        </div>
+    </footer>
+<script src="main.js"></script>
+</body>
+</html>
