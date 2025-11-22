@@ -76,3 +76,6 @@ This website is crafted to deliver an elegant and exclusive shopping experience.
 # How to Run the Project
 - Open in browser
 - Simply open: index.html
+
+# Website Preview
+- https://abineast.github.io/Perfume-Shop-Web-JS/
