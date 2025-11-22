@@ -75,5 +75,4 @@ This website is crafted to deliver an elegant and exclusive shopping experience.
 
 # How to Run the Project
 - Open in browser
-Simply open: 
-index.html
+- Simply open: index.html
