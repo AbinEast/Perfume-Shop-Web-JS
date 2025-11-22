@@ -4,7 +4,7 @@ Local Face is a luxury-themed perfume store website featuring a modern design, s
 
 This website is crafted to deliver an elegant and exclusive shopping experience.
 
-#Key Features
+# Key Features
 
 - Responsive Navigation + Mobile Menu
 - Modern navbar with blur/glassmorphism effect
@@ -17,7 +17,7 @@ This website is crafted to deliver an elegant and exclusive shopping experience.
 - Area for product search results
 - Fully handled using JavaScript (main.js)
 
-#Premium Hero Section
+# Premium Hero Section
 
 - Background with slow zoom animation
 
