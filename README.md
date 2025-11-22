@@ -55,3 +55,25 @@ This website is crafted to deliver an elegant and exclusive shopping experience.
 
 # Scroll Animation
 - Fade-in effect when elements appear in viewport
+
+# Technologies Used
+- HTML5
+- CSS3 (inline + custom styling)
+- Vanilla JavaScript
+- Google Fonts
+- Playfair Display
+- Responsive Design
+- CSS Animations & Transitions
+
+# JavaScript Features (main.js) (Handles all interactive logic)
+- Toggle mobile navigation
+- Open/close search overlay
+- Update Wishlist & Cart badges
+- Scroll reveal animation
+- Redirect product cards to detail pages
+- Event listeners for search tags
+
+# How to Run the Project
+- Open in browser
+Simply open: 
+index.html
