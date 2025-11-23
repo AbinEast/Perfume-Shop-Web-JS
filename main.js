@@ -737,7 +737,29 @@ function setupLoadingAnimation() {
 }
 
 // ============================================
-// 9. PROFILE PAGE FUNCTIONALITY (REVISED)
+// PRELOADER ONLY Animation
+// ============================================
+
+function initPreloaderAnimations() {
+    // PRELOADER LOGIC
+    // Menghilangkan preloader setelah halaman sepenuhnya dimuat
+    window.addEventListener('load', () => {
+        const preloader = document.getElementById('preloader');
+        if (preloader) {
+            setTimeout(() => {
+                preloader.style.opacity = '0';
+                preloader.style.visibility = 'hidden';
+                
+                // Mulai animasi teks Hero (jika ada) setelah preloader hilang
+                const heroTitle = document.querySelector('.hero h1');
+                if(heroTitle) heroTitle.style.animationPlayState = 'running';
+            }, 1500); // Durasi tampil preloader (1.5 detik)
+        }
+    });
+}
+
+// ============================================
+// 8. PROFILE PAGE FUNCTIONALITY (REVISED)
 // ============================================
 
 function setupProfilePage() {
@@ -1011,7 +1033,7 @@ function showNotification(message, type = 'success') {
 }
 
 // ============================================
-// 8. PRODUCT DETAIL PAGE
+// 9. PRODUCT DETAIL PAGE
 // ============================================
 
 const allProductsData = {
@@ -1292,7 +1314,7 @@ function renderKeyNotes(keyNotes) {
 }
 
 // ============================================
-// UPDATE: renderReviewSummary
+// 10. UPDATE: renderReviewSummary
 // ============================================
 function renderReviewSummary(summary) {
     const container = document.getElementById('reviews-summary-container');
@@ -1320,7 +1342,7 @@ function renderReviewSummary(summary) {
 }
 
 // ============================================
-// UPDATE: renderReviews
+// 11. UPDATE: renderReviews
 // ============================================
 function renderReviews(reviews) {
     const container = document.getElementById('review-list-container');
@@ -1470,7 +1492,7 @@ function setupWishlistButton() {
 }
 
 // ============================================
-// 9. INITIALIZATION
+// 12. INITIALIZATION
 // ============================================
 
 let cartManager;
@@ -1486,7 +1508,8 @@ document.addEventListener('DOMContentLoaded', () => {
     setupScrollAnimations();
     setupLoadingAnimation();
     initShopFilters();
-    
+    initPreloaderAnimations();
+
     // Update badges
     updateCartBadge();
     updateWishlistBadge();
@@ -1516,7 +1539,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ============================================
-// Checkout
+// 13. Checkout
 // ============================================
  // Load cart and display order summary
         function loadOrderSummary() {
@@ -1680,7 +1703,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.addEventListener('DOMContentLoaded', loadOrderSummary);
         
 // ============================================
-// FILTER LOGIC SYSTEM
+// 14. FILTER LOGIC SYSTEM
 // ============================================
 
 function initShopFilters() {
@@ -1777,7 +1800,7 @@ function initShopFilters() {
 }
 
 // ============================================
-// 11. WISHLIST MODAL (NEW FEATURE)
+// 15. WISHLIST MODAL (NEW FEATURE)
 // ============================================
 
 function showWishlistModal() {
@@ -1932,7 +1955,7 @@ function removeFromWishlistModal(productId, btnElement) {
 }
 
 // ============================================
-// EXPORT FUNCTIONS TO WINDOW
+// 16. EXPORT FUNCTIONS TO WINDOW
 // ============================================
 window.showWishlistModal = showWishlistModal;
 window.closeWishlistModal = closeWishlistModal;

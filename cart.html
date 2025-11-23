@@ -4,145 +4,197 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Shopping Cart - Local Face Perfume</title>
+    
+    <!-- Google Fonts: Playfair Display untuk heading elegant, Montserrat untuk body text modern -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
+    
     <style>
+        /* ========================================
+           VARIABEL CSS - Palet Warna Brand
+           ======================================== */
         :root {
-            --gold: #d4a574;
-            --gold-light: #f0d7b8;
-            --gold-dark: #8e6a42;
-            --black: #050505;
-            --dark-grey: #0f0f0f;
-            --text-muted: #a1a1a1;
+            --gold: #d4a574;           /* Warna emas utama - untuk aksen dan CTA */
+            --gold-light: #f0d7b8;     /* Emas terang - untuk highlights */
+            --gold-dark: #8e6a42;      /* Emas gelap - untuk shadows dan depth */
+            --black: #050505;          /* Hitam murni - background utama */
+            --dark-grey: #0f0f0f;      /* Abu gelap - untuk cards dan sections */
+            --text-muted: #a1a1a1;     /* Abu terang - untuk teks sekunder */
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* ========================================
+           RESET & BASE STYLES
+           ======================================== */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--black); }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, var(--gold-dark), var(--gold)); border-radius: 4px; }
-        ::selection { background: var(--gold); color: var(--black); }
+        /* ========================================
+           CUSTOM SCROLLBAR - Premium Look
+           ======================================== */
+        ::-webkit-scrollbar { 
+            width: 8px; 
+        }
+        ::-webkit-scrollbar-track { 
+            background: var(--black); 
+        }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(to bottom, var(--gold-dark), var(--gold)); 
+            border-radius: 4px; 
+        }
+        
+        /* Text selection color - brand color */
+        ::selection { 
+            background: var(--gold); 
+            color: var(--black); 
+        }
 
+        /* ========================================
+           BODY - Base Typography & Background
+           ======================================== */
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: var(--black);
-            color: #fff;
-            line-height: 1.8;
-            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;  /* Font modern untuk readability */
+            background: var(--black);                 /* Background hitam premium */
+            color: #fff;                              /* Text putih untuk kontras */
+            line-height: 1.8;                         /* Line height untuk readability */
+            overflow-x: hidden;                       /* Prevent horizontal scroll */
         }
 
-        body.nav-open { overflow: hidden; }
+        /* Prevent body scroll when mobile nav is open */
+        body.nav-open { 
+            overflow: hidden; 
+        }
 
-        /* HEADER & NAV */
+        /* ========================================
+           HEADER & NAVIGATION - Fixed Top Bar
+           ======================================== */
         header {
-            position: fixed;
+            position: fixed;                          /* Sticky navigation */
             top: 0;
             width: 100%;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(15px); /* Blur lebih halus */
-            -webkit-backdrop-filter: blur(15px);
-            z-index: 1000;
-            padding: 2rem 0;
-            transition: all 0.5s ease;
-            border-bottom: 1px solid rgba(212, 165, 116, 0.05);
+            background: rgba(5, 5, 5, 0.8);          /* Semi-transparent background */
+            backdrop-filter: blur(15px);              /* Blur effect untuk depth */
+            -webkit-backdrop-filter: blur(15px);      /* Safari compatibility */
+            z-index: 1000;                            /* Stay above other content */
+            padding: 2rem 0;                          /* Vertical spacing */
+            transition: all 0.5s ease;                /* Smooth transitions */
+            border-bottom: 1px solid rgba(212, 165, 116, 0.05); /* Subtle border */
         }
 
+        /* Header state when page is scrolled */
         header.scrolled {
-            padding: 1rem 0;
-            background: rgba(5, 5, 5, 0.95);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 1rem 0;                          /* Reduced padding when scrolled */
+            background: rgba(5, 5, 5, 0.95);         /* More opaque when scrolled */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Add shadow for depth */
         }
 
+        /* ========================================
+           NAVIGATION CONTAINER
+           ======================================== */
         nav {
-            max-width: 1600px; /* Container lebih lebar */
-            margin: 0 auto;
+            max-width: 1600px;                        /* Wide container for spacious layout */
+            margin: 0 auto;                           /* Center alignment */
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between;           /* Space between logo and menu */
             align-items: center;
-            padding: 0 4rem;
+            padding: 0 4rem;                          /* Horizontal padding */
         }
 
+        /* ========================================
+           LOGO - Brand Identity
+           ======================================== */
         .logo {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Playfair Display', serif;   /* Serif font untuk elegance */
             font-size: 2rem;
             font-weight: 600;
-            color: var(--gold);
-            letter-spacing: 4px;
+            color: var(--gold);                       /* Brand gold color */
+            letter-spacing: 4px;                      /* Wide spacing untuk luxury feel */
             cursor: pointer;
-            z-index: 2001;
-            text-transform: uppercase;
+            z-index: 2001;                            /* Above mobile menu */
+            text-transform: uppercase;                /* All caps untuk impact */
         }
 
+        /* ========================================
+           DESKTOP NAVIGATION LINKS
+           ======================================== */
         .nav-links {
             display: flex;
-            list-style: none;
-            gap: 4rem;
+            list-style: none;                         /* Remove bullet points */
+            gap: 4rem;                                /* Wide spacing between items */
         }
 
         .nav-links a {
             text-decoration: none;
             color: #fff;
-            font-size: 0.8rem; /* Font kecil + Spacing lebar = Mewah */
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 0.8rem;                        /* Small font size untuk sophistication */
+            text-transform: uppercase;                /* All caps */
+            letter-spacing: 2px;                      /* Letter spacing untuk readability */
             font-weight: 400;
-            position: relative;
+            position: relative;                       /* For underline effect */
             padding: 0.5rem 0;
             transition: color 0.4s ease;
         }
 
+        /* Animated underline effect on hover */
         .nav-links a::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 50%;
-            width: 0;
+            width: 0;                                 /* Start at 0 width */
             height: 1px;
             background: var(--gold);
             transition: all 0.4s ease;
-            transform: translateX(-50%);
+            transform: translateX(-50%);              /* Center the line */
         }
 
         .nav-links a:hover::after {
-            width: 100%;
+            width: 100%;                              /* Expand to full width on hover */
         }
 
         .nav-links a:hover {
-            color: var(--gold);
+            color: var(--gold);                       /* Change color on hover */
         }
 
+        /* ========================================
+           NAVIGATION ICONS - Right Side Actions
+           ======================================== */
         .nav-icons {
             display: flex;
-            gap: 2rem;
+            gap: 2rem;                                /* Spacing between icons */
             align-items: center;
-            z-index: 2001;
+            z-index: 2001;                            /* Above mobile menu */
         }
 
+        /* Icon button styling */
         .icon-btn {
             background: none;
             border: none;
             cursor: pointer;
             color: #fff;
             transition: all 0.4s ease;
-            position: relative;
+            position: relative;                       /* For badge positioning */
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .icon-btn:hover {
-            color: var(--gold);
-            transform: translateY(-3px);
+            color: var(--gold);                       /* Gold on hover */
+            transform: translateY(-3px);              /* Lift effect */
         }
         
+        /* SVG icon sizing and styling */
         .icon-svg {
-            width: 20px; /* Ikon sedikit lebih kecil lebih elegan */
+            width: 20px;                              /* Compact size untuk elegance */
             height: 20px;
-            stroke: currentColor;
+            stroke: currentColor;                     /* Inherit button color */
             stroke-width: 1.5;
-            fill: none;
+            fill: none;                               /* Outline style */
         }
 
+        /* Notification badges for wishlist and cart */
         .wishlist-badge, .cart-badge {
             position: absolute;
             top: -6px;
@@ -151,7 +203,7 @@
             color: #000;
             width: 16px;
             height: 16px;
-            border-radius: 50%;
+            border-radius: 50%;                       /* Perfect circle */
             font-size: 0.6rem;
             font-weight: 700;
             display: flex;
@@ -159,45 +211,59 @@
             justify-content: center;
         }
         
-        /* HAMBURGER & MOBILE NAV */
+        /* ========================================
+           HAMBURGER MENU - Mobile Navigation Toggle
+           ======================================== */
         .hamburger-btn {
-            display: none;
+            display: none;                            /* Hidden on desktop */
             background: none;
             border: none;
             cursor: pointer;
-            z-index: 2001;
+            z-index: 2001;                            /* Above mobile menu */
         }
         
+        /* Hamburger bars */
         .hamburger-btn .bar {
             display: block;
             width: 30px;
-            height: 1px; /* Garis tipis */
+            height: 1px;                              /* Thin line untuk elegance */
             margin: 6px 0;
             background-color: #fff;
             transition: all 0.4s ease;
         }
         
-        body.nav-open .hamburger-btn .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        body.nav-open .hamburger-btn .bar:nth-child(2) { opacity: 0; }
-        body.nav-open .hamburger-btn .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        /* Hamburger animation to X when open */
+        body.nav-open .hamburger-btn .bar:nth-child(1) { 
+            transform: translateY(7px) rotate(45deg); 
+        }
+        body.nav-open .hamburger-btn .bar:nth-child(2) { 
+            opacity: 0;                               /* Hide middle bar */
+        }
+        body.nav-open .hamburger-btn .bar:nth-child(3) { 
+            transform: translateY(-7px) rotate(-45deg); 
+        }
 
+        /* ========================================
+           MOBILE NAVIGATION OVERLAY
+           ======================================== */
         .mobile-nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
-            background: #000;
-            z-index: 2000;
+            height: 100vh;                            /* Full screen height */
+            background: #000;                         /* Solid black background */
+            z-index: 2000;                            /* Below hamburger button */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            opacity: 0;
+            opacity: 0;                               /* Hidden by default */
             visibility: hidden;
             transition: all 0.5s ease;
         }
         
+        /* Mobile nav visible state */
         .mobile-nav.open {
             opacity: 1;
             visibility: visible;
@@ -210,40 +276,44 @@
         
         .mobile-nav-links li {
             margin: 2rem 0;
-            overflow: hidden;
+            overflow: hidden;                         /* For slide animation */
         }
         
+        /* Mobile nav link styling - large elegant text */
         .mobile-nav-links a {
             display: block;
             text-decoration: none;
             color: #fff;
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-style: italic;
+            font-family: 'Playfair Display', serif;   /* Elegant serif font */
+            font-size: 3rem;                          /* Large text */
+            font-style: italic;                       /* Italic untuk sophistication */
             transition: transform 0.5s, color 0.3s;
-            transform: translateY(100%);
+            transform: translateY(100%);              /* Start below viewport */
         }
 
+        /* Slide up animation when menu opens */
         .mobile-nav.open .mobile-nav-links a {
             transform: translateY(0);
-            transition-delay: 0.2s;
+            transition-delay: 0.2s;                   /* Stagger animation */
         }
         
         .mobile-nav-links a:hover {
             color: var(--gold);
         }
 
-        /* --- SEARCH OVERLAY (Struktur & Fungsi dari File 1, Desain dari File 2) --- */
+        /* ========================================
+           SEARCH OVERLAY - Full Screen Search
+           ======================================== */
         .search-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(0, 0, 0, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 3000;
-            display: none;
+            background: rgba(0, 0, 0, 0.98);         /* Almost opaque */
+            backdrop-filter: blur(20px);              /* Heavy blur for depth */
+            z-index: 3000;                            /* Above everything */
+            display: none;                            /* Hidden by default */
             opacity: 0;
             transition: opacity 0.4s ease;
             flex-direction: column;
@@ -251,23 +321,27 @@
             padding: 2rem;
         }
 
+        /* Search overlay active state */
         .search-overlay.active {
             display: flex;
             opacity: 1;
         }
 
+        /* Search content container */
         .search-container {
             max-width: 800px;
             width: 100%;
-            margin-top: 10vh;
-            transform: translateY(30px);
+            margin-top: 10vh;                         /* Space from top */
+            transform: translateY(30px);              /* Start below */
             transition: transform 0.4s ease;
         }
 
+        /* Slide up animation when overlay opens */
         .search-overlay.active .search-container {
             transform: translateY(0);
         }
 
+        /* Search header with title and close button */
         .search-header {
             display: flex;
             justify-content: space-between;
@@ -282,6 +356,7 @@
             letter-spacing: 2px;
         }
 
+        /* Close button styling */
         .close-search {
             background: none;
             border: none;
@@ -298,9 +373,12 @@
 
         .close-search:hover {
             color: var(--gold);
-            transform: rotate(90deg);
+            transform: rotate(90deg);                 /* Rotate on hover */
         }
 
+        /* ========================================
+           SEARCH INPUT - Styled Input Field
+           ======================================== */
         .search-input-wrapper {
             position: relative;
             margin-bottom: 3rem;
@@ -308,23 +386,25 @@
 
         .search-input {
             width: 100%;
-            background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+            background: linear-gradient(145deg, #0f0f0f, #1a1a1a); /* Gradient background */
             border: 1px solid rgba(212, 165, 116, 0.2);
             color: #fff;
-            padding: 1.5rem 4rem 1.5rem 2rem;
-            border-radius: 50px;
+            padding: 1.5rem 4rem 1.5rem 2rem;        /* Extra padding for icon */
+            border-radius: 50px;                      /* Pill shape */
             font-size: 1.1rem;
             font-family: 'Montserrat', sans-serif;
             letter-spacing: 0.5px;
             transition: all 0.3s;
         }
 
+        /* Input focus state */
         .search-input:focus {
             outline: none;
             border-color: var(--gold);
-            box-shadow: 0 0 20px rgba(212, 165, 116, 0.3);
+            box-shadow: 0 0 20px rgba(212, 165, 116, 0.3); /* Glow effect */
         }
 
+        /* Search icon inside input */
         .search-icon-input {
             position: absolute;
             right: 2rem;
@@ -337,20 +417,24 @@
             fill: none;
         }
 
+        /* ========================================
+           SEARCH RESULTS - Scrollable Results Area
+           ======================================== */
         .search-results {
-            max-height: 60vh;
-            overflow-y: auto;
+            max-height: 60vh;                         /* Limit height */
+            overflow-y: auto;                         /* Enable scrolling */
             padding-right: 1rem;
         }
 
-        /* Scrollbar untuk search results */
+        /* Custom scrollbar for search results */
         .search-results::-webkit-scrollbar { width: 6px; }
         .search-results::-webkit-scrollbar-track { background: #0f0f0f; }
         .search-results::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 10px; }
 
+        /* Individual search result item */
         .search-result-item {
             display: grid;
-            grid-template-columns: 100px 1fr; /* Gambar sedikit lebih kecil dari original */
+            grid-template-columns: 100px 1fr;         /* Image + content */
             gap: 1.5rem;
             background: linear-gradient(145deg, #0f0f0f, #121212);
             border: 1px solid rgba(212, 165, 116, 0.1);
@@ -362,19 +446,22 @@
             align-items: center;
         }
 
+        /* Hover effect for result items */
         .search-result-item:hover {
             border-color: var(--gold);
-            transform: translateX(5px);
+            transform: translateX(5px);               /* Slide right on hover */
             box-shadow: 0 5px 15px rgba(212, 165, 116, 0.1);
         }
 
+        /* Result image styling */
         .result-image {
             width: 100px;
             height: 100px;
             border-radius: 8px;
-            object-fit: cover;
+            object-fit: cover;                        /* Maintain aspect ratio */
         }
 
+        /* Result text content */
         .result-info h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.3rem;
@@ -395,6 +482,9 @@
             font-weight: 600;
         }
 
+        /* ========================================
+           POPULAR SEARCHES - Suggested Search Tags
+           ======================================== */
         .popular-searches h3 {
             color: var(--gold);
             font-size: 1.2rem;
@@ -411,12 +501,13 @@
             gap: 1rem;
         }
 
+        /* Individual tag styling */
         .popular-tag {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-muted);
             padding: 0.6rem 1.2rem;
-            border-radius: 50px;
+            border-radius: 50px;                      /* Pill shape */
             font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.3s;
@@ -428,198 +519,387 @@
             background: rgba(212, 165, 116, 0.1);
         }
         
+        /* No results message */
         .no-results {
             text-align: center;
             padding: 3rem 0;
             color: var(--text-muted);
         }
 
-        /* --- PAGE HEADER --- */
+        /* ========================================
+           PAGE HEADER - Hero Section for Cart Page
+           ======================================== */
         .page-header {
-            height: 35vh;
-            display: flex; align-items: center; justify-content: center;
-            text-align: center; margin-top: 80px;
-            background: #0a0a0a; position: relative;
+            height: 35vh;                             /* Compact hero height */
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            text-align: center; 
+            margin-top: 80px;                         /* Account for fixed header */
+            background: #0a0a0a;                      /* Slightly lighter than body */
+            position: relative;
         }
+        
+        /* Decorative bottom border */
         .page-header::after {
-            content: ''; position: absolute; bottom: 0; left: 0; width: 100%;
-            height: 1px; background: linear-gradient(90deg, transparent, rgba(212, 165, 116, 0.2), transparent);
+            content: ''; 
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%;
+            height: 1px; 
+            background: linear-gradient(90deg, transparent, rgba(212, 165, 116, 0.2), transparent);
         }
+        
+        /* Page header title */
         .header-content h1 {
-            font-family: 'Playfair Display', serif; font-size: 3.5rem;
-            margin-bottom: 0.5rem; font-weight: 400;
+            font-family: 'Playfair Display', serif; 
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem; 
+            font-weight: 400;
         }
-        .header-content h1 span { font-style: italic; color: var(--gold); }
+        
+        /* Gold accent for title span */
+        .header-content h1 span { 
+            font-style: italic; 
+            color: var(--gold); 
+        }
+        
+        /* Breadcrumb navigation */
         .breadcrumb {
-            color: var(--text-muted); font-size: 0.85rem;
-            letter-spacing: 2px; text-transform: uppercase;
+            color: var(--text-muted); 
+            font-size: 0.85rem;
+            letter-spacing: 2px; 
+            text-transform: uppercase;
         }
-        .breadcrumb a { color: #fff; text-decoration: none; transition: 0.3s; }
-        .breadcrumb a:hover { color: var(--gold); }
+        
+        .breadcrumb a { 
+            color: #fff; 
+            text-decoration: none; 
+            transition: 0.3s; 
+        }
+        
+        .breadcrumb a:hover { 
+            color: var(--gold); 
+        }
 
-        /* --- CART CONTAINER --- */
+        /* ========================================
+           CART CONTAINER - Main Content Area
+           ======================================== */
         .cart-container {
-            max-width: 1400px; margin: 0 auto; padding: 6rem 4rem 10rem;
-            min-height: 60vh;
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 6rem 4rem 10rem;                 /* Generous padding */
+            min-height: 60vh;                         /* Minimum height */
         }
 
-        /* IMPORTANT: CSS ini disesuaikan agar HTML yang di-generate main.js tampil seperti File 2 */
+        /* Two-column layout: items on left, summary on right */
         .cart-content {
-            display: grid; grid-template-columns: 2fr 1fr; gap: 4rem;
+            display: grid; 
+            grid-template-columns: 2fr 1fr;           /* 2:1 ratio */
+            gap: 4rem;                                /* Space between columns */
         }
 
-        /* --- LEFT COLUMN: ITEMS --- */
+        /* ========================================
+           CART ITEMS - Left Column
+           ======================================== */
         .cart-items {
             border-top: 1px solid rgba(255,255,255,0.1);
         }
 
+        /* Individual cart item layout */
         .cart-item {
-            display: grid; grid-template-columns: 120px 1fr auto; gap: 2rem;
-            padding: 2rem 0; border-bottom: 1px solid rgba(255,255,255,0.1);
-            align-items: center; transition: 0.3s;
+            display: grid; 
+            grid-template-columns: 120px 1fr auto;    /* Image, details, actions */
+            gap: 2rem;
+            padding: 2rem 0; 
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            align-items: center; 
+            transition: 0.3s;
         }
 
+        /* Product image container */
         .item-image {
-            width: 120px; height: 150px; background: #111;
-            overflow: hidden; position: relative; cursor: pointer;
+            width: 120px; 
+            height: 150px; 
+            background: #111;                         /* Fallback background */
+            overflow: hidden; 
+            position: relative; 
+            cursor: pointer;
         }
         
-        /* CSS untuk img tag yang di-generate JS */
+        /* Image styling - supports both img tags and background images */
         .item-image img, img.item-image { 
-            width: 100%; height: 100%; object-fit: cover; transition: 0.4s; 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;                        /* Maintain aspect ratio */
+            transition: 0.4s; 
         }
-        .cart-item:hover .item-image img, .cart-item:hover img.item-image { transform: scale(1.05); }
+        
+        /* Zoom effect on hover */
+        .cart-item:hover .item-image img, .cart-item:hover img.item-image { 
+            transform: scale(1.05); 
+        }
 
+        /* Product name styling */
         .item-details .item-name {
-            font-family: 'Playfair Display', serif; font-size: 1.4rem;
-            color: #fff; margin-bottom: 0.5rem; cursor: pointer; transition: 0.3s;
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.4rem;
+            color: #fff; 
+            margin-bottom: 0.5rem; 
+            cursor: pointer; 
+            transition: 0.3s;
         }
-        .item-name:hover { color: var(--gold); }
+        
+        .item-name:hover { 
+            color: var(--gold); 
+        }
 
+        /* Product size/variant info */
         .item-details .item-size {
-            color: var(--text-muted); font-size: 0.9rem; margin-bottom: 1.5rem;
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+            margin-bottom: 1.5rem;
         }
 
-        /* Quantity Controls (Generated by JS) */
+        /* ========================================
+           QUANTITY CONTROLS - Increment/Decrement
+           ======================================== */
         .quantity-controls {
-            display: inline-flex; align-items: center;
+            display: inline-flex; 
+            align-items: center;
             border: 1px solid rgba(255,255,255,0.2);
         }
 
+        /* Quantity buttons (+ and -) */
         .quantity-btn {
-            background: none; border: none; color: #fff;
-            width: 35px; height: 35px; cursor: pointer; transition: 0.3s;
+            background: none; 
+            border: none; 
+            color: #fff;
+            width: 35px; 
+            height: 35px; 
+            cursor: pointer; 
+            transition: 0.3s;
         }
-        .quantity-btn:hover { color: var(--gold); }
         
+        .quantity-btn:hover { 
+            color: var(--gold); 
+        }
+        
+        /* Quantity display */
         .quantity-display {
-            width: 40px; text-align: center; font-size: 0.9rem;
+            width: 40px; 
+            text-align: center; 
+            font-size: 0.9rem;
             font-family: 'Montserrat', sans-serif;
         }
 
-        /* Actions & Price (Generated by JS) */
+        /* ========================================
+           ITEM ACTIONS - Price & Remove Button
+           ======================================== */
         .item-actions {
-            text-align: right; display: flex; flex-direction: column;
-            justify-content: space-between; height: 100%; padding: 1rem 0;
+            text-align: right; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: space-between; 
+            height: 100%; 
+            padding: 1rem 0;
         }
 
+        /* Item price display */
         .item-price {
-            font-family: 'Playfair Display', serif; font-size: 1.3rem;
-            color: var(--gold); font-weight: 500;
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.3rem;
+            color: var(--gold); 
+            font-weight: 500;
         }
 
+        /* Remove item button */
         .remove-item {
-            background: none; border: none; color: var(--text-muted);
-            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;
-            cursor: pointer; border-bottom: 1px solid transparent; transition: 0.3s;
-            align-self: flex-end; margin-top: 1rem;
+            background: none; 
+            border: none; 
+            color: var(--text-muted);
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            cursor: pointer; 
+            border-bottom: 1px solid transparent; 
+            transition: 0.3s;
+            align-self: flex-end; 
+            margin-top: 1rem;
         }
-        .remove-item:hover { color: #fff; border-bottom-color: #fff; }
+        
+        .remove-item:hover { 
+            color: #fff; 
+            border-bottom-color: #fff; 
+        }
 
-
-        /* --- RIGHT COLUMN: SUMMARY --- */
+        /* ========================================
+           CART SUMMARY - Right Column Sticky Box
+           ======================================== */
         .cart-summary {
-            background: #0f0f0f; padding: 2.5rem;
-            position: sticky; top: 120px;
+            background: #0f0f0f; 
+            padding: 2.5rem;
+            position: sticky;                         /* Sticky positioning */
+            top: 120px;                               /* Stick below header */
             border: 1px solid rgba(212, 165, 116, 0.1);
         }
 
+        /* Summary title */
         .summary-title {
-            font-family: 'Playfair Display', serif; font-size: 1.8rem;
-            color: #fff; margin-bottom: 2rem; padding-bottom: 1rem;
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.8rem;
+            color: #fff; 
+            margin-bottom: 2rem; 
+            padding-bottom: 1rem;
             border-bottom: 1px solid rgba(255,255,255,0.1);
         }
 
+        /* Summary row (subtotal, tax, shipping) */
         .summary-row {
-            display: flex; justify-content: space-between;
-            margin-bottom: 1.5rem; color: #ccc; font-size: 0.95rem;
+            display: flex; 
+            justify-content: space-between;
+            margin-bottom: 1.5rem; 
+            color: #ccc; 
+            font-size: 0.95rem;
         }
         
+        /* Total row - highlighted */
         .summary-row.total {
-            display: flex; justify-content: space-between;
-            margin-top: 2rem; padding-top: 1.5rem;
+            display: flex; 
+            justify-content: space-between;
+            margin-top: 2rem; 
+            padding-top: 1.5rem;
             border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 1.3rem; color: var(--gold);
+            font-size: 1.3rem; 
+            color: var(--gold);
             font-family: 'Playfair Display', serif;
         }
 
+        /* Checkout button - primary CTA */
         .btn-checkout {
-            width: 100%; background: linear-gradient(135deg, #d4a574, #c49563);
-            color: #000; padding: 1.2rem; border: none; margin-top: 2rem;
-            font-family: 'Montserrat', sans-serif; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 2px;
-            cursor: pointer; transition: 0.3s;
+            width: 100%; 
+            background: linear-gradient(135deg, #d4a574, #c49563); /* Gold gradient */
+            color: #000; 
+            padding: 1.2rem; 
+            border: none; 
+            margin-top: 2rem;
+            font-family: 'Montserrat', sans-serif; 
+            font-weight: 600;
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            cursor: pointer; 
+            transition: 0.3s;
         }
-        .btn-checkout:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(212, 165, 116, 0.2); }
+        
+        .btn-checkout:hover { 
+            transform: translateY(-3px);              /* Lift effect */
+            box-shadow: 0 10px 20px rgba(212, 165, 116, 0.2); 
+        }
 
+        /* Continue shopping button - secondary action */
         .btn-continue {
-            width: 100%; background: transparent; border: 1px solid #333;
-            color: #fff; padding: 1rem; margin-top: 1rem;
-            text-transform: uppercase; letter-spacing: 1px; cursor: pointer; transition: 0.3s;
+            width: 100%; 
+            background: transparent; 
+            border: 1px solid #333;
+            color: #fff; 
+            padding: 1rem; 
+            margin-top: 1rem;
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            cursor: pointer; 
+            transition: 0.3s;
         }
-        .btn-continue:hover { border-color: var(--gold); color: var(--gold); }
+        
+        .btn-continue:hover { 
+            border-color: var(--gold); 
+            color: var(--gold); 
+        }
 
-        .promo-code { margin-top: 2rem; position: relative; }
-        .promo-input {
-            width: 100%; background: transparent; border: none;
-            border-bottom: 1px solid #333; padding: 1rem 0;
-            color: #fff; font-family: 'Montserrat', sans-serif;
+        /* ========================================
+           PROMO CODE INPUT
+           ======================================== */
+        .promo-code { 
+            margin-top: 2rem; 
+            position: relative; 
         }
-        .promo-input:focus { outline: none; border-bottom-color: var(--gold); }
+        
+        .promo-input {
+            width: 100%; 
+            background: transparent; 
+            border: none;
+            border-bottom: 1px solid #333; 
+            padding: 1rem 0;
+            color: #fff; 
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .promo-input:focus { 
+            outline: none; 
+            border-bottom-color: var(--gold); 
+        }
+        
+        /* Apply button for promo code */
         .btn-apply {
-            position: absolute; right: 0; top: 10px;
-            background: none; border: none; color: var(--gold);
-            text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px;
+            position: absolute; 
+            right: 0; 
+            top: 10px;
+            background: none; 
+            border: none; 
+            color: var(--gold);
+            text-transform: uppercase; 
+            font-size: 0.8rem; 
+            letter-spacing: 1px;
             cursor: pointer;
         }
 
-        /* Empty State */
-        .empty-cart { text-align: center; padding: 6rem 0; }
-        .btn-shop-now {
-            display: inline-block; margin-top: 2rem; padding: 1rem 3rem;
-            border: 1px solid var(--gold); color: var(--gold);
-            text-decoration: none; text-transform: uppercase; letter-spacing: 2px;
-            transition: 0.3s; background: transparent;
+        /* ========================================
+           EMPTY CART STATE
+           ======================================== */
+        .empty-cart { 
+            text-align: center; 
+            padding: 6rem 0; 
         }
-        .btn-shop-now:hover { background: var(--gold); color: #000; }
+        
+        /* Shop now button for empty cart */
+        .btn-shop-now {
+            display: inline-block; 
+            margin-top: 2rem; 
+            padding: 1rem 3rem;
+            border: 1px solid var(--gold); 
+            color: var(--gold);
+            text-decoration: none; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            transition: 0.3s; 
+            background: transparent;
+        }
+        
+        .btn-shop-now:hover { 
+            background: var(--gold); 
+            color: #000; 
+        }
 
-
-        /* --- FOOTER --- */
+        /* ========================================
+           FOOTER - Site Footer
+           ======================================== */
         footer {
             background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
             padding: 5rem 4rem 2rem;
             border-top: 1px solid rgba(212, 165, 116, 0.1);
         }
 
+        /* Footer grid layout - 5 columns */
         .footer-content {
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 2fr repeat(4, 1fr);
+            grid-template-columns: 2fr repeat(4, 1fr); /* First column wider */
             gap: 4rem;
             margin-bottom: 4rem;
         }
 
+        /* Footer section headings */
         .footer-section h3 {
             font-family: 'Playfair Display', serif;
             margin-bottom: 2rem;
@@ -629,286 +909,407 @@
             font-size: 1.2rem;
         }
 
-        .footer-section p {
-            color: #999;
-            line-height: 2;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-            font-weight: 300;
-        }
+        /* Footer paragraph text */
+    .footer-section p {
+        color: #999;
+        line-height: 2;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+        font-weight: 300;
+    }
 
-        .footer-section ul {
-            list-style: none;
-        }
+    /* Footer lists */
+    .footer-section ul {
+        list-style: none;
+    }
 
-        .footer-section ul li {
-            margin-bottom: 1rem;
-        }
+    .footer-section ul li {
+        margin-bottom: 1rem;
+    }
 
-        .footer-section a {
-            color: #999;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 0.95rem;
-            position: relative;
-            display: inline-block;
-        }
+    /* Footer links with animated underline */
+    .footer-section a {
+        color: #999;
+        text-decoration: none;
+        transition: all 0.3s;
+        font-size: 0.95rem;
+        position: relative;
+        display: inline-block;
+    }
 
-        .footer-section a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: #d4a574;
-            transition: width 0.3s ease;
-        }
+    /* Animated underline effect */
+    .footer-section a::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #d4a574;
+        transition: width 0.3s ease;
+    }
 
-        .footer-section a:hover::after {
-            width: 100%;
-        }
+    .footer-section a:hover::after {
+        width: 100%;
+    }
 
-        .footer-section a:hover {
-            color: #d4a574;
-        }
+    .footer-section a:hover {
+        color: #d4a574;
+    }
 
-        .social-icons {
-            display: flex;
-            gap: 1.2rem;
-            margin-top: 1.5rem;
-        }
+    /* ========================================
+       SOCIAL ICONS - Footer Social Links
+       ======================================== */
+    .social-icons {
+        display: flex;
+        gap: 1.2rem;
+        margin-top: 1.5rem;
+    }
 
-        .social-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #d4a574;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: 1px solid rgba(212, 165, 116, 0.2);
-            font-weight: 600;
-        }
+    /* Individual social icon styling */
+    .social-icon {
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #d4a574;
+        transition: all 0.3s;
+        cursor: pointer;
+        border: 1px solid rgba(212, 165, 116, 0.2);
+        font-weight: 600;
+    }
 
-        .social-icon:hover {
-            background: linear-gradient(135deg, #d4a574, #c49563);
-            color: #000;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(212, 165, 116, 0.4);
-        }
+    /* Social icon hover effect */
+    .social-icon:hover {
+        background: linear-gradient(135deg, #d4a574, #c49563);
+        color: #000;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(212, 165, 116, 0.4);
+    }
 
-        .btn-primary {
-            background: transparent;
-            color: var(--gold);
-            padding: 1rem 3rem;
-            border: 1px solid var(--gold);
-            border-radius: 0; /* Sudut tajam lebih high fashion */
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.5s ease;
-            font-weight: 500;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            animation: fadeInUp 1.2s ease forwards 1.1s;
-        }
+    /* ========================================
+       PRIMARY BUTTON - Newsletter Subscribe
+       ======================================== */
+    .btn-primary {
+        background: transparent;
+        color: var(--gold);
+        padding: 1rem 3rem;
+        border: 1px solid var(--gold);
+        border-radius: 0;                         /* Sharp corners untuk high fashion */
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.5s ease;
+        font-weight: 500;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;                               /* Hidden initially for animation */
+        animation: fadeInUp 1.2s ease forwards 1.1s;
+    }
 
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 100%;
-            background: var(--gold);
-            transition: width 0.4s ease;
-            z-index: -1;
-        }
+    /* Fill effect on hover */
+    .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background: var(--gold);
+        transition: width 0.4s ease;
+        z-index: -1;
+    }
 
-        .btn-primary:hover::before {
-            width: 100%;
-        }
+    .btn-primary:hover::before {
+        width: 100%;
+    }
 
-        .btn-primary:hover {
-            color: #000;
-            box-shadow: 0 0 30px rgba(212, 165, 116, 0.4);
-        }
+    .btn-primary:hover {
+        color: #000;
+        box-shadow: 0 0 30px rgba(212, 165, 116, 0.4);
+    }
 
-        .footer-bottom {
-            text-align: center;
-            padding-top: 3rem;
-            border-top: 1px solid #222;
-            color: #666;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
+    /* ========================================
+       FOOTER BOTTOM - Copyright
+       ======================================== */
+    .footer-bottom {
+        text-align: center;
+        padding-top: 3rem;
+        border-top: 1px solid #222;
+        color: #666;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
 
+    /* ========================================
+       ANIMATIONS
+       ======================================== */
+    /* Fade in and slide up animation */
+    .fade-in { 
+        opacity: 0; 
+        transform: translateY(20px); 
+        animation: fadeInUp 0.8s ease forwards; 
+    }
+    
+    @keyframes fadeInUp { 
+        to { 
+            opacity: 1; 
+            transform: translateY(0); 
+        } 
+    }
 
-        /* Animation */
-        .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s ease forwards; }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .nav-links { display: none; } .hamburger-btn { display: block; }
-            nav { padding: 0 2rem; }
-            .cart-layout, .cart-content { grid-template-columns: 1fr; gap: 4rem; }
-            .cart-summary, .cart-summary-box { position: static; }
-            .footer-content { grid-template-columns: 1fr 1fr; }
+    /* ========================================
+       RESPONSIVE DESIGN - Mobile & Tablet
+       ======================================== */
+    
+    /* Tablet breakpoint */
+    @media (max-width: 1024px) {
+        /* Hide desktop nav, show hamburger */
+        .nav-links { display: none; } 
+        .hamburger-btn { display: block; }
+        nav { padding: 0 2rem; }
+        
+        /* Stack cart layout vertically */
+        .cart-layout, .cart-content { 
+            grid-template-columns: 1fr; 
+            gap: 4rem; 
         }
-        @media (max-width: 600px) {
-            .cart-item { grid-template-columns: 1fr; text-align: center; gap: 1rem; }
-            .item-image { margin: 0 auto; }
-            .item-price-action, .item-actions { align-items: center; padding: 0; gap: 1rem; }
-            .footer-content { grid-template-columns: 1fr; }
+        
+        /* Remove sticky positioning on mobile */
+        .cart-summary, .cart-summary-box { 
+            position: static; 
         }
-    </style>
+        
+        /* Footer to 2 columns */
+        .footer-content { 
+            grid-template-columns: 1fr 1fr; 
+        }
+    }
+    
+    /* Mobile breakpoint */
+    @media (max-width: 600px) {
+        /* Stack cart items vertically */
+        .cart-item { 
+            grid-template-columns: 1fr; 
+            text-align: center; 
+            gap: 1rem; 
+        }
+        
+        /* Center image */
+        .item-image { 
+            margin: 0 auto; 
+        }
+        
+        /* Center actions */
+        .item-price-action, .item-actions { 
+            align-items: center; 
+            padding: 0; 
+            gap: 1rem; 
+        }
+        
+        /* Footer to single column */
+        .footer-content { 
+            grid-template-columns: 1fr; 
+        }
+    }
+</style>
 </head>
 <body>
 
-    <header id="header">
-        <nav>
-            <div class="logo" onclick="window.location.href='index.html'">Local Face</div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Collection</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="service.html">Service</a></li>
-            </ul>
-            <div class="nav-icons">
-                <button class="icon-btn" id="search-button">
-                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                </button>
-                <button class="icon-btn" onclick="window.location.href='profile.html'">
-                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                </button>
-                <button class="icon-btn" onclick="window.location.href='wishlist.html'">
-                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                    </svg>
-                    <span class="wishlist-badge" id="wishlist-badge">0</span>
-                </button>
-                <button class="icon-btn" onclick="window.location.href='cart.html'">
-                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <path d="M16 10a4 4 0 0 1-8 0"></path>
-                    </svg>
-                    <span class="cart-badge" id="cart-badge">0</span>
-                </button>
-                <button class="hamburger-btn" id="hamburger-button">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
-            </div>
-        </nav>
-    </header>
-
-
-    <div class="mobile-nav" id="mobile-nav-menu">
-        <ul class="mobile-nav-links">
+    <!-- ========================================
+     FIXED HEADER - Top Navigation Bar
+     ======================================== -->
+<header id="header">
+    <nav>
+        <!-- Brand Logo - Clickable to home -->
+        <div class="logo" onclick="window.location.href='index.html'">Local Face</div>
+        
+        <!-- Desktop Navigation Links -->
+        <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="shop.html">Collection</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="service.html">Service</a></li>
         </ul>
-    </div>
+        
+        <!-- Right Side Icons: Search, Profile, Wishlist, Cart, Hamburger -->
+        <div class="nav-icons">
+            <!-- Search Button - Opens search overlay -->
+            <button class="icon-btn" id="search-button">
+                <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+            
+            <!-- Profile Button - Links to profile page -->
+            <button class="icon-btn" onclick="window.location.href='profile.html'">
+                <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </button>
+            
+            <!-- Wishlist Button - Shows badge with count -->
+            <button class="icon-btn" onclick="window.location.href='wishlist.html'">
+                <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <span class="wishlist-badge" id="wishlist-badge">0</span>
+            </button>
+            
+            <!-- Cart Button - Shows badge with count -->
+            <button class="icon-btn" onclick="window.location.href='cart.html'">
+                <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span class="cart-badge" id="cart-badge">0</span>
+            </button>
+            
+            <!-- Hamburger Menu Button - Mobile only -->
+            <button class="hamburger-btn" id="hamburger-button">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </nav>
+</header>
 
-    <div class="search-overlay" id="searchOverlay">
-        <div class="search-container">
-            <div class="search-header">
-                <h2>Search Products</h2>
-                <button class="close-search" id="closeSearch">×</button>
-            </div>
-            <div class="search-input-wrapper">
-                <input type="text" class="search-input" id="searchInput" placeholder="Search for perfumes..." autocomplete="off">
-                <svg class="search-icon-input" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            </div>
-            <div class="search-results" id="searchResults">
-                <div class="popular-searches">
-                    <h3>Popular Searches</h3>
-                    <div class="popular-tags">
-                        <span class="popular-tag" data-search="amber">Amber</span>
-                        <span class="popular-tag" data-search="oud">Oud</span>
-                        <span class="popular-tag" data-search="floral">Floral</span>
-                        <span class="popular-tag" data-search="citrus">Citrus</span>
-                    </div>
+<!-- ========================================
+     MOBILE NAVIGATION - Full Screen Overlay
+     ======================================== -->
+<div class="mobile-nav" id="mobile-nav-menu">
+    <ul class="mobile-nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Collection</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="service.html">Service</a></li>
+    </ul>
+</div>
+
+<!-- ========================================
+     SEARCH OVERLAY - Full Screen Search
+     ======================================== -->
+<div class="search-overlay" id="searchOverlay">
+    <div class="search-container">
+        <!-- Search Header: Title + Close Button -->
+        <div class="search-header">
+            <h2>Search Products</h2>
+            <button class="close-search" id="closeSearch">×</button>
+        </div>
+        
+        <!-- Search Input Field -->
+        <div class="search-input-wrapper">
+            <input type="text" class="search-input" id="searchInput" placeholder="Search for perfumes..." autocomplete="off">
+            <svg class="search-icon-input" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+        
+        <!-- Search Results Container - Populated by JavaScript -->
+        <div class="search-results" id="searchResults">
+            <!-- Popular Searches - Shown when no search query -->
+            <div class="popular-searches">
+                <h3>Popular Searches</h3>
+                <div class="popular-tags">
+                    <span class="popular-tag" data-search="amber">Amber</span>
+                    <span class="popular-tag" data-search="oud">Oud</span>
+                    <span class="popular-tag" data-search="floral">Floral</span>
+                    <span class="popular-tag" data-search="citrus">Citrus</span>
                 </div>
             </div>
         </div>
     </div>
+</div>
 
-    <div class="page-header">
-        <div class="header-content fade-in" style="animation-delay: 0.2s;">
-            <h1>Your <span>Selection</span></h1>
-            <div class="breadcrumb">
-                <a href="index.html">Home</a> &nbsp;/&nbsp; <span>Bag</span>
-            </div>
+<!-- ========================================
+     PAGE HEADER - Cart Page Hero Section
+     ======================================== -->
+<div class="page-header">
+    <div class="header-content fade-in" style="animation-delay: 0.2s;">
+        <h1>Your <span>Selection</span></h1>
+        <div class="breadcrumb">
+            <a href="index.html">Home</a> &nbsp;/&nbsp; <span>Bag</span>
         </div>
     </div>
+</div>
 
-    <div class="cart-container">
-        <div id="cart-content"></div>
+<!-- ========================================
+     CART CONTAINER - Main Shopping Cart Content
+     ======================================== -->
+<div class="cart-container">
+    <!-- Cart content will be dynamically generated by main.js -->
+    <div id="cart-content"></div>
+</div>
+
+<!-- ========================================
+     FOOTER - Site Footer with Links & Newsletter
+     ======================================== -->
+<footer>
+    <div class="footer-content reveal-on-scroll" id="contact"> 
+        <!-- Footer Column 1: About -->
+        <div class="footer-section">
+            <h3>About Us</h3>
+            <p>Local Face is your destination for premium fragrances. We offer an exquisite collection of perfumes that embody luxury and sophistication.</p>
+            
+            <!-- Social Media Icons -->
+            <div class="social-icons">
+                <div class="social-icon">f</div>
+                <div class="social-icon">t</div>
+                <div class="social-icon">i</div>
+                <div class="social-icon">y</div>
+            </div>
+        </div>
+        
+        <!-- Footer Column 2: Quick Links -->
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Collection</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="service.html">Service</a></li>
+            </ul>
+        </div>
+        
+        <!-- Footer Column 3: Customer Service -->
+        <div class="footer-section">
+            <h3>Customer Service</h3>
+            <ul>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Shipping Info</a></li>
+                <li><a href="#">Returns</a></li>
+                <li><a href="#">Track Order</a></li>
+            </ul>
+        </div>
+        
+        <!-- Footer Column 4: Contact -->
+        <div class="footer-section">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="#">Email Us</a></li>
+                <li><a href="#">Call Us</a></li>
+                <li><a href="#">Store Locator</a></li>
+            </ul>
+        </div>
+        
+        <!-- Footer Column 5: Newsletter -->
+        <div class="footer-section">
+            <h3>Newsletter</h3>
+            <p>Subscribe to get special offers and updates.</p>
+            <button class="btn-primary" style="margin-top: 1rem; padding: 0.8rem 2rem;">Subscribe</button>
+        </div>
     </div>
+    
+    <!-- Copyright Section -->
+    <div class="footer-bottom">
+        <p>&copy; 2024 Local Face. All rights reserved.</p>
+    </div>
+</footer>
 
-    <footer>
-        <div class="footer-content reveal-on-scroll" id="contact"> 
-            <div class="footer-section">
-                <h3>About Us</h3>
-                <p>Local Face is your destination for premium fragrances. We offer an exquisite collection of perfumes that embody luxury and sophistication.</p>
-                <div class="social-icons">
-                    <div class="social-icon">f</div>
-                    <div class="social-icon">t</div>
-                    <div class="social-icon">i</div>
-                    <div class="social-icon">y</div>
-                </div>
-            </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="shop.html">Shop</a></li>
-                    <li><a href="#values">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Customer Service</h3>
-                <ul>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Shipping Info</a></li>
-                    <li><a href="#">Returns</a></li>
-                    <li><a href="#">Track Order</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <ul>
-                    <li><a href="#">Email Us</a></li>
-                    <li><a href="#">Call Us</a></li>
-                    <li><a href="#">Store Locator</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Newsletter</h3>
-                <p>Subscribe to get special offers and updates.</p>
-                <button class="btn-primary" style="margin-top: 1rem; padding: 0.8rem 2rem;">Subscribe</button>
-            </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Local Face. All rights reserved.</p>
-        </div>
-    </footer>
+<!-- JavaScript File - Handles cart functionality, search, navigation, etc. -->
 <script src="main.js"></script>
 </body>
 </html>

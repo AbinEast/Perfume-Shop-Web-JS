@@ -6,143 +6,192 @@
     <title>Secure Checkout - Local Face</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
     <style>
+        /* ========================================
+           VARIABEL CSS - Palet Warna Brand
+           ======================================== */
         :root {
-            --gold: #d4a574;
-            --gold-light: #f0d7b8;
-            --gold-dark: #8e6a42;
-            --black: #050505;
-            --dark-grey: #0f0f0f;
-            --text-muted: #a1a1a1;
+            --gold: #d4a574;           /* Warna emas utama - untuk aksen dan CTA */
+            --gold-light: #f0d7b8;     /* Emas terang - untuk highlights */
+            --gold-dark: #8e6a42;      /* Emas gelap - untuk shadows dan depth */
+            --black: #050505;          /* Hitam murni - background utama */
+            --dark-grey: #0f0f0f;      /* Abu gelap - untuk cards dan sections */
+            --text-muted: #a1a1a1;     /* Abu terang - untuk teks sekunder */
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        /* ========================================
+           RESET & BASE STYLES
+           ======================================== */
+        * { 
+            margin: 0; 
+            padding: 0; 
+            box-sizing: border-box; 
+        }
 
-        /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--black); }
-        ::-webkit-scrollbar-thumb { background: linear-gradient(to bottom, var(--gold-dark), var(--gold)); border-radius: 4px; }
-        ::selection { background: var(--gold); color: var(--black); }
+        /* ========================================
+           CUSTOM SCROLLBAR - Premium Look
+           ======================================== */
+        ::-webkit-scrollbar { 
+            width: 8px; 
+        }
+        ::-webkit-scrollbar-track { 
+            background: var(--black); 
+        }
+        ::-webkit-scrollbar-thumb { 
+            background: linear-gradient(to bottom, var(--gold-dark), var(--gold)); 
+            border-radius: 4px; 
+        }
+        
+        /* Text selection color - brand color */
+        ::selection { 
+            background: var(--gold); 
+            color: var(--black); 
+        }
 
+        /* ========================================
+           BODY - Base Typography & Background
+           ======================================== */
         body {
-            font-family: 'Montserrat', sans-serif;
-            background: var(--black);
-            color: #fff;
-            line-height: 1.8;
-            overflow-x: hidden;
+            font-family: 'Montserrat', sans-serif;  /* Font modern untuk readability */
+            background: var(--black);                 /* Background hitam premium */
+            color: #fff;                              /* Text putih untuk kontras */
+            line-height: 1.8;                         /* Line height untuk readability */
+            overflow-x: hidden;                       /* Prevent horizontal scroll */
         }
 
-        body.nav-open { overflow: hidden; }
+        /* Prevent body scroll when mobile nav is open */
+        body.nav-open { 
+            overflow: hidden; 
+        }
 
-        /* HEADER & NAV */
+        /* ========================================
+           HEADER & NAVIGATION - Fixed Top Bar
+           ======================================== */
         header {
-            position: fixed;
+            position: fixed;                          /* Sticky navigation */
             top: 0;
             width: 100%;
-            background: rgba(5, 5, 5, 0.8);
-            backdrop-filter: blur(15px); /* Blur lebih halus */
-            -webkit-backdrop-filter: blur(15px);
-            z-index: 1000;
-            padding: 2rem 0;
-            transition: all 0.5s ease;
-            border-bottom: 1px solid rgba(212, 165, 116, 0.05);
+            background: rgba(5, 5, 5, 0.8);          /* Semi-transparent background */
+            backdrop-filter: blur(15px);              /* Blur effect untuk depth */
+            -webkit-backdrop-filter: blur(15px);      /* Safari compatibility */
+            z-index: 1000;                            /* Stay above other content */
+            padding: 2rem 0;                          /* Vertical spacing */
+            transition: all 0.5s ease;                /* Smooth transitions */
+            border-bottom: 1px solid rgba(212, 165, 116, 0.05); /* Subtle border */
         }
 
+        /* Header state when page is scrolled */
         header.scrolled {
-            padding: 1rem 0;
-            background: rgba(5, 5, 5, 0.95);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            padding: 1rem 0;                          /* Reduced padding when scrolled */
+            background: rgba(5, 5, 5, 0.95);         /* More opaque when scrolled */
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Add shadow for depth */
         }
 
+        /* ========================================
+           NAVIGATION CONTAINER
+           ======================================== */
         nav {
-            max-width: 1600px; /* Container lebih lebar */
-            margin: 0 auto;
+            max-width: 1600px;                        /* Wide container for spacious layout */
+            margin: 0 auto;                           /* Center alignment */
             display: flex;
-            justify-content: space-between;
+            justify-content: space-between;           /* Space between logo and menu */
             align-items: center;
-            padding: 0 4rem;
+            padding: 0 4rem;                          /* Horizontal padding */
         }
 
+        /* ========================================
+           LOGO - Brand Identity
+           ======================================== */
         .logo {
-            font-family: 'Playfair Display', serif;
+            font-family: 'Playfair Display', serif;   /* Serif font untuk elegance */
             font-size: 2rem;
             font-weight: 600;
-            color: var(--gold);
-            letter-spacing: 4px;
+            color: var(--gold);                       /* Brand gold color */
+            letter-spacing: 4px;                      /* Wide spacing untuk luxury feel */
             cursor: pointer;
-            z-index: 2001;
-            text-transform: uppercase;
+            z-index: 2001;                            /* Above mobile menu */
+            text-transform: uppercase;                /* All caps untuk impact */
         }
 
+        /* ========================================
+           DESKTOP NAVIGATION LINKS
+           ======================================== */
         .nav-links {
             display: flex;
-            list-style: none;
-            gap: 4rem;
+            list-style: none;                         /* Remove bullet points */
+            gap: 4rem;                                /* Wide spacing between items */
         }
 
         .nav-links a {
             text-decoration: none;
             color: #fff;
-            font-size: 0.8rem; /* Font kecil + Spacing lebar = Mewah */
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 0.8rem;                        /* Small font size untuk sophistication */
+            text-transform: uppercase;                /* All caps */
+            letter-spacing: 2px;                      /* Letter spacing untuk readability */
             font-weight: 400;
-            position: relative;
+            position: relative;                       /* For underline effect */
             padding: 0.5rem 0;
             transition: color 0.4s ease;
         }
 
+        /* Animated underline effect on hover */
         .nav-links a::after {
             content: '';
             position: absolute;
             bottom: 0;
             left: 50%;
-            width: 0;
+            width: 0;                                 /* Start at 0 width */
             height: 1px;
             background: var(--gold);
             transition: all 0.4s ease;
-            transform: translateX(-50%);
+            transform: translateX(-50%);              /* Center the line */
         }
 
         .nav-links a:hover::after {
-            width: 100%;
+            width: 100%;                              /* Expand to full width on hover */
         }
 
         .nav-links a:hover {
-            color: var(--gold);
+            color: var(--gold);                       /* Change color on hover */
         }
 
+        /* ========================================
+           NAVIGATION ICONS - Right Side Actions
+           ======================================== */
         .nav-icons {
             display: flex;
-            gap: 2rem;
+            gap: 2rem;                                /* Spacing between icons */
             align-items: center;
-            z-index: 2001;
+            z-index: 2001;                            /* Above mobile menu */
         }
 
+        /* Icon button styling */
         .icon-btn {
             background: none;
             border: none;
             cursor: pointer;
             color: #fff;
             transition: all 0.4s ease;
-            position: relative;
+            position: relative;                       /* For badge positioning */
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
         .icon-btn:hover {
-            color: var(--gold);
-            transform: translateY(-3px);
+            color: var(--gold);                       /* Gold on hover */
+            transform: translateY(-3px);              /* Lift effect */
         }
         
+        /* SVG icon sizing and styling */
         .icon-svg {
-            width: 20px; /* Ikon sedikit lebih kecil lebih elegan */
+            width: 20px;                              /* Compact size untuk elegance */
             height: 20px;
-            stroke: currentColor;
+            stroke: currentColor;                     /* Inherit button color */
             stroke-width: 1.5;
-            fill: none;
+            fill: none;                               /* Outline style */
         }
 
+        /* Notification badges for wishlist and cart */
         .wishlist-badge, .cart-badge {
             position: absolute;
             top: -6px;
@@ -151,7 +200,7 @@
             color: #000;
             width: 16px;
             height: 16px;
-            border-radius: 50%;
+            border-radius: 50%;                       /* Perfect circle */
             font-size: 0.6rem;
             font-weight: 700;
             display: flex;
@@ -159,45 +208,59 @@
             justify-content: center;
         }
         
-        /* HAMBURGER & MOBILE NAV */
+        /* ========================================
+           HAMBURGER MENU - Mobile Navigation Toggle
+           ======================================== */
         .hamburger-btn {
-            display: none;
+            display: none;                            /* Hidden on desktop */
             background: none;
             border: none;
             cursor: pointer;
-            z-index: 2001;
+            z-index: 2001;                            /* Above mobile menu */
         }
         
+        /* Hamburger bars */
         .hamburger-btn .bar {
             display: block;
             width: 30px;
-            height: 1px; /* Garis tipis */
+            height: 1px;                              /* Thin line untuk elegance */
             margin: 6px 0;
             background-color: #fff;
             transition: all 0.4s ease;
         }
         
-        body.nav-open .hamburger-btn .bar:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-        body.nav-open .hamburger-btn .bar:nth-child(2) { opacity: 0; }
-        body.nav-open .hamburger-btn .bar:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+        /* Hamburger animation to X when open */
+        body.nav-open .hamburger-btn .bar:nth-child(1) { 
+            transform: translateY(7px) rotate(45deg); 
+        }
+        body.nav-open .hamburger-btn .bar:nth-child(2) { 
+            opacity: 0;                               /* Hide middle bar */
+        }
+        body.nav-open .hamburger-btn .bar:nth-child(3) { 
+            transform: translateY(-7px) rotate(-45deg); 
+        }
 
+        /* ========================================
+           MOBILE NAVIGATION OVERLAY
+           ======================================== */
         .mobile-nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 100vh;
-            background: #000;
-            z-index: 2000;
+            height: 100vh;                            /* Full screen height */
+            background: #000;                         /* Solid black background */
+            z-index: 2000;                            /* Below hamburger button */
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            opacity: 0;
+            opacity: 0;                               /* Hidden by default */
             visibility: hidden;
             transition: all 0.5s ease;
         }
         
+        /* Mobile nav visible state */
         .mobile-nav.open {
             opacity: 1;
             visibility: visible;
@@ -210,40 +273,44 @@
         
         .mobile-nav-links li {
             margin: 2rem 0;
-            overflow: hidden;
+            overflow: hidden;                         /* For slide animation */
         }
         
+        /* Mobile nav link styling - large elegant text */
         .mobile-nav-links a {
             display: block;
             text-decoration: none;
             color: #fff;
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-style: italic;
+            font-family: 'Playfair Display', serif;   /* Elegant serif font */
+            font-size: 3rem;                          /* Large text */
+            font-style: italic;                       /* Italic untuk sophistication */
             transition: transform 0.5s, color 0.3s;
-            transform: translateY(100%);
+            transform: translateY(100%);              /* Start below viewport */
         }
 
+        /* Slide up animation when menu opens */
         .mobile-nav.open .mobile-nav-links a {
             transform: translateY(0);
-            transition-delay: 0.2s;
+            transition-delay: 0.2s;                   /* Stagger animation */
         }
         
         .mobile-nav-links a:hover {
             color: var(--gold);
         }
 
-        /* --- SEARCH OVERLAY (Struktur & Fungsi dari File 1, Desain dari File 2) --- */
+        /* ========================================
+           SEARCH OVERLAY - Full Screen Search
+           ======================================== */
         .search-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(0, 0, 0, 0.98);
-            backdrop-filter: blur(20px);
-            z-index: 3000;
-            display: none;
+            background: rgba(0, 0, 0, 0.98);         /* Almost opaque */
+            backdrop-filter: blur(20px);              /* Heavy blur for depth */
+            z-index: 3000;                            /* Above everything */
+            display: none;                            /* Hidden by default */
             opacity: 0;
             transition: opacity 0.4s ease;
             flex-direction: column;
@@ -251,23 +318,27 @@
             padding: 2rem;
         }
 
+        /* Search overlay active state */
         .search-overlay.active {
             display: flex;
             opacity: 1;
         }
 
+        /* Search content container */
         .search-container {
             max-width: 800px;
             width: 100%;
-            margin-top: 10vh;
-            transform: translateY(30px);
+            margin-top: 10vh;                         /* Space from top */
+            transform: translateY(30px);              /* Start below */
             transition: transform 0.4s ease;
         }
 
+        /* Slide up animation when overlay opens */
         .search-overlay.active .search-container {
             transform: translateY(0);
         }
 
+        /* Search header with title and close button */
         .search-header {
             display: flex;
             justify-content: space-between;
@@ -282,6 +353,7 @@
             letter-spacing: 2px;
         }
 
+        /* Close button styling */
         .close-search {
             background: none;
             border: none;
@@ -298,9 +370,12 @@
 
         .close-search:hover {
             color: var(--gold);
-            transform: rotate(90deg);
+            transform: rotate(90deg);                 /* Rotate on hover */
         }
 
+        /* ========================================
+           SEARCH INPUT - Styled Input Field
+           ======================================== */
         .search-input-wrapper {
             position: relative;
             margin-bottom: 3rem;
@@ -308,23 +383,25 @@
 
         .search-input {
             width: 100%;
-            background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+            background: linear-gradient(145deg, #0f0f0f, #1a1a1a); /* Gradient background */
             border: 1px solid rgba(212, 165, 116, 0.2);
             color: #fff;
-            padding: 1.5rem 4rem 1.5rem 2rem;
-            border-radius: 50px;
+            padding: 1.5rem 4rem 1.5rem 2rem;        /* Extra padding for icon */
+            border-radius: 50px;                      /* Pill shape */
             font-size: 1.1rem;
             font-family: 'Montserrat', sans-serif;
             letter-spacing: 0.5px;
             transition: all 0.3s;
         }
 
+        /* Input focus state */
         .search-input:focus {
             outline: none;
             border-color: var(--gold);
-            box-shadow: 0 0 20px rgba(212, 165, 116, 0.3);
+            box-shadow: 0 0 20px rgba(212, 165, 116, 0.3); /* Glow effect */
         }
 
+        /* Search icon inside input */
         .search-icon-input {
             position: absolute;
             right: 2rem;
@@ -337,20 +414,24 @@
             fill: none;
         }
 
+        /* ========================================
+           SEARCH RESULTS - Scrollable Results Area
+           ======================================== */
         .search-results {
-            max-height: 60vh;
-            overflow-y: auto;
+            max-height: 60vh;                         /* Limit height */
+            overflow-y: auto;                         /* Enable scrolling */
             padding-right: 1rem;
         }
 
-        /* Scrollbar untuk search results */
+        /* Custom scrollbar for search results */
         .search-results::-webkit-scrollbar { width: 6px; }
         .search-results::-webkit-scrollbar-track { background: #0f0f0f; }
         .search-results::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 10px; }
 
+        /* Individual search result item */
         .search-result-item {
             display: grid;
-            grid-template-columns: 100px 1fr; /* Gambar sedikit lebih kecil dari original */
+            grid-template-columns: 100px 1fr;         /* Image + content */
             gap: 1.5rem;
             background: linear-gradient(145deg, #0f0f0f, #121212);
             border: 1px solid rgba(212, 165, 116, 0.1);
@@ -362,19 +443,22 @@
             align-items: center;
         }
 
+        /* Hover effect for result items */
         .search-result-item:hover {
             border-color: var(--gold);
-            transform: translateX(5px);
+            transform: translateX(5px);               /* Slide right on hover */
             box-shadow: 0 5px 15px rgba(212, 165, 116, 0.1);
         }
 
+        /* Result image styling */
         .result-image {
             width: 100px;
             height: 100px;
             border-radius: 8px;
-            object-fit: cover;
+            object-fit: cover;                        /* Maintain aspect ratio */
         }
 
+        /* Result text content */
         .result-info h3 {
             font-family: 'Playfair Display', serif;
             font-size: 1.3rem;
@@ -395,6 +479,9 @@
             font-weight: 600;
         }
 
+        /* ========================================
+           POPULAR SEARCHES - Suggested Search Tags
+           ======================================== */
         .popular-searches h3 {
             color: var(--gold);
             font-size: 1.2rem;
@@ -411,12 +498,13 @@
             gap: 1rem;
         }
 
+        /* Individual tag styling */
         .popular-tag {
             background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.1);
             color: var(--text-muted);
             padding: 0.6rem 1.2rem;
-            border-radius: 50px;
+            border-radius: 50px;                      /* Pill shape */
             font-size: 0.85rem;
             cursor: pointer;
             transition: all 0.3s;
@@ -428,624 +516,1036 @@
             background: rgba(212, 165, 116, 0.1);
         }
         
+        /* No results message */
         .no-results {
             text-align: center;
             padding: 3rem 0;
             color: var(--text-muted);
         }
 
-
-        /* --- CHECKOUT HEADER --- */
+        /* ========================================
+           PAGE HEADER - Checkout Hero Section
+           ======================================== */
         .page-header {
-            height: 30vh;
-            display: flex; align-items: center; justify-content: center;
-            text-align: center; margin-top: 80px;
-            background: #0a0a0a; position: relative; flex-direction: column;
+            height: 30vh;                             /* Compact hero height */
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            text-align: center; 
+            margin-top: 80px;                         /* Account for fixed header */
+            background: #0a0a0a;                      /* Slightly lighter than body */
+            position: relative; 
+            flex-direction: column;
         }
 
+        /* Page header title */
         .header-title {
-            font-family: 'Playfair Display', serif; font-size: 3rem;
-            margin-bottom: 1.5rem; font-weight: 400; color: #fff;
+            font-family: 'Playfair Display', serif; 
+            font-size: 3rem;
+            margin-bottom: 1.5rem; 
+            font-weight: 400; 
+            color: #fff;
         }
         
+        /* ========================================
+           CHECKOUT PROGRESS STEPS
+           ======================================== */
         .checkout-steps {
-            display: flex; align-items: center; gap: 1.5rem;
-            font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2px;
+            display: flex; 
+            align-items: center; 
+            gap: 1.5rem;
+            font-size: 0.85rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
         }
         
-        .step { color: var(--text-muted); display: flex; align-items: center; gap: 0.5rem; }
-        .step.active { color: var(--gold); }
+        /* Individual step styling */
+        .step { 
+            color: var(--text-muted); 
+            display: flex; 
+            align-items: center; 
+            gap: 0.5rem; 
+        }
+        
+        /* Active step highlight */
+        .step.active { 
+            color: var(--gold); 
+        }
+        
+        /* Step number circle */
         .step-number {
-            width: 25px; height: 25px; border-radius: 50%; border: 1px solid currentColor;
-            display: flex; align-items: center; justify-content: center; font-size: 0.7rem;
+            width: 25px; 
+            height: 25px; 
+            border-radius: 50%; 
+            border: 1px solid currentColor;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 0.7rem;
         }
-        .step-line { width: 40px; height: 1px; background: #333; }
-        .step.active .step-line { background: var(--gold); }
+        
+        /* Line between steps */
+        .step-line { 
+            width: 40px; 
+            height: 1px; 
+            background: #333; 
+        }
+        
+        /* Active step line color */
+        .step.active .step-line { 
+            background: var(--gold); 
+        }
 
-        /* --- CHECKOUT LAYOUT --- */
+        /* ========================================
+           CHECKOUT LAYOUT - Two Column Grid
+           ======================================== */
         .checkout-container {
-            max-width: 1400px; margin: 0 auto; padding: 6rem 4rem 10rem;
-            display: grid; grid-template-columns: 1.5fr 1fr; gap: 6rem;
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 6rem 4rem 10rem;
+            display: grid; 
+            grid-template-columns: 1.5fr 1fr;         /* Form wider than summary */
+            gap: 6rem;                                /* Large gap between columns */
         }
 
-        /* --- FORM STYLING --- */
-        .form-section { margin-bottom: 4rem; }
+        /* ========================================
+           FORM SECTIONS - Left Column
+           ======================================== */
+        .form-section { 
+            margin-bottom: 4rem; 
+        }
         
+        /* Form section headings */
         .form-section h2 {
-            font-family: 'Playfair Display', serif; font-size: 1.8rem;
-            color: #fff; margin-bottom: 2rem; border-bottom: 1px solid rgba(255,255,255,0.1);
-            padding-bottom: 1rem; font-weight: 400;
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.8rem;
+            color: #fff; 
+            margin-bottom: 2rem; 
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            padding-bottom: 1rem; 
+            font-weight: 400;
         }
 
+        /* Form grid layout - 2 columns */
         .form-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+            display: grid; 
+            grid-template-columns: 1fr 1fr; 
+            gap: 2rem;
         }
-        .form-group { margin-bottom: 1.5rem; }
-        .form-group.full { grid-column: span 2; }
+        
+        .form-group { 
+            margin-bottom: 1.5rem; 
+        }
+        
+        /* Full width form group - spans both columns */
+        .form-group.full { 
+            grid-column: span 2; 
+        }
 
+        /* Form labels styling */
         .form-label {
-            display: block; color: var(--gold); font-size: 0.75rem;
-            text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem;
+            display: block; 
+            color: var(--gold); 
+            font-size: 0.75rem;
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            margin-bottom: 0.5rem;
         }
 
+        /* Form inputs and selects - minimalist design */
         .form-input, .form-select {
-            width: 100%; background: transparent; border: none;
-            border-bottom: 1px solid #333; padding: 0.8rem 0;
-            color: #fff; font-family: 'Montserrat', sans-serif;
-            font-size: 1rem; transition: 0.3s; border-radius: 0;
+            width: 100%; 
+            background: transparent; 
+            border: none;
+            border-bottom: 1px solid #333;            /* Only bottom border */
+            padding: 0.8rem 0;
+            color: #fff; 
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1rem; 
+            transition: 0.3s; 
+            border-radius: 0;                         /* No rounded corners */
         }
 
+        /* Focus state for inputs */
         .form-input:focus, .form-select:focus {
-            outline: none; border-bottom-color: var(--gold);
+            outline: none; 
+            border-bottom-color: var(--gold);
         }
         
-        .form-select { cursor: pointer; }
-        .form-select option { background: #000; }
+        .form-select { 
+            cursor: pointer; 
+        }
+        
+        /* Select dropdown styling */
+        .form-select option { 
+            background: #000; 
+        }
 
-        /* Payment Methods */
+        /* ========================================
+           PAYMENT METHODS - Visual Selection Grid
+           ======================================== */
         .payment-methods {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+            display: grid; 
+            grid-template-columns: repeat(3, 1fr);    /* 3 equal columns */
+            gap: 1rem;
         }
 
+        /* Individual payment option card */
         .payment-option {
-            border: 1px solid #333; padding: 1.5rem 1rem; text-align: center;
-            cursor: pointer; transition: 0.3s; border-radius: 10px;
+            border: 1px solid #333; 
+            padding: 1.5rem 1rem; 
+            text-align: center;
+            cursor: pointer; 
+            transition: 0.3s; 
+            border-radius: 10px;
         }
         
-        .payment-option:hover { border-color: #666; }
-        .payment-option.selected { border-color: var(--gold); background: rgba(212, 165, 116, 0.05); }
-
-        .payment-icon { font-size: 1.5rem; margin-bottom: 0.5rem; display: block; }
-        .payment-name { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; }
-
-        /* Checkboxes */
-        .checkbox-group {
-            display: flex; align-items: center; gap: 0.8rem; margin-top: 1rem;
+        .payment-option:hover { 
+            border-color: #666; 
         }
-        .checkbox-group input { accent-color: var(--gold); cursor: pointer; }
-        .checkbox-group label { font-size: 0.85rem; color: var(--text-muted); cursor: pointer; }
+        
+        /* Selected payment option highlight */
+        .payment-option.selected { 
+            border-color: var(--gold); 
+            background: rgba(212, 165, 116, 0.05); 
+        }
 
-        /* --- ORDER SUMMARY (Sticky Ticket) --- */
+        /* Payment icons and labels */
+        .payment-icon { 
+            font-size: 1.5rem; 
+            margin-bottom: 0.5rem; 
+            display: block; 
+        }
+        
+        .payment-name { 
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+        }
+
+        /* ========================================
+           CHECKBOXES - Terms & Conditions
+           ======================================== */
+        .checkbox-group {
+            display: flex; 
+            align-items: center; 
+            gap: 0.8rem; 
+            margin-top: 1rem;
+        }
+        
+        .checkbox-group input { 
+            accent-color: var(--gold);                /* Custom checkbox color */
+            cursor: pointer; 
+        }
+        
+        .checkbox-group label { 
+            font-size: 0.85rem; 
+            color: var(--text-muted); 
+            cursor: pointer; 
+        }
+
+        /* ========================================
+           ORDER SUMMARY - Right Column Sticky Box
+           ======================================== */
         .order-summary {
             background: linear-gradient(145deg, #0a0a0a, #050505);
-            border-radius: 20px; padding: 3rem;
+            border-radius: 20px; 
+            padding: 3rem;
             border: 1px solid rgba(212, 165, 116, 0.15);
-            position: sticky; top: 120px;
+            position: sticky;                         /* Sticky positioning */
+            top: 120px;                               /* Stick below header */
         }
 
+        /* Summary header section */
         .summary-header {
-            text-align: center; margin-bottom: 2rem; padding-bottom: 2rem;
-            border-bottom: 1px dashed rgba(255,255,255,0.2);
-        }
-        .summary-title {
-            font-family: 'Playfair Display', serif; font-size: 2rem;
-            color: var(--gold); font-weight: 400;
-        }
-
-        .order-items {
-            margin-bottom: 2rem; max-height: 300px; overflow-y: auto; padding-right: 1rem;
+            text-align: center; 
+            margin-bottom: 2rem; 
+            padding-bottom: 2rem;
+            border-bottom: 1px dashed rgba(255,255,255,0.2); /* Dashed border for ticket effect */
         }
         
-        /* Styling untuk item order yang di-generate JS */
+        .summary-title {
+            font-family: 'Playfair Display', serif; 
+            font-size: 2rem;
+            color: var(--gold); 
+            font-weight: 400;
+        }
+
+        /* ========================================
+           ORDER ITEMS LIST - Scrollable Items
+           ======================================== */
+        .order-items {
+            margin-bottom: 2rem; 
+            max-height: 300px;                        /* Limit height */
+            overflow-y: auto;                         /* Enable scrolling */
+            padding-right: 1rem;
+        }
+        
+        /* Individual order item layout - generated by JavaScript */
         .order-item {
-            display: flex; gap: 1rem; margin-bottom: 1.5rem;
+            display: flex; 
+            gap: 1rem; 
+            margin-bottom: 1.5rem;
             align-items: center;
         }
         
+        /* Order item image */
         .item-image {
-            width: 60px; height: 60px; border-radius: 8px; object-fit: cover;
+            width: 60px; 
+            height: 60px; 
+            border-radius: 8px; 
+            object-fit: cover;
         }
         
-        .item-details { flex: 1; }
-        .item-name { display: block; color: #fff; font-size: 0.95rem; margin-bottom: 0.2rem; }
-        .item-size { display: block; color: #666; font-size: 0.8rem; }
-        .item-quantity { color: #888; font-size: 0.8rem; }
-        .item-price { color: #fff; font-weight: 500; }
+        /* Order item text details */
+        .item-details { 
+            flex: 1; 
+        }
+        
+        .item-name { 
+            display: block; 
+            color: #fff; 
+            font-size: 0.95rem; 
+            margin-bottom: 0.2rem; 
+        }
+        
+        .item-size { 
+            display: block; 
+            color: #666; 
+            font-size: 0.8rem; 
+        }
+        
+        .item-quantity { 
+            color: #888; 
+            font-size: 0.8rem; 
+        }
+        
+        .item-price { 
+            color: #fff; 
+            font-weight: 500; 
+        }
 
+        /* ========================================
+           SUMMARY CALCULATIONS
+           ======================================== */
+        /* Summary row (subtotal, shipping, tax) */
         .summary-row {
-            display: flex; justify-content: space-between;
-            margin-bottom: 1rem; color: #aaa; font-size: 0.9rem;
+            display: flex; 
+            justify-content: space-between;
+            margin-bottom: 1rem; 
+            color: #aaa; 
+            font-size: 0.9rem;
         }
         
+        /* Total row - highlighted and larger */
         .summary-total {
-            display: flex; justify-content: space-between;
-            margin-top: 1.5rem; padding-top: 1.5rem;
+            display: flex; 
+            justify-content: space-between;
+            margin-top: 1.5rem; 
+            padding-top: 1.5rem;
             border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 1.2rem; color: var(--gold); font-weight: 600;
+            font-size: 1.2rem; 
+            color: var(--gold); 
+            font-weight: 600;
         }
 
+        /* ========================================
+           PLACE ORDER BUTTON - Primary CTA
+           ======================================== */
         .btn-place-order {
-            width: 100%; background: linear-gradient(135deg, #d4a574, #c49563);
-            color: #000; border: none; padding: 1.2rem; margin-top: 2rem;
-            font-family: 'Montserrat', sans-serif; font-weight: 600;
-            text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
-            transition: 0.3s; border-radius: 50px;
+            width: 100%; 
+            background: linear-gradient(135deg, #d4a574, #c49563); /* Gold gradient */
+            color: #000; 
+            border: none; 
+            padding: 1.2rem; 
+            margin-top: 2rem;
+            font-family: 'Montserrat', sans-serif; 
+            font-weight: 600;
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            cursor: pointer;
+            transition: 0.3s; 
+            border-radius: 50px;                      /* Pill shape */
             box-shadow: 0 10px 30px rgba(212, 165, 116, 0.2);
         }
-        .btn-place-order:hover { transform: translateY(-3px); box-shadow: 0 15px 40px rgba(212, 165, 116, 0.4); }
-        .btn-place-order:disabled { opacity: 0.7; cursor: not-allowed; transform: none; }
+        
+        /* Button hover effect */
+        .btn-place-order:hover { 
+            transform: translateY(-3px);              /* Lift effect */
+            box-shadow: 0 15px 40px rgba(212, 165, 116, 0.4); 
+        }
+        
+        /* Button disabled state */
+        .btn-place-order:disabled { 
+            opacity: 0.7; 
+            cursor: not-allowed; 
+            transform: none; 
+        }
 
+        /* Security badge below button */
         .secure-badge {
-            display: flex; align-items: center; justify-content: center; gap: 0.5rem;
-            margin-top: 1.5rem; color: #666; font-size: 0.8rem;
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 0.5rem;
+            margin-top: 1.5rem; 
+            color: #666; 
+            font-size: 0.8rem;
         }
 
-        /* --- SUCCESS MODAL --- */
+        /* ========================================
+           SUCCESS MODAL - Order Confirmation
+           ======================================== */
         .success-modal {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.95);
-            z-index: 5000; display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: 0.4s;
+            position: fixed; 
+            inset: 0;                                 /* Cover entire viewport */
+            background: rgba(0,0,0,0.95);
+            z-index: 5000;                            /* Above everything */
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            opacity: 0;                               /* Hidden by default */
+            pointer-events: none;                     /* Not clickable when hidden */
+            transition: 0.4s;
         }
-        .success-modal.active { opacity: 1; pointer-events: all; }
-
+        
+        /* Modal active state */
+        .success-modal.active { 
+            opacity: 1; 
+            pointer-events: all;                      /* Clickable when active */
+        }
+        
+        /* Modal content box */
         .modal-content {
             background: #0f0f0f; padding: 4rem; border-radius: 20px;
             text-align: center; border: 1px solid var(--gold);
             max-width: 500px; width: 90%; transform: translateY(50px);
             transition: 0.4s;
         }
-        .success-modal.active .modal-content { transform: translateY(0); }
+        /* Slide up animation when modal opens */
+    .success-modal.active .modal-content { 
+        transform: translateY(0); 
+    }
 
-        .success-icon {
-            font-size: 4rem; color: var(--gold); margin-bottom: 1.5rem;
-        }
-        .modal-title {
-            font-family: 'Playfair Display', serif; font-size: 2.5rem;
-            color: #fff; margin-bottom: 1rem;
-        }
-        .modal-text { color: #aaa; margin-bottom: 2rem; }
-        .order-ref {
-            background: rgba(212, 165, 116, 0.1); padding: 0.8rem;
-            color: var(--gold); letter-spacing: 2px; margin-bottom: 2rem;
-            display: inline-block; border-radius: 4px; font-family: monospace;
-        }
+    /* Modal elements */
+    .success-icon {
+        font-size: 4rem; 
+        color: var(--gold); 
+        margin-bottom: 1.5rem;
+    }
+    
+    .modal-title {
+        font-family: 'Playfair Display', serif; 
+        font-size: 2.5rem;
+        color: #fff; 
+        margin-bottom: 1rem;
+    }
+    
+    .modal-text { 
+        color: #aaa; 
+        margin-bottom: 2rem; 
+    }
+    
+    /* Order reference number display */
+    .order-ref {
+        background: rgba(212, 165, 116, 0.1); 
+        padding: 0.8rem;
+        color: var(--gold); 
+        letter-spacing: 2px; 
+        margin-bottom: 2rem;
+        display: inline-block; 
+        border-radius: 4px; 
+        font-family: monospace;    /* Monospace for order numbers */
+    }
 
-        .btn-home {
-            background: transparent; border: 1px solid var(--gold);
-            color: var(--gold); padding: 1rem 3rem; text-transform: uppercase;
-            letter-spacing: 2px; cursor: pointer; transition: 0.3s;
-        }
-        .btn-home:hover { background: var(--gold); color: #000; }
+    /* Back to home button */
+    .btn-home {
+        background: transparent; 
+        border: 1px solid var(--gold);
+        color: var(--gold); 
+        padding: 1rem 3rem; 
+        text-transform: uppercase;
+        letter-spacing: 2px; 
+        cursor: pointer; 
+        transition: 0.3s;
+    }
+    
+    .btn-home:hover { 
+        background: var(--gold); 
+        color: #000; 
+    }
 
-        /* --- FOOTER --- */
-        footer {
-            background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
-            padding: 5rem 4rem 2rem;
-            border-top: 1px solid rgba(212, 165, 116, 0.1);
-        }
+    /* ========================================
+       FOOTER - Site Footer
+       ======================================== */
+    footer {
+        background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+        padding: 5rem 4rem 2rem;
+        border-top: 1px solid rgba(212, 165, 116, 0.1);
+    }
 
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr repeat(4, 1fr);
-            gap: 4rem;
-            margin-bottom: 4rem;
-        }
+    /* Footer grid layout - 5 columns */
+    .footer-content {
+        max-width: 1400px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 2fr repeat(4, 1fr); /* First column wider */
+        gap: 4rem;
+        margin-bottom: 4rem;
+    }
 
-        .footer-section h3 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 2rem;
-            color: #d4a574;
-            font-weight: 500;
-            letter-spacing: 2px;
-            font-size: 1.2rem;
-        }
+    /* Footer section headings */
+    .footer-section h3 {
+        font-family: 'Playfair Display', serif;
+        margin-bottom: 2rem;
+        color: #d4a574;
+        font-weight: 500;
+        letter-spacing: 2px;
+        font-size: 1.2rem;
+    }
 
-        .footer-section p {
-            color: #999;
-            line-height: 2;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-            font-weight: 300;
-        }
+    /* Footer paragraph text */
+    .footer-section p {
+        color: #999;
+        line-height: 2;
+        margin-bottom: 1.5rem;
+        font-size: 0.95rem;
+        font-weight: 300;
+    }
 
-        .footer-section ul {
-            list-style: none;
-        }
+    /* Footer lists */
+    .footer-section ul {
+        list-style: none;
+    }
 
-        .footer-section ul li {
-            margin-bottom: 1rem;
-        }
+    .footer-section ul li {
+        margin-bottom: 1rem;
+    }
 
-        .footer-section a {
-            color: #999;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 0.95rem;
-            position: relative;
-            display: inline-block;
-        }
+    /* Footer links with animated underline */
+    .footer-section a {
+        color: #999;
+        text-decoration: none;
+        transition: all 0.3s;
+        font-size: 0.95rem;
+        position: relative;
+        display: inline-block;
+    }
 
-        .footer-section a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;
-            height: 1px;
-            background: #d4a574;
-            transition: width 0.3s ease;
-        }
+    /* Animated underline effect */
+    .footer-section a::after {
+        content: '';
+        position: absolute;
+        bottom: -2px;
+        left: 0;
+        width: 0;
+        height: 1px;
+        background: #d4a574;
+        transition: width 0.3s ease;
+    }
 
-        .footer-section a:hover::after {
-            width: 100%;
-        }
+    .footer-section a:hover::after {
+        width: 100%;
+    }
 
-        .footer-section a:hover {
-            color: #d4a574;
-        }
+    .footer-section a:hover {
+        color: #d4a574;
+    }
 
-        .social-icons {
-            display: flex;
-            gap: 1.2rem;
-            margin-top: 1.5rem;
-        }
+    /* ========================================
+       SOCIAL ICONS - Footer Social Links
+       ======================================== */
+    .social-icons {
+        display: flex;
+        gap: 1.2rem;
+        margin-top: 1.5rem;
+    }
 
-        .social-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #d4a574;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: 1px solid rgba(212, 165, 116, 0.2);
-            font-weight: 600;
-        }
+    /* Individual social icon styling */
+    .social-icon {
+        width: 45px;
+        height: 45px;
+        background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #d4a574;
+        transition: all 0.3s;
+        cursor: pointer;
+        border: 1px solid rgba(212, 165, 116, 0.2);
+        font-weight: 600;
+    }
 
-        .social-icon:hover {
-            background: linear-gradient(135deg, #d4a574, #c49563);
-            color: #000;
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(212, 165, 116, 0.4);
-        }
+    /* Social icon hover effect */
+    .social-icon:hover {
+        background: linear-gradient(135deg, #d4a574, #c49563);
+        color: #000;
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(212, 165, 116, 0.4);
+    }
 
-        .btn-primary {
-            background: transparent;
-            color: var(--gold);
-            padding: 1rem 3rem;
-            border: 1px solid var(--gold);
-            border-radius: 0; /* Sudut tajam lebih high fashion */
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.5s ease;
-            font-weight: 500;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;
-            opacity: 0;
-            animation: fadeInUp 1.2s ease forwards 1.1s;
-        }
+    /* ========================================
+       PRIMARY BUTTON - Newsletter Subscribe
+       ======================================== */
+    .btn-primary {
+        background: transparent;
+        color: var(--gold);
+        padding: 1rem 3rem;
+        border: 1px solid var(--gold);
+        border-radius: 0;                         /* Sharp corners untuk high fashion */
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.5s ease;
+        font-weight: 500;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        position: relative;
+        overflow: hidden;
+        opacity: 0;                               /* Hidden initially for animation */
+        animation: fadeInUp 1.2s ease forwards 1.1s;
+    }
 
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 100%;
-            background: var(--gold);
-            transition: width 0.4s ease;
-            z-index: -1;
-        }
+    /* Fill effect on hover */
+    .btn-primary::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        background: var(--gold);
+        transition: width 0.4s ease;
+        z-index: -1;
+    }
 
-        .btn-primary:hover::before {
-            width: 100%;
-        }
+    .btn-primary:hover::before {
+        width: 100%;
+    }
 
-        .btn-primary:hover {
-            color: #000;
-            box-shadow: 0 0 30px rgba(212, 165, 116, 0.4);
-        }
+    .btn-primary:hover {
+        color: #000;
+        box-shadow: 0 0 30px rgba(212, 165, 116, 0.4);
+    }
 
-        .footer-bottom {
-            text-align: center;
-            padding-top: 3rem;
-            border-top: 1px solid #222;
-            color: #666;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
+    /* ========================================
+       FOOTER BOTTOM - Copyright
+       ======================================== */
+    .footer-bottom {
+        text-align: center;
+        padding-top: 3rem;
+        border-top: 1px solid #222;
+        color: #666;
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
 
-        /* Animations */
-        .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s ease forwards; }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+    /* ========================================
+       ANIMATIONS
+       ======================================== */
+    /* Fade in and slide up animation */
+    .fade-in { 
+        opacity: 0; 
+        transform: translateY(20px); 
+        animation: fadeInUp 0.8s ease forwards; 
+    }
+    
+    @keyframes fadeInUp { 
+        to { 
+            opacity: 1; 
+            transform: translateY(0); 
+        } 
+    }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .checkout-container { grid-template-columns: 1fr; padding: 4rem 2rem; gap: 3rem; }
-            .nav-links { display: none; } .hamburger-btn { display: block; }
-            nav { padding: 0 2rem; }
-            .order-summary { position: static; }
-            .footer-content { grid-template-columns: 1fr 1fr; }
+    /* ========================================
+       RESPONSIVE DESIGN - Mobile & Tablet
+       ======================================== */
+    
+    /* Tablet breakpoint */
+    @media (max-width: 1024px) {
+        /* Stack checkout layout vertically */
+        .checkout-container { 
+            grid-template-columns: 1fr; 
+            padding: 4rem 2rem; 
+            gap: 3rem; 
         }
-        @media (max-width: 600px) {
-            .form-grid { grid-template-columns: 1fr; }
-            .payment-methods { grid-template-columns: 1fr; }
-            .footer-content { grid-template-columns: 1fr; }
-            .modal-content { padding: 2rem; }
+        
+        /* Hide desktop nav, show hamburger */
+        .nav-links { display: none; } 
+        .hamburger-btn { display: block; }
+        nav { padding: 0 2rem; }
+        
+        /* Remove sticky positioning on tablet */
+        .order-summary { position: static; }
+        
+        /* Footer to 2 columns */
+        .footer-content { 
+            grid-template-columns: 1fr 1fr; 
         }
-    </style>
+    }
+    
+    /* Mobile breakpoint */
+    @media (max-width: 600px) {
+        /* Stack form grid vertically */
+        .form-grid { 
+            grid-template-columns: 1fr; 
+        }
+        
+        /* Stack payment methods vertically */
+        .payment-methods { 
+            grid-template-columns: 1fr; 
+        }
+        
+        /* Footer to single column */
+        .footer-content { 
+            grid-template-columns: 1fr; 
+        }
+        
+        /* Reduce modal padding on mobile */
+        .modal-content { 
+            padding: 2rem; 
+        }
+    }
+</style>
 </head>
 <body>
 
-    <header id="header">
-        <nav>
-            <div class="logo" onclick="window.location.href='index.html'">Local Face</div>
-            <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
-                <li><a href="shop.html">Collection</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="service.html">Service</a></li>
-            </ul>
-            <div class="nav-icons">
-                <button class="icon-btn" id="search-button">
-                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <circle cx="11" cy="11" r="8"></circle>
-                        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-                    </svg>
-                </button>
-                <button class="icon-btn" onclick="window.location.href='profile.html'">
-                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                </button>
-                <button class="icon-btn" onclick="window.location.href='wishlist.html'">
-                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                    </svg>
-                    <span class="wishlist-badge" id="wishlist-badge">0</span>
-                </button>
-                <button class="icon-btn" onclick="window.location.href='cart.html'">
-                    <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
-                        <line x1="3" y1="6" x2="21" y2="6"></line>
-                        <path d="M16 10a4 4 0 0 1-8 0"></path>
-                    </svg>
-                    <span class="cart-badge" id="cart-badge">0</span>
-                </button>
-                <button class="hamburger-btn" id="hamburger-button">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
-            </div>
-        </nav>
-    </header>
-
-    <div class="mobile-nav" id="mobile-nav-menu">
-        <ul class="mobile-nav-links">
+    <!-- ========================================
+     FIXED HEADER - Top Navigation Bar
+     ======================================== -->
+<header id="header">
+    <nav>
+        <!-- Brand Logo - Clickable to home -->
+        <div class="logo" onclick="window.location.href='index.html'">Local Face</div>
+        
+        <!-- Desktop Navigation Links -->
+        <ul class="nav-links">
             <li><a href="index.html">Home</a></li>
             <li><a href="shop.html">Collection</a></li>
             <li><a href="about.html">About</a></li>
             <li><a href="service.html">Service</a></li>
         </ul>
-    </div>
-
-    <div class="search-overlay" id="searchOverlay">
-        <div class="search-container">
-            <div class="search-header">
-                <h2>Search Products</h2>
-                <button class="close-search" id="closeSearch">×</button>
-            </div>
-
-            <div class="search-input-wrapper">
-                <input 
-                    type="text" 
-                    class="search-input" 
-                    id="searchInput" 
-                    placeholder="Search for perfumes, fragrances, collections..."
-                    autocomplete="off"
-                >
-                <svg class="search-icon-input" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            </div>
-
-            <div class="search-results" id="searchResults">
-                <div class="popular-searches">
-                    <h3>Popular Searches</h3>
-                    <div class="popular-tags">
-                        <span class="popular-tag" data-search="amber">Amber</span>
-                        <span class="popular-tag" data-search="oud">Oud</span>
-                        <span class="popular-tag" data-search="floral">Floral</span>
-                        <span class="popular-tag" data-search="citrus">Citrus</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="page-header fade-in">
-        <h1 class="header-title">Secure Checkout</h1>
-        <div class="checkout-steps">
-            <span class="step">1. Bag</span>
-            <span class="step-line"></span>
-            <span class="step active"><span class="step-number">2</span> Details</span>
-            <span class="step-line"></span>
-            <span class="step">3. Complete</span>
-        </div>
-    </div>
-
-    <div class="checkout-container">
         
-        <div class="checkout-form fade-in" style="animation-delay: 0.2s;">
-            <form id="checkoutForm">
+        <!-- Right Side Icons: Search, Profile, Wishlist, Cart, Hamburger -->
+        <div class="nav-icons">
+            <!-- Search Button - Opens search overlay -->
+            <button class="icon-btn" id="search-button">
+                <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+                </svg>
+            </button>
+            
+            <!-- Profile Button - Links to profile page -->
+            <button class="icon-btn" onclick="window.location.href='profile.html'">
+                <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
+            </button>
+            
+            <!-- Wishlist Button - Shows badge with count -->
+            <button class="icon-btn" onclick="window.location.href='wishlist.html'">
+                <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                </svg>
+                <span class="wishlist-badge" id="wishlist-badge">0</span>
+            </button>
+            
+            <!-- Cart Button - Shows badge with count -->
+            <button class="icon-btn" onclick="window.location.href='cart.html'">
+                <svg class="icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                    <line x1="3" y1="6" x2="21" y2="6"></line>
+                    <path d="M16 10a4 4 0 0 1-8 0"></path>
+                </svg>
+                <span class="cart-badge" id="cart-badge">0</span>
+            </button>
+            
+            <!-- Hamburger Menu Button - Mobile only -->
+            <button class="hamburger-btn" id="hamburger-button">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </button>
+        </div>
+    </nav>
+</header>
 
-                <div class="form-section">
-                    <h2>Payment Method</h2>
-                    <div class="payment-methods">
-                        <div class="payment-option selected" data-method="credit-card">
-                            <span class="payment-icon">💳</span>
-                            <span class="payment-name">Credit Card</span>
-                        </div>
-                        <div class="payment-option" data-method="debit-card">
-                            <span class="payment-icon">🏦</span>
-                            <span class="payment-name">Debit Card</span>
-                        </div>
-                        <div class="payment-option" data-method="paypal">
-                            <span class="payment-icon">🅿️</span>
-                            <span class="payment-name">PayPal</span>
-                        </div>
+<!-- ========================================
+     MOBILE NAVIGATION - Full Screen Overlay
+     ======================================== -->
+<div class="mobile-nav" id="mobile-nav-menu">
+    <ul class="mobile-nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="shop.html">Collection</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="service.html">Service</a></li>
+    </ul>
+</div>
+
+<!-- ========================================
+     SEARCH OVERLAY - Full Screen Search
+     ======================================== -->
+<div class="search-overlay" id="searchOverlay">
+    <div class="search-container">
+        <!-- Search Header: Title + Close Button -->
+        <div class="search-header">
+            <h2>Search Products</h2>
+            <button class="close-search" id="closeSearch">×</button>
+        </div>
+
+        <!-- Search Input Field -->
+        <div class="search-input-wrapper">
+            <input 
+                type="text" 
+                class="search-input" 
+                id="searchInput" 
+                placeholder="Search for perfumes, fragrances, collections..."
+                autocomplete="off"
+            >
+            <svg class="search-icon-input" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        </div>
+
+        <!-- Search Results Container - Populated by JavaScript -->
+        <div class="search-results" id="searchResults">
+            <!-- Popular Searches - Shown when no search query -->
+            <div class="popular-searches">
+                <h3>Popular Searches</h3>
+                <div class="popular-tags">
+                    <span class="popular-tag" data-search="amber">Amber</span>
+                    <span class="popular-tag" data-search="oud">Oud</span>
+                    <span class="popular-tag" data-search="floral">Floral</span>
+                    <span class="popular-tag" data-search="citrus">Citrus</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ========================================
+     PAGE HEADER - Checkout Hero with Progress Steps
+     ======================================== -->
+<div class="page-header fade-in">
+    <h1 class="header-title">Secure Checkout</h1>
+    
+    <!-- Checkout Progress Indicator -->
+    <div class="checkout-steps">
+        <span class="step">1. Bag</span>
+        <span class="step-line"></span>
+        <span class="step active"><span class="step-number">2</span> Details</span>
+        <span class="step-line"></span>
+        <span class="step">3. Complete</span>
+    </div>
+</div>
+
+<!-- ========================================
+     CHECKOUT CONTAINER - Two Column Layout
+     ======================================== -->
+<div class="checkout-container">
+    
+    <!-- LEFT COLUMN: Checkout Form -->
+    <div class="checkout-form fade-in" style="animation-delay: 0.2s;">
+        <form id="checkoutForm">
+
+            <!-- ========================================
+                 PAYMENT METHOD SECTION
+                 ======================================== -->
+            <div class="form-section">
+                <h2>Payment Method</h2>
+                
+                <!-- Payment Method Selection Grid -->
+                <div class="payment-methods">
+                    <div class="payment-option selected" data-method="credit-card">
+                        <span class="payment-icon">💳</span>
+                        <span class="payment-name">Credit Card</span>
                     </div>
-
-                    <div id="cardDetails" style="margin-top: 2rem;">
-                        <div class="form-group">
-                            <label class="form-label">Card Number</label>
-                            <input type="text" id="cardNumber" class="form-input" placeholder="0000 0000 0000 0000">
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label class="form-label">Expiry Date</label>
-                                <input type="text" id="expiryDate" class="form-input" placeholder="MM/YY">
-                            </div>
-                            <div class="form-group">
-                                <label class="form-label">CVV</label>
-                                <input type="text" id="cvv" class="form-input" placeholder="123">
-                            </div>
-                        </div>
+                    <div class="payment-option" data-method="debit-card">
+                        <span class="payment-icon">🏦</span>
+                        <span class="payment-name">Debit Card</span>
                     </div>
-
-                    <div id="paypalDetails" style="margin-top: 2rem; display: none;">
-                        <div class="form-group">
-                            <label class="form-label">PayPal Email</label>
-                            <input type="email" id="paypalEmail" class="form-input" placeholder="email@example.com">
-                        </div>
-                        <p style="color: #888; font-size: 0.9rem;">You will be redirected to PayPal to complete your purchase.</p>
+                    <div class="payment-option" data-method="paypal">
+                        <span class="payment-icon">🅿️</span>
+                        <span class="payment-name">PayPal</span>
                     </div>
                 </div>
 
-                <div class="form-section">
+                <!-- Credit/Debit Card Details Form - Shown by default -->
+                <div id="cardDetails" style="margin-top: 2rem;">
                     <div class="form-group">
-                         <label class="form-label">Order Notes (Optional)</label>
-                         <textarea class="form-input" rows="3"></textarea>
+                        <label class="form-label">Card Number</label>
+                        <input type="text" id="cardNumber" class="form-input" placeholder="0000 0000 0000 0000">
                     </div>
-                     <div class="checkbox-group">
-                        <input type="checkbox" id="terms" required>
-                        <label for="terms">I agree to the Terms & Conditions</label>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label class="form-label">Expiry Date</label>
+                            <input type="text" id="expiryDate" class="form-input" placeholder="MM/YY">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">CVV</label>
+                            <input type="text" id="cvv" class="form-input" placeholder="123">
+                        </div>
                     </div>
                 </div>
 
-            </form>
-        </div>
-
-        <div class="order-summary fade-in" style="animation-delay: 0.3s;">
-            <div class="summary-header">
-                <h3 class="summary-title">Your Order</h3>
-            </div>
-            
-            <div class="order-items" id="orderItems">
-                <p style="color: #666; font-style: italic;">Loading items...</p>
-            </div>
-
-            <div class="summary-row">
-                <span>Subtotal</span>
-                <span id="summarySubtotal">$0.00</span>
-            </div>
-            <div class="summary-row">
-                <span>Shipping</span>
-                <span id="summaryShipping">$10.00</span>
-            </div>
-            <div class="summary-row">
-                <span>Tax (10%)</span>
-                <span id="summaryTax">$0.00</span>
-            </div>
-            
-            <div class="summary-total">
-                <span>Total</span>
-                <span id="summaryTotal">$0.00</span>
-            </div>
-
-            <button type="submit" class="btn-place-order" id="placeOrderBtn">Place Order</button>
-            
-            <div class="secure-badge">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
-                Secure SSL Encrypted
-            </div>
-        </div>
-
-    </div>
-
-    <div class="success-modal" id="successModal">
-        <div class="modal-content">
-            <div class="success-icon">✓</div>
-            <h2 class="modal-title">Payment Successful</h2>
-            <p class="modal-text">Thank you for your purchase. Your order has been received and is being prepared.</p>
-            <div class="order-ref" id="orderNumber">Order #LF-...</div>
-            <br>
-            <button class="btn-home" onclick="window.location.href='index.html'">Back to Home</button>
-        </div>
-    </div>
-
-    <footer>
-        <div class="footer-content reveal-on-scroll" id="contact"> 
-            <div class="footer-section">
-                <h3>About Us</h3>
-                <p>Local Face is your destination for premium fragrances. We offer an exquisite collection of perfumes that embody luxury and sophistication.</p>
-                <div class="social-icons">
-                    <div class="social-icon">f</div>
-                    <div class="social-icon">t</div>
-                    <div class="social-icon">i</div>
-                    <div class="social-icon">y</div>
+                <!-- PayPal Details Form - Hidden by default, shown when PayPal selected -->
+                <div id="paypalDetails" style="margin-top: 2rem; display: none;">
+                    <div class="form-group">
+                        <label class="form-label">PayPal Email</label>
+                        <input type="email" id="paypalEmail" class="form-input" placeholder="email@example.com">
+                    </div>
+                    <p style="color: #888; font-size: 0.9rem;">You will be redirected to PayPal to complete your purchase.</p>
                 </div>
             </div>
-            <div class="footer-section">
-                <h3>Quick Links</h3>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="shop.html">Shop</a></li>
-                    <li><a href="#values">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
+
+            <!-- ========================================
+                 ORDER NOTES & TERMS SECTION
+                 ======================================== -->
+            <div class="form-section">
+                <!-- Optional Order Notes Textarea -->
+                <div class="form-group">
+                     <label class="form-label">Order Notes (Optional)</label>
+                     <textarea class="form-input" rows="3"></textarea>
+                </div>
+                
+                <!-- Terms & Conditions Checkbox - Required -->
+                <div class="checkbox-group">
+                    <input type="checkbox" id="terms" required>
+                    <label for="terms">I agree to the Terms & Conditions</label>
+                </div>
             </div>
-            <div class="footer-section">
-                <h3>Customer Service</h3>
-                <ul>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Shipping Info</a></li>
-                    <li><a href="#">Returns</a></li>
-                    <li><a href="#">Track Order</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Contact</h3>
-                <ul>
-                    <li><a href="#">Email Us</a></li>
-                    <li><a href="#">Call Us</a></li>
-                    <li><a href="#">Store Locator</a></li>
-                </ul>
-            </div>
-            <div class="footer-section">
-                <h3>Newsletter</h3>
-                <p>Subscribe to get special offers and updates.</p>
-                <button class="btn-primary" style="margin-top: 1rem; padding: 0.8rem 2rem;">Subscribe</button>
+
+        </form>
+    </div>
+
+    <!-- RIGHT COLUMN: Order Summary (Sticky) -->
+    <div class="order-summary fade-in" style="animation-delay: 0.3s;">
+        <!-- Summary Header -->
+        <div class="summary-header">
+            <h3 class="summary-title">Your Order</h3>
+        </div>
+        
+        <!-- Order Items List - Populated by JavaScript -->
+        <div class="order-items" id="orderItems">
+            <p style="color: #666; font-style: italic;">Loading items...</p>
+        </div>
+
+        <!-- Price Breakdown -->
+        <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="summarySubtotal">$0.00</span>
+        </div>
+        <div class="summary-row">
+            <span>Shipping</span>
+            <span id="summaryShipping">$10.00</span>
+        </div>
+        <div class="summary-row">
+            <span>Tax (10%)</span>
+            <span id="summaryTax">$0.00</span>
+        </div>
+        
+        <!-- Total Amount - Highlighted -->
+        <div class="summary-total">
+            <span>Total</span>
+            <span id="summaryTotal">$0.00</span>
+        </div>
+
+        <!-- Place Order Button - Primary CTA -->
+        <button type="submit" class="btn-place-order" id="placeOrderBtn">Place Order</button>
+        
+        <!-- Security Badge -->
+        <div class="secure-badge">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+            Secure SSL Encrypted
+        </div>
+    </div>
+
+</div>
+
+<!-- ========================================
+     SUCCESS MODAL - Order Confirmation Overlay
+     ======================================== -->
+<div class="success-modal" id="successModal">
+    <div class="modal-content">
+        <!-- Success Checkmark Icon -->
+        <div class="success-icon">✓</div>
+        
+        <!-- Success Message -->
+        <h2 class="modal-title">Payment Successful</h2>
+        <p class="modal-text">Thank you for your purchase. Your order has been received and is being prepared.</p>
+        
+        <!-- Order Reference Number - Generated by JavaScript -->
+        <div class="order-ref" id="orderNumber">Order #LF-...</div>
+        <br>
+        
+        <!-- Back to Home Button -->
+        <button class="btn-home" onclick="window.location.href='index.html'">Back to Home</button>
+    </div>
+</div>
+
+<!-- ========================================
+     FOOTER - Site Footer with Links & Newsletter
+     ======================================== -->
+<footer>
+    <div class="footer-content reveal-on-scroll" id="contact"> 
+        <!-- Footer Column 1: About -->
+        <div class="footer-section">
+            <h3>About Us</h3>
+            <p>Local Face is your destination for premium fragrances. We offer an exquisite collection of perfumes that embody luxury and sophistication.</p>
+            
+            <!-- Social Media Icons -->
+            <div class="social-icons">
+                <div class="social-icon">f</div>
+                <div class="social-icon">t</div>
+                <div class="social-icon">i</div>
+                <div class="social-icon">y</div>
             </div>
         </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Local Face. All rights reserved.</p>
+        
+        <!-- Footer Column 2: Quick Links -->
+        <div class="footer-section">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="shop.html">Collection</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="service.html">Service</a></li>
+            </ul>
         </div>
-    </footer>
+        
+        <!-- Footer Column 3: Customer Service -->
+        <div class="footer-section">
+            <h3>Customer Service</h3>
+            <ul>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Shipping Info</a></li>
+                <li><a href="#">Returns</a></li>
+                <li><a href="#">Track Order</a></li>
+            </ul>
+        </div>
+        
+        <!-- Footer Column 4: Contact -->
+        <div class="footer-section">
+            <h3>Contact</h3>
+            <ul>
+                <li><a href="#">Email Us</a></li>
+                <li><a href="#">Call Us</a></li>
+                <li><a href="#">Store Locator</a></li>
+            </ul>
+        </div>
+        
+        <!-- Footer Column 5: Newsletter -->
+        <div class="footer-section">
+            <h3>Newsletter</h3>
+            <p>Subscribe to get special offers and updates.</p>
+            <button class="btn-primary" style="margin-top: 1rem; padding: 0.8rem 2rem;">Subscribe</button>
+        </div>
+    </div>
+    
+    <!-- Copyright Section -->
+    <div class="footer-bottom">
+        <p>&copy; 2024 Local Face. All rights reserved.</p>
+    </div>
+</footer>
+
+<!-- JavaScript File - Handles checkout functionality, form validation, payment processing, etc. -->
 <script src="main.js"></script>
 </body>
 </html>
