@@ -709,15 +709,59 @@
     }
 
     @media (max-width: 768px) {
-        /* Header Adjustment */
-        header { padding: 1rem 0; }
-        header.scrolled { padding: 0.8rem 0; }
-        nav { padding: 0 1.5rem; }
-        .logo { font-size: 1.3rem; letter-spacing: 2px; }
-        
-        /* Page Header */
-        .page-header { height: 30vh; margin-top: 60px; }
-        .header-content h1 { font-size: 2.2rem; }
+            /* Header mobile optimization */
+            header {
+                padding: 1rem 0;
+            }
+            
+            header.scrolled {
+                padding: 0.8rem 0;
+            }
+            
+            /* Nav container mobile */
+            nav {
+                padding: 0 1.5rem;
+            }
+            
+            /* Pastikan hamburger muncul di mobile */
+            .nav-links {
+                display: none !important;
+            }
+            
+            
+            /* Logo lebih kecil di mobile */
+            .logo {
+                font-size: 1.3rem;
+                letter-spacing: 2px;
+            }
+            
+            /* Nav icons spacing lebih kecil */
+            .nav-icons {
+                gap: 0.8rem;
+            }
+            
+            /* Icon button dengan better touch target */
+            .icon-btn {
+                padding: 0.3rem;
+                min-width: 40px;
+                min-height: 40px;
+            }
+            
+            /* Icon size lebih kecil tapi masih touch-friendly */
+            .icon-svg {
+                width: 18px;
+                height: 18px;
+            }
+            
+            /* Badge positioning */
+            .wishlist-badge, .cart-badge {
+                top: -4px;
+                right: -4px;
+                width: 14px;
+                height: 14px;
+                font-size: 0.55rem;
+            }
+            
         .breadcrumb { font-size: 0.7rem; }
 
         /* Wishlist Container */
