@@ -828,8 +828,92 @@
         }
 
         /* ===================================
+        FEATURED CATEGORIES
+        =================================== */
+        .featured-categories {
+            background: linear-gradient(180deg, var(--black) 0%, var(--dark-grey) 50%, var(--black) 100%);
+            padding-top: 1rem;
+        }
+
+        .categories-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .category-card {
+            position: relative;
+            height: 500px;
+            overflow: hidden;
+            cursor: pointer;
+            border-radius: 10px;
+            border: 1px solid rgba(212, 165, 116, 0.1);
+        }
+
+        .category-image {
+            width: 100%;
+            height: 100%;
+            background-size: cover;
+            background-position: center;
+            transition: transform 0.8s ease;
+        }
+
+        .category-card:hover .category-image {
+            transform: scale(1.1);
+        }
+
+        .category-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.95), transparent);
+            padding: 3rem;
+            transform: translateY(20px);
+            transition: transform 0.5s ease;
+        }
+
+        .category-card:hover .category-content {
+            transform: translateY(0);
+        }
+
+        .category-content h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            font-style: italic;
+        }
+
+        .category-content p {
+            color: var(--gold);
+            font-size: 1rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .category-arrow {
+            display: inline-block;
+            color: var(--gold);
+            font-size: 2rem;
+            transform: translateX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover .category-arrow {
+            transform: translateX(10px);
+        }
+
+        /* ===================================
            COLLECTIONS SECTION
            =================================== */
+        .collections {
+            padding-top: 1rem; /* Mengurangi dari 10rem menjadi 5rem */
+        }
+
         .collections-grid {
             max-width: 1400px;
             margin: 0 auto;
@@ -896,48 +980,258 @@
            PROMO SECTION
            =================================== */
         .promo {
-            height: 60vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            position: relative;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3));
+            /* Menggunakan gambar background dari attribute style di HTML */
             background-size: cover;
             background-position: center;
             background-attachment: scroll;
+            padding: 100px 0;
+            position: relative;
+            overflow: hidden;
         }
 
-        /* Dark overlay untuk readability */
         .promo::before {
+            /* Overlay gelap untuk memastikan teks Gold terlihat jelas */
             content: '';
             position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.8);
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.75); /* Kualitas gelap yang pekat */
+            z-index: 1;
         }
 
         .promo-content {
             position: relative;
-            z-index: 1;
-            max-width: 800px;
-            padding: 2rem;
+            z-index: 5; /* Pastikan di atas overlay */
+            width: 90%;
+            max-width: 700px; /* Batasi lebar konten agar tidak terlalu lebar di desktop */
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .promo-badge {
+            display: inline-block;
+            background-color: var(--gold);
+            color: var(--black);
+            padding: 8px 15px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 20px;
         }
 
         .promo-content h2 {
+            font-size: 4.5rem; /* Ukuran heading yang besar*/
+            color: white;
+            margin-bottom: 5px;
+            line-height: 1;
+        }
+
+        .promo-discount {
             font-family: 'Playfair Display', serif;
-            font-size: 3.5rem;
-            color: var(--gold);
-            margin-bottom: 1.5rem;
-            font-weight: 400;
-            line-height: 1.2;
+            font-size: 2.5rem;
+            color: var(--gold-light);
+            font-weight: 700;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
         }
 
         .promo-content p {
+            color: var(--text-muted);
             font-size: 1.1rem;
-            color: #ccc;
+            margin-bottom: 40px;
+        }
+
+        /* Countdown Timer Styling */
+        .promo-countdown {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .countdown-item {
+            text-align: center;
+        }
+
+        .countdown-number {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+        }
+
+        .countdown-label {
+            display: block;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            margin-top: 5px;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .promo {
+                padding: 80px 0;
+                background-attachment: scroll; /* Matikan parallax di mobile */
+            }
+            .promo-content h2 {
+                font-size: 3rem;
+            }
+            .promo-discount {
+                font-size: 1.8rem;
+            }
+            .promo-countdown {
+                gap: 15px;
+            }
+            .countdown-number {
+                font-size: 2rem;
+            }
+        }
+
+        /* ===================================
+        TESTIMONIALS SECTION
+        =================================== */
+        .testimonials {
+            background: linear-gradient(180deg, var(--black) 0%, var(--dark-grey) 50%, var(--dark-grey) 50%);
+            padding-bottom: 2rem;
+        }
+
+        .testimonials-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 3rem;
+        }
+
+        .testimonial-card {
+            background: linear-gradient(145deg, #0a0a0a, #121212);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            border-radius: 20px;
+            padding: 3rem;
+            transition: all 0.5s ease;
+        }
+
+        .testimonial-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(212, 165, 116, 0.2);
+        }
+
+        .testimonial-stars {
+            color: var(--gold);
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .testimonial-text {
+            font-size: 1.1rem;
+            line-height: 2;
+            color: var(--text-muted);
+            font-style: italic;
             margin-bottom: 2rem;
             font-weight: 300;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(212, 165, 116, 0.1);
+        }
+
+        .testimonial-author img {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            border: 2px solid var(--gold);
+        }
+
+        .testimonial-author h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: #fff;
+            margin-bottom: 0.2rem;
+        }
+
+        .testimonial-author span {
+            color: var(--gold);
+            font-size: 0.85rem;
             letter-spacing: 1px;
+        }
+
+
+        /* ===================================
+        WHY CHOOSE US
+        =================================== */
+        .why-choose-us {
+            background: linear-gradient(180deg, var(--dark-grey) 50%, var(--black) 100%);
+            padding: 5rem;
+        }
+
+        .why-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 3rem;
+        }
+
+        .why-item {
+            text-align: center;
+            padding: 2rem;
+        }
+
+        .why-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            background: linear-gradient(135deg, rgba(212, 165, 116, 0.1), rgba(212, 165, 116, 0.05));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid rgba(212, 165, 116, 0.3);
+            transition: all 0.4s ease;
+        }
+
+        .why-item:hover .why-icon {
+            background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+            border-color: var(--gold);
+            transform: translateY(-5px) rotate(5deg);
+        }
+
+        .why-icon svg {
+            width: 40px;
+            height: 40px;
+            stroke: var(--gold);
+            transition: stroke 0.4s ease;
+        }
+
+        .why-item:hover .why-icon svg {
+            stroke: #000;
+        }
+
+        .why-item h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--gold);
+            margin-bottom: 1rem;
+        }
+
+        .why-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            font-weight: 300;
         }
 
         /* ===================================
@@ -1459,6 +1753,45 @@
     </section>
 
     <!-- ===================================
+         FEATURED CATEGORIES SECTION
+         =================================== -->
+    <section class="section-padding featured-categories">
+        <div class="section-header">
+            <span class="section-subtitle">Shop by Category</span>
+            <h2 class="section-title">Find Your <i>Perfect Match</i></h2>
+        </div>
+        
+        <div class="categories-grid">
+            <!-- Category 1: Women -->
+            <div class="category-card reveal-on-scroll" onclick="window.location.href='shop.html?category=female'">
+                <div class="category-image" style="background-image: url('https://images.pexels.com/photos/14496154/pexels-photo-14496154.jpeg');"></div>
+                <div class="category-content">
+                    <h3>Female</h3>
+                    <p>Elegant & Feminine</p>
+                </div>
+            </div>
+            
+            <!-- Category 2: Men -->
+            <div class="category-card reveal-on-scroll" onclick="window.location.href='shop.html?category=male'">
+                <div class="category-image" style="background-image: url('https://images.pexels.com/photos/31847826/pexels-photo-31847826.jpeg');"></div>
+                <div class="category-content">
+                    <h3>Male</h3>
+                    <p>Bold & Sophisticated</p>
+                </div>
+            </div>
+            
+            <!-- Category 3: Unisex -->
+            <div class="category-card reveal-on-scroll" onclick="window.location.href='shop.html?category=unisex'">
+                <div class="category-image" style="background-image: url('https://images.pexels.com/photos/11711829/pexels-photo-11711829.jpeg');"></div>
+                <div class="category-content">
+                    <h3>Unisex</h3>
+                    <p>Timeless & Universal</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================
          COLLECTIONS SECTION
          =================================== -->
     <section class="section-padding collections">
@@ -1498,11 +1831,137 @@
     <!-- ===================================
          PROMO SECTION
          =================================== -->
+
     <section class="promo" style="background-image: url('https://images.pexels.com/photos/6945831/pexels-photo-6945831.jpeg');">
         <div class="promo-content">
-            <h2>Experience Luxury in a Bottle</h2>
-            <p>Visit our flagship store or explore our entire collection online to find your perfect signature scent.</p>
-            <button class="btn-primary" onclick="window.location.href='shop.html'">Explore Our Collection</button>
+            <div class="promo-badge">LIMITED TIME OFFER</div>
+            <h2>Black Friday Sale</h2>
+            <div class="promo-discount">UP TO 40% OFF</div>
+            <p>Discover luxury fragrances at unbeatable prices. Free shipping on orders over $75. Offer ends soon!</p>
+            <div class="promo-countdown">
+                <div class="countdown-item">
+                    <span class="countdown-number" id="days">00</span>
+                    <span class="countdown-label">Days</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="hours">00</span>
+                    <span class="countdown-label">Hours</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="minutes">00</span>
+                    <span class="countdown-label">Minutes</span>
+                </div>
+                <div class="countdown-item">
+                    <span class="countdown-number" id="seconds">00</span>
+                    <span class="countdown-label">Seconds</span>
+                </div>
+            </div>
+            <button class="btn-primary" onclick="window.location.href='shop.html'">Shop Now</button>
+        </div>
+    </section>
+
+    <!-- ===================================
+         TESTIMONIALS SECTION
+         =================================== -->
+    <section class="section-padding testimonials">
+        <div class="section-header">
+            <span class="section-subtitle">What Our Clients Say</span>
+            <h2 class="section-title">Real Stories, <i>Real Elegance</i></h2>
+        </div>
+        
+        <div class="testimonials-grid">
+            <!-- Testimonial 1 -->
+            <div class="testimonial-card reveal-on-scroll">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"Local Face has become my go-to for luxurious fragrances. The Amber Nights is absolutely divine and lasts all day. The quality is unmatched!"</p>
+                <div class="testimonial-author">
+                    <img src="https://i.pravatar.cc/150?img=32" alt="Sarah Mitchell">
+                    <div>
+                        <h4>Sarah Mitchell</h4>
+                        <span>New York, NY</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 2 -->
+            <div class="testimonial-card reveal-on-scroll">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"I've tried many perfume brands, but Local Face stands out. The Golden Aura is my signature scent now. People always ask me what I'm wearing!"</p>
+                <div class="testimonial-author">
+                    <img src="https://i.pravatar.cc/150?img=13" alt="Michael Chen">
+                    <div>
+                        <h4>Michael Chen</h4>
+                        <span>Los Angeles, CA</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Testimonial 3 -->
+            <div class="testimonial-card reveal-on-scroll">
+                <div class="testimonial-stars">★★★★★</div>
+                <p class="testimonial-text">"The packaging, the scent, the longevity - everything is perfect. Local Face delivers luxury in every bottle. Highly recommended!"</p>
+                <div class="testimonial-author">
+                    <img src="https://i.pravatar.cc/150?img=47" alt="Emma Rodriguez">
+                    <div>
+                        <h4>Emma Rodriguez</h4>
+                        <span>Miami, FL</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===================================
+         WHY CHOOSE US SECTION
+         =================================== -->
+    <section class="why-choose-us">
+        <div class="why-grid">
+            <!-- Feature 1 -->
+            <div class="why-item reveal-on-scroll">
+                <div class="why-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M12 2L2 7l10 5 10-5-10-5z"/>
+                        <path d="M2 17l10 5 10-5M2 12l10 5 10-5"/>
+                    </svg>
+                </div>
+                <h3>Premium Quality</h3>
+                <p>Crafted with the finest ingredients sourced globally</p>
+            </div>
+            
+            <!-- Feature 2 -->
+            <div class="why-item reveal-on-scroll">
+                <div class="why-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>
+                        <polyline points="9 22 9 12 15 12 15 22"/>
+                    </svg>
+                </div>
+                <h3>Fast Delivery</h3>
+                <p>Free shipping on orders over $100 with 2-3 day delivery</p>
+            </div>
+            
+            <!-- Feature 3 -->
+            <div class="why-item reveal-on-scroll">
+                <div class="why-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/>
+                        <polyline points="22 4 12 14.01 9 11.01"/>
+                    </svg>
+                </div>
+                <h3>Authenticity</h3>
+                <p>100% authentic products with certificate of authenticity</p>
+            </div>
+            
+            <!-- Feature 4 -->
+            <div class="why-item reveal-on-scroll">
+                <div class="why-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                        <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+                    </svg>
+                </div>
+                <h3>Expert Support</h3>
+                <p>Our fragrance experts are available 24/7 to help you choose</p>
+            </div>
         </div>
     </section>
 

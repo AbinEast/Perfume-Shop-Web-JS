@@ -712,6 +712,31 @@
             .search-result-item { grid-template-columns: 80px 1fr; gap: 1rem; }
             .result-image { width: 80px; height: 80px; }
         }
+
+        /* ===================================
+           NOTIFICATION
+           =================================== */
+        .notification {
+            position: fixed;
+            top: 9rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            color: #000;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(400px);
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
     </style>
 </head>
 <body>

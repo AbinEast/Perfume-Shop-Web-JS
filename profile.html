@@ -528,23 +528,30 @@
         .order-date { color: #666; font-size: 0.9rem; }
         .order-total { color: var(--gold); font-size: 1.1rem; font-weight: 600; }
 
-        /* Notifications */
+        /* ===================================
+           NOTIFICATION
+           =================================== */
         .notification {
             position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: #1a1a1a;
-            color: #fff;
-            padding: 1rem 2rem;
+            top: 9rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            color: #000;
+            padding: 1rem 1.5rem;
             border-radius: 10px;
-            border-left: 4px solid var(--gold);
-            transform: translateY(100px);
-            opacity: 0;
-            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 0.9rem;
             z-index: 9999;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+            opacity: 0;
+            transform: translateX(400px);
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
         }
-        .notification.show { transform: translateY(0); opacity: 1; }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
 
         /* --- FOOTER --- */
         footer {
@@ -802,7 +809,7 @@
                 <li><a href="#" class="active" onclick="window.location.href='profile.html'"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg> Account Info</a></li>
                 <li><a href="#" onclick="showAllOrders(); return false;"><svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path><line x1="3" y1="6" x2="21" y2="6"></line><path d="M16 10a4 4 0 0 1-8 0"></path></svg> Order History</a></li>
                 <li><a href="#" onclick="showWishlistModal(); return false;"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg> Wishlist</a></li>
-                <li><a href="#" id="btn-signout" style="color: #d45454;"><svg style="stroke: #d45454;" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Sign Out</a></li>
+                <li><a href="#" onclick="window.location.href='signup.html'"style="color: #d45454;"><svg style="stroke: #d45454;" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg> Sign Out</a></li>
             </ul>
         </aside>
 
