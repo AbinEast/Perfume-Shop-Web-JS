@@ -960,44 +960,83 @@
             .footer-content { grid-template-columns: 1fr 1fr; }
         }
 
+        
         /* ===================================
-           RESPONSIVE DESIGN - MOBILE (Max-width: 768px)
-           =================================== */
+        RESPONSIVE DESIGN - MOBILE (Max-width: 768px)
+        =================================== */
         @media (max-width: 768px) {
-            /* Header & Nav */
-            header { padding: 1rem 0; }
-            header.scrolled { padding: 0.8rem 0; }
-            nav { padding: 0 1.5rem; }
-            .logo { font-size: 1.3rem; letter-spacing: 2px; }
-            .nav-icons { gap: 0.8rem; }
-            .icon-btn { min-width: 40px; min-height: 40px; }
-            .icon-svg { width: 18px; height: 18px; }
-            .wishlist-badge, .cart-badge { top: -4px; right: -4px; width: 14px; height: 14px; font-size: 0.55rem; }
-            .mobile-nav-links a { font-size: 2rem; }
-
-            /* Page Header */
-            .page-header { height: 25vh; margin-top: 60px; }
-            .header-title { font-size: 2.5rem; }
-            .filters-bar { flex-direction: column; align-items: flex-start; gap: 1rem; }
-            .offers-grid {
-                grid-template-columns: 1fr;
+            /* Header mobile optimization */
+            header {
+                padding: 1rem 0;
             }
-
-            .offer-card {
-                grid-template-columns: 1fr;
+            
+            header.scrolled {
+                padding: 0.8rem 0;
             }
-
-            .shop-container {
-                padding: 0 2rem 5rem;
+            
+            /* Nav container mobile */
+            nav {
+                padding: 0 1.5rem;
             }
-
-            .special-offers h2 {
-                font-size: 2.5rem;
+            
+            /* Pastikan hamburger muncul di mobile */
+            .nav-links {
+                display: none !important;
             }
-            .footer-content { grid-template-columns: 1fr; }
-            .search-result-item { grid-template-columns: 70px 1fr; gap: 1rem; }
-            .result-image { width: 70px; height: 70px; }
-        }
+            
+            
+            /* Logo lebih kecil di mobile */
+            .logo {
+                font-size: 1.3rem;
+                letter-spacing: 2px;
+            }
+            
+            /* Nav icons spacing lebih kecil */
+            .nav-icons {
+                gap: 0.8rem;
+            }
+            
+            /* Icon button dengan better touch target */
+            .icon-btn {
+                padding: 0.3rem;
+                min-width: 40px;
+                min-height: 40px;
+            }
+            
+            /* Icon size lebih kecil tapi masih touch-friendly */
+            .icon-svg {
+                width: 18px;
+                height: 18px;
+            }
+            
+            /* Badge positioning */
+            .wishlist-badge, .cart-badge {
+                top: -4px;
+                right: -4px;
+                width: 14px;
+                height: 14px;
+                font-size: 0.55rem;
+            }
+                    .filters-bar { flex-direction: column; align-items: flex-start; gap: 1rem; }
+                    .offers-grid {
+                        grid-template-columns: 1fr;
+                    }
+
+                    .offer-card {
+                        grid-template-columns: 1fr;
+                    }
+
+                    .shop-container {
+                        padding: 0 2rem 5rem;
+                    }
+
+                    .special-offers h2 {
+                        font-size: 2.5rem;
+                    }
+                    .footer-content { grid-template-columns: 1fr; }
+                    .search-result-item { grid-template-columns: 70px 1fr; gap: 1rem; }
+                    .result-image { width: 70px; height: 70px; }
+                }
     </style>
 </head>
 <body>
