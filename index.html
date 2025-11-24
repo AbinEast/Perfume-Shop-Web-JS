@@ -1405,98 +1405,116 @@
         }
 
         /* ===================================
-           RESPONSIVE DESIGN - TABLET
-           =================================== */
-        @media (max-width: 1024px) {
-            /* Hero text lebih kecil di tablet */
-            .hero h1 {
-                font-size: 4rem;
-            }
-            
-            /* Product grid jadi 2 kolom */
-            .product-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            
-            /* Values grid jadi 1 kolom (stacked) */
-            .values-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .values-img {
-                min-height: 400px;
-            }
-            
-            /* Sembunyikan nav links, tampilkan hamburger */
-            .nav-links {
-                display: none;
-            }
-            
-            .hamburger-btn {
-                display: block;
-            }
-            
-            /* Reduce padding di tablet */
-            nav {
-                padding: 0 2rem;
-            }
-            
-            .section-padding {
-                padding: 6rem 2rem;
-            }
-            
-            /* Footer jadi 2 kolom */
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
+   RESPONSIVE DESIGN - TABLET (Max-width: 1024px)
+   =================================== */
+@media (max-width: 1024px) {
+    /* Hero text lebih kecil di tablet */
+    .hero h1 {
+        font-size: 4rem;
+    }
+    
+    /* Product grid jadi 2 kolom */
+    .product-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    /* Values grid jadi 1 kolom (stacked) */
+    .values-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .values-img {
+        min-height: 400px; /* Tinggi gambar diperkecil */
+    }
+    
+    /* Sembunyikan nav links desktop, tampilkan hamburger */
+    .nav-links {
+        display: none;
+    }
+    
+    .hamburger-btn {
+        display: block;
+    }
+    
+    /* Reduce padding di tablet */
+    nav {
+        padding: 0 2rem;
+    }
+    
+    .section-padding {
+        padding: 6rem 2rem;
+    }
+    
+    /* Footer jadi 2 kolom */
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+    }
+}
 
-        /* ===================================
-           RESPONSIVE DESIGN - MOBILE
-           =================================== */
-        @media (max-width: 768px) {
-            /* Hero text lebih kecil lagi di mobile */
-            .hero h1 {
-                font-size: 3rem;
-            }
-            
-            .hero h1 .line-1 {
-                font-size: 1rem;
-                letter-spacing: 4px;
-            }
-            
-            /* Section title lebih kecil */
-            .section-title {
-                font-size: 2.5rem;
-            }
-            
-            /* Collections grid jadi 1 kolom */
-            .collections-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            /* Remove large span untuk mobile */
-            .collection-item.large {
-                height: 400px;
-                grid-row: auto;
-            }
-            
-            .collection-item {
-                height: 400px;
-            }
-            
-            /* Footer jadi 1 kolom penuh */
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-            }
-            
-            /* Promo content full width */
-            .promo-content {
-                padding: 2rem;
-                width: 90%;
-            }
-        }
+/* ===================================
+   RESPONSIVE DESIGN - MOBILE (Max-width: 768px)
+   =================================== */
+@media (max-width: 768px) {
+    /* Hero text lebih kecil lagi di mobile */
+    .hero h1 {
+        font-size: 3rem;
+    }
+    
+    .hero h1 .line-1 {
+        font-size: 1rem;
+        letter-spacing: 4px;
+    }
+    
+    /* Section title lebih kecil */
+    .section-title {
+        font-size: 2.5rem;
+    }
+    
+    /* Collections grid jadi 1 kolom */
+    .collections-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    /* Remove large span untuk mobile */
+    .collection-item.large {
+        height: 400px;
+        grid-row: auto;
+    }
+    
+    .collection-item {
+        height: 400px;
+    }
+    
+    /* Footer jadi 1 kolom penuh */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+    
+    /* Promo content full width */
+    .promo-content {
+        padding: 2rem;
+        width: 90%;
+    }
+    
+    /* Penyesuaian lain untuk Promo Section */
+    .promo {
+        padding: 80px 0;
+        background-attachment: scroll; /* Matikan parallax di mobile */
+    }
+    .promo-content h2 {
+        font-size: 3rem;
+    }
+    .promo-discount {
+        font-size: 1.8rem;
+    }
+    .promo-countdown {
+        gap: 15px;
+    }
+    .countdown-number {
+        font-size: 2rem;
+    }
+}
     </style>
 </head>
 <body>
