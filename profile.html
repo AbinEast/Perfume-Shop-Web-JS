@@ -703,20 +703,79 @@
         .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s ease forwards; }
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .profile-container { grid-template-columns: 1fr; gap: 3rem; padding: 8rem 2rem; }
-            .profile-sidebar { position: relative; top: 0; }
-            .nav-links { display: none; } .hamburger-btn { display: block; }
-            nav { padding: 0 2rem; }
-            .footer-content { grid-template-columns: 1fr 1fr; }
+    /* ===================================
+       RESPONSIVE DESIGN (MOBILE & TABLET)
+       =================================== */
+    @media (max-width: 1024px) {
+        .nav-links { display: none; }
+        .hamburger-btn { display: block; }
+        nav { padding: 0 2rem; }
+        
+        /* Grid Tablet/Smaller Desktop */
+        .profile-container {
+            grid-template-columns: 1fr; /* Sidebar & Content Stack */
+            gap: 3rem;
+            padding: 8rem 2rem 4rem; /* Sesuaikan padding atas */
         }
-        @media (max-width: 600px) {
-            .form-grid { grid-template-columns: 1fr; }
-            .footer-content { grid-template-columns: 1fr; }
-            .search-result-item { grid-template-columns: 80px 1fr; gap: 1rem; }
-            .result-image { width: 80px; height: 80px; }
+        
+        /* Sidebar Styling Mobile */
+        .profile-sidebar {
+            position: relative; top: 0;
+            display: flex; flex-direction: column; align-items: center;
+            border-bottom: 1px solid rgba(212, 165, 116, 0.1);
         }
+        .profile-menu {
+            width: 100%; display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+            margin-top: 1rem;
+        }
+        .profile-menu li { margin-bottom: 0; }
+        .profile-menu a { justify-content: center; background: rgba(255,255,255,0.03); }
+        
+        .footer-content { grid-template-columns: 1fr 1fr; }
+    }
+
+    @media (max-width: 768px) {
+        /* Header Mobile */
+        header { padding: 1rem 0; }
+        header.scrolled { padding: 0.8rem 0; }
+        nav { padding: 0 1.5rem; }
+        .logo { font-size: 1.3rem; letter-spacing: 2px; }
+        
+        /* Profile Mobile */
+        .profile-container { padding: 6rem 1.5rem 2rem; margin-top: 0; }
+        
+        /* Sidebar Compact Mobile */
+        .profile-menu { grid-template-columns: 1fr; /* Full width button links */ }
+        .profile-menu a { padding: 1.2rem; } /* Target sentuh besar */
+        
+        /* Form Input Stack */
+        .form-grid { grid-template-columns: 1fr; gap: 1rem; }
+        .form-group.full { grid-column: span 1; }
+        
+        /* Font Adjustments */
+        .section-title { font-size: 1.8rem; }
+        .btn-edit { font-size: 0.7rem; padding: 0.4rem 1rem; }
+        
+        /* Order Card Compact */
+        .order-card { padding: 1.5rem; }
+        .item-img { width: 50px; height: 50px; }
+        .order-id { font-size: 1rem; }
+        .order-status { font-size: 0.7rem; }
+        
+        /* Footer Mobile */
+        .footer-content { grid-template-columns: 1fr; gap: 3rem; padding: 0 1rem; }
+        footer { padding: 3rem 1.5rem 2rem; }
+    }
+    
+    @media (max-width: 480px) {
+        .nav-icons { gap: 0.8rem; }
+        .profile-avatar { width: 80px; height: 80px; }
+        .order-footer { flex-direction: column; align-items: flex-start; gap: 0.5rem; }
+        .search-result-item { grid-template-columns: 70px 1fr; gap: 0.8rem; }   
+        .footer-content { grid-template-columns: 1fr; }
+        .search-result-item { grid-template-columns: 80px 1fr; gap: 1rem; }
+        .result-image { width: 80px; height: 80px; }
+    }
     </style>
 </head>
 <body>
