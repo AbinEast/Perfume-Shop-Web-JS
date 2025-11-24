@@ -488,109 +488,107 @@
             padding: 4rem 4rem 8rem;
         }
 
-        /* --- FILTERS (UPDATED) --- */
-.filters-bar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 3rem;
-    padding: 1.5rem 0;
-    border-top: 1px solid rgba(255,255,255,0.05);
-    border-bottom: 1px solid rgba(255,255,255,0.05);
-    flex-wrap: wrap;
-    gap: 1.5rem;
-}
+        /* --- FILTERS --- */
+        .filters-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
 
-.filter-count { 
-    color: var(--text-muted); 
-    font-size: 0.85rem; 
-    font-family: 'Playfair Display', serif;
-    font-style: italic;
-    letter-spacing: 1px;
-}
+        .filter-count { 
+            color: var(--text-muted); 
+            font-size: 0.85rem; 
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            letter-spacing: 1px;
+        }
 
-.filter-groups { 
-    display: flex; 
-    gap: 1rem; 
-    flex-wrap: wrap;
-}
+        .filter-groups { 
+            display: flex; 
+            gap: 1rem; 
+            flex-wrap: wrap;
+        }
 
-.custom-select-wrapper { 
-    position: relative; 
-    display: inline-block; 
-}
+        .custom-select-wrapper { 
+            position: relative; 
+            display: inline-block; 
+        }
 
-.custom-select {
-    appearance: none;
-    -webkit-appearance: none;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.15);
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.75rem;
-    font-weight: 500;
-    
-    /* PERBAIKAN DI SINI */
-    letter-spacing: 0.0px; /* Sedikit dikurangi dari 1.5px agar lebih muat */
-    padding: 0.8rem 3rem 0.8rem 1.5rem; /* Padding kanan diperlebar (3rem) agar teks tidak menabrak panah */
-    width: auto; /* Membiarkan lebar menyesuaikan isi teks */
-    min-width: fit-content; /* Memastikan tombol melebar sesuai teks terpanjang */
-    
-    text-transform: uppercase;
-    cursor: pointer;
-    border-radius: 50px;
-    transition: all 0.3s ease;
-}
+        .custom-select {
+            appearance: none;
+            -webkit-appearance: none;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.0px; 
+            padding: 0.8rem 3rem 0.8rem 1.5rem;
+            width: auto; /* Membiarkan lebar menyesuaikan isi teks */
+            min-width: fit-content; /* Memastikan tombol melebar sesuai teks terpanjang */
+            
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
 
-.custom-select:hover { 
-    border-color: var(--gold); 
-    color: var(--black);
-    background: rgba(212, 165, 116, 0.05);
-}
+        .custom-select:hover { 
+            border-color: var(--gold); 
+            color: var(--black);
+            background: rgba(212, 165, 116, 0.05);
+        }
 
-.custom-select:focus { 
-    outline: none; 
-    border-color: var(--gold); 
-    box-shadow: 0 0 15px rgba(212, 165, 116, 0.2);
-}
+        .custom-select:focus { 
+            outline: none; 
+            border-color: var(--gold); 
+            box-shadow: 0 0 15px rgba(212, 165, 116, 0.2);
+        }
 
-/* Panah Custom */
-.custom-select-wrapper::after {
-    content: '';
-    position: absolute;
-    right: 18px;
-    top: 50%;
-    width: 6px;
-    height: 6px;
-    border-right: 1px solid var(--gold);
-    border-bottom: 1px solid var(--gold);
-    transform: translateY(-60%) rotate(45deg); /* Membentuk panah chevron v */
-    pointer-events: none;
-    transition: all 0.3s;
-}
+        /* Panah Custom */
+        .custom-select-wrapper::after {
+            content: '';
+            position: absolute;
+            right: 18px;
+            top: 50%;
+            width: 6px;
+            height: 6px;
+            border-right: 1px solid var(--gold);
+            border-bottom: 1px solid var(--gold);
+            transform: translateY(-60%) rotate(45deg); /* Membentuk panah chevron v */
+            pointer-events: none;
+            transition: all 0.3s;
+        }
 
-.custom-select-wrapper:hover::after {
-    transform: translateY(-60%) rotate(45deg) scale(1.2);
-}
+        .custom-select-wrapper:hover::after {
+            transform: translateY(-60%) rotate(45deg) scale(1.2);
+        }
 
-/* Responsive untuk Mobile */
-@media (max-width: 768px) {
-    .filters-bar { 
-        flex-direction: column; 
-        align-items: flex-start; 
-        gap: 1.5rem; 
-    }
-    
-    .filter-groups { 
-        width: 100%; 
-        flex-direction: column;
-        gap: 1rem;
-    }
+        /* Responsive untuk Mobile */
+        @media (max-width: 768px) {
+            .filters-bar { 
+                flex-direction: column; 
+                align-items: flex-start; 
+                gap: 1.5rem; 
+            }
+            
+            .filter-groups { 
+                width: 100%; 
+                flex-direction: column;
+                gap: 1rem;
+            }
 
-    .custom-select-wrapper, .custom-select {
-        width: 100%;
-    }
-}
+            .custom-select-wrapper, .custom-select {
+                width: 100%;
+            }
+        }
 
         /* --- PRODUCT GRID --- */
         .product-grid {
