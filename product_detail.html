@@ -924,18 +924,32 @@ footer {
     }
 
     @media (max-width: 760px) {
+        /* Prevent horizontal scroll */
+        html, body {
+            overflow-x: hidden;
+            width: 100%;
+            max-width: 100vw;
+        }
+        
         /* Header mobile optimization - sama seperti shop.html */
         header {
-            padding: 1rem 0;
+            padding: 1.5rem 0;
+            width: 100vw;
+            max-width: 100vw;
+            left: 0;
+            right: 0;
         }
         
         header.scrolled {
-            padding: 0.8rem 0;
+            padding: 1rem 0;
         }
         
         /* Nav container mobile */
         nav {
             padding: 0 1.5rem;
+            width: 100%;
+            max-width: 100%;
+            box-sizing: border-box;
         }
         
         /* Pastikan nav-links tetap hidden dan hamburger muncul */
@@ -945,44 +959,46 @@ footer {
         
         .hamburger-btn {
             display: block !important;
+            flex-shrink: 0;
         }
         
         /* Logo lebih kecil di mobile dengan 2 baris */
         .logo {
-            font-size: 1.8rem;
-            letter-spacing: 3px;
-            line-height: 1.2;
-            max-width: 120px;
-            word-spacing: 100vw; /* Memaksa kata kedua ke baris baru */
+            font-size: 1.5rem;
+            letter-spacing: 2px;
+            line-height: 1.1;
+            flex-shrink: 0;
         }
         
         /* Nav icons spacing lebih kecil */
         .nav-icons {
-            gap: 1rem;
+            gap: 0.5rem;
+            flex-shrink: 0;
         }
         
         /* Icon button dengan better touch target */
         .icon-btn {
-            padding: 0.5rem;
-            min-width: 44px;
-            min-height: 44px;
+            padding: 0.4rem;
+            min-width: 40px;
+            min-height: 40px;
+            flex-shrink: 0;
         }
         
-        /* Icon size lebih besar untuk mobile */
+        /* Icon size */
         .icon-svg {
-            width: 22px;
-            height: 22px;
+            width: 20px;
+            height: 20px;
         }
         
         /* Badge positioning */
         .wishlist-badge, .cart-badge {
-            top: -2px;
-            right: -2px;
-            width: 16px;
-            height: 16px;
-            font-size: 0.6rem;
+            top: -3px;
+            right: -3px;
+            width: 15px;
+            height: 15px;
+            font-size: 0.55rem;
         }
-        
+
         /* Product Layout Stacked */
         .product-container {
             grid-template-columns: 1fr;
