@@ -1457,22 +1457,56 @@
 @media (max-width: 768px) {
     /* Hero text lebih kecil lagi di mobile */
     .hero h1 {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
     
     .hero h1 .line-1 {
-        font-size: 1rem;
-        letter-spacing: 4px;
+        font-size: 0.9rem;
+        letter-spacing: 3px;
+    }
+    
+    .hero p {
+        font-size: 0.95rem;
+        padding: 0 1rem;
+    }
+    
+    /* Section padding lebih kecil */
+    .section-padding {
+        padding: 4rem 1.5rem;
     }
     
     /* Section title lebih kecil */
     .section-title {
-        font-size: 2.5rem;
+        font-size: 2rem;
+        line-height: 1.2;
+    }
+    
+    .section-subtitle {
+        font-size: 0.7rem;
+        letter-spacing: 2px;
+    }
+    
+    /* Product grid jadi 1 kolom di mobile */
+    .product-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+    
+    /* Categories grid jadi 1 kolom */
+    .categories-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .category-card {
+        height: 400px;
     }
     
     /* Collections grid jadi 1 kolom */
     .collections-grid {
         grid-template-columns: 1fr;
+        gap: 1.5rem;
     }
     
     /* Remove large span untuk mobile */
@@ -1485,33 +1519,126 @@
         height: 400px;
     }
     
-    /* Footer jadi 1 kolom penuh */
-    .footer-content {
+    /* Testimonials grid jadi 1 kolom */
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 0 1rem;
+    }
+    
+    .testimonial-card {
+        padding: 2rem;
+    }
+    
+    .testimonial-text {
+        font-size: 1rem;
+    }
+    
+    /* Why choose us grid jadi 1 kolom */
+    .why-grid {
         grid-template-columns: 1fr;
         gap: 2rem;
     }
     
+    .why-choose-us {
+        padding: 4rem 1.5rem;
+    }
+    
+    /* Footer jadi 1 kolom penuh */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 0 1rem;
+    }
+    
+    footer {
+        padding: 3rem 1.5rem 2rem;
+    }
+    
     /* Promo content full width */
     .promo-content {
-        padding: 2rem;
-        width: 90%;
+        padding: 2rem 1rem;
+        width: 95%;
     }
     
     /* Penyesuaian lain untuk Promo Section */
     .promo {
-        padding: 80px 0;
-        background-attachment: scroll; /* Matikan parallax di mobile */
+        padding: 60px 0;
+        background-attachment: scroll;
     }
+    
     .promo-content h2 {
-        font-size: 3rem;
+        font-size: 2.5rem;
     }
+    
     .promo-discount {
+        font-size: 1.5rem;
+    }
+    
+    .promo-countdown {
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+    
+    .countdown-item {
+        flex: 0 0 calc(50% - 10px);
+    }
+    
+    .countdown-number {
         font-size: 1.8rem;
     }
-    .promo-countdown {
-        gap: 15px;
+    
+    .countdown-label {
+        font-size: 0.7rem;
     }
-    .countdown-number {
+    
+    /* Values section */
+    .values-content {
+        padding: 3rem 2rem;
+    }
+    
+    .value-item h3 {
+        font-size: 1.5rem;
+    }
+    
+    /* Welcome section */
+    .welcome p {
+        font-size: 1rem;
+        padding: 0 1rem;
+    }
+    
+    /* Search overlay mobile */
+    .search-container {
+        width: 95%;
+        padding: 0 1rem;
+    }
+    
+    .search-header h2 {
+        font-size: 1.5rem;
+    }
+    
+    .search-input {
+        padding: 1rem 3rem 1rem 1.5rem;
+        font-size: 1rem;
+    }
+    
+    .search-result-item {
+        grid-template-columns: 80px 1fr;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    
+    .result-image {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .result-info h3 {
+        font-size: 1.1rem;
+    }
+    
+    /* Mobile nav links size */
+    .mobile-nav-links a {
         font-size: 2rem;
     }
 }
