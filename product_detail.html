@@ -947,39 +947,42 @@ footer {
             display: block !important;
         }
         
-        /* Logo lebih kecil di mobile */
+        /* Logo lebih kecil di mobile dengan 2 baris */
         .logo {
-            font-size: 1.3rem;
-            letter-spacing: 2px;
+            font-size: 1.8rem;
+            letter-spacing: 3px;
+            line-height: 1.2;
+            max-width: 120px;
+            word-spacing: 100vw; /* Memaksa kata kedua ke baris baru */
         }
         
         /* Nav icons spacing lebih kecil */
         .nav-icons {
-            gap: 0.8rem;
+            gap: 1rem;
         }
         
         /* Icon button dengan better touch target */
         .icon-btn {
-            padding: 0.3rem;
-            min-width: 40px;
-            min-height: 40px;
+            padding: 0.5rem;
+            min-width: 44px;
+            min-height: 44px;
         }
         
-        /* Icon size lebih kecil tapi masih touch-friendly */
+        /* Icon size lebih besar untuk mobile */
         .icon-svg {
-            width: 18px;
-            height: 18px;
+            width: 22px;
+            height: 22px;
         }
         
         /* Badge positioning */
         .wishlist-badge, .cart-badge {
-            top: -4px;
-            right: -4px;
-            width: 14px;
-            height: 14px;
-            font-size: 0.55rem;
+            top: -2px;
+            right: -2px;
+            width: 16px;
+            height: 16px;
+            font-size: 0.6rem;
         }
-
+        
         /* Product Layout Stacked */
         .product-container {
             grid-template-columns: 1fr;
