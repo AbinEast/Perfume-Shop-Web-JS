@@ -924,29 +924,49 @@ footer {
     }
 
     @media (max-width: 760px) {
-        header { 
-            padding: 1rem 0 !important;
+        /* Header mobile optimization - sama seperti shop.html */
+        header {
+            padding: 1rem 0;
         }
-        nav { 
-            padding: 0 1.5rem !important;
+        
+        header.scrolled {
+            padding: 0.8rem 0;
         }
-        .logo { 
-            font-size: 1.3rem !important; 
-            letter-spacing: 2px !important; 
+        
+        /* Nav container mobile */
+        nav {
+            padding: 0 1.5rem;
         }
-        .nav-icons { 
-            gap: 0.8rem !important; 
+        
+        /* Pastikan hamburger muncul di mobile */
+        .nav-links {
+            display: none !important;
         }
-        .icon-btn { 
-            padding: 0.3rem !important; 
-            min-width: 40px !important; 
-            min-height: 40px !important; 
+        
+        /* Logo lebih kecil di mobile */
+        .logo {
+            font-size: 1.3rem;
+            letter-spacing: 2px;
         }
-        .icon-svg { 
-            width: 18px !important; 
-            height: 18px !important; 
+        
+        /* Nav icons spacing lebih kecil */
+        .nav-icons {
+            gap: 0.8rem;
         }
-
+        
+        /* Icon button dengan better touch target */
+        .icon-btn {
+            padding: 0.3rem;
+            min-width: 40px;
+            min-height: 40px;
+        }
+        
+        /* Icon size lebih kecil tapi masih touch-friendly */
+        .icon-svg {
+            width: 18px;
+            height: 18px;
+        }
+        
         /* Badge positioning */
         .wishlist-badge, .cart-badge {
             top: -4px;
