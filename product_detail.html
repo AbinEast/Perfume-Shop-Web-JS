@@ -566,8 +566,8 @@
         }
         .key-note-item p { font-size: 0.9rem; color: #888; }
 
-        /* =========================================
-   REVIEWS SECTION - IMPROVED DESIGN
+/* =========================================
+   REVIEWS SECTION 
    ========================================= */
 .reviews-section {
     margin-top: 6rem;
@@ -923,36 +923,31 @@ footer {
             .product-grid { grid-template-columns: repeat(2, 1fr); }
         }
         @media (max-width: 600px) {
-            /* Header mobile optimization */
-            header {
-                padding: 1rem 0;
-            }
-            
-            header.scrolled {
-                padding: 0.8rem 0;
-            }
-            
-            /* Nav container mobile */
-            nav {
-                padding: 0 1.5rem;
-            }
-            
-            /* Pastikan hamburger muncul di mobile */
-            .nav-links {
-                display: none !important;
-            }
-            
-            
-            /* Logo lebih kecil di mobile */
-            .logo {
-                font-size: 1.3rem;
-                letter-spacing: 2px;
-            }
-            
-            /* Nav icons spacing lebih kecil */
-            .nav-icons {
-                gap: 0.8rem;
-            }
+            @media (max-width: 600px) {
+    header {
+        padding: 0.6rem 0; /* lebih tipis */
+    }
+
+    nav {
+        padding: 0 1rem;
+        gap: 0.5rem; /* agar tidak terlalu renggang */
+    }
+
+    .nav-icons {
+        gap: 0.5rem;
+    }
+
+    .logo {
+        font-size: 1.1rem;
+        letter-spacing: 1px;
+    }
+
+    /* Memaksa icon tetap di baris yang sama */
+    .nav-icons {
+        display: flex;
+        align-items: center;
+    }
+}
             
             /* Icon button dengan better touch target */
             .icon-btn {
@@ -1029,19 +1024,37 @@ footer {
             }
             .product-grid { grid-template-columns: 1fr; }
 
-            .reviews-summary-grid {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                padding: 2rem;
-                text-align: center;
-            }
-            
-            .review-summary-score {
-                border-right: none;
-                border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-                padding-right: 0;
-                padding-bottom: 2rem;
-            }
+            .review-card {
+        padding: 1.3rem;
+    }
+
+    .review-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+    }
+
+    .review-author img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .author-name {
+        font-size: 1rem;
+    }
+
+    .review-rating .stars {
+        font-size: 0.9rem;
+        letter-spacing: 1px;
+    }
+
+    .review-body {
+        font-size: 0.9rem;
+    }
+
+    .reviews-summary-grid {
+        padding: 1.5rem;
+    }
 
             .bar-label {
                 text-align: left;
