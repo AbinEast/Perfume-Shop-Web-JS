@@ -1064,8 +1064,62 @@
             }
         }
         
-        /* Mobile breakpoint (768px and below) */
+        /* ===================================
+        RESPONSIVE DESIGN - MOBILE (Max-width: 768px)
+        =================================== */
         @media (max-width: 768px) {
+            /* Header mobile optimization */
+            header {
+                padding: 1rem 0;
+            }
+            
+            header.scrolled {
+                padding: 0.8rem 0;
+            }
+            
+            /* Nav container mobile */
+            nav {
+                padding: 0 1.5rem;
+            }
+            
+            /* Pastikan hamburger muncul di mobile */
+            .nav-links {
+                display: none !important;
+            }
+            
+            
+            /* Logo lebih kecil di mobile */
+            .logo {
+                font-size: 1.3rem;
+                letter-spacing: 2px;
+            }
+            
+            /* Nav icons spacing lebih kecil */
+            .nav-icons {
+                gap: 0.8rem;
+            }
+            
+            /* Icon button dengan better touch target */
+            .icon-btn {
+                padding: 0.3rem;
+                min-width: 40px;
+                min-height: 40px;
+            }
+            
+            /* Icon size lebih kecil tapi masih touch-friendly */
+            .icon-svg {
+                width: 18px;
+                height: 18px;
+            }
+            
+            /* Badge positioning */
+            .wishlist-badge, .cart-badge {
+                top: -4px;
+                right: -4px;
+                width: 14px;
+                height: 14px;
+                font-size: 0.55rem;
+            }
             /* Further reduce hero title */
             .hero-title { 
                 font-size: 2.8rem; 
