@@ -924,44 +924,29 @@ footer {
     }
 
     @media (max-width: 760px) {
-        header {
-            padding: 0.6rem 0; /* lebih tipis */
+        header { 
+            padding: 1rem 0 !important;
+        }
+        nav { 
+            padding: 0 1.5rem !important;
+        }
+        .logo { 
+            font-size: 1.3rem !important; 
+            letter-spacing: 2px !important; 
+        }
+        .nav-icons { 
+            gap: 0.8rem !important; 
+        }
+        .icon-btn { 
+            padding: 0.3rem !important; 
+            min-width: 40px !important; 
+            min-height: 40px !important; 
+        }
+        .icon-svg { 
+            width: 18px !important; 
+            height: 18px !important; 
         }
 
-        nav {
-            padding: 0 1rem;
-            gap: 0.5rem; /* agar tidak terlalu renggang */
-        }
-
-        .nav-icons {
-            gap: 0.5rem;
-        }
-
-        .logo {
-            font-size: 1.1rem;
-            letter-spacing: 1px;
-        }
-
-        /* Memaksa icon tetap di baris yang sama */
-        .nav-icons {
-            display: flex;
-            align-items: center;
-        }
-
-                
-        /* Icon button dengan better touch target */
-        .icon-btn {
-            padding: 0.3rem;
-            min-width: 40px;
-            min-height: 40px;
-        }
-        
-        /* Icon size lebih kecil tapi masih touch-friendly */
-        .icon-svg {
-            width: 18px;
-            height: 18px;
-        }
-        
         /* Badge positioning */
         .wishlist-badge, .cart-badge {
             top: -4px;
@@ -970,6 +955,7 @@ footer {
             height: 14px;
             font-size: 0.55rem;
         }
+        
         /* Product Layout Stacked */
         .product-container {
             grid-template-columns: 1fr;
