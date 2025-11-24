@@ -908,20 +908,21 @@ footer {
     letter-spacing: 1px;
 }
 
-        /* Animations */
-        .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s ease forwards; }
-        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+    /* Animations */
+    .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s ease forwards; }
+    @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-        /* Responsive */
-        @media (max-width: 1024px) {
-            .nav-links { display: none; } .hamburger-btn { display: block; }
-            nav { padding: 0 2rem; }
-            .product-main { grid-template-columns: 1fr; gap: 3rem; }
-            .product-gallery { position: static; }
-            .key-notes-grid { grid-template-columns: 1fr; }
-            .reviews-summary-grid { grid-template-columns: 1fr; }
-            .product-grid { grid-template-columns: repeat(2, 1fr); }
-        }
+    /* Responsive */
+    @media (max-width: 1024px) {
+        .nav-links { display: none; } .hamburger-btn { display: block; }
+        nav { padding: 0 2rem; }
+        .product-main { grid-template-columns: 1fr; gap: 3rem; }
+        .product-gallery { position: static; }
+        .key-notes-grid { grid-template-columns: 1fr; }
+        .reviews-summary-grid { grid-template-columns: 1fr; }
+        .product-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
     @media (max-width: 600px) {
             
     header {
@@ -947,85 +948,85 @@ footer {
         display: flex;
         align-items: center;
     }
-}
+
             
-            /* Icon button dengan better touch target */
-            .icon-btn {
-                padding: 0.3rem;
-                min-width: 40px;
-                min-height: 40px;
-            }
-            
-            /* Icon size lebih kecil tapi masih touch-friendly */
-            .icon-svg {
-                width: 18px;
-                height: 18px;
-            }
-            
-            /* Badge positioning */
-            .wishlist-badge, .cart-badge {
-                top: -4px;
-                right: -4px;
-                width: 14px;
-                height: 14px;
-                font-size: 0.55rem;
-            }
-            /* Product Layout Stacked */
-            .product-container {
-                grid-template-columns: 1fr;
-                gap: 2rem;
-                padding: 6rem 0 2rem; /* Remove side padding for full width image feel */
-            }
-            .product-info-details h1 { font-size: 2.5rem; }
-            .controls-wrapper {
-                flex-direction: row; /* Paksa sejajar menyamping */
-                gap: 0.8rem; /* Jarak antar elemen */
-                align-items: stretch; /* Samakan tinggi semua elemen */
-                margin-bottom: 2rem;
-            }
+    /* Icon button dengan better touch target */
+    .icon-btn {
+        padding: 0.3rem;
+        min-width: 40px;
+        min-height: 40px;
+    }
+    
+    /* Icon size lebih kecil tapi masih touch-friendly */
+    .icon-svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    /* Badge positioning */
+    .wishlist-badge, .cart-badge {
+        top: -4px;
+        right: -4px;
+        width: 14px;
+        height: 14px;
+        font-size: 0.55rem;
+    }
+    /* Product Layout Stacked */
+    .product-container {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding: 6rem 0 2rem; /* Remove side padding for full width image feel */
+    }
+    .product-info-details h1 { font-size: 2.5rem; }
+    .controls-wrapper {
+        flex-direction: row; /* Paksa sejajar menyamping */
+        gap: 0.8rem; /* Jarak antar elemen */
+        align-items: stretch; /* Samakan tinggi semua elemen */
+        margin-bottom: 2rem;
+    }
 
-            .quantity-selector {
-                width: 100px; /* Lebar fix agar rapi */
-                height: 50px; /* Tinggi tombol yang nyaman disentuh */
-                padding: 0;
-                justify-content: space-between;
-                flex-shrink: 0; /* Mencegah mengecil */
-                border-color: rgba(212, 165, 116, 0.5);
-            }
+    .quantity-selector {
+        width: 100px; /* Lebar fix agar rapi */
+        height: 50px; /* Tinggi tombol yang nyaman disentuh */
+        padding: 0;
+        justify-content: space-between;
+        flex-shrink: 0; /* Mencegah mengecil */
+        border-color: rgba(212, 165, 116, 0.5);
+    }
 
-            .quantity-btn {
-                width: 35px;
-                height: 100%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                padding: 0;
-                font-size: 1.2rem;
-            }
+    .quantity-btn {
+        width: 35px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        font-size: 1.2rem;
+    }
 
-            .action-buttons {
-                flex: 1; /* Mengisi sisa ruang */
-                gap: 0.8rem;
-            }
+    .action-buttons {
+        flex: 1; /* Mengisi sisa ruang */
+        gap: 0.8rem;
+    }
 
-            .btn-add-to-bag {
-                height: 50px; /* Tinggi sama dengan quantity */
-                padding: 0;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                font-size: 0.8rem; /* Font sedikit lebih kecil agar muat */
-            }
+    .btn-add-to-bag {
+        height: 50px; /* Tinggi sama dengan quantity */
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.8rem; /* Font sedikit lebih kecil agar muat */
+    }
 
-            .btn-wishlist {
-                height: 50px; /* Tinggi sama */
-                width: 50px; /* Kotak presisi */
-                flex-shrink: 0;
-            }
-            .product-grid { grid-template-columns: 1fr; }
+    .btn-wishlist {
+        height: 50px; /* Tinggi sama */
+        width: 50px; /* Kotak presisi */
+        flex-shrink: 0;
+    }
+    .product-grid { grid-template-columns: 1fr; }
 
-            .review-card {
-        padding: 1.3rem;
+    .review-card {
+    padding: 1.3rem;
     }
 
     .review-header {
@@ -1060,30 +1061,31 @@ footer {
         text-align: left;
     }
 
-        /* ===================================
-           NOTIFICATION
-           =================================== */
-        .notification {
-            position: fixed;
-            top: 9rem;
-            right: 2rem;
-            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
-            color: #000;
-            padding: 1rem 1.5rem;
-            border-radius: 10px;
-            font-weight: 600;
-            font-size: 0.9rem;
-            z-index: 1000;
-            opacity: 0;
-            transform: translateX(400px);
-            transition: all 0.4s ease;
-            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
-        }
+    /* ===================================
+        NOTIFICATION
+        =================================== */
+    .notification {
+        position: fixed;
+        top: 9rem;
+        right: 2rem;
+        background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+        color: #000;
+        padding: 1rem 1.5rem;
+        border-radius: 10px;
+        font-weight: 600;
+        font-size: 0.9rem;
+        z-index: 1000;
+        opacity: 0;
+        transform: translateX(400px);
+        transition: all 0.4s ease;
+        box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
+    }
 
-        .notification.show {
-            opacity: 1;
-            transform: translateX(0);
-        }
+    .notification.show {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
     </style>
 </head>
 <body>
