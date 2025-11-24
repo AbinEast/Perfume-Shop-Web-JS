@@ -1185,16 +1185,79 @@
     }
     
     /* Mobile breakpoint */
-    @media (max-width: 600px) {
-        /* Stack form grid vertically */
-        .form-grid { 
-            grid-template-columns: 1fr; 
+    @media (max-width: 768px) {
+        /* Header mobile optimization */
+        header {
+            padding: 1rem 0;
         }
         
-        /* Stack payment methods vertically */
-        .payment-methods { 
-            grid-template-columns: 1fr; 
+        header.scrolled {
+            padding: 0.8rem 0;
         }
+        
+        /* Nav container mobile */
+        nav {
+            padding: 0 1.5rem;
+        }
+        
+        /* Pastikan hamburger muncul di mobile */
+        .nav-links {
+            display: none !important;
+        }
+        
+        
+        /* Logo lebih kecil di mobile */
+        .logo {
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+        }
+        
+        /* Nav icons spacing lebih kecil */
+        .nav-icons {
+            gap: 0.8rem;
+        }
+        
+        /* Icon button dengan better touch target */
+        .icon-btn {
+            padding: 0.3rem;
+            min-width: 40px;
+            min-height: 40px;
+        }
+        
+        /* Icon size lebih kecil tapi masih touch-friendly */
+        .icon-svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Badge positioning */
+        .wishlist-badge, .cart-badge {
+            top: -4px;
+            right: -4px;
+            width: 14px;
+            height: 14px;
+            font-size: 0.55rem;
+        }
+        /* Stack form grid vertically */
+        /* Compact Steps */
+        .checkout-steps { font-size: 0.6rem; gap: 0.5rem; letter-spacing: 1px; }
+        .step-line { width: 15px; }
+        .step-number { width: 20px; height: 20px; font-size: 0.6rem; }
+        
+        /* Form Stacked */
+        .form-grid { grid-template-columns: 1fr; gap: 1rem; }
+        .form-group { margin-bottom: 1rem; }
+        
+        /* Payment Methods Stacked (Easier to tap) */
+        .payment-methods { grid-template-columns: 1fr; gap: 0.8rem; }
+        .payment-option { display: flex; align-items: center; justify-content: flex-start; gap: 1rem; padding: 1rem; text-align: left; }
+        .payment-icon { margin-bottom: 0; font-size: 1.2rem; }
+        
+        /* Order Summary Simplified */
+        .checkout-container { padding: 3rem 1.5rem 6rem; }
+        .order-summary { padding: 1.5rem; border-radius: 15px; }
+        .summary-title { font-size: 1.5rem; }
+        .item-image { width: 50px; height: 50px; }
         
         /* Footer to single column */
         .footer-content { 
@@ -1204,7 +1267,10 @@
         /* Reduce modal padding on mobile */
         .modal-content { 
             padding: 2rem; 
-        }
+        }/* Modal Mobile */
+        .modal-content { padding: 2rem; width: 95%; }
+        .success-icon { font-size: 3rem; }
+        .modal-title { font-size: 1.8rem; }
     }
 </style>
 </head>
