@@ -60,6 +60,9 @@ Since this is a static website, you don't need to install any dependencies or ru
 
 Tip: For the best experience (to avoid CORS issues with some modules if added later), it is recommended to use the Live Server extension in VS Code.
 
+## Website Preview
+https://abineast.github.io/Perfume-Shop-Web-JS/
+
 ## Credits
 - Images: Pexels, Unsplash (All images are used for demonstration purposes).
 - Fonts: Google Fonts.
