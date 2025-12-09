@@ -1,81 +1,68 @@
-Local Face (Premium Fragrance Store Website)
+# Local Face - Premium Fragrance Store
+**Local Face** is a luxurious, fully responsive front-end e-commerce website designed for a premium perfume brand. It features a modern dark-themed UI with gold accents, smooth scroll animations, and a fully functional shopping cart simulation using LocalStorage.
 
-Local Face is a luxury-themed perfume store website featuring a modern design, smooth animations, and interactive features such as a search overlay, responsive navigation, wishlist & cart indicators, and dynamic product components.
+## Key Features
 
-This website is crafted to deliver an elegant and exclusive shopping experience.
+### UI/UX 
+- **Luxury Aesthetic:** High-end design using a Black & Gold color palette (`#050505`, `#d4a574`).
+- **Responsive Design:** Fully optimized for Desktop, Tablet, and Mobile devices with a custom hamburger menu.
+- **Animations:** Smooth scroll-reveal effects, parallax hero sections, and hover interactions.
+- **Glassmorphism:** Modern blurred header and overlays.
 
-# Key Features
+### Shopping Functionality
+- **Dynamic Product Grid:** Products are rendered dynamically via JavaScript.
+- **Advanced Filtering & Sorting:** Filter by Category (Men/Women/Unisex), Brand, and Price range. Sort by Price or Rating.
+- **Shopping Cart System:** - Add to cart with quantity selection.
+  - Cart persistence using **LocalStorage** (data remains after refresh).
+  - Real-time subtotal, tax, and total calculation.
+- **Wishlist:** Save favorite items for later (persisted in LocalStorage).
+- **Search System:** Full-screen search overlay with "Popular Tags" and real-time filtering.
 
-- Responsive Navigation + Mobile Menu
-- Modern navbar with blur/glassmorphism effect
-- Elegant hover underline animation
-- Icons for Search, Profile, Wishlist, and Cart
-- Mobile navigation with sliding animation
-- Search Overlay System
-- Interactive search input
-- “Popular Tags” for quick searches
-- Area for product search results
-- Fully handled using JavaScript (main.js)
+### User Experience
+- **User Profile:** Edit profile details and view Order History simulation.
+- **Checkout Process:** Multi-step checkout form with validation.
+- **Authentication:** Simulated Login and Sign-Up pages.
 
-# Premium Hero Section
+## Tech Stack
 
-- Background with slow zoom animation
+- **HTML5:** Semantic structure.
+- **CSS3:** Custom properties (variables), Flexbox, Grid, Media Queries, and Keyframe animations.
+- **JavaScript (ES6+):** - DOM Manipulation.
+  - `localStorage` for state management (Cart, Wishlist, User Session).
+  - `IntersectionObserver` for scroll animations.
+- **Fonts:** Playfair Display (Headings) & Montserrat (Body) via Google Fonts.
+- **Icons:** SVG Icons.
 
-- Elegant typography using Playfair Display & Montserrat
+## Project Structure
 
-- Call-to-action button linking to the product collection
+```text
+Local-Face/
+│
+├── index.html          # Homepage (Hero, Best Sellers, Testimonials)
+├── shop.html           # Product listing with Filters & Sorting
+├── product_detail.html # Single product view with reviews
+├── cart.html           # Shopping Cart management
+├── checkout.html       # Checkout form & Order summary
+├── wishlist.html       # User wishlist
+├── profile.html        # User profile & Order history
+├── about.html          # Brand story
+├── service.html        # Services offered
+├── signup.html         # Login / Register page
+├── main.js             # Core logic (Product DB, Cart, UI interactions)
+└── README.md           # Project documentation
+```
 
-# Welcome & Values Sections
+## How to Run
+Since this is a static website, you don't need to install any dependencies or run a backend server.
+- Clone the repository (or download the ZIP):
+- Open the project folder.
+- Run the index.html with live server to open it in your web browser.
 
-- Brand philosophy content
-- Values grid with scroll reveal animation
-- Clean, modern, and refined layout
+Tip: For the best experience (to avoid CORS issues with some modules if added later), it is recommended to use the Live Server extension in VS Code.
 
-# Best Selling Products section
+## Website Preview
+https://abineast.github.io/Perfume-Shop-Web-JS/
 
-- Interactive product cards with hover zoom-in
-- Responsive grid layout
-- Clicking a product leads to its detail page
-
-# Collections Section
-- 2x2 grid with one large (masonry style) item
-- Smooth hover animation
-
-# Promo Section
-- Highlight section with dark overlay
-- CTA button to explore the collections
-
-# Complete Footer
-- About Us + Social icons
-- Quick Links
-- Customer Service
-- Contact information
-- Newsletter
-- Copyright
-
-# Scroll Animation
-- Fade-in effect when elements appear in viewport
-
-# Technologies Used
-- HTML5
-- CSS3 (inline + custom styling)
-- Vanilla JavaScript
-- Google Fonts
-- Playfair Display
-- Responsive Design
-- CSS Animations & Transitions
-
-# JavaScript Features (main.js) (Handles all interactive logic)
-- Toggle mobile navigation
-- Open/close search overlay
-- Update Wishlist & Cart badges
-- Scroll reveal animation
-- Redirect product cards to detail pages
-- Event listeners for search tags
-
-# How to Run the Project
-- Open in browser
-- Simply open: index.html
-
-# Website Preview
-- https://abineast.github.io/Perfume-Shop-Web-JS/
+## Credits
+- Images: Pexels, Unsplash (All images are used for demonstration purposes).
+- Fonts: Google Fonts.
