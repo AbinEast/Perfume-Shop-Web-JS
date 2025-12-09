@@ -1,0 +1,409 @@
+      /* ========================================
+           PAGE HEADER - Hero Section
+           ======================================== */
+        .page-header {
+            height: 35vh;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            text-align: center; 
+            margin-top: 80px;
+            background: #0a0a0a;
+            position: relative;
+        }
+        
+        .page-header::after {
+            content: ''; 
+            position: absolute; 
+            bottom: 0; 
+            left: 0; 
+            width: 100%;
+            height: 1px; 
+            background: linear-gradient(90deg, transparent, rgba(212, 165, 116, 0.2), transparent);
+        }
+        
+        .header-content h1 {
+            font-family: 'Playfair Display', serif; 
+            font-size: 3.5rem;
+            margin-bottom: 0.5rem; 
+            font-weight: 400;
+        }
+        
+        .header-content h1 span { font-style: italic; color: var(--gold); }
+        
+        .breadcrumb {
+            color: var(--text-muted); 
+            font-size: 0.85rem;
+            letter-spacing: 2px; 
+            text-transform: uppercase;
+        }
+        
+        .breadcrumb a { color: #fff; text-decoration: none; transition: 0.3s; }
+        .breadcrumb a:hover { color: var(--gold); }
+
+        /* ========================================
+           CART CONTAINER
+           ======================================== */
+        .cart-container {
+            max-width: 1400px; 
+            margin: 0 auto; 
+            padding: 6rem 4rem 10rem;
+            min-height: 60vh;
+        }
+
+        .cart-content {
+            display: grid; 
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+        }
+
+        /* ========================================
+           CART ITEMS
+           ======================================== */
+        .cart-items { border-top: 1px solid rgba(255,255,255,0.1); }
+
+        .cart-item {
+            display: grid; 
+            grid-template-columns: 120px 1fr auto; /* Desktop Grid */
+            gap: 2rem;
+            padding: 2rem 0; 
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            align-items: center; 
+            transition: 0.3s;
+        }
+
+        .item-image {
+            width: 120px; 
+            height: 150px; 
+            background: #111;
+            overflow: hidden; 
+            position: relative; 
+            cursor: pointer;
+        }
+        
+        .item-image img, img.item-image { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover;
+            transition: 0.4s; 
+        }
+        
+        .cart-item:hover .item-image img, .cart-item:hover img.item-image { 
+            transform: scale(1.05); 
+        }
+
+        .item-details .item-name {
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.4rem;
+            color: #fff; 
+            margin-bottom: 0.5rem; 
+            cursor: pointer; 
+            transition: 0.3s;
+        }
+        
+        .item-name:hover { color: var(--gold); }
+
+        .item-details .item-size {
+            color: var(--text-muted); 
+            font-size: 0.9rem; 
+            margin-bottom: 1.5rem;
+        }
+
+        .quantity-controls {
+            display: inline-flex; 
+            align-items: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .quantity-btn {
+            background: none; 
+            border: none; 
+            color: #fff;
+            width: 35px; 
+            height: 35px; 
+            cursor: pointer; 
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .quantity-btn:hover { color: var(--gold); }
+        
+        .quantity-display {
+            width: 40px; 
+            text-align: center; 
+            font-size: 0.9rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .item-actions {
+            text-align: right; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: space-between; 
+            height: 100%; 
+            padding: 1rem 0;
+        }
+
+        .item-price {
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.3rem;
+            color: var(--gold); 
+            font-weight: 500;
+        }
+
+        .remove-item {
+            background: none; 
+            border: none; 
+            color: var(--text-muted);
+            font-size: 0.8rem; 
+            text-transform: uppercase; 
+            letter-spacing: 1px;
+            cursor: pointer; 
+            border-bottom: 1px solid transparent; 
+            transition: 0.3s;
+            align-self: flex-end; 
+            margin-top: 1rem;
+        }
+        
+        .remove-item:hover { color: #fff; border-bottom-color: #fff; }
+
+        /* ========================================
+           CART SUMMARY
+           ======================================== */
+        .cart-summary {
+            background: #0f0f0f; 
+            padding: 2.5rem;
+            position: sticky;
+            top: 120px;
+            border: 1px solid rgba(212, 165, 116, 0.1);
+        }
+
+        .summary-title {
+            font-family: 'Playfair Display', serif; 
+            font-size: 1.8rem;
+            color: #fff; 
+            margin-bottom: 2rem; 
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .summary-row {
+            display: flex; 
+            justify-content: space-between;
+            margin-bottom: 1.5rem; 
+            color: #ccc; 
+            font-size: 0.95rem;
+        }
+        
+        .summary-row.total {
+            margin-top: 2rem; 
+            padding-top: 1.5rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 1.3rem; 
+            color: var(--gold);
+            font-family: 'Playfair Display', serif;
+        }
+
+        .btn-checkout {
+            width: 100%; 
+            background: linear-gradient(135deg, #d4a574, #c49563);
+            color: #000; 
+            padding: 1.2rem; 
+            border: none; 
+            margin-top: 2rem;
+            font-family: 'Montserrat', sans-serif; 
+            font-weight: 600;
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            cursor: pointer; 
+            transition: 0.3s;
+        }
+        
+        .btn-checkout:hover { 
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(212, 165, 116, 0.2); 
+        }
+
+        .btn-continue {
+            width: 100%; 
+            background: transparent; 
+            border: 1px solid #333;
+            color: #fff; 
+            padding: 1rem; 
+            margin-top: 1rem;
+            text-transform: uppercase; 
+            letter-spacing: 1px; 
+            cursor: pointer; 
+            transition: 0.3s;
+        }
+        
+        .btn-continue:hover { border-color: var(--gold); color: var(--gold); }
+
+        .promo-code { margin-top: 2rem; position: relative; }
+        
+        .promo-input {
+            width: 100%; 
+            background: transparent; 
+            border: none;
+            border-bottom: 1px solid #333; 
+            padding: 1rem 0;
+            color: #fff; 
+            font-family: 'Montserrat', sans-serif;
+        }
+        
+        .promo-input:focus { outline: none; border-bottom-color: var(--gold); }
+        
+        .btn-apply {
+            position: absolute; 
+            right: 0; 
+            top: 10px;
+            background: none; 
+            border: none; 
+            color: var(--gold);
+            text-transform: uppercase; 
+            font-size: 0.8rem; 
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+
+        .empty-cart { text-align: center; padding: 6rem 0; }
+        
+        .btn-shop-now {
+            display: inline-block; 
+            margin-top: 2rem; 
+            padding: 1rem 3rem;
+            border: 1px solid var(--gold); 
+            color: var(--gold);
+            text-decoration: none; 
+            text-transform: uppercase; 
+            letter-spacing: 2px;
+            transition: 0.3s; 
+            background: transparent;
+        }
+        
+        .btn-shop-now:hover { background: var(--gold); color: #000; }
+
+        /* ========================================
+           RESPONSIVE DESIGN 
+           ======================================== */
+        
+        /* TABLET (max-width: 1024px) */
+        @media (max-width: 1024px) {
+            .cart-content { 
+                grid-template-columns: 1fr; 
+                gap: 3rem; 
+            }
+            
+            .cart-summary { 
+                position: static; 
+                margin-top: 2rem;
+            }
+        }
+        
+        /* MOBILE (max-width: 768px) */
+        @media (max-width: 768px) {
+            /* Page Header */
+            .page-header {
+                height: 25vh;
+                margin-top: 70px;
+            }
+            .header-content h1 { font-size: 2rem; }
+
+            /* Cart Container Layout */
+            .cart-container {
+                padding: 2rem 1.25rem 4rem;
+            }
+
+            .cart-item {
+        display: grid;
+        grid-template-columns: 90px 1fr;
+        grid-template-rows: auto auto auto; /* Tambah satu baris lagi untuk tombol aksi */
+        gap: 1rem;
+        padding: 1.5rem 0;
+        align-items: start;
+        text-align: left;
+    }
+
+        /* Foto Produk Mobile */
+        .item-image {
+            width: 90px;
+            height: 110px;
+            grid-row: span 3; /* Foto mengambil tinggi 3 baris */
+            margin: 0;
+        }
+
+        /* Item Details (Nama & Size) */
+        .item-details {
+            display: flex;
+            flex-direction: column;
+            padding-right: 0;
+        }
+
+        .item-details .item-name {
+            font-size: 1.1rem;
+            margin-bottom: 0.2rem;
+            line-height: 1.3;
+        }
+
+        .item-details .item-size {
+            margin-bottom: 0.5rem;
+            font-size: 0.8rem;
+        }
+
+        /* Item Price */
+        .item-price {
+            font-size: 1.1rem;
+            margin-bottom: 0.8rem; /* Sedikit ruang di bawah harga */
+            display: block;
+            grid-column: 2; /* Pastikan harga di kolom kedua */
+            grid-row: 2; /* Pastikan harga di baris kedua */
+        }
+
+        /* Tombol Aksi (Quantity & Remove) */
+        .item-actions {
+            grid-column: 2; /* Masuk ke kolom kanan */
+            grid-row: 3; /* Pindah ke baris ketiga */
+            flex-direction: column; /* Ubah ke kolom agar menumpuk */
+            justify-content: flex-start; /* Mulai dari atas */
+            align-items: flex-start; /* Rata kiri */
+            width: 100%;
+            padding: 0;
+            height: auto;
+            margin-top: 0;
+        }
+
+        /* Kontrol Kuantitas */
+        .quantity-controls {
+            height: 40px;
+            margin-bottom: 0.8rem; /* Beri ruang di bawah kontrol kuantitas */
+            align-self: flex-start; /* Pastikan rata kiri */
+        }
+        .quantity-btn {
+            width: 40px;
+            height: 40px;
+            background: rgba(255,255,255,0.05);
+        }
+        .quantity-display {
+            width: 35px;
+        }
+
+        /* Tombol Remove */
+        .remove-item {
+            margin: 0;
+            padding: 0.5rem;
+            font-size: 0.75rem;
+            align-self: flex-start; /* Pastikan rata kiri */
+        }
+
+        /* Cart Summary Mobile */
+        .cart-summary {
+            padding: 1.5rem;
+            border: 1px solid rgba(255,255,255,0.1);
+            margin-top: 1rem;
+            border-radius: 8px;
+        }
+        
+        .summary-title { font-size: 1.5rem; margin-bottom: 1.5rem; }
+    }

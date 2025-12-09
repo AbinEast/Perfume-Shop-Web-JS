@@ -2,140 +2,152 @@
 // 1. GLOBAL VARIABLES & CONFIGURATION
 // ============================================
 
-    const products = {
-        'floral-essence': {
-            name: "Floral Essence",
-            price: "$89.00",
-            priceNum: 89.00,
-            description: "A beautiful bouquet of fresh spring flowers",
-            image: "https://img.freepik.com/premium-photo/discover-luxurious-perfumes-every-mood-style-occasion_1197721-145317.jpg",
-            category: "female",
-            scent: "floral",
-            ratingStars: "★★★★★",
-            ratingCount: "198"
-        },
-        'amber-nights': {
-            name: "Amber Nights",
-            price: "$125.00",
-            priceNum: 125.00,
-            description: "A warm, mysterious, and seductive scent",
-            image: "https://cdn11.bigcommerce.com/s-ojfjzuqgaj/images/stencil/1200w/products/241913/908284/q9wo1TK51LCBaa9pa_xAvjR94__29378.1758593496.jpg?c=1",
-            category: "unisex",
-            scent: "oriental",
-            ratingStars: "★★★★★",
-            ratingCount: "214"
-        },
-        'royal-rose': {
-            name: "Royal Rose",
-            price: "$95.00",
-            priceNum: 95.00,
-            description: "A modern interpretation of a classic rose",
-            image: "https://img.freepik.com/premium-photo/discover-luxurious-perfumes-every-mood-style-occasion_1197721-145147.jpg",
-            category: "female",
-            scent: "floral",
-            ratingStars: "★★★★☆",
-            ratingCount: "156"
-        },
-        'golden-aura': {
-            name: "Golden Aura",
-            price: "$110.00",
-            priceNum: 110.00,
-            description: "Radiate confidence with this luminous fragrance",
-            image: "https://veloaraluxury.com/cdn/shop/files/Grafior_-_perfume_3.jpg?v=1760876506&width=800",
-            category: "male",
-            scent: "oriental",
-            ratingStars: "★★★★★",
-            ratingCount: "187"
-        },
-        'aroma-bliss': {
-            name: "Aroma Bliss",
-            price: "$175.00",
-            priceNum: 175.00,
-            description: "A calming and therapeutic blend",
-            image: "https://images.pexels.com/photos/965730/pexels-photo-965730.jpeg",
-            category: "unisex",
-            scent: "floral",
-            ratingStars: "★★★★★",
-            ratingCount: "203"
-        },
-        'timeless-oud': {
-            name: "Timeless Oud",
-            price: "$225.00",
-            priceNum: 225.00,
-            description: "Deep, rich, and sophisticated oud wood",
-            image: "https://images.pexels.com/photos/4925692/pexels-photo-4925692.jpeg",
-            category: "female",
-            scent: "woody",
-            ratingStars: "★★★★★",
-            ratingCount: "312"
-        },
-        'velvet-petal': {
-            name: "Velvet Petal",
-            price: "$159.00",
-            priceNum: 159.00,
-            description: "A soft, powdery, and romantic floral scent",
-            image: "https://images.pexels.com/photos/14496154/pexels-photo-14496154.jpeg",
-            category: "female",
-            scent: "floral",
-            ratingStars: "★★★★☆",
-            ratingCount: "76"
-        },
-        'amber-elite': {
-            name: "Amber Elite",
-            price: "$195.00",
-            priceNum: 195.00,
-            description: "The ultimate expression of amber",
-            image: "https://images.pexels.com/photos/31847826/pexels-photo-31847826.jpeg",
-            category: "male",
-            scent: "woody",
-            ratingStars: "★★★★★",
-            ratingCount: "189"
-        },
-        'diamond-aura': {
-            name: "Diamond Aura",
-            price: "$210.00",
-            priceNum: 210.00,
-            description: "A bright, sparkling, and crisp fragrance",
-            image: "https://images.pexels.com/photos/28460123/pexels-photo-28460123.jpeg",
-            category: "male",
-            scent: "fresh",
-            ratingStars: "★★★★★",
-            ratingCount: "245"
-        },
-        'citrus-harmony': {
-            name: "Citrus Harmony",
-            price: "$138.00",
-            priceNum: 138.00,
-            description: "Zesty and uplifting grapefruit and lemon",
-            image: "https://images.pexels.com/photos/12528067/pexels-photo-12528067.jpeg",
-            category: "unisex",
-            scent: "fresh",
-            ratingStars: "★★★★☆",
-            ratingCount: "92"
-        },
-        'sapphire-mystique': {
-            name: "Sapphire Mystique",
-            price: "$182.00",
-            priceNum: 182.00,
-            description: "Deep, aquatic, and aromatic fragrance",
-            image: "https://images.pexels.com/photos/32438858/pexels-photo-32438858.jpeg",
-            category: "male",
-            scent: "fresh",
-            ratingStars: "★★★★★",
-            ratingCount: "167"
-        },
-        'golden-harmony': {
-            name: "Golden Harmony",
-            price: "$205.00",
-            priceNum: 205.00,
-            description: "A balanced blend of spice, sweet, and wood",
-            image: "https://images.pexels.com/photos/11711829/pexels-photo-11711829.jpeg",
-            category: "unisex",
-            scent: "woody",
-            ratingStars: "★★★★★",
-            ratingCount: "278"
-        }
-    };
+const products = {
+    'floral-essence': {
+        name: "Floral Essence",
+        brand: "Gucci",
+        price: "$89.00",
+        priceNum: 89.00,
+        description: "A beautiful bouquet of fresh spring flowers",
+        image: "https://images.pexels.com/photos/8747310/pexels-photo-8747310.jpeg",
+        category: "female",
+        scent: "floral",
+        ratingStars: "★★★★★",
+        ratingCount: "198"
+    },
+    'amber-nights': {
+        name: "Amber Nights",
+        brand: "Dior",
+        price: "$125.00",
+        priceNum: 125.00,
+        description: "A warm, mysterious, and seductive scent",
+        image: "https://images.pexels.com/photos/29801749/pexels-photo-29801749.jpeg",
+        category: "unisex",
+        scent: "oriental",
+        ratingStars: "★★★★★",
+        ratingCount: "214"
+    },
+    'royal-rose': {
+        name: "Royal Rose",
+        brand: "Chanel",
+        price: "$95.00",
+        priceNum: 95.00,
+        description: "A modern interpretation of a classic rose",
+        image: "https://images.pexels.com/photos/724635/pexels-photo-724635.jpeg",
+        category: "female",
+        scent: "floral",
+        ratingStars: "★★★★☆",
+        ratingCount: "156"
+    },
+    'golden-aura': {
+        name: "Golden Aura",
+        brand: "Versace",
+        price: "$110.00",
+        priceNum: 110.00,
+        description: "Radiate confidence with this luminous fragrance",
+        image: "https://images.pexels.com/photos/20282244/pexels-photo-20282244.jpeg",
+        category: "male",
+        scent: "oriental",
+        ratingStars: "★★★★★",
+        ratingCount: "187"
+    },
+    'aroma-bliss': {
+        name: "Aroma Bliss",
+        brand: "Hermes",
+        price: "$175.00",
+        priceNum: 175.00,
+        description: "A calming and therapeutic blend",
+        image: "https://images.pexels.com/photos/965730/pexels-photo-965730.jpeg",
+        category: "unisex",
+        scent: "floral",
+        ratingStars: "★★★★★",
+        ratingCount: "203"
+    },
+    'timeless-oud': {
+        name: "Timeless Oud",
+        brand: "Tom Ford",
+        price: "$225.00",
+        priceNum: 225.00,
+        description: "Deep, rich, and sophisticated oud wood",
+        image: "https://images.pexels.com/photos/4925692/pexels-photo-4925692.jpeg",
+        category: "male",
+        scent: "woody",
+        ratingStars: "★★★★★",
+        ratingCount: "312"
+    },
+    'velvet-petal': {
+        name: "Velvet Petal",
+        brand: "YSL",
+        price: "$159.00",
+        priceNum: 159.00,
+        description: "A soft, powdery, and romantic floral scent",
+        image: "https://images.pexels.com/photos/14496154/pexels-photo-14496154.jpeg",
+        category: "female",
+        scent: "floral",
+        ratingStars: "★★★★☆",
+        ratingCount: "76"
+    },
+    'amber-elite': {
+        name: "Amber Elite",
+        brand: "Bvlgari",
+        price: "$195.00",
+        priceNum: 195.00,
+        description: "The ultimate expression of amber",
+        image: "https://images.pexels.com/photos/31847826/pexels-photo-31847826.jpeg",
+        category: "male",
+        scent: "woody",
+        ratingStars: "★★★★★",
+        ratingCount: "189"
+    },
+    'diamond-aura': {
+        name: "Diamond Aura",
+        brand: "Chanel",
+        price: "$210.00",
+        priceNum: 210.00,
+        description: "A bright, sparkling, and crisp fragrance",
+        image: "https://images.pexels.com/photos/28460123/pexels-photo-28460123.jpeg",
+        category: "male",
+        scent: "fresh",
+        ratingStars: "★★★★★",
+        ratingCount: "245"
+    },
+    'citrus-harmony': {
+        name: "Citrus Harmony",
+        brand: "Dior",
+        price: "$138.00",
+        priceNum: 138.00,
+        description: "Zesty and uplifting grapefruit and lemon",
+        image: "https://images.pexels.com/photos/12528067/pexels-photo-12528067.jpeg",
+        category: "unisex",
+        scent: "fresh",
+        ratingStars: "★★★★☆",
+        ratingCount: "92"
+    },
+    'sapphire-mystique': {
+        name: "Sapphire Mystique",
+        brand: "Bvlgari",
+        price: "$182.00",
+        priceNum: 182.00,
+        description: "Deep, aquatic, and aromatic fragrance",
+        image: "https://images.pexels.com/photos/11920479/pexels-photo-11920479.jpeg",
+        category: "male",
+        scent: "fresh",
+        ratingStars: "★★★★★",
+        ratingCount: "167"
+    },
+    'golden-harmony': {
+        name: "Golden Harmony",
+        brand: "Versace",
+        price: "$205.00",
+        priceNum: 205.00,
+        description: "A balanced blend of spice, sweet, and wood",
+        image: "https://images.pexels.com/photos/11711829/pexels-photo-11711829.jpeg",
+        category: "unisex",
+        scent: "woody",
+        ratingStars: "★★★★★",
+        ratingCount: "278"
+    }
+};
 
 // ============================================
 // 2. UTILITY FUNCTIONS
@@ -159,27 +171,6 @@
             } else {
                 header.classList.remove('scrolled');
             }
-        });
-    }
-
-    function setupMobileNav() {
-        const hamburgerBtn = document.getElementById('hamburger-button');
-        const mobileNavMenu = document.getElementById('mobile-nav-menu');
-        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
-        const body = document.body;
-
-        if (!hamburgerBtn || !mobileNavMenu) return;
-
-        hamburgerBtn.addEventListener('click', () => {
-            body.classList.toggle('nav-open');
-            mobileNavMenu.classList.toggle('open');
-        });
-
-        mobileNavLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                body.classList.remove('nav-open');
-                mobileNavMenu.classList.remove('open');
-            });
         });
     }
 
@@ -1079,7 +1070,7 @@
             ratingStars: "★★★★★",
             ratingCount: "198",
             shortDescription: "A beautiful bouquet of fresh spring flowers, captured in a bottle.",
-            mainImage: "https://img.freepik.com/premium-photo/discover-luxurious-perfumes-every-mood-style-occasion_1197721-145317.jpg",
+            mainImage: "https://images.pexels.com/photos/8747310/pexels-photo-8747310.jpeg",
             productDetails: "Floral Essence captures the vibrant, uplifting spirit of a garden in full bloom. It's an elegant and timeless fragrance designed for those who appreciate classic beauty. Light, airy, and unmistakably feminine.",
             overtureTitle: "The Blossom Overture",
             overtureContent: "Floral Essence opens with a fresh, dewy burst of Peony and Freesia. This bright introduction leads gracefully into a heart of classic Rose and Magnolia, creating a sophisticated floral bouquet that is both modern and timeless.",
@@ -1097,7 +1088,7 @@
             ratingStars: "★★★★★",
             ratingCount: "214",
             shortDescription: "A warm, mysterious, and seductive scent for unforgettable evenings.",
-            mainImage: "https://cdn11.bigcommerce.com/s-ojfjzuqgaj/images/stencil/1200w/products/241913/908284/q9wo1TK51LCBaa9pa_xAvjR94__29378.1758593496.jpg?c=1",
+            mainImage: "https://images.pexels.com/photos/29801749/pexels-photo-29801749.jpeg",
             productDetails: "Amber Nights wraps you in warmth and mystery. Perfect for evening wear, this sophisticated fragrance combines rich amber with exotic spices and woods.",
             overtureTitle: "The Evening Overture",
             overtureContent: "As dusk falls, Amber Nights reveals its captivating character with warm amber, spicy cardamom, and deep woody notes.",
@@ -1115,7 +1106,7 @@
             ratingStars: "★★★★☆",
             ratingCount: "156",
             shortDescription: "A modern interpretation of a classic rose, elegant and timeless.",
-            mainImage: "https://img.freepik.com/premium-photo/discover-luxurious-perfumes-every-mood-style-occasion_1197721-145147.jpg",
+            mainImage: "https://images.pexels.com/photos/724635/pexels-photo-724635.jpeg",
             discoverMore: ['floral-essence', 'velvet-petal', 'diamond-aura', 'golden-aura']
         },
         'golden-aura': {
@@ -1125,7 +1116,7 @@
             ratingStars: "★★★★★",
             ratingCount: "187",
             shortDescription: "Radiate confidence with this luminous and warm solar fragrance.",
-            mainImage: "https://veloaraluxury.com/cdn/shop/files/Grafior_-_perfume_3.jpg?v=1760876506&width=800",
+            mainImage: "https://images.pexels.com/photos/20282244/pexels-photo-20282244.jpeg",
             discoverMore: ['diamond-aura', 'citrus-harmony', 'sapphire-mystique', 'golden-harmony']
         },
         'aroma-bliss': {
@@ -1195,7 +1186,7 @@
             ratingStars: "★★★★★",
             ratingCount: "167",
             shortDescription: "A deep, aquatic, and aromatic fragrance with a touch of spice.",
-            mainImage: "https://images.pexels.com/photos/32438858/pexels-photo-32438858.jpeg",
+            mainImage: "https://images.pexels.com/photos/11920479/pexels-photo-11920479.jpeg",
             discoverMore: ['timeless-oud', 'amber-elite', 'golden-harmony', 'citrus-harmony']
         },
         'golden-harmony': {
@@ -1501,7 +1492,6 @@
     document.addEventListener('DOMContentLoaded', () => {
         // Initialize basic functionality
         setupHeaderScroll();
-        setupMobileNav();
         setupNavigationIcons();
         setupSearchListeners();
         setupSmoothScroll();
@@ -1511,6 +1501,9 @@
         initPreloaderAnimations();
         setupAuthPage();
         startCountdown();
+        initShopFilters(); // New Filter Logic
+        initBestSellerSlider(); 
+        initOfferSlider();
 
         // Update badges
         updateCartBadge();
@@ -1537,6 +1530,18 @@
         // Initialize profile page if on profile page
         if (document.querySelector('.profile-container')) {
             setupProfilePage();
+        }
+
+        // Mobile Toggle Logic
+        const filterToggleBtn = document.getElementById('mobile-filter-toggle');
+        const shopSidebar = document.getElementById('shopSidebar');
+        if (filterToggleBtn && shopSidebar) {
+            filterToggleBtn.addEventListener('click', () => {
+                shopSidebar.classList.toggle('active');
+                const isClosed = !shopSidebar.classList.contains('active');
+                const spanText = filterToggleBtn.querySelector('span');
+                if(spanText) spanText.textContent = isClosed ? 'Filter Products' : 'Close Filters';
+            });
         }
     });
 
@@ -1705,101 +1710,334 @@
         window.addEventListener('DOMContentLoaded', loadOrderSummary);
         
 // ============================================
-// 15. FILTER LOGIC SYSTEM
+// 15. UPDATED FILTER LOGIC & VIEW TOGGLE
 // ============================================
 
-    function initShopFilters() {
-        // 1. Ambil elemen DOM
-        const grid = document.getElementById('shopProductGrid');
-        const categorySelect = document.getElementById('categoryFilter');
-        const scentSelect = document.getElementById('scentFilter');
-        const sortSelect = document.getElementById('sortFilter');
-        const countDisplay = document.getElementById('filter-count');
+function initShopFilters() {
+    // 1. SELECTORS & STATE SETUP
+    const grid = document.getElementById('shopProductGrid');
+    const resultCount = document.getElementById('result-count');
+    const sortSelect = document.getElementById('sort-select');
+    const viewButtons = document.querySelectorAll('.view-btn');
+    const filterBtn = document.getElementById('apply-price-filter');
+    const resetBtn = document.getElementById('reset-filters');
+    const paginationContainer = document.getElementById('pagination-controls');
+    
+    // Group Checkboxes
+    const categoryCheckboxes = document.querySelectorAll('input[name="category"]');
+    const brandCheckboxes = document.querySelectorAll('input[name="brand"]');
+    const scentCheckboxes = document.querySelectorAll('input[name="scent"]'); 
+    const ratingCheckboxes = document.querySelectorAll('input[name="rating"]');
+    
+    // Price Inputs
+    const minPriceInput = document.getElementById('min-price');
+    const maxPriceInput = document.getElementById('max-price');
 
-        // Jika elemen grid tidak ditemukan (misal di halaman Home), hentikan fungsi
-        if (!grid) return;
+    if (!grid) return; // Guard clause jika elemen tidak ada
 
-        // 2. Fungsi Utama Render
-        function filterAndRender() {
-            // Ambil value dari dropdown
-            const catVal = categorySelect ? categorySelect.value : 'all';
-            const scentVal = scentSelect ? scentSelect.value : 'all';
-            const sortVal = sortSelect ? sortSelect.value : 'featured';
+    // State Variables
+    let currentPage = 1;
+    let itemsPerPage = 6; 
+    let currentFilteredProducts = []; 
 
-            console.log(`Filtering: Cat=${catVal}, Scent=${scentVal}, Sort=${sortVal}`); // Debugging
+    // Konversi object 'products' global menjadi array agar mudah difilter
+    const productArray = Object.entries(products).map(([id, item]) => ({ id, ...item }));
 
-            // Konversi object 'products' menjadi array agar bisa difilter
-            let filtered = Object.entries(products).map(([id, item]) => ({
-                id: id,
-                ...item // copy semua properti (name, price, category, dll)
-            }));
-
-            // Filter Kategori
-            if (catVal !== 'all') {
-                filtered = filtered.filter(p => p.category === catVal);
-            }
-
-            // Filter Aroma
-            if (scentVal !== 'all') {
-                filtered = filtered.filter(p => p.scent === scentVal);
-            }
-
-            // Sorting
-            if (sortVal === 'price-high') {
-                filtered.sort((a, b) => b.priceNum - a.priceNum);
-            } else if (sortVal === 'price-low') {
-                filtered.sort((a, b) => a.priceNum - b.priceNum);
-            }
-            // 'featured' tidak perlu sort karena urutan array sudah sesuai urutan object di atas
-
-            // Update teks jumlah produk
-            if (countDisplay) {
-                countDisplay.textContent = `Showing ${filtered.length} Masterpieces`;
-            }
-
-            // Render ke HTML
-            if (filtered.length === 0) {
-                grid.innerHTML = `
-                    <div style="grid-column: 1/-1; text-align: center; padding: 5rem 0; color: #888;">
-                        <h3 style="font-family: 'Playfair Display'; font-size: 1.5rem; color: var(--gold);">No perfumes found</h3>
-                        <p>Try adjusting your filters to find what you're looking for.</p>
-                    </div>
-                `;
+    // --- 2. LOGIKA GANTI TAMPILAN (GRID / LIST) ---
+    viewButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            // Hapus class active dari semua tombol
+            viewButtons.forEach(b => b.classList.remove('active'));
+            // Tambahkan class active ke tombol yang diklik
+            btn.classList.add('active');
+            
+            const viewType = btn.getAttribute('data-view');
+            if (viewType === 'list') {
+                grid.classList.add('list-view');
+                itemsPerPage = 4; // List view lebih besar, kurangi item per halaman
             } else {
-                grid.innerHTML = filtered.map((product, index) => {
-                    // Tentukan badge (opsional)
-                    let badgeHtml = '';
-                    if(product.priceNum > 200) badgeHtml = '<div class="product-badge">Exclusive</div>';
-                    else if(product.ratingCount > 200) badgeHtml = '<div class="product-badge">Bestseller</div>';
-
-                    return `
-                    <div class="product-card fade-in-up" 
-                        style="animation-delay: ${index * 0.05}s;" 
-                        onclick="goToProduct('${product.id}')">
-                        <div class="product-image-wrapper">
-                            ${badgeHtml}
-                            <div class="product-image" style="background-image: url('${product.image}');"></div>
-                        </div>
-                        <div class="product-info">
-                            <h3 class="product-name">${product.name}</h3>
-                            <div class="product-meta">
-                                <span class="product-price">${product.price}</span>
-                            </div>
-                        </div>
-                    </div>
-                    `;
-                }).join('');
+                grid.classList.remove('list-view');
+                itemsPerPage = 6; // Grid view default
             }
+            currentPage = 1; // Reset ke halaman 1
+            renderGrid();
+        });
+    });
+
+    // --- 3. FUNGSI RENDER GRID UTAMA ---
+    function renderGrid() {
+        const totalItems = currentFilteredProducts.length;
+        if (resultCount) resultCount.textContent = `Showing ${totalItems} results`;
+
+        // Empty State (Jika tidak ada produk)
+        if (totalItems === 0) {
+            grid.innerHTML = `<div class="no-products" style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #888;"><h3>No products found matching your selection.</h3></div>`;
+            paginationContainer.innerHTML = '';
+            return;
         }
 
-        // 3. Pasang Event Listeners (Jalankan saat dropdown berubah)
-        if (categorySelect) categorySelect.addEventListener('change', filterAndRender);
-        if (scentSelect) scentSelect.addEventListener('change', filterAndRender);
-        if (sortSelect) sortSelect.addEventListener('change', filterAndRender);
+        // Logika Paginasi
+        const totalPages = Math.ceil(totalItems / itemsPerPage);
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
 
-        // 4. Jalankan sekali saat halaman dimuat pertama kali
-        filterAndRender();
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const productsToDisplay = currentFilteredProducts.slice(startIndex, endIndex);
+        
+        // Ambil data wishlist untuk menandai hati merah/putih
+        const currentWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+
+        // Generate HTML
+        grid.innerHTML = productsToDisplay.map((product, index) => {
+            // Logika Badge Diskon / Baru
+            const isDiscount = product.priceNum > 150;
+            const oldPrice = isDiscount ? (product.priceNum * 1.2).toFixed(2) : null;
+            const badgeHtml = isDiscount 
+                ? `<span class="card-badge">-20%</span>` 
+                : (index % 3 === 0 ? `<span class="card-badge new">NEW</span>` : '');
+
+            // Cek apakah produk ada di wishlist
+            const isWishlisted = currentWishlist.includes(product.id);
+            const activeClass = isWishlisted ? 'active' : '';
+
+            return `
+            <div class="product-card fade-in-up" style="animation-delay: ${index * 0.05}s;" onclick="goToProduct('${product.id}')">
+                <div class="product-image-wrapper">
+                    ${badgeHtml}
+                    
+                    <button class="card-wishlist-btn ${activeClass}" onclick="event.stopPropagation(); toggleWishlist('${product.id}', this)" title="Add to Wishlist">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </button>
+
+                    <button class="card-quick-add-btn" onclick="event.stopPropagation(); quickAddToCart('${product.id}')" title="Quick Add to Cart">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                            <line x1="12" y1="12" x2="12" y2="16"></line> <line x1="10" y1="14" x2="14" y2="14"></line>
+                        </svg>
+                    </button>
+
+                    <div class="product-image" style="background-image: url('${product.image}');"></div>
+                </div>
+                <div class="product-info">
+                    <span class="product-brand">${product.brand}</span>
+                    <h3 class="product-name">${product.name}</h3>
+                    <div class="product-rating">
+                        <span class="stars">${product.ratingStars || '★★★★★'}</span>
+                        <span class="rating-count">(${product.ratingCount || 50})</span>
+                    </div>
+                    <div class="product-price-box">
+                        <span class="current-price">$${product.priceNum}</span>
+                        ${oldPrice ? `<span class="old-price">$${oldPrice}</span>` : ''}
+                    </div>
+                </div>
+            </div>
+            `;
+        }).join('');
+
+        renderPagination(totalPages);
     }
+
+    // --- 4. RENDER KONTROL PAGINASI ---
+    function renderPagination(totalPages) {
+        if (!paginationContainer) return;
+        if (totalPages <= 1) {
+            paginationContainer.innerHTML = '';
+            return;
+        }
+        
+        let html = '';
+        
+        // Tombol Prev
+        if (currentPage > 1) {
+            html += `<button class="page-btn prev-page" onclick="changePage(${currentPage - 1})"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>`;
+        } else { 
+            html += `<div style="width: 45px;"></div>`; // Spacer agar layout tetap rapi
+        }
+        
+        // Info Halaman
+        html += `<span class="page-info">Page ${currentPage} of ${totalPages}</span>`;
+        
+        // Tombol Next
+        if (currentPage < totalPages) {
+            html += `<button class="page-btn next-page" onclick="changePage(${currentPage + 1})"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>`;
+        } else { 
+            html += `<div style="width: 45px;"></div>`; 
+        }
+        
+        paginationContainer.innerHTML = html;
+    }
+
+    // --- 5. LOGIKA FILTER UTAMA ---
+    function applyFilters() {
+        let filtered = [...productArray];
+
+        // A. Filter Kategori
+        const checkedCats = Array.from(categoryCheckboxes).filter(cb => cb.checked).map(cb => cb.value.toLowerCase());
+        if (checkedCats.length > 0) {
+            filtered = filtered.filter(p => checkedCats.includes(p.category.toLowerCase()));
+        }
+
+        // B. Filter Brand
+        const checkedBrands = Array.from(brandCheckboxes).filter(cb => cb.checked).map(cb => cb.value.toLowerCase());
+        if (checkedBrands.length > 0) {
+            filtered = filtered.filter(p => checkedBrands.includes(p.brand.toLowerCase()));
+        }
+
+        // C. Filter Scent (Wangi)
+        const checkedScents = Array.from(scentCheckboxes).filter(cb => cb.checked).map(cb => cb.value.toLowerCase());
+        if (checkedScents.length > 0) {
+            filtered = filtered.filter(p => checkedScents.includes(p.scent.toLowerCase()));
+        }
+
+        // D. Filter Rating (Exact Match)
+        const checkedRatings = Array.from(ratingCheckboxes).filter(cb => cb.checked).map(cb => parseInt(cb.value));
+        if (checkedRatings.length > 0) {
+            filtered = filtered.filter(p => {
+                const starCount = (p.ratingStars.match(/★/g) || []).length;
+                return checkedRatings.includes(starCount);
+            });
+        }
+
+        // E. Filter Harga
+        const min = parseFloat(minPriceInput.value) || 0;
+        const max = parseFloat(maxPriceInput.value) || 10000;
+        filtered = filtered.filter(p => p.priceNum >= min && p.priceNum <= max);
+
+        // F. Sorting (Urutan)
+        const sortVal = sortSelect ? sortSelect.value : 'default';
+        if (sortVal === 'price-low') filtered.sort((a, b) => a.priceNum - b.priceNum);
+        else if (sortVal === 'price-high') filtered.sort((a, b) => b.priceNum - a.priceNum);
+        else if (sortVal === 'rating') filtered.sort((a, b) => parseFloat(b.ratingCount || 0) - parseFloat(a.ratingCount || 0));
+
+        currentFilteredProducts = filtered;
+        currentPage = 1; 
+        renderGrid();
+    }
+
+    // --- 6. FUNGSI BANTUAN (RESET & PINDAH HALAMAN) ---
+    
+    // Fungsi Global agar bisa dipanggil dari onclick HTML
+    window.changePage = function(newPage) {
+        currentPage = newPage;
+        grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        renderGrid();
+    }
+
+    function resetFilters() {
+        // Uncheck semua checkbox
+        categoryCheckboxes.forEach(cb => cb.checked = false);
+        brandCheckboxes.forEach(cb => cb.checked = false);
+        scentCheckboxes.forEach(cb => cb.checked = false);
+        ratingCheckboxes.forEach(cb => cb.checked = false);
+        
+        // Reset input harga & sorting
+        minPriceInput.value = '';
+        maxPriceInput.value = '';
+        if(sortSelect) sortSelect.value = 'default';
+        
+        applyFilters();
+    }
+
+    // --- 7. EVENT LISTENERS ---
+    // Pasang listener 'change' ke semua input agar filter langsung aktif saat diklik
+    categoryCheckboxes.forEach(cb => cb.addEventListener('change', applyFilters));
+    brandCheckboxes.forEach(cb => cb.addEventListener('change', applyFilters));
+    scentCheckboxes.forEach(cb => cb.addEventListener('change', applyFilters));
+    ratingCheckboxes.forEach(cb => cb.addEventListener('change', applyFilters));
+
+    if (filterBtn) filterBtn.addEventListener('click', applyFilters);
+    if (sortSelect) sortSelect.addEventListener('change', applyFilters);
+    if (resetBtn) resetBtn.addEventListener('click', resetFilters);
+
+    // --- 8. PENANGANAN URL PARAMETER (Bagian "Magic") ---
+    // Ini menangani request user: Klik kategori di home -> Filter otomatis aktif di shop
+    const urlParams = new URLSearchParams(window.location.search);
+    let hasActiveFilter = false;
+
+    // Handle ?category=male
+    const catParam = urlParams.get('category');
+    if (catParam) {
+        categoryCheckboxes.forEach(cb => {
+            if(cb.value.toLowerCase() === catParam.toLowerCase()) {
+                cb.checked = true;
+                hasActiveFilter = true;
+            }
+        });
+    }
+
+    // Handle ?search=amber (misal dari popular tags)
+    const searchParam = urlParams.get('search');
+    if (searchParam) {
+        scentCheckboxes.forEach(cb => {
+            if(cb.value.toLowerCase() === searchParam.toLowerCase()) {
+                cb.checked = true;
+                hasActiveFilter = true;
+            }
+        });
+    }
+
+    // Handle ?brand=dior
+    const brandParam = urlParams.get('brand');
+    if (brandParam) {
+        brandCheckboxes.forEach(cb => {
+            if(cb.value.toLowerCase() === brandParam.toLowerCase()) {
+                cb.checked = true;
+                hasActiveFilter = true;
+            }
+        });
+    }
+
+    // Jalankan filter pertama kali
+    applyFilters();
+
+    // FITUR UX: Auto-scroll ke produk jika ada filter dari URL (khususnya di Mobile)
+    // Agar user tidak bingung "mana produknya?" karena tertutup header/hero
+    if (hasActiveFilter) {
+        setTimeout(() => {
+            grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 800); // Delay sedikit menunggu animasi loading selesai
+    }
+}
+
+// Fungsi Global untuk Toggle Wishlist dari Shop Grid
+function toggleWishlist(productId, btnElement) {
+    // 1. Ambil data wishlist saat ini
+    let wishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+    const index = wishlist.indexOf(productId);
+    const product = products[productId]; // Mengambil data produk dari objek global 'products'
+
+    if (index === -1) {
+        // KASUS: Belum ada di wishlist -> Tambahkan
+        wishlist.push(productId);
+        btnElement.classList.add('active'); // Tambah efek visual
+        
+        // Tampilkan notifikasi
+        const msg = product ? `${product.name} added to wishlist` : 'Added to wishlist';
+        showNotification(msg, 'success');
+        
+    } else {
+        // KASUS: Sudah ada -> Hapus
+        wishlist.splice(index, 1);
+        btnElement.classList.remove('active'); // Hapus efek visual
+        
+        // Tampilkan notifikasi
+        const msg = product ? `${product.name} removed from wishlist` : 'Removed from wishlist';
+        showNotification(msg, 'info');
+    }
+
+    // 2. Simpan kembali ke LocalStorage
+    localStorage.setItem('wishlist', JSON.stringify(wishlist));
+
+    // 3. Update Badge di Header (jika fungsi tersedia)
+    if (typeof updateWishlistBadge === 'function') {
+        updateWishlistBadge();
+    } else if (window.wishlistManager) {
+        window.wishlistManager.updateBadge();
+    }
+}
 
 // ============================================
 // 16. WISHLIST MODAL
@@ -2094,7 +2332,7 @@
     function startCountdown() {
         // Tentukan tanggal akhir promo (contoh: Black Friday, 24 November 2025 jam 23:59:59)
         // Sesuaikan tanggal ini sesuai tanggal promo yang Anda inginkan
-        const endDate = new Date("Dec 12, 2025 23:59:59").getTime();
+        const endDate = new Date("Dec 20, 2025 23:59:59").getTime();
         
         // Cek apakah elemen countdown ada di halaman (hanya berlaku di index.html)
         if (!document.getElementById("days")) return;
@@ -2130,6 +2368,310 @@
     }
 
 // ============================================
+// STICKY BOTTOM NAV LOGIC (Update di main.js)
+// ============================================
+
+document.addEventListener("DOMContentLoaded", function() {
+    const currentPath = window.location.pathname;
+    const navItems = document.querySelectorAll('.bottom-nav-item');
+
+    // 1. Highlight Menu Aktif
+    navItems.forEach(item => {
+        item.classList.remove('active');
+        
+        const href = item.getAttribute('href');
+        // Cek kecocokan URL
+        if (href && currentPath.includes(href)) {
+            item.classList.add('active');
+        }
+    });
+    
+    // Khusus Homepage
+    if (currentPath.endsWith('/') || currentPath.endsWith('index.html')) {
+        const homeNav = document.getElementById('nav-home');
+        if(homeNav) homeNav.classList.add('active');
+    }
+
+    // 2. Update Badge Cart (Hanya untuk Header Desktop/Atas)
+    // Karena icon cart bawah dihapus, kita kembalikan fungsi updateCartBadge ke default
+    // atau pastikan pengecekan elemen ada sebelum update.
+    const originalUpdateBadge = window.updateCartBadge;
+    
+    if (typeof originalUpdateBadge === "function") {
+        window.updateCartBadge = function() {
+            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            
+            // Update badge atas (desktop/header) - Wajib ada
+            const badgeTop = document.getElementById('cart-badge');
+            if (badgeTop) {
+                badgeTop.textContent = totalItems;
+                badgeTop.style.display = totalItems > 0 ? 'flex' : 'none';
+            }
+        };
+        // Jalankan sekali
+        window.updateCartBadge();
+    }
+});
+
+// ============================================
+// INFINITE BEST SELLER SLIDER (Seamless Loop)
+// ============================================
+function initBestSellerSlider() {
+    const track = document.getElementById('bs-track');
+    let slides = document.querySelectorAll('.wide-product-card');
+    const nextBtn = document.getElementById('bs-next');
+    const prevBtn = document.getElementById('bs-prev');
+    const dotsContainer = document.getElementById('bs-dots');
+
+    if (!track || slides.length === 0) return;
+
+    // 1. Setup Dots (Hanya untuk jumlah slide asli)
+    dotsContainer.innerHTML = ''; // Reset dots
+    slides.forEach((_, idx) => {
+        const dot = document.createElement('div');
+        dot.classList.add('dot');
+        if (idx === 0) dot.classList.add('active');
+        dot.addEventListener('click', () => moveToSlide(idx + 1)); // +1 karena ada clone
+        dotsContainer.appendChild(dot);
+    });
+    const dots = document.querySelectorAll('.dot');
+
+    // 2. Cloning Logic untuk Efek Infinite
+    const firstClone = slides[0].cloneNode(true);
+    const lastClone = slides[slides.length - 1].cloneNode(true);
+
+    firstClone.id = 'first-clone';
+    lastClone.id = 'last-clone';
+
+    track.append(firstClone);
+    track.prepend(lastClone);
+
+    // Update list slide setelah cloning
+    const allSlides = document.querySelectorAll('.wide-product-card'); 
+    
+    // 3. State Variables
+    let counter = 1; // Mulai dari 1 karena 0 adalah lastClone
+    let isTransitioning = false;
+    const size = 100; // Karena width css 100%
+
+    // Posisi awal (langsung ke slide asli pertama)
+    track.style.transform = `translateX(${-size * counter}%)`;
+
+    // 4. Fungsi Navigasi Utama
+    function updateSlider() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        track.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)'; // Animasi Smooth
+        track.style.transform = `translateX(${-size * counter}%)`;
+        
+        updateDots();
+    }
+
+    function updateDots() {
+        // Hapus active dari semua dots
+        dots.forEach(d => d.classList.remove('active'));
+        
+        // Hitung index dot yang sesuai (koreksi clone)
+        let dotIndex = counter - 1;
+        if (counter === 0) dotIndex = slides.length - 1; // Jika di clone terakhir
+        if (counter === allSlides.length - 1) dotIndex = 0; // Jika di clone pertama
+        
+        if(dots[dotIndex]) dots[dotIndex].classList.add('active');
+    }
+
+    function moveToSlide(index) {
+        if (isTransitioning) return;
+        counter = index;
+        updateSlider();
+    }
+
+    // 5. Event Listeners Buttons
+    nextBtn.addEventListener('click', () => {
+        if (isTransitioning) return;
+        if (counter >= allSlides.length - 1) return;
+        counter++;
+        updateSlider();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (isTransitioning) return;
+        if (counter <= 0) return;
+        counter--;
+        updateSlider();
+    });
+
+    // 6. Transition End - Magic Loop happens here
+    track.addEventListener('transitionend', () => {
+        isTransitioning = false;
+        
+        // Jika kita berada di Clone Terakhir (copy dari slide terakhir), lompat ke Slide Terakhir Asli
+        if (allSlides[counter].id === 'last-clone') {
+            track.style.transition = 'none'; // Matikan animasi agar instan
+            counter = allSlides.length - 2;
+            track.style.transform = `translateX(${-size * counter}%)`;
+        }
+        
+        // Jika kita berada di Clone Pertama (copy dari slide pertama), lompat ke Slide Pertama Asli
+        if (allSlides[counter].id === 'first-clone') {
+            track.style.transition = 'none'; // Matikan animasi agar instan
+            counter = 1;
+            track.style.transform = `translateX(${-size * counter}%)`;
+        }
+    });
+
+    // 7. Touch / Swipe Support
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    track.addEventListener('touchstart', e => {
+        touchStartX = e.changedTouches[0].screenX;
+    });
+
+    track.addEventListener('touchend', e => {
+        touchEndX = e.changedTouches[0].screenX;
+        if (touchStartX - touchEndX > 50) {
+            // Swipe Left -> Next
+            if (!isTransitioning) {
+                counter++;
+                updateSlider();
+            }
+        } else if (touchEndX - touchStartX > 50) {
+            // Swipe Right -> Prev
+            if (!isTransitioning) {
+                counter--;
+                updateSlider();
+            }
+        }
+    });
+}
+
+// Mobile Filter Toggle Logic
+document.addEventListener('DOMContentLoaded', () => {
+    const filterToggleBtn = document.getElementById('mobile-filter-toggle');
+    const shopSidebar = document.getElementById('shopSidebar');
+
+    if (filterToggleBtn && shopSidebar) {
+        filterToggleBtn.addEventListener('click', () => {
+            shopSidebar.classList.toggle('active');
+            
+            // Ubah teks tombol biar interaktif
+            const isClosed = !shopSidebar.classList.contains('active');
+            const spanText = filterToggleBtn.querySelector('span');
+            if(spanText) {
+                spanText.textContent = isClosed ? 'Filter Products' : 'Close Filters';
+            }
+        });
+    }
+});
+
+// ============================================
+// OFFER SLIDER (Untuk Halaman Shop)
+// ============================================
+function initOfferSlider() {
+    const track = document.getElementById('offer-track');
+    if (!track) return;
+
+    let slides = track.querySelectorAll('.wide-product-card');
+    const nextBtn = document.getElementById('offer-next');
+    const prevBtn = document.getElementById('offer-prev');
+    
+    if (slides.length === 0) return;
+
+    // --- Cloning Logic (Infinite Loop) ---
+    const firstClone = slides[0].cloneNode(true);
+    const lastClone = slides[slides.length - 1].cloneNode(true);
+
+    firstClone.id = 'offer-first-clone';
+    lastClone.id = 'offer-last-clone';
+
+    track.append(firstClone);
+    track.prepend(lastClone);
+
+    const allSlides = track.querySelectorAll('.wide-product-card');
+    let counter = 1;
+    let isTransitioning = false;
+    const size = 100;
+    let slideInterval; // Variabel untuk menyimpan timer
+
+    track.style.transform = `translateX(${-size * counter}%)`;
+
+    // --- Fungsi Update Posisi Slider ---
+    function updateSlider() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        track.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+        track.style.transform = `translateX(${-size * counter}%)`;
+    }
+
+    // --- Fungsi Pindah ke Slide Berikutnya ---
+    function nextSlide() {
+        if (counter >= allSlides.length - 1) return;
+        counter++;
+        updateSlider();
+    }
+
+    // --- Fungsi Pindah ke Slide Sebelumnya ---
+    function prevSlide() {
+        if (counter <= 0) return;
+        counter--;
+        updateSlider();
+    }
+
+    // --- Fungsi Timer Otomatis (5 Detik) ---
+    function startAutoSlide() {
+        clearInterval(slideInterval); // Hapus timer lama agar tidak tumpang tindih
+        slideInterval = setInterval(() => {
+            nextSlide();
+        }, 3500); // 5000ms = 5 detik
+    }
+
+    // --- Event Listeners Tombol (Reset Timer saat diklik) ---
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            startAutoSlide(); // Reset waktu tunggu jadi 5 detik lagi
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            startAutoSlide(); // Reset waktu tunggu jadi 5 detik lagi
+        });
+    }
+
+    // --- Infinite Loop Logic (Saat Transisi Selesai) ---
+    track.addEventListener('transitionend', () => {
+        isTransitioning = false;
+        if (allSlides[counter].id === 'offer-last-clone') {
+            track.style.transition = 'none';
+            counter = allSlides.length - 2;
+            track.style.transform = `translateX(${-size * counter}%)`;
+        }
+        if (allSlides[counter].id === 'offer-first-clone') {
+            track.style.transition = 'none';
+            counter = 1;
+            track.style.transform = `translateX(${-size * counter}%)`;
+        }
+    });
+
+    // --- Fitur Tambahan: Pause saat Mouse Hover ---
+    // Agar user bisa membaca promo tanpa slide bergeser tiba-tiba
+    const sliderContainer = track.parentElement;
+    sliderContainer.addEventListener('mouseenter', () => {
+        clearInterval(slideInterval);
+    });
+    
+    sliderContainer.addEventListener('mouseleave', () => {
+        startAutoSlide();
+    });
+
+    // Mulai Auto Slide saat halaman dimuat
+    startAutoSlide();
+}
+
+// ============================================
 // 18. EXPORT FUNCTIONS TO WINDOW
 // ============================================
     window.switchTab = switchTab;
@@ -2149,3 +2691,34 @@
     window.showAllOrders = showAllOrders;
     window.ShoppingCartManager = ShoppingCartManager;
     window.WishlistManager = WishlistManager;
+    window.toggleWishlist = toggleWishlist;
+    
+function switchDiscovery(type, btnElement) {
+    // 1. Sembunyikan SEMUA panel
+    const allPanels = document.querySelectorAll('.discovery-panel');
+    allPanels.forEach(panel => {
+        panel.style.display = 'none';
+        panel.classList.remove('active');
+    });
+
+    // 2. Hapus class 'active' dari SEMUA tombol
+    const allButtons = document.querySelectorAll('.discovery-tabs .tab-btn');
+    allButtons.forEach(btn => {
+        btn.classList.remove('active');
+    });
+
+    // 3. Tampilkan panel yang dipilih
+    const targetPanel = document.getElementById(`panel-${type}`);
+    if (targetPanel) {
+        targetPanel.style.display = 'block';
+        // Timeout kecil untuk memastikan transisi CSS berjalan (jika ada fade-in)
+        setTimeout(() => {
+            targetPanel.classList.add('active');
+        }, 10);
+    }
+
+    // 4. Aktifkan tombol yang diklik
+    if (btnElement) {
+        btnElement.classList.add('active');
+    }
+}

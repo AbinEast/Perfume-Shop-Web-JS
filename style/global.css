@@ -1,0 +1,736 @@
+/* ==========================================================================
+   GLOBAL.CSS
+   Berisi: Root Variables, Reset, Header, Navbar, Search Overlay, Footer, 
+   Global Animations, dan Responsive Design Dasar.
+   ========================================================================== */
+
+/* ===================================
+   1. ROOT VARIABLES - Color Palette
+   =================================== */
+:root {
+    --gold: #d4a574;           /* Warna emas utama untuk aksen */
+    --gold-light: #f0d7b8;     /* Emas terang untuk variasi */
+    --gold-dark: #8e6a42;      /* Emas gelap untuk kontras */
+    --black: #050505;          /* Hitam pekat untuk background */
+    --dark-grey: #0f0f0f;      /* Abu gelap untuk section alternatif */
+    --text-muted: #a1a1a1;     /* Abu muda untuk teks sekunder */
+}
+
+/* ===================================
+   2. GLOBAL RESET & BASE STYLES
+   =================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.8;
+    color: #fff;
+    background-color: var(--black);
+    overflow-x: hidden;
+}
+
+/* Mencegah scroll ketika mobile nav terbuka */
+body.nav-open {
+    overflow: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+::-webkit-scrollbar-track {
+    background: var(--black);
+}
+::-webkit-scrollbar-thumb {
+    background: linear-gradient(to bottom, var(--gold-dark), var(--gold));
+    border-radius: 4px;
+}
+
+/* Selection styling */
+::selection {
+    background: var(--gold);
+    color: var(--black);
+}
+
+/* ===================================
+   3. HEADER & NAVIGATION (DESKTOP)
+   =================================== */
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(5, 5, 5, 0.6); 
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: 2rem 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+header.scrolled {
+    padding: 1rem 0;
+    background: rgba(5, 5, 5, 0.85); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    border-bottom: 1px solid rgba(212, 165, 116, 0.3); 
+}
+
+nav {
+    max-width: 1600px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4rem;
+}
+
+/* Logo */
+.logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    color: var(--gold);
+    letter-spacing: 4px;
+    cursor: pointer;
+    z-index: 2001;
+    text-transform: uppercase;
+}
+
+/* Nav Links */
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 4rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 400;
+    position: relative;
+    padding: 0.5rem 0;
+    transition: color 0.4s ease;
+}
+
+.nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: all 0.4s ease;
+    transform: translateX(-50%);
+}
+
+.nav-links a:hover::after { width: 100%; }
+.nav-links a:hover { color: var(--gold); }
+
+/* Nav Icons */
+.nav-icons {
+    display: flex;
+    gap: 2rem;
+    align-items: center;
+    z-index: 2001;
+}
+
+.icon-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #fff;
+    transition: all 0.4s ease;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.icon-btn:hover {
+    color: var(--gold);
+    transform: translateY(-3px);
+}
+
+.icon-svg {
+    width: 20px;
+    height: 20px;
+    stroke: currentColor;
+    stroke-width: 1.5;
+    fill: none;
+}
+
+/* Badges */
+.wishlist-badge, .cart-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: var(--gold);
+    color: #000;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    font-size: 0.6rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* ===================================
+   4. SEARCH OVERLAY
+   =================================== */
+.search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.98);
+    backdrop-filter: blur(20px);
+    z-index: 3000;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem;
+}
+
+.search-overlay.active {
+    display: flex;
+    opacity: 1;
+}
+
+.search-container {
+    max-width: 800px;
+    width: 100%;
+    margin-top: 10vh;
+    transform: translateY(30px);
+    transition: transform 0.4s ease;
+}
+
+.search-overlay.active .search-container { transform: translateY(0); }
+
+.search-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+.search-header h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 2rem;
+    color: var(--gold);
+    letter-spacing: 2px;
+}
+
+.close-search {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 2rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.close-search:hover {
+    color: var(--gold);
+    transform: rotate(90deg);
+}
+
+.search-input-wrapper {
+    position: relative;
+    margin-bottom: 3rem;
+}
+
+.search-input {
+    width: 100%;
+    background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    color: #fff;
+    padding: 1.5rem 4rem 1.5rem 2rem;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-family: 'Montserrat', sans-serif;
+    letter-spacing: 0.5px;
+    transition: all 0.3s;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: var(--gold);
+    box-shadow: 0 0 20px rgba(212, 165, 116, 0.3);
+}
+
+.search-icon-input {
+    position: absolute;
+    right: 2rem;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 24px;
+    height: 24px;
+    stroke: var(--gold);
+    stroke-width: 2;
+    fill: none;
+}
+
+.search-results {
+    max-height: 60vh;
+    overflow-y: auto;
+    padding-right: 1rem;
+}
+
+.search-results::-webkit-scrollbar { width: 6px; }
+.search-results::-webkit-scrollbar-track { background: #0f0f0f; }
+.search-results::-webkit-scrollbar-thumb { background: var(--gold-dark); border-radius: 10px; }
+
+/* Search Result Item Styling */
+.search-result-item {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    gap: 1.5rem;
+    background: linear-gradient(145deg, #0f0f0f, #121212);
+    border: 1px solid rgba(212, 165, 116, 0.1);
+    border-radius: 15px;
+    padding: 1.2rem;
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    align-items: center;
+}
+
+.search-result-item:hover {
+    border-color: var(--gold);
+    transform: translateX(5px);
+    box-shadow: 0 5px 15px rgba(212, 165, 116, 0.1);
+}
+
+.result-image {
+    width: 100px;
+    height: 100px;
+    border-radius: 8px;
+    object-fit: cover;
+}
+
+.result-info h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    color: #fff;
+    margin-bottom: 0.3rem;
+    letter-spacing: 1px;
+}
+
+.result-info p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+}
+
+.result-price {
+    color: var(--gold);
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.popular-searches h3 {
+    color: var(--gold);
+    font-size: 1.2rem;
+    margin-bottom: 1.5rem;
+    letter-spacing: 1px;
+    border-bottom: 1px solid rgba(212, 165, 116, 0.2);
+    display: inline-block;
+    padding-bottom: 0.5rem;
+}
+
+.popular-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.popular-tag {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    padding: 0.6rem 1.2rem;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+
+.popular-tag:hover {
+    border-color: var(--gold);
+    color: var(--gold);
+    background: rgba(212, 165, 116, 0.1);
+}
+
+.no-results {
+    text-align: center;
+    padding: 3rem 0;
+    color: var(--text-muted);
+}
+
+/* ===================================
+   5. FOOTER
+   =================================== */
+footer {
+    background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
+    padding: 5rem 4rem 2rem;
+    border-top: 1px solid rgba(212, 165, 116, 0.1);
+}
+
+.footer-content {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 2fr repeat(4, 1fr);
+    gap: 4rem;
+    margin-bottom: 4rem;
+}
+
+.footer-section h3 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 2rem;
+    color: #d4a574;
+    font-weight: 500;
+    letter-spacing: 2px;
+    font-size: 1.2rem;
+}
+
+.footer-section p {
+    color: #999;
+    line-height: 2;
+    margin-bottom: 1.5rem;
+    font-size: 0.95rem;
+    font-weight: 300;
+}
+
+.footer-section ul { list-style: none; }
+.footer-section ul li { margin-bottom: 1rem; }
+
+.footer-section a {
+    color: #999;
+    text-decoration: none;
+    transition: all 0.3s;
+    font-size: 0.95rem;
+    position: relative;
+    display: inline-block;
+}
+
+.footer-section a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 1px;
+    background: #d4a574;
+    transition: width 0.3s ease;
+}
+
+.footer-section a:hover::after { width: 100%; }
+.footer-section a:hover { color: #d4a574; }
+
+.social-icons {
+    display: flex;
+    gap: 1.2rem;
+    margin-top: 1.5rem;
+}
+
+.social-icon {
+    width: 45px;
+    height: 45px;
+    background: linear-gradient(145deg, #0f0f0f, #1a1a1a);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #d4a574;
+    transition: all 0.3s;
+    cursor: pointer;
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    font-weight: 600;
+}
+
+.social-icon:hover {
+    background: linear-gradient(135deg, #d4a574, #c49563);
+    color: #000;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(212, 165, 116, 0.4);
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 3rem;
+    border-top: 1px solid #222;
+    color: #666;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+/* ===================================
+   6. GLOBAL BUTTONS & UTILS
+   =================================== */
+/* Button Primary (sering dipakai di footer/newsletter) */
+.btn-primary {
+    background: transparent;
+    color: var(--gold);
+    padding: 1rem 3rem;
+    border: 1px solid var(--gold);
+    border-radius: 0;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.btn-primary::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 100%;
+    background: var(--gold);
+    transition: width 0.4s ease;
+    z-index: -1;
+}
+
+.btn-primary:hover::before { width: 100%; }
+.btn-primary:hover { 
+    color: #000; 
+    box-shadow: 0 0 30px rgba(212, 165, 116, 0.4); 
+}
+
+/* Standard Animations */
+.fade-in { 
+    opacity: 0; 
+    transform: translateY(20px); 
+    animation: fadeInUp 0.8s ease forwards; 
+}
+
+@keyframes fadeInUp { 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+.reveal-on-scroll {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 1s ease, transform 1s ease;
+}
+
+.reveal-on-scroll.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ===================================
+   7. RESPONSIVE MEDIA QUERIES (GLOBAL)
+   =================================== */
+
+/* TABLET (Max 1024px) */
+@media (max-width: 1024px) {
+    .nav-links { display: none; }
+    .hamburger-btn { display: block; }
+    nav { padding: 0 2rem; }
+    
+    .footer-content {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* MOBILE (Max 768px) */
+@media (max-width: 768px) {
+    /* Header & Nav */
+    header { padding: 1rem 0; }
+    header.scrolled { padding: 0.8rem 0; }
+    nav { padding: 0 1.5rem; }
+    
+    .logo {
+        font-size: 1.3rem;
+        letter-spacing: 2px;
+    }
+    
+    .nav-icons { gap: 0.8rem; }
+    
+    .icon-btn {
+        padding: 0.3rem;
+        min-width: 40px;
+        min-height: 40px;
+    }
+    
+    .icon-svg {
+        width: 18px;
+        height: 18px;
+    }
+    
+    .wishlist-badge, .cart-badge {
+        top: -4px;
+        right: -4px;
+        width: 14px;
+        height: 14px;
+        font-size: 0.55rem;
+    }
+
+    /* Mobile Nav Menu */
+    .mobile-nav-links a { font-size: 2rem; }
+
+    /* Search */
+    .search-container {
+        width: 95%;
+        padding: 0 1rem;
+    }
+    .search-header h2 { font-size: 1.5rem; }
+    .search-input { padding: 1rem 3rem 1rem 1.5rem; font-size: 1rem; }
+    
+    .search-result-item {
+        grid-template-columns: 80px 1fr;
+        gap: 1rem;
+        padding: 1rem;
+    }
+    .result-image { width: 80px; height: 80px; }
+    .result-info h3 { font-size: 1.1rem; }
+
+    /* Footer */
+    .footer-content {
+        grid-template-columns: 1fr;
+        gap: 3rem;
+        padding: 1rem;
+    }
+    
+    footer { padding: 3rem 1.5rem 2rem; }
+}
+
+/* SMALL MOBILE (Max 480px) */
+@media (max-width: 480px) {
+    .logo { font-size: 1.1rem; letter-spacing: 1.5px; }
+    .nav-icons { gap: 0.5rem; }
+    .icon-svg { width: 16px; height: 16px; }
+    nav { padding: 0 1rem; }
+}
+
+/* ===================================
+   STICKY BOTTOM NAV STYLES
+   =================================== */
+
+/* Default: Sembunyikan di Desktop */
+.bottom-nav {
+    display: none;
+}
+
+/* Tampilkan HANYA di Mobile (Max 768px) */
+@media (max-width: 768px) {
+    /* 1. Sembunyikan Hamburger & Menu Overlay Lama */
+    .hamburger-btn { display: none !important; }
+    .mobile-nav { display: none !important; }
+
+    /* 2. Style Container Navigasi Bawah */
+    .bottom-nav {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 70px; /* Tinggi navbar */
+        background: rgba(10, 10, 10, 0.95); /* Hitam transparan */
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-top: 1px solid rgba(212, 165, 116, 0.2); /* Garis emas tipis di atas */
+        z-index: 9999;
+        padding-bottom: env(safe-area-inset-bottom); /* Support untuk iPhone tanpa tombol home */
+        box-shadow: 0 -5px 20px rgba(0,0,0,0.5);
+    }
+
+    /* 3. Style Item Navigasi */
+    .bottom-nav-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-decoration: none;
+        color: #888; /* Warna default icon abu-abu */
+        font-family: 'Montserrat', sans-serif;
+        font-size: 0.7rem;
+        flex: 1; /* Distribusi rata */
+        height: 100%;
+        transition: all 0.3s ease;
+    }
+
+    /* Icon SVG */
+    .bottom-nav-item svg {
+        width: 22px;
+        height: 22px;
+        margin-bottom: 4px;
+        stroke-width: 1.5;
+        transition: all 0.3s ease;
+    }
+
+    /* Efek Aktif/Hover */
+    .bottom-nav-item.active,
+    .bottom-nav-item:hover {
+        color: var(--gold); /* Berubah emas saat aktif */
+    }
+
+    .bottom-nav-item.active svg {
+        stroke: var(--gold);
+        transform: translateY(-2px);
+    }
+
+    /* Wrapper untuk icon cart agar badge bisa diposisikan */
+    .icon-wrapper {
+        position: relative;
+        display: flex;
+        justify-content: center;
+    }
+
+    /* Badge Cart Khusus Bottom Nav */
+    .cart-badge.bottom-badge {
+        position: absolute;
+        top: -5px;
+        right: -8px;
+        width: 16px;
+        height: 16px;
+        background: var(--gold);
+        color: #000;
+        border-radius: 50%;
+        font-size: 0.6rem;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid #000;
+    }
+
+    /* Tambahkan padding di body agar konten paling bawah tidak tertutup nav */
+    body {
+        padding-bottom: 80px; 
+    }
+}

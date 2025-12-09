@@ -3,1149 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>The Maison - Local Face Story</title>
+    <title>Lumière Scents - About</title>
     
     <!-- Google Fonts: Playfair Display untuk heading elegan, Montserrat untuk body text modern -->
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    
-    <style>
-        /* ==================== CSS VARIABLES ==================== */
-        /* Definisi warna utama untuk konsistensi tema di seluruh website */
-        :root {
-            --gold: #d4a574;           /* Warna emas utama untuk aksen luxury */
-            --gold-light: #f0d7b8;     /* Emas terang untuk highlight */
-            --gold-dark: #8e6a42;      /* Emas gelap untuk shadow/depth */
-            --black: #050505;          /* Hitam pekat untuk background */
-            --dark-grey: #0f0f0f;      /* Abu gelap untuk variasi background */
-            --text-muted: #a1a1a1;     /* Abu terang untuk teks sekunder */
-        }
-
-        /* ==================== GLOBAL RESET ==================== */
-        /* Reset default browser styling untuk konsistensi cross-browser */
-        * { 
-            margin: 0; 
-            padding: 0; 
-            box-sizing: border-box; /* Include padding dan border dalam width/height */
-        }
-
-        /* ==================== CUSTOM SCROLLBAR ==================== */
-        /* Styling scrollbar untuk aesthetic yang lebih premium */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--black); }
-        ::-webkit-scrollbar-thumb { 
-            background: linear-gradient(to bottom, var(--gold-dark), var(--gold)); 
-            border-radius: 4px; 
-        }
-        
-        /* Styling untuk text selection */
-        ::selection { 
-            background: var(--gold); 
-            color: var(--black); 
-        }
-
-        /* ==================== BODY STYLING ==================== */
-        /* Setup dasar untuk seluruh halaman */
-        body {
-            font-family: 'Montserrat', sans-serif;  /* Font utama untuk readability */
-            background: var(--black);                /* Background hitam luxury */
-            color: #fff;                             /* Text putih untuk kontras */
-            line-height: 1.8;                        /* Line height untuk readability */
-            overflow-x: hidden;                      /* Prevent horizontal scroll */
-        }
-
-        /* Prevent scrolling saat mobile nav terbuka */
-        body.nav-open { 
-            overflow: hidden; 
-        }
-
-        /* ==================== HEADER & NAVIGATION ==================== */
-        /* Fixed header dengan blur effect untuk modern look */
-        header {
-            position: fixed;                         /* Tetap di atas saat scroll */
-            top: 0;
-            width: 100%;
-            background: rgba(5, 5, 5, 0.8);         /* Semi-transparent background */
-            backdrop-filter: blur(15px);             /* Blur effect untuk depth */
-            -webkit-backdrop-filter: blur(15px);     /* Safari support */
-            z-index: 1000;                           /* Di atas semua element kecuali overlay */
-            padding: 2rem 0;
-            transition: all 0.5s ease;               /* Smooth transition saat scroll */
-            border-bottom: 1px solid rgba(212, 165, 116, 0.05); /* Subtle border */
-        }
-
-        /* Header state setelah user scroll - lebih compact */
-        header.scrolled {
-            padding: 1rem 0;                         /* Padding lebih kecil */
-            background: rgba(5, 5, 5, 0.95);        /* Lebih opaque */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5); /* Shadow untuk depth */
-        }
-
-        /* ==================== NAVIGATION CONTAINER ==================== */
-        /* Flexbox layout untuk align nav elements */
-        nav {
-            max-width: 1600px;                       /* Container lebar untuk luxury feel */
-            margin: 0 auto;                          /* Center alignment */
-            display: flex;
-            justify-content: space-between;          /* Logo kiri, icons kanan */
-            align-items: center;
-            padding: 0 4rem;                         /* Horizontal padding */
-        }
-
-        /* ==================== LOGO ==================== */
-        /* Brand logo dengan serif font untuk elegance */
-        .logo {
-            font-family: 'Playfair Display', serif;  /* Serif untuk luxury feel */
-            font-size: 2rem;
-            font-weight: 600;
-            color: var(--gold);                      /* Gold color */
-            letter-spacing: 4px;                     /* Wide spacing */
-            cursor: pointer;                         /* Indicate clickability */
-            z-index: 2001;                           /* Above mobile nav */
-            text-transform: uppercase;               /* All caps untuk impact */
-        }
-
-        /* ==================== DESKTOP NAVIGATION LINKS ==================== */
-        /* Horizontal nav menu untuk desktop */
-        .nav-links {
-            display: flex;
-            list-style: none;                        /* Remove bullet points */
-            gap: 4rem;                               /* Wide spacing untuk luxury */
-        }
-
-        /* Individual nav link styling */
-        .nav-links a {
-            text-decoration: none;
-            color: #fff;
-            font-size: 0.8rem;                       /* Small font size */
-            text-transform: uppercase;               /* Uppercase untuk consistency */
-            letter-spacing: 2px;                     /* Letter spacing untuk readability */
-            font-weight: 400;
-            position: relative;                      /* For pseudo-element positioning */
-            padding: 0.5rem 0;
-            transition: color 0.4s ease;            /* Smooth color transition */
-        }
-
-        /* Animated underline effect untuk nav links */
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;                                /* Start with no width */
-            height: 1px;
-            background: var(--gold);                 /* Gold underline */
-            transition: all 0.4s ease;              /* Smooth expansion */
-            transform: translateX(-50%);            /* Center the line */
-        }
-
-        /* Expand underline on hover */
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Change text color on hover */
-        .nav-links a:hover {
-            color: var(--gold);
-        }
-
-        /* ==================== NAVIGATION ICONS ==================== */
-        /* Icon buttons di kanan navbar (search, profile, wishlist, cart) */
-        .nav-icons {
-            display: flex;
-            gap: 2rem;                               /* Spacing between icons */
-            align-items: center;
-            z-index: 2001;                           /* Above mobile nav */
-        }
-
-        /* Base styling untuk semua icon buttons */
-        .icon-btn {
-            background: none;                        /* Transparent background */
-            border: none;
-            cursor: pointer;
-            color: #fff;
-            transition: all 0.4s ease;
-            position: relative;                      /* For badge positioning */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Icon hover effect */
-        .icon-btn:hover {
-            color: var(--gold);                      /* Gold color on hover */
-            transform: translateY(-3px);            /* Subtle lift effect */
-        }
-        
-        /* SVG icon sizing dan styling */
-        .icon-svg {
-            width: 20px;                             /* Small icons */
-            height: 20px;
-            stroke: currentColor;                    /* Inherit color dari parent */
-            stroke-width: 1.5;
-            fill: none;
-        }
-
-        /* ==================== NOTIFICATION BADGES ==================== */
-        /* Badge untuk wishlist dan cart count */
-        .wishlist-badge, .cart-badge {
-            position: absolute;
-            top: -6px;
-            right: -6px;
-            background: var(--gold);                 /* Gold background */
-            color: #000;                             /* Black text untuk contrast */
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;                      /* Circle shape */
-            font-size: 0.6rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        /* ==================== HAMBURGER MENU ==================== */
-        /* Mobile menu button (hidden on desktop) */
-        .hamburger-btn {
-            display: none;                           /* Hidden by default, shown on mobile */
-            background: none;
-            border: none;
-            cursor: pointer;
-            z-index: 2001;                           /* Above mobile nav */
-        }
-        
-        /* Hamburger bar styling */
-        .hamburger-btn .bar {
-            display: block;
-            width: 30px;
-            height: 1px;                             /* Thin lines */
-            margin: 6px 0;
-            background-color: #fff;
-            transition: all 0.4s ease;              /* Smooth animation */
-        }
-        
-        /* ==================== HAMBURGER ANIMATION ==================== */
-        /* Transform hamburger ke X saat menu terbuka */
-        body.nav-open .hamburger-btn .bar:nth-child(1) { 
-            transform: translateY(7px) rotate(45deg); 
-        }
-        body.nav-open .hamburger-btn .bar:nth-child(2) { 
-            opacity: 0;                              /* Hide middle bar */
-        }
-        body.nav-open .hamburger-btn .bar:nth-child(3) { 
-            transform: translateY(-7px) rotate(-45deg); 
-        }
-
-        /* ==================== MOBILE NAVIGATION ==================== */
-        /* Full-screen mobile menu overlay */
-        .mobile-nav {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;                           /* Full viewport height */
-            background: #000;                        /* Solid black background */
-            z-index: 2000;                           /* Above content, below hamburger */
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            opacity: 0;                              /* Hidden by default */
-            visibility: hidden;
-            transition: all 0.5s ease;
-        }
-        
-        /* Show mobile nav when open class is added */
-        .mobile-nav.open {
-            opacity: 1;
-            visibility: visible;
-        }
-        
-        /* Mobile nav links container */
-        .mobile-nav-links {
-            list-style: none;
-            text-align: center;
-        }
-        
-        /* Individual mobile nav item */
-        .mobile-nav-links li {
-            margin: 2rem 0;                          /* Vertical spacing */
-            overflow: hidden;                        /* For animation */
-        }
-        
-        /* Mobile nav link styling - large elegant text */
-        .mobile-nav-links a {
-            display: block;
-            text-decoration: none;
-            color: #fff;
-            font-family: 'Playfair Display', serif;  /* Serif  */
-            font-size: 3rem;                         /* Large font untuk impact */
-            font-style: italic;                      /* Italic  */
-            transition: transform 0.5s, color 0.3s;
-            transform: translateY(100%);            /* Start below viewport */
-        }
-
-        /* Slide in animation ketika menu terbuka */
-        .mobile-nav.open .mobile-nav-links a {
-            transform: translateY(0);
-            transition-delay: 0.2s;                 /* Staggered animation */
-        }
-        
-        /* Hover effect untuk mobile nav links */
-        .mobile-nav-links a:hover {
-            color: var(--gold);
-        }
-
-        /* ==================== SEARCH OVERLAY ==================== */
-        /* Full-screen search interface */
-        .search-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: rgba(0, 0, 0, 0.98);        /* black */
-            backdrop-filter: blur(20px);             /* Heavy blur effect */
-            z-index: 3000;                           /* Above everything else */
-            display: none;                           /* Hidden by default */
-            opacity: 0;
-            transition: opacity 0.4s ease;
-            flex-direction: column;
-            align-items: center;
-            padding: 2rem;
-        }
-
-        /* Show search overlay when active */
-        .search-overlay.active {
-            display: flex;
-            opacity: 1;
-        }
-
-        /* ==================== SEARCH CONTAINER ==================== */
-        /* Content wrapper untuk search interface */
-        .search-container {
-            max-width: 800px;
-            width: 100%;
-            margin-top: 10vh;                        /* Spacing dari top */
-            transform: translateY(30px);            /* Start slightly below */
-            transition: transform 0.4s ease;
-        }
-
-        /* Slide up animation ketika search active */
-        .search-overlay.active .search-container {
-            transform: translateY(0);
-        }
-
-        /* ==================== SEARCH HEADER ==================== */
-        /* Header dengan title dan close button */
-        .search-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 2rem;
-        }
-
-        /* Search title */
-        .search-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 2rem;
-            color: var(--gold);
-            letter-spacing: 2px;
-        }
-
-        /* Close button styling */
-        .close-search {
-            background: none;
-            border: none;
-            color: #fff;
-            font-size: 2rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        /* Close button hover dengan rotate effect */
-        .close-search:hover {
-            color: var(--gold);
-            transform: rotate(90deg);               /* Rotate X on hover */
-        }
-
-        /* ==================== SEARCH INPUT ==================== */
-        /* Wrapper untuk search input dengan icon */
-        .search-input-wrapper {
-            position: relative;
-            margin-bottom: 3rem;
-        }
-
-        /* Main search input field */
-        .search-input {
-            width: 100%;
-            background: linear-gradient(145deg, #0f0f0f, #1a1a1a); /* Gradient background */
-            border: 1px solid rgba(212, 165, 116, 0.2);
-            color: #fff;
-            padding: 1.5rem 4rem 1.5rem 2rem;      /* Extra padding for icon */
-            border-radius: 50px;                    /* Pill shape */
-            font-size: 1.1rem;
-            font-family: 'Montserrat', sans-serif;
-            letter-spacing: 0.5px;
-            transition: all 0.3s;
-        }
-
-        /* Input focus state dengan glow effect */
-        .search-input:focus {
-            outline: none;
-            border-color: var(--gold);
-            box-shadow: 0 0 20px rgba(212, 165, 116, 0.3); /* Gold glow */
-        }
-
-        /* Search icon inside input field */
-        .search-icon-input {
-            position: absolute;
-            right: 2rem;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 24px;
-            height: 24px;
-            stroke: var(--gold);
-            stroke-width: 2;
-            fill: none;
-        }
-
-        /* ==================== SEARCH RESULTS ==================== */
-        /* Scrollable results container */
-        .search-results {
-            max-height: 60vh;                        /* Limit height untuk scrolling */
-            overflow-y: auto;                        /* Enable vertical scroll */
-            padding-right: 1rem;                     /* Space for scrollbar */
-        }
-
-        /* Custom scrollbar untuk search results */
-        .search-results::-webkit-scrollbar { width: 6px; }
-        .search-results::-webkit-scrollbar-track { background: #0f0f0f; }
-        .search-results::-webkit-scrollbar-thumb { 
-            background: var(--gold-dark); 
-            border-radius: 10px; 
-        }
-
-        /* ==================== SEARCH RESULT ITEM ==================== */
-        /* Individual product result card */
-        .search-result-item {
-            display: grid;
-            grid-template-columns: 100px 1fr;       /* Image | Content */
-            gap: 1.5rem;
-            background: linear-gradient(145deg, #0f0f0f, #121212);
-            border: 1px solid rgba(212, 165, 116, 0.1);
-            border-radius: 15px;
-            padding: 1.2rem;
-            margin-bottom: 1rem;
-            cursor: pointer;
-            transition: all 0.3s;
-            align-items: center;
-        }
-
-        /* Result item hover effect */
-        .search-result-item:hover {
-            border-color: var(--gold);
-            transform: translateX(5px);              /* Slide right on hover */
-            box-shadow: 0 5px 15px rgba(212, 165, 116, 0.1);
-        }
-
-        /* Product image dalam result */
-        .result-image {
-            width: 100px;
-            height: 100px;
-            border-radius: 8px;
-            object-fit: cover;
-        }
-
-        /* Product info styling */
-        .result-info h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            color: #fff;
-            margin-bottom: 0.3rem;
-            letter-spacing: 1px;
-        }
-
-        .result-info p {
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        /* Price display */
-        .result-price {
-            color: var(--gold);
-            font-size: 1.1rem;
-            font-weight: 600;
-        }
-
-        /* ==================== POPULAR SEARCHES ==================== */
-        /* Section untuk popular search tags */
-        .popular-searches h3 {
-            color: var(--gold);
-            font-size: 1.2rem;
-            margin-bottom: 1.5rem;
-            letter-spacing: 1px;
-            border-bottom: 1px solid rgba(212, 165, 116, 0.2);
-            display: inline-block;
-            padding-bottom: 0.5rem;
-        }
-
-        /* Tag container */
-        .popular-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        /* Individual tag styling */
-        .popular-tag {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: var(--text-muted);
-            padding: 0.6rem 1.2rem;
-            border-radius: 50px;                     /* Pill shape */
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        /* Tag hover effect */
-        .popular-tag:hover {
-            border-color: var(--gold);
-            color: var(--gold);
-            background: rgba(212, 165, 116, 0.1);
-        }
-        
-        /* No results message */
-        .no-results {
-            text-align: center;
-            padding: 3rem 0;
-            color: var(--text-muted);
-        }
-
-        /* ==================== HERO SECTION ==================== */
-        /* Full-height hero dengan parallax background */
-        .about-hero {
-            height: 80vh;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;                        /* Clip overflowing elements */
-        }
-        
-        /* Background image dengan parallax effect */
-        .hero-bg {
-            position: absolute;
-            inset: 0;                                /* Fill entire container */
-            background-image: url('https://images.pexels.com/photos/8667539/pexels-photo-8667539.jpeg');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;            /* Parallax scroll effect */
-            filter: brightness(0.3);                 /* Darken untuk text readability */
-            transform: scale(1.1);                   /* Slight zoom untuk depth */
-        }
-        
-        /* Hero text content */
-        .hero-content {
-            position: relative;
-            z-index: 2;                              /* Above background */
-            text-align: center;
-            max-width: 800px;
-            padding: 0 2rem;
-        }
-        
-        /* Small subtitle above main title */
-        .hero-subtitle {
-            display: block;
-            color: var(--gold);
-            letter-spacing: 4px;
-            font-size: 0.9rem;
-            text-transform: uppercase;
-            margin-bottom: 1.5rem;
-            animation: fadeIn 1s ease 0.5s backwards; /* Delayed fade in */
-        }
-        
-        /* Main hero title - large elegant text */
-        .hero-title {
-            font-family: 'Playfair Display', serif;
-            font-size: 5rem;
-            line-height: 1.1;
-            margin-bottom: 2rem;
-            font-weight: 400;
-            animation: fadeInUp 1s ease 0.7s backwards; /* Slide up animation */
-        }
-        
-        /* Highlighted text dalam title */
-        .hero-title span { 
-            font-style: italic; 
-            color: var(--gold-light); 
-        }
-
-        /* ==================== STORY SECTION ==================== */
-        /* Two-column layout untuk story content */
-        .story-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 10rem 4rem;
-            display: grid;
-            grid-template-columns: 1fr 1fr;          /* Equal columns */
-            gap: 6rem;
-            align-items: center;
-        }
-        
-        /* Story text content styling */
-        .story-text h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 2rem;
-            color: #fff;
-        }
-        
-        .story-text p {
-            color: var(--text-muted);
-            margin-bottom: 1.5rem;
-            font-size: 1.05rem;
-            font-weight: 300;
-        }
-        
-        /* Highlighted quote dalam story */
-        .story-text .highlight {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.4rem;
-            font-style: italic;
-            color: var(--gold);
-            line-height: 1.6;
-            margin: 2rem 0;
-            border-left: 2px solid var(--gold);      /* Left border accent */
-            padding-left: 2rem;
-        }
-        
-        /* ==================== STORY VISUAL ==================== */
-        /* Image layout dengan overlay composition */
-        .story-visual { 
-            position: relative; 
-            height: 700px; 
-        }
-        
-        /* Main large image */
-        .story-img-main {
-            width: 85%;
-            height: 100%;
-            object-fit: cover;
-            position: absolute;
-            right: 0;
-            top: 0;
-            border-radius: 2px;
-            filter: sepia(20%);                      /* Vintage filter */
-        }
-        
-        /* Small accent image overlay */
-        .story-img-accent {
-            position: absolute;
-            left: 0;
-            bottom: -50px;                           /* Overlap bottom */
-            width: 50%;
-            height: 300px;
-            object-fit: cover;
-            border: 10px solid var(--black);        /* Frame effect */
-            z-index: 2;                              /* Above main image */
-        }
-
-        /* ==================== PHILOSOPHY SECTION ==================== */
-        /* Section untuk brand values/philosophy */
-        .philosophy-section {
-            background: #0a0a0a;
-            padding: 8rem 4rem;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        
-        /* Three-column grid layout */
-        .philosophy-grid {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);   /* 3 equal columns */
-            gap: 4rem;
-        }
-        
-        /* Individual philosophy card */
-        .philosophy-card {
-            text-align: center;
-            padding: 2rem;
-            transition: transform 0.4s;
-        }
-        
-        /* Card hover lift effect */
-        .philosophy-card:hover { 
-            transform: translateY(-10px); 
-        }
-        
-        /* Icon styling */
-        .philo-icon { 
-            width: 60px; 
-            height: 60px; 
-            margin: 0 auto 2rem; 
-            color: var(--gold); 
-        }
-        
-        /* Card heading */
-        .philosophy-card h3 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-            color: #fff;
-        }
-        
-        /* Card description text */
-        .philosophy-card p { 
-            color: #888; 
-            font-size: 0.95rem; 
-            font-weight: 300; 
-        }
-
-        /* ==================== QUOTE SECTION ==================== */
-        /* Full-width quote section dengan background image */
-        .quote-section {
-            padding: 12rem 2rem;
-            text-align: center;
-            background-image: url('https://images.pexels.com/photos/15233413/pexels-photo-15233413.jpeg');
-            background-attachment: scroll;           /* Normal scroll (not parallax) */
-            background-size: cover;
-            background-position: center;
-            position: relative;
-        }
-        
-        /* Dark overlay untuk readability */
-        .quote-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.75);           /* Semi-transparent black */
-        }
-        
-        /* Quote content wrapper */
-        .quote-content {
-            position: relative;
-            z-index: 2;                              /* Above overlay */
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        
-        /* Large quote text */
-        .quote-text {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            font-style: italic;
-            color: #fff;
-            line-height: 1.4;
-            margin-bottom: 2rem;
-        }
-        
-        /* Quote attribution */
-        .quote-author {
-            color: var(--gold);
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-        }
-
-        /* ==================== CTA SECTION ==================== */
-        /* Call-to-action section */
-        .cta-section { 
-            padding: 8rem 0; 
-            text-align: center; 
-            background: var(--black); 
-        }
-        
-        .cta-section h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 3rem;
-            margin-bottom: 2rem;
-        }
-        
-        /* ==================== GOLD BUTTON ==================== */
-        /* Outlined button dengan fill animation */
-        .btn-gold {
-            display: inline-block;
-            padding: 1rem 3rem;
-            border: 1px solid var(--gold);
-            color: var(--gold);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            text-decoration: none;
-            transition: all 0.4s;
-            position: relative;
-            overflow: hidden;                        /* Clip filling animation */
-        }
-        
-        /* Fill animation pseudo-element */
-        .btn-gold::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;                                /* Start with no width */
-            height: 100%;
-            background: var(--gold);
-            transition: 0.4s;
-            z-index: -1;                             /* Behind text */
-        }
-        
-        /* Expand fill on hover */
-        .btn-gold:hover { 
-            color: #000; 
-        }
-        
-        .btn-gold:hover::before { 
-            width: 100%;                             /* Fill entire button */
-        }
-
-        /* ==================== FOOTER ==================== */
-        /* Site footer dengan gradient background */
-        footer {
-            background: linear-gradient(180deg, #0a0a0a 0%, #000 100%);
-            padding: 5rem 4rem 2rem;
-            border-top: 1px solid rgba(212, 165, 116, 0.1);
-        }
-
-        /* Footer content grid layout */
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: 2fr repeat(4, 1fr); /* First column wider */
-            gap: 4rem;
-            margin-bottom: 4rem;
-        }
-
-        /* Footer section heading */
-        .footer-section h3 {
-            font-family: 'Playfair Display', serif;
-            margin-bottom: 2rem;
-            color: #d4a574;
-            font-weight: 500;
-            letter-spacing: 2px;
-            font-size: 1.2rem;
-        }
-
-        /* Footer paragraph text */
-        .footer-section p {
-            color: #999;
-            line-height: 2;
-            margin-bottom: 1.5rem;
-            font-size: 0.95rem;
-            font-weight: 300;
-        }
-
-        /* Footer links list */
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 1rem;
-        }
-
-        /* Footer link styling dengan underline animation */
-        .footer-section a {
-            color: #999;
-            text-decoration: none;
-            transition: all 0.3s;
-            font-size: 0.95rem;
-            position: relative;                      /* For underline positioning */
-            display: inline-block;
-        }
-
-        /* Animated underline untuk footer links */
-        .footer-section a::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 0;                                /* Start with no width */
-            height: 1px;
-            background: #d4a574;
-            transition: width 0.3s ease;            /* Smooth expansion */
-        }
-
-        /* Expand underline on hover */
-        .footer-section a:hover::after {
-            width: 100%;
-        }
-
-        /* Change link color on hover */
-        .footer-section a:hover {
-            color: #d4a574;
-        }
-
-        /* ==================== SOCIAL ICONS ==================== */
-        /* Social media icon container */
-        .social-icons {
-            display: flex;
-            gap: 1.2rem;
-            margin-top: 1.5rem;
-        }
-
-        /* Individual social icon button */
-        .social-icon {
-            width: 45px;
-            height: 45px;
-            background: linear-gradient(145deg, #0f0f0f, #1a1a1a); /* Gradient background */
-            border-radius: 50%;                      /* Circle shape */
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #d4a574;
-            transition: all 0.3s;
-            cursor: pointer;
-            border: 1px solid rgba(212, 165, 116, 0.2);
-            font-weight: 600;
-        }
-
-        /* Social icon hover effect - lift dan gold fill */
-        .social-icon:hover {
-            background: linear-gradient(135deg, #d4a574, #c49563); /* Gold gradient */
-            color: #000;                             /* Black text untuk contrast */
-            transform: translateY(-5px);            /* Lift effect */
-            box-shadow: 0 10px 25px rgba(212, 165, 116, 0.4); /* Gold glow shadow */
-        }
-        
-        /* ==================== PRIMARY BUTTON ==================== */
-        /* Button style untuk newsletter subscribe */
-        .btn-primary {
-            background: transparent;
-            color: var(--gold);
-            padding: 1rem 3rem;
-            border: 1px solid var(--gold);
-            border-radius: 0;                        /* Sharp corners untuk luxury */
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.5s ease;
-            font-weight: 500;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            position: relative;
-            overflow: hidden;                        /* Clip fill animation */
-        }
-
-        /* Fill animation pseudo-element */
-        .btn-primary::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 0;
-            height: 100%;
-            background: var(--gold);
-            transition: width 0.4s ease;
-            z-index: -1;                             /* Behind text */
-        }
-
-        /* Expand fill on hover */
-        .btn-primary:hover::before {
-            width: 100%;
-        }
-
-        /* Change text color dan add glow on hover */
-        .btn-primary:hover {
-            color: #000;
-            box-shadow: 0 0 30px rgba(212, 165, 116, 0.4); /* Gold glow */
-        }
-
-        /* ==================== FOOTER BOTTOM ==================== */
-        /* Copyright section di bawah footer */
-        .footer-bottom {
-            text-align: center;
-            padding-top: 3rem;
-            border-top: 1px solid #222;
-            color: #666;
-            font-size: 0.9rem;
-            letter-spacing: 1px;
-        }
-
-        /* ==================== ANIMATIONS ==================== */
-        /* Scroll reveal animation class */
-        .reveal-on-scroll { 
-            opacity: 0; 
-            transform: translateY(40px);            /* Start below position */
-            transition: 1s ease; 
-        }
-        
-        /* Visible state untuk revealed elements */
-        .reveal-on-scroll.visible { 
-            opacity: 1; 
-            transform: translateY(0); 
-        }
-        
-        /* Keyframe animation: fade in dengan slide up */
-        @keyframes fadeInUp { 
-            from { 
-                opacity: 0; 
-                transform: translateY(30px); 
-            } 
-            to { 
-                opacity: 1; 
-                transform: translateY(0); 
-            } 
-        }
-        
-        /* Keyframe animation: simple fade in */
-        @keyframes fadeIn { 
-            from { 
-                opacity: 0; 
-            } 
-            to { 
-                opacity: 1; 
-            } 
-        }
-
-        /* ==================== RESPONSIVE DESIGN ==================== */
-        /* Tablet breakpoint (1024px and below) */
-        @media (max-width: 1024px) {
-            /* Story section: stack columns vertically */
-            .story-container { 
-                grid-template-columns: 1fr;         /* Single column */
-                gap: 4rem; 
-                padding: 6rem 2rem; 
-            }
-            
-            /* Adjust story visual height */
-            .story-visual { 
-                height: 500px; 
-                margin-top: 2rem; 
-            }
-            
-            /* Full width main image */
-            .story-img-main { 
-                width: 100%; 
-            }
-            
-            /* Hide accent image on tablets */
-            .story-img-accent { 
-                display: none; 
-            }
-            
-            /* Philosophy: single column layout */
-            .philosophy-grid { 
-                grid-template-columns: 1fr; 
-                gap: 3rem; 
-            }
-            
-            /* Hide desktop nav links */
-            .nav-links { 
-                display: none; 
-            }
-            
-            /* Show hamburger menu */
-            .hamburger-btn { 
-                display: block; 
-            }
-            
-            /* Reduce hero title size */
-            .hero-title { 
-                font-size: 3.5rem; 
-            }
-            
-            /* Footer: 2-column grid */
-            .footer-content { 
-                grid-template-columns: 1fr 1fr; 
-            }
-            
-            /* Reduce nav padding */
-            nav { 
-                padding: 0 2rem; 
-            }
-        }
-        
-        /* ===================================
-        RESPONSIVE DESIGN - MOBILE (Max-width: 768px)
-        =================================== */
-        @media (max-width: 768px) {
-            /* Header mobile optimization */
-            header {
-                padding: 1rem 0;
-            }
-            
-            header.scrolled {
-                padding: 0.8rem 0;
-            }
-            
-            /* Nav container mobile */
-            nav {
-                padding: 0 1.5rem;
-            }
-            
-            /* Pastikan hamburger muncul di mobile */
-            .nav-links {
-                display: none !important;
-            }
-            
-            
-            /* Logo lebih kecil di mobile */
-            .logo {
-                font-size: 1.3rem;
-                letter-spacing: 2px;
-            }
-            
-            /* Nav icons spacing lebih kecil */
-            .nav-icons {
-                gap: 0.8rem;
-            }
-            
-            /* Icon button dengan better touch target */
-            .icon-btn {
-                padding: 0.3rem;
-                min-width: 40px;
-                min-height: 40px;
-            }
-            
-            /* Icon size lebih kecil tapi masih touch-friendly */
-            .icon-svg {
-                width: 18px;
-                height: 18px;
-            }
-            
-            /* Badge positioning */
-            .wishlist-badge, .cart-badge {
-                top: -4px;
-                right: -4px;
-                width: 14px;
-                height: 14px;
-                font-size: 0.55rem;
-            }
-            /* Further reduce hero title */
-            .hero-title { 
-                font-size: 2.8rem; 
-            }
-            
-            /* Reduce quote text size */
-            .quote-text { 
-                font-size: 1.8rem; 
-            }
-            
-            /* Footer: single column layout */
-            .footer-content { 
-                grid-template-columns: 1fr; 
-            }
-            
-            /* Adjust search container positioning */
-            .search-container { 
-                margin-top: 5vh; 
-            }
-            
-            /* Reduce search header size */
-            .search-header h2 { 
-                font-size: 1.5rem; 
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="style/global.css"> <link rel="stylesheet" href="style/about.css"> 
 </head>
 <body>
 
@@ -1153,7 +15,7 @@
     <header id="header">
         <nav>
             <!-- Logo - klik untuk kembali ke homepage -->
-            <div class="logo" onclick="window.location.href='index.html'">Local Face</div>
+            <div class="logo" onclick="window.location.href='index.html'">Lumière Scents</div>
             
             <!-- Desktop Navigation Links -->
             <ul class="nav-links">
@@ -1198,26 +60,9 @@
                     </svg>
                     <span class="cart-badge" id="cart-badge">0</span>
                 </button>
-                
-                <!-- Hamburger Menu Button (mobile only) -->
-                <button class="hamburger-btn" id="hamburger-button">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </button>
             </div>
         </nav>
     </header>
-
-    <!-- ==================== MOBILE NAVIGATION MENU ==================== -->
-    <div class="mobile-nav" id="mobile-nav-menu">
-        <ul class="mobile-nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="shop.html">Collection</a></li>
-            <li><a href="about.html">About</a></li>
-            <li><a href="service.html">Service</a></li>
-        </ul>
-    </div>
 
     <!-- ==================== SEARCH OVERLAY ==================== -->
     <!-- Full-screen search interface dengan hasil real-time -->
@@ -1235,7 +80,7 @@
                     type="text" 
                     class="search-input" 
                     id="searchInput" 
-                    placeholder="Search for perfumes, fragrances, collections..."
+                    placeholder="Search for perfumes"
                     autocomplete="off"
                 >
                 <svg class="search-icon-input" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -1272,9 +117,9 @@
         <!-- Hero Content Overlay -->
         <div class="hero-content">
             <span class="hero-subtitle">The Maison</span>
-            <h1 class="hero-title">About<br><span>Local Face</span></h1>
+            <h1 class="hero-title">About<br><span>Lumière Scents</span></h1>
             <p style="color: #ccc; font-size: 1.1rem; max-width: 600px; margin: 0 auto;">
-                At Local Face, we believe that perfumes are more than just scents. We are committed to providing our customers with the highest level of personalized service.
+                At Lumière Scents, we believe that perfumes are more than just scents. We are committed to providing our customers with the highest level of personalized service.
             </p>
         </div>
     </section>
@@ -1285,7 +130,7 @@
         <!-- Story Text Content -->
         <div class="story-text reveal-on-scroll">
             <h2>A Story of<br><i>Authenticity</i></h2>
-            <p>Local Face was founded with a passion for transforming spaces, both internal and external, through the art of perfume. We believe in creating a haven for perfume lovers, curators, and crafters.</p>
+            <p>Lumière Scents was founded with a passion for transforming spaces, both internal and external, through the art of perfume. We believe in creating a haven for perfume lovers, curators, and crafters.</p>
             
             <!-- Highlighted Quote -->
             <div class="highlight">
@@ -1354,7 +199,7 @@
                 "We believe in creating beauty that doesn't compromise our planet's future, harvesting responsibly, designing eternally."
             </div>
             <!-- Quote Attribution -->
-            <div class="quote-author">— The Local Face Commitment</div>
+            <div class="quote-author">— The Lumière Scents Commitment</div>
         </div>
     </section>
 
@@ -1362,7 +207,7 @@
     <!-- Call-to-action untuk visit store -->
     <section class="cta-section reveal-on-scroll">
         <h2>Want to be a part of our journey?</h2>
-        <p style="color: #888; margin-bottom: 3rem;">Visit our store and immerse yourself in the world of Local Face.</p>
+        <p style="color: #888; margin-bottom: 3rem;">Visit our store and immerse yourself in the world of Lumière Scents.</p>
         <a href="shop.html" class="btn-gold">Shop Now</a>
     </section>
 
@@ -1373,7 +218,7 @@
             <!-- Column 1: About & Social Icons (wider) -->
             <div class="footer-section">
                 <h3>About Us</h3>
-                <p>Local Face is your destination for premium fragrances. We offer an exquisite collection of perfumes that embody luxury and sophistication.</p>
+                <p>Lumière Scents is your destination for premium fragrances. We offer an exquisite collection of perfumes that embody luxury and sophistication.</p>
                 <!-- Social Media Icons -->
                 <div class="social-icons">
                     <div class="social-icon">f</div> <!-- Facebook -->
@@ -1425,9 +270,53 @@
         
         <!-- Footer Bottom: Copyright -->
         <div class="footer-bottom">
-            <p>&copy; 2024 Local Face. All rights reserved.</p>
+            <p>&copy; 2024 Lumière Scents. All rights reserved.</p>
         </div>
     </footer>
+
+    <nav class="bottom-nav">
+    <a href="index.html" class="bottom-nav-item" id="nav-home">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+        <span>Home</span>
+    </a>
+
+    <a href="shop.html" class="bottom-nav-item" id="nav-shop">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        <span>Collection</span>
+    </a>
+
+    <a href="about.html" class="bottom-nav-item" id="nav-about">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12.01" y2="8"></line>
+        </svg>
+        <span>About</span>
+    </a>
+
+    <a href="service.html" class="bottom-nav-item" id="nav-service">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"></path>
+        </svg>
+        <span>Service</span>
+    </a>
+
+    <a href="profile.html" class="bottom-nav-item" id="nav-profile">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+            <circle cx="12" cy="7" r="4"></circle>
+        </svg>
+        <span>Account</span>
+    </a>
+</nav>
 
     <!-- ==================== EXTERNAL JAVASCRIPT ==================== -->
     <!-- Link ke file main.js untuk interactivity:

@@ -1,0 +1,195 @@
+ /* --- PAGE HEADER --- */
+        .page-header {
+            height: 40vh; display: flex; align-items: center; justify-content: center;
+            text-align: center; margin-top: 80px; background: #0a0a0a; position: relative;
+        }
+        .page-header::after {
+            content: ''; position: absolute; bottom: 0; left: 0; width: 100%;
+            height: 1px; background: linear-gradient(90deg, transparent, rgba(212, 165, 116, 0.2), transparent);
+        }
+        .header-content h1 {
+            font-family: 'Playfair Display', serif; font-size: 3.5rem;
+            margin-bottom: 0.5rem; font-weight: 400;
+        }
+        .header-content h1 span { font-style: italic; color: var(--gold); }
+        .breadcrumb {
+            color: var(--text-muted); font-size: 0.85rem;
+            letter-spacing: 2px; text-transform: uppercase;
+        }
+        .breadcrumb a { color: #fff; text-decoration: none; transition: 0.3s; }
+        .breadcrumb a:hover { color: var(--gold); }
+
+        /* --- WISHLIST CONTAINER --- */
+        .wishlist-container {
+            max-width: 1200px; margin: 0 auto; padding: 4rem;
+            min-height: 60vh;
+        }
+
+        /* CSS untuk elemen yang dihasilkan oleh main.js */
+        /* 1. Controls (Actions) */
+        .wishlist-actions {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 3rem; padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .wishlist-count { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: var(--text-muted); }
+        .btn-clear-all {
+            background: none; border: none; color: var(--text-muted);
+            font-family: 'Montserrat', sans-serif; font-size: 0.8rem;
+            text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
+            transition: 0.3s; border-bottom: 1px solid transparent;
+        }
+        .btn-clear-all:hover { color: #fff; border-bottom-color: #fff; }
+
+        /* 2. Grid */
+        .wishlist-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem;
+        }
+
+        /* 3. Card Item (generated as .wishlist-item) */
+        .wishlist-item {
+            position: relative; 
+        }
+
+        /* 4. Image Wrapper (generated as .wishlist-image) */
+        .wishlist-image {
+            position: relative; width: 100%; aspect-ratio: 3/4;
+            overflow: hidden; margin-bottom: 1.5rem; background: #111;
+            background-size: cover; background-position: center;
+            cursor: pointer;
+        }
+        
+        .wishlist-item:hover .wishlist-image { opacity: 0.9; }
+
+        /* 5. Remove Button */
+        .remove-btn {
+            position: absolute; top: 1rem; right: 1rem;
+            width: 30px; height: 30px; border: none; background: transparent;
+            color: #fff; font-size: 1.5rem; line-height: 1; cursor: pointer;
+            z-index: 2; opacity: 0; transition: 0.3s; text-shadow: 0 2px 5px rgba(0,0,0,0.5);
+        }
+        .wishlist-item:hover .remove-btn { opacity: 1; }
+        .remove-btn:hover { color: var(--gold); transform: rotate(90deg); }
+
+        /* 6. Info & Details */
+        .wishlist-info { text-align: center; }
+
+        .wishlist-name {
+            font-family: 'Playfair Display', serif; font-size: 1.4rem;
+            margin-bottom: 0.5rem; color: #fff; cursor: pointer; transition: 0.3s;
+        }
+        .wishlist-name:hover { color: var(--gold); }
+
+        /* Hide rating in grid view to match File 2 clean look, or style nicely */
+        .wishlist-rating { display: none; } 
+
+        .wishlist-price {
+            color: var(--text-muted); font-size: 1rem; margin-bottom: 1.5rem;
+        }
+
+        .btn-add-to-cart {
+            width: 100%; background: transparent; border: 1px solid #333;
+            color: #fff; padding: 0.8rem; text-transform: uppercase;
+            font-size: 0.8rem; letter-spacing: 2px; cursor: pointer; transition: 0.3s;
+        }
+        .btn-add-to-cart:hover { border-color: var(--gold); color: var(--gold); }
+
+        /* --- EMPTY STATE --- */
+        .empty-wishlist {
+            text-align: center; padding: 6rem 0;
+        }
+        .empty-icon { font-size: 3rem; margin-bottom: 1.5rem; color: #333; }
+        .empty-wishlist h2 {
+            font-family: 'Playfair Display', serif; font-size: 2rem;
+            color: #fff; margin-bottom: 1rem;
+        }
+        .empty-wishlist p { color: #666; margin-bottom: 2rem; }
+        
+        .btn-shop-now {
+            display: inline-block; padding: 1rem 3rem;
+            background: var(--gold); color: #000; text-decoration: none; border: none;
+            text-transform: uppercase; letter-spacing: 2px; font-weight: 500;
+            cursor: pointer; transition: 0.3s;
+        }
+        .btn-shop-now:hover { background: #fff; }
+
+        /* Animation */
+        .fade-in { opacity: 0; transform: translateY(20px); animation: fadeInUp 0.8s ease forwards; }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
+
+        /* ===================================
+       RESPONSIVE DESIGN (MOBILE & TABLET)
+       =================================== */
+    @media (max-width: 1024px) {
+        .wishlist-grid { grid-template-columns: repeat(2, 1fr); gap: 2rem; }
+    }
+
+    @media (max-width: 768px) {
+
+        .breadcrumb { font-size: 0.7rem; }
+
+        /* Wishlist Container */
+        .wishlist-container { padding: 2rem 1.5rem; }
+        .wishlist-actions { margin-bottom: 2rem; }
+        
+        /* Mobile Grid (Tetap 2 kolom agar muat banyak) */
+        .wishlist-grid { 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 1rem; 
+        }
+
+        /* Wishlist Items - Mobile UX Fixes */
+        .wishlist-name { font-size: 1rem; margin-bottom: 0.2rem; }
+        .wishlist-price { font-size: 0.9rem; margin-bottom: 1rem; }
+        
+        /* IMPORTANT: Make buttons touch-friendly & visible */
+        .remove-btn {
+            opacity: 1; /* Always visible on mobile */
+            background: rgba(0,0,0,0.6); /* Dark bg to see against image */
+            top: 0.5rem;
+            right: 0.5rem;
+            width: 30px;
+            height: 30px;
+            font-size: 1rem;
+        }
+        
+        .btn-add-to-cart {
+            padding: 0.6rem;
+            font-size: 0.7rem;
+            border-color: #333;
+            /* Solid border for better visibility */
+            background: rgba(255,255,255,0.03);
+        }
+    }
+
+    @media (max-width: 480px) {
+        /* Small screens */
+        .wishlist-grid { grid-template-columns: 1fr; /* 1 column for very small devices */ }
+        .wishlist-image { aspect-ratio: 16/9; /* Sedikit lebih pendek di 1 kolom */ }
+        .header-content h1 { font-size: 1.8rem; }
+    }
+
+        /* ===================================
+           NOTIFICATION
+           =================================== */
+        .notification {
+            position: fixed;
+            top: 9rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            color: #000;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(400px);
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }

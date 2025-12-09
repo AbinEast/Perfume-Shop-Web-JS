@@ -1,0 +1,385 @@
+/* ==================== CSS VARIABLES ==================== */
+        /* ==================== BODY STYLING ==================== */
+        /* Setup dasar untuk seluruh halaman */
+        body {
+            font-family: 'Montserrat', sans-serif;  /* Font utama untuk readability */
+            background: var(--black);                /* Background hitam luxury */
+            color: #fff;                             /* Text putih untuk kontras */
+            line-height: 1.8;                        /* Line height untuk readability */
+            overflow-x: hidden;                      /* Prevent horizontal scroll */
+        }
+
+        /* Prevent scrolling saat mobile nav terbuka */
+        body.nav-open { 
+            overflow: hidden; 
+        }
+
+        /* ==================== HERO SECTION ==================== */
+        /* Full-height hero dengan parallax background */
+        .about-hero {
+            height: 80vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;                        /* Clip overflowing elements */
+        }
+        
+        /* Background image dengan parallax effect */
+        .hero-bg {
+            position: absolute;
+            inset: 0;                                /* Fill entire container */
+            background-image: url('https://images.pexels.com/photos/8667539/pexels-photo-8667539.jpeg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;            /* Parallax scroll effect */
+            filter: brightness(0.3);                 /* Darken untuk text readability */
+            transform: scale(1.1);                   /* Slight zoom untuk depth */
+        }
+        
+        /* Hero text content */
+        .hero-content {
+            position: relative;
+            z-index: 2;                              /* Above background */
+            text-align: center;
+            max-width: 800px;
+            padding: 0 2rem;
+        }
+        
+        /* Small subtitle above main title */
+        .hero-subtitle {
+            display: block;
+            color: var(--gold);
+            letter-spacing: 4px;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            animation: fadeIn 1s ease 0.5s backwards; /* Delayed fade in */
+        }
+        
+        /* Main hero title - large elegant text */
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 5rem;
+            line-height: 1.1;
+            margin-bottom: 2rem;
+            font-weight: 400;
+            animation: fadeInUp 1s ease 0.7s backwards; /* Slide up animation */
+        }
+        
+        /* Highlighted text dalam title */
+        .hero-title span { 
+            font-style: italic; 
+            color: var(--gold-light); 
+        }
+
+        /* ==================== STORY SECTION ==================== */
+        /* Two-column layout untuk story content */
+        .story-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 10rem 4rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;          /* Equal columns */
+            gap: 6rem;
+            align-items: center;
+        }
+        
+        /* Story text content styling */
+        .story-text h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            color: #fff;
+        }
+        
+        .story-text p {
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            font-size: 1.05rem;
+            font-weight: 300;
+        }
+        
+        /* Highlighted quote dalam story */
+        .story-text .highlight {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            font-style: italic;
+            color: var(--gold);
+            line-height: 1.6;
+            margin: 2rem 0;
+            border-left: 2px solid var(--gold);      /* Left border accent */
+            padding-left: 2rem;
+        }
+        
+        /* ==================== STORY VISUAL ==================== */
+        /* Image layout dengan overlay composition */
+        .story-visual { 
+            position: relative; 
+            height: 700px; 
+        }
+        
+        /* Main large image */
+        .story-img-main {
+            width: 85%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            right: 0;
+            top: 0;
+            border-radius: 2px;
+            filter: sepia(20%);                      /* Vintage filter */
+        }
+        
+        /* Small accent image overlay */
+        .story-img-accent {
+            position: absolute;
+            left: 0;
+            bottom: -50px;                           /* Overlap bottom */
+            width: 50%;
+            height: 300px;
+            object-fit: cover;
+            border: 10px solid var(--black);        /* Frame effect */
+            z-index: 2;                              /* Above main image */
+        }
+
+        /* ==================== PHILOSOPHY SECTION ==================== */
+        /* Section untuk brand values/philosophy */
+        .philosophy-section {
+            background: #0a0a0a;
+            padding: 8rem 4rem;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        
+        /* Three-column grid layout */
+        .philosophy-grid {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);   /* 3 equal columns */
+            gap: 4rem;
+        }
+        
+        /* Individual philosophy card */
+        .philosophy-card {
+            text-align: center;
+            padding: 2rem;
+            transition: transform 0.4s;
+        }
+        
+        /* Card hover lift effect */
+        .philosophy-card:hover { 
+            transform: translateY(-10px); 
+        }
+        
+        /* Icon styling */
+        .philo-icon { 
+            width: 60px; 
+            height: 60px; 
+            margin: 0 auto 2rem; 
+            color: var(--gold); 
+        }
+        
+        /* Card heading */
+        .philosophy-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: #fff;
+        }
+        
+        /* Card description text */
+        .philosophy-card p { 
+            color: #888; 
+            font-size: 0.95rem; 
+            font-weight: 300; 
+        }
+
+        /* ==================== QUOTE SECTION ==================== */
+        /* Full-width quote section dengan background image */
+        .quote-section {
+            padding: 12rem 2rem;
+            text-align: center;
+            background-image: url('https://images.pexels.com/photos/15233413/pexels-photo-15233413.jpeg');
+            background-attachment: scroll;           /* Normal scroll (not parallax) */
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        /* Dark overlay untuk readability */
+        .quote-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: rgba(0,0,0,0.75);           /* Semi-transparent black */
+        }
+        
+        /* Quote content wrapper */
+        .quote-content {
+            position: relative;
+            z-index: 2;                              /* Above overlay */
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        /* Large quote text */
+        .quote-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            font-style: italic;
+            color: #fff;
+            line-height: 1.4;
+            margin-bottom: 2rem;
+        }
+        
+        /* Quote attribution */
+        .quote-author {
+            color: var(--gold);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+        }
+
+        /* ==================== CTA SECTION ==================== */
+        /* Call-to-action section */
+        .cta-section { 
+            padding: 8rem 0; 
+            text-align: center; 
+            background: var(--black); 
+        }
+        
+        .cta-section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3rem;
+            margin-bottom: 2rem;
+        }
+        
+        /* ==================== GOLD BUTTON ==================== */
+        /* Outlined button dengan fill animation */
+        .btn-gold {
+            display: inline-block;
+            padding: 1rem 3rem;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            text-decoration: none;
+            transition: all 0.4s;
+            position: relative;
+            overflow: hidden;                        /* Clip filling animation */
+        }
+        
+        /* Fill animation pseudo-element */
+        .btn-gold::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 0;                                /* Start with no width */
+            height: 100%;
+            background: var(--gold);
+            transition: 0.4s;
+            z-index: -1;                             /* Behind text */
+        }
+        
+        /* Expand fill on hover */
+        .btn-gold:hover { 
+            color: #000; 
+        }
+        
+        .btn-gold:hover::before { 
+            width: 100%;                             /* Fill entire button */
+        }
+
+        /* ==================== ANIMATIONS ==================== */
+        /* Scroll reveal animation class */
+        .reveal-on-scroll { 
+            opacity: 0; 
+            transform: translateY(40px);            /* Start below position */
+            transition: 1s ease; 
+        }
+        
+        /* Visible state untuk revealed elements */
+        .reveal-on-scroll.visible { 
+            opacity: 1; 
+            transform: translateY(0); 
+        }
+        
+        /* Keyframe animation: fade in dengan slide up */
+        @keyframes fadeInUp { 
+            from { 
+                opacity: 0; 
+                transform: translateY(30px); 
+            } 
+            to { 
+                opacity: 1; 
+                transform: translateY(0); 
+            } 
+        }
+        
+        /* Keyframe animation: simple fade in */
+        @keyframes fadeIn { 
+            from { 
+                opacity: 0; 
+            } 
+            to { 
+                opacity: 1; 
+            } 
+        }
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+        /* Tablet breakpoint (1024px and below) */
+        @media (max-width: 1024px) {
+            /* Story section: stack columns vertically */
+            .story-container { 
+                grid-template-columns: 1fr;         /* Single column */
+                gap: 4rem; 
+                padding: 6rem 2rem; 
+            }
+            
+            /* Adjust story visual height */
+            .story-visual { 
+                height: 500px; 
+                margin-top: 2rem; 
+            }
+            
+            /* Full width main image */
+            .story-img-main { 
+                width: 100%; 
+            }
+            
+            /* Hide accent image on tablets */
+            .story-img-accent { 
+                display: none; 
+            }
+            
+            /* Philosophy: single column layout */
+            .philosophy-grid { 
+                grid-template-columns: 1fr; 
+                gap: 3rem; 
+            }
+            
+            /* Reduce hero title size */
+            .hero-title { 
+                font-size: 3.5rem; 
+            }
+        }
+        
+        /* ===================================
+        RESPONSIVE DESIGN - MOBILE (Max-width: 768px)
+        =================================== */
+        @media (max-width: 768px) {
+            /* Further reduce hero title */
+            .hero-title { 
+                font-size: 2.8rem; 
+            }
+            
+            /* Reduce quote text size */
+            .quote-text { 
+                font-size: 1.8rem; 
+            }
+        }
+        
+    
