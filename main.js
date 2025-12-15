@@ -77,7 +77,7 @@ const products = {
     },
     'velvet-petal': {
         name: "Velvet Petal",
-        brand: "YSL",
+        brand: "Bvlgari",
         price: "$159.00",
         priceNum: 159.00,
         description: "A soft, powdery, and romantic floral scent",
@@ -125,7 +125,7 @@ const products = {
     },
     'sapphire-mystique': {
         name: "Sapphire Mystique",
-        brand: "Bvlgari",
+        brand: "YSL",
         price: "$182.00",
         priceNum: 182.00,
         description: "Deep, aquatic, and aromatic fragrance",
@@ -146,7 +146,43 @@ const products = {
         scent: "woody",
         ratingStars: "★★★★★",
         ratingCount: "278"
-    }
+    },
+    'black-mamba': {
+        name: "Black Mamba",
+        brand: "Chanel",
+        price: "$155.00",
+        priceNum: 155.00,
+        description: "A Balance Blend Of wood, and spice",
+        image: "https://images.pexels.com/photos/9202888/pexels-photo-9202888.jpeg",
+        category: "Men",
+        scent: "oriental",
+        ratingStars: "★★★★★",
+        ratingCount: "253"
+    },
+    'golden-amber': {
+        name: "Golden Amber",
+        brand: 'Gucci',
+        price: "$250.00",
+        priceNum: 250.00,
+        description: "A Balance Blend Of floral and spice",
+        image: "https://perfumedubai.com/cdn/shop/files/54_a9d80a87-1ae2-41fd-a2ed-a5570571b341_1024x1024.png?v=1736493530",
+        category: "Unisex",
+        scent: "Floral",
+        ratingStars: "★★★★★",
+        ratingCount: "232"
+    },
+    'spicy-oud': {
+        name: "Spicy Oud",
+        brand: 'Versace',
+        price: "$100.00",
+        priceNum: 250.00,
+        description: "A Strong Blend Of Spice and little ounce of Wood",
+        image: " https://media.theperfumeshop.com/medias/sys_master/images/h32/hec/10060882575390/Forhim/Forhim.jpg",
+        category: "male",
+        scent: "oriental",
+        ratingStars: "★★★★☆",
+        ratingCount: "128"
+    } 
 };
 
 // ============================================
@@ -1198,7 +1234,37 @@ const products = {
             shortDescription: "A perfectly balanced blend of spice, sweet, and wood.",
             mainImage: "https://images.pexels.com/photos/11711829/pexels-photo-11711829.jpeg",
             discoverMore: ['golden-aura', 'amber-elite', 'timeless-oud', 'diamond-aura']
-        }
+        },
+        'black-mamba': {
+            name: "Black Mamba",
+            price: "$95.00",
+            priceNum: 95.00,
+            ratingStars: "★★★★☆",
+            ratingCount: "253",
+            shortdescription: "A Balance Blend Of wood, and spice",
+            mainImage: "https://images.pexels.com/photos/9202888/pexels-photo-9202888.jpeg",
+            discoverMore: ['golden-aura', 'amber-elite', 'timeless-oud', 'diamond-aura']
+       },
+       'golden-amber': {
+            name: "Golden Amber",
+            price: "$250.00",
+            priceNum: 250.00,
+            ratingStars: "★★★★★",
+            ratingCount: "232",
+            shortdescription: "A Balance Blend Of floral and spice",
+            mainImage: "https://perfumedubai.com/cdn/shop/files/54_a9d80a87-1ae2-41fd-a2ed-a5570571b341_1024x1024.png?v=1736493530",
+            discoverMore: ['golden-aura', 'amber-elite', 'timeless-oud', 'diamond-aura']
+       },
+       'spicy-oud': {
+        name: "Spicy Oud",
+        price: "$100.00",
+        priceNum: 250.00,
+        shortdescription: "A Strong Blend Of Spice and little ounce of Wood",
+        mainImage: "https://media.theperfumeshop.com/medias/sys_master/images/h32/hec/10060882575390/Forhim/Forhim.jpg",
+        discoverMore: ['golden-aura', 'amber-elite', 'timeless-oud', 'diamond-aura'],
+        ratingStars: "★★★★☆",
+        ratingCount: "128"
+    } 
     };
 
     // Default data untuk produk yang tidak memiliki data lengkap
