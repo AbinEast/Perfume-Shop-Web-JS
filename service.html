@@ -328,157 +328,158 @@
 </div>
 
 <div class="search-overlay luxury-modal-overlay" id="customModal">
-    <div class="search-container booking-modal-content luxury-modal">
+    <div class="custom-modal-content">
         
-        <div class="modal-header-luxury">
-            <h5 class="modal-subtitle">Bespoke Service</h5>
+        <div class="modal-header-sticky">
+            <span class="modal-subtitle">Bespoke Experience</span>
             <h2 class="modal-title">Design Your Signature</h2>
             <div class="header-divider"></div>
-            <button class="close-search close-luxury" onclick="closeCustomModal()">×</button>
+            <button class="close-sticky" onclick="closeCustomModal()">×</button>
         </div>
 
-        <form id="customFragranceForm" class="booking-form luxury-form">
-    
-            <p style="text-align: center; color: var(--gold); font-size: 0.9rem; margin-bottom: 2rem;">
-                Select one or more notes for each layer to create your unique accord.
-            </p>
-
-            <div class="form-group full">
-                <label class="form-label static-label">1. Top Note (Select up to 2)</label>
+        <form id="customFragranceForm">
+            
+            <div class="form-section">
+                <label class="section-label">1. Top Note (Select 1-2)</label>
+                <p class="section-desc">The first impression. Fresh and volatile scents.</p>
                 
-                <div class="scent-family-grid three-col">
-                    <label class="scent-card-option">
+                <div class="scent-grid">
+                    <label class="scent-option">
                         <input type="checkbox" name="topNote" value="Citrus">
-                        <span class="scent-card-content">
+                        <span class="scent-card">
                             <span class="scent-icon">🍋</span>
                             <span class="scent-name">Citrus</span>
-                            <span class="scent-desc-mini">Zesty & Energetic</span>
+                            <span class="scent-desc-mini">Bergamot, Lemon</span>
                         </span>
                     </label>
-                    <label class="scent-card-option">
+                    <label class="scent-option">
                         <input type="checkbox" name="topNote" value="Fruity">
-                        <span class="scent-card-content">
+                        <span class="scent-card">
                             <span class="scent-icon">🍒</span>
                             <span class="scent-name">Fruity</span>
-                            <span class="scent-desc-mini">Sweet & Playful</span>
+                            <span class="scent-desc-mini">Berries, Pear</span>
                         </span>
                     </label>
-                    <label class="scent-card-option">
+                    <label class="scent-option">
                         <input type="checkbox" name="topNote" value="Herbal">
-                        <span class="scent-card-content">
+                        <span class="scent-card">
                             <span class="scent-icon">🌿</span>
                             <span class="scent-name">Herbal</span>
-                            <span class="scent-desc-mini">Fresh & Aromatic</span>
+                            <span class="scent-desc-mini">Mint, Basil</span>
                         </span>
                     </label>
                 </div>
-                <input type="text" id="topNoteCustom" class="form-input luxury-input mini-input" placeholder="Specific ingredient? (e.g. Yuzu, Basil)">
+                <input type="text" class="mini-input" id="topNoteCustom" placeholder="Specific top note ingredient? (e.g. Yuzu)">
             </div>
 
-            <div class="form-group full" style="margin-top: 2.5rem;">
-                <label class="form-label static-label">2. Heart Note (Select up to 2)</label>
+            <div class="form-section">
+                <label class="section-label">2. Heart Note (Select 1-2)</label>
+                <p class="section-desc">The soul of the perfume. Develops after a few minutes.</p>
 
-                <div class="scent-family-grid three-col">
-                    <label class="scent-card-option">
+                <div class="scent-grid">
+                    <label class="scent-option">
                         <input type="checkbox" name="heartNote" value="Floral">
-                        <span class="scent-card-content">
+                        <span class="scent-card">
                             <span class="scent-icon">🌹</span>
                             <span class="scent-name">Floral</span>
-                            <span class="scent-desc-mini">Romantic & Soft</span>
+                            <span class="scent-desc-mini">Rose, Jasmine</span>
                         </span>
                     </label>
-                    <label class="scent-card-option">
+                    <label class="scent-option">
                         <input type="checkbox" name="heartNote" value="Spicy">
-                        <span class="scent-card-content">
+                        <span class="scent-card">
                             <span class="scent-icon">🌶️</span>
                             <span class="scent-name">Spicy</span>
-                            <span class="scent-desc-mini">Warm & Exotic</span>
+                            <span class="scent-desc-mini">Cinnamon, Pepper</span>
                         </span>
                     </label>
-                    <label class="scent-card-option">
+                    <label class="scent-option">
                         <input type="checkbox" name="heartNote" value="Green">
-                        <span class="scent-card-content">
+                        <span class="scent-card">
                             <span class="scent-icon">🍃</span>
                             <span class="scent-name">Green</span>
-                            <span class="scent-desc-mini">Natural & Crisp</span>
+                            <span class="scent-desc-mini">Tea, Bamboo</span>
                         </span>
                     </label>
                 </div>
-                <input type="text" id="heartNoteCustom" class="form-input luxury-input mini-input" placeholder="Specific ingredient? (e.g. Jasmine Sambac, Saffron)">
+                <input type="text" class="mini-input" id="heartNoteCustom" placeholder="Specific heart note ingredient? (e.g. Saffron)">
             </div>
 
-            <div class="form-group full" style="margin-top: 2.5rem;">
-                <label class="form-label static-label">3. Base Note (Select up to 2)</label>
+            <div class="form-section">
+                <label class="section-label">3. Base Note (Select 1-2)</label>
+                <p class="section-desc">The lasting trail. Deep and rich scents.</p>
 
-                <div class="scent-family-grid three-col">
-                    <label class="scent-card-option">
+                <div class="scent-grid">
+                    <label class="scent-option">
                         <input type="checkbox" name="baseNote" value="Woody">
-                        <span class="scent-card-content">
+                        <span class="scent-card">
                             <span class="scent-icon">🪵</span>
                             <span class="scent-name">Woody</span>
-                            <span class="scent-desc-mini">Deep & Earthy</span>
+                            <span class="scent-desc-mini">Sandalwood, Cedar</span>
                         </span>
                     </label>
-                    <label class="scent-card-option">
+                    <label class="scent-option">
                         <input type="checkbox" name="baseNote" value="Amber">
-                        <span class="scent-card-content">
+                        <span class="scent-card">
                             <span class="scent-icon">✨</span>
                             <span class="scent-name">Amber</span>
-                            <span class="scent-desc-mini">Rich & Sweet</span>
+                            <span class="scent-desc-mini">Vanilla, Resin</span>
                         </span>
                     </label>
-                    <label class="scent-card-option">
+                    <label class="scent-option">
                         <input type="checkbox" name="baseNote" value="Musk">
-                        <span class="scent-card-content">
+                        <span class="scent-card">
                             <span class="scent-icon">☁️</span>
                             <span class="scent-name">Musk</span>
-                            <span class="scent-desc-mini">Sensual & Skin-like</span>
+                            <span class="scent-desc-mini">Soft, Powdery</span>
                         </span>
                     </label>
                 </div>
-                <input type="text" id="baseNoteCustom" class="form-input luxury-input mini-input" placeholder="Specific ingredient? (e.g. White Musk, Oud)">
+                <input type="text" class="mini-input" id="baseNoteCustom" placeholder="Specific base note ingredient? (e.g. Oud)">
             </div>
 
-            <div class="form-group full" style="margin-top: 2.5rem;">
-                <label class="form-label static-label">4. Select Bottle Size</label>
+            <div class="form-section" style="border-top: 1px dashed #333; padding-top: 2rem;">
+                <label class="section-label">4. Select Bottle Size</label>
+                <p class="section-desc">Choose the perfect volume for your creation.</p>
                 
-                <div class="scent-family-grid three-col">
-                    <label class="scent-card-option">
+                <div class="scent-grid">
+                    <label class="scent-option">
                         <input type="radio" name="bottleSize" value="30ml">
-                        <span class="scent-card-content">
-                            <span class="scent-icon" style="font-size: 1.5rem;">🧪</span>
+                        <span class="scent-card">
+                            <span class="scent-icon">🧪</span>
                             <span class="scent-name">30ml</span>
                             <span class="scent-desc-mini">Travel Edition</span>
                         </span>
                     </label>
-                    <label class="scent-card-option">
+                    <label class="scent-option">
                         <input type="radio" name="bottleSize" value="50ml" checked>
-                        <span class="scent-card-content">
-                            <span class="scent-icon" style="font-size: 1.8rem;">⚗️</span>
-                            <span class="scent-name">50ml</span>
-                            <span class="scent-desc-mini">Standard Signature</span>
+                        <span class="scent-card">
+                            <span class="scent-icon" style="font-size: 2.2rem;">⚗️</span>
+                            <span class="scent-name" style="color:var(--gold);">50ml</span>
+                            <span class="scent-desc-mini">Signature</span>
                         </span>
                     </label>
-                    <label class="scent-card-option">
+                    <label class="scent-option">
                         <input type="radio" name="bottleSize" value="100ml">
-                        <span class="scent-card-content">
-                            <span class="scent-icon" style="font-size: 2.2rem;">🏺</span>
+                        <span class="scent-card">
+                            <span class="scent-icon">🏺</span>
                             <span class="scent-name">100ml</span>
                             <span class="scent-desc-mini">Grand Collector</span>
                         </span>
                     </label>
-                </div>    
+                </div>
             </div>
-        
 
-            <div class="form-group full floating-group" style="margin-top: 3rem;">
-                <input type="text" id="creationName" class="form-input luxury-input" placeholder=" " required>
-                <label class="floating-label">Name Your Creation</label>
-            </div>            
-
-            <div class="form-footer">
-                    <button type="submit" class="btn-gold btn-block">Blend My Formula</button>
+            <div class="form-section">
+                <label class="section-label">5. Name Your Creation</label>
+                <input type="text" class="luxury-input" id="creationName" placeholder="e.g. Midnight in Paris" required>
+                <p style="text-align:center; margin-top:1rem; font-size:0.75rem; color:#666;">
+                    *Our master perfumers will analyze your blend and prepare a sample within 3 days.
+                </p>
             </div>
+
+            <button type="submit" class="btn-gold-block">Submit Formula</button>
+
         </form>
     </div>
 </div>
