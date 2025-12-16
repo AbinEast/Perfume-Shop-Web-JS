@@ -182,7 +182,61 @@ const products = {
         scent: "oriental",
         ratingStars: "★★★★☆",
         ratingCount: "128"
-    } 
+    },
+    /* Tambahkan di dalam const products = { ... } di main.js */
+    'discovery-set': {
+        name: "Signature Discovery Set",
+        brand: "Lumière",
+        price: "$45.00",
+        priceNum: 45.00,
+        description: "Explore our 5 best-selling scents in 2ml vials.",
+        image: "https://images.pexels.com/photos/15595060/pexels-photo-15595060.jpeg",
+        category: "gift-set",
+        scent: "fresh",
+        ratingStars: "★★★★★",
+        ratingCount: "342",
+        // TAMBAHAN BARU: Definisi Isi Paket
+        setItems: [
+            { name: "Floral Essence", image: "https://images.pexels.com/photos/8747310/pexels-photo-8747310.jpeg" },
+            { name: "Amber Nights", image: "https://images.pexels.com/photos/29801749/pexels-photo-29801749.jpeg" },
+            { name: "Royal Rose", image: "https://images.pexels.com/photos/724635/pexels-photo-724635.jpeg" },
+            { name: "Golden Aura", image: "https://images.pexels.com/photos/20282244/pexels-photo-20282244.jpeg" },
+            { name: "Timeless Oud", image: "https://images.pexels.com/photos/4925692/pexels-photo-4925692.jpeg" }
+        ]
+    },
+    'luxury-gift-box': {
+        name: "The Golden Gift Box",
+        brand: "Lumière",
+        price: "$280.00",
+        priceNum: 280.00,
+        description: "A luxurious set containing Golden Aura and Amber Nights.",
+        image: "https://images.pexels.com/photos/3989394/pexels-photo-3989394.jpeg",
+        category: "gift-set",
+        scent: "oriental",
+        ratingStars: "★★★★★",
+        ratingCount: "89",
+        setItems: [
+            { name: "Golden Aura (100ml)", image: "https://images.pexels.com/photos/20282244/pexels-photo-20282244.jpeg" },
+            { name: "Amber Nights (100ml)", image: "https://images.pexels.com/photos/29801749/pexels-photo-29801749.jpeg" }
+        ]
+    },
+    'travel-essentials': {
+        name: "Travel Essentials Kit",
+        brand: "Dior",
+        price: "$115.00",
+        priceNum: 115.00,
+        description: "Three 10ml sprays of your choice in a leather travel case.",
+        image: "https://images.pexels.com/photos/965992/pexels-photo-965992.jpeg",
+        category: "gift-set",
+        scent: "woody",
+        ratingStars: "★★★★☆",
+        ratingCount: "120",
+        setItems: [
+            { name: "Travel Case", image: "https://images.pexels.com/photos/965992/pexels-photo-965992.jpeg" },
+            { name: "Citrus Harmony (10ml)", image: "https://images.pexels.com/photos/12528067/pexels-photo-12528067.jpeg" },
+            { name: "Sapphire Mystique (10ml)", image: "https://images.pexels.com/photos/11920479/pexels-photo-11920479.jpeg" }
+        ]
+    },
 };
 
 // ============================================
@@ -1059,6 +1113,697 @@ const products = {
         }, 3000);
     }
 
+    // ============================================
+// 21. PROFILE SERVICES INTEGRATION
+// ============================================
+
+// Fungsi untuk ganti Tab di halaman Profile
+function switchProfileTab(tabName) {
+    // 1. Update State Menu Sidebar
+    document.querySelectorAll('.profile-menu a').forEach(el => el.classList.remove('active'));
+    
+    // 2. Sembunyikan semua View
+    document.querySelectorAll('.profile-view').forEach(el => el.style.display = 'none');
+    
+    // 3. Aktifkan yang dipilih
+    if (tabName === 'dashboard') {
+        document.getElementById('menu-dashboard').classList.add('active');
+        document.getElementById('view-dashboard').style.display = 'block';
+        // Pastikan animasi fade-in berjalan ulang
+        document.getElementById('view-dashboard').classList.add('fade-in');
+    } else if (tabName === 'services') {
+        document.getElementById('menu-services').classList.add('active');
+        document.getElementById('view-services').style.display = 'block';
+        document.getElementById('view-services').classList.add('fade-in');
+        
+        // Load data terbaru saat tab dibuka
+        loadProfileServices();
+    }
+}
+
+// Fungsi utama untuk memuat data layanan
+function loadProfileServices() {
+    loadAppointments();
+    loadCustomRequests();
+}
+
+// Render Jadwal Konsultasi
+function loadAppointments() {
+    const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+    const container = document.getElementById('appointments-list');
+    
+    if (!container) return;
+    
+    if (appointments.length === 0) {
+        container.innerHTML = `
+            <div class="empty-service">
+                <p>No upcoming appointments found.</p>
+                <a href="service.html" onclick="window.location.href='service.html';">Book a Consultation</a>
+            </div>`;
+        return;
+    }
+    
+    // Urutkan dari yang terbaru (reverse)
+    container.innerHTML = [...appointments].reverse().map(app => {
+        // Format Tanggal Cantik (Contoh: "24 DEC")
+        const dateObj = new Date(app.date);
+        const day = dateObj.getDate();
+        const month = dateObj.toLocaleString('default', { month: 'short' });
+        
+        return `
+            <div class="service-card">
+                <div class="service-header">
+                    <span class="service-id">ID: ${app.id}</span>
+                    <span class="status-badge status-confirmed">${app.status || 'Confirmed'}</span>
+                </div>
+                <div class="service-body">
+                    <div class="service-date-box">
+                        <span class="date-day">${day}</span>
+                        <span class="date-month">${month}</span>
+                    </div>
+                    <div class="service-details">
+                        <h4>${app.topic} Session</h4>
+                        <div class="service-meta">
+                            <span>🕒 ${app.time}</span>
+                            <span>📍 Virtual Meeting (Zoom)</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// Render Request Parfum Kustom
+function loadCustomRequests() {
+    const requests = JSON.parse(localStorage.getItem('customRequests') || '[]');
+    const container = document.getElementById('custom-requests-list');
+    
+    if (!container) return;
+    
+    if (requests.length === 0) {
+        container.innerHTML = `
+            <div class="empty-service">
+                <p>No custom fragrance requests yet.</p>
+                <a href="service.html" onclick="window.location.href='service.html';">Create Your Scent</a>
+            </div>`;
+        return;
+    }
+    
+    container.innerHTML = [...requests].reverse().map(req => {
+        // Format Formula Display
+        let formulaHtml = '';
+        if (req.composition) {
+            // Format lama (Radio button)
+            formulaHtml = `
+                <span class="formula-tag">Top: ${req.composition.top}</span>
+                <span class="formula-tag">Heart: ${req.composition.heart}</span>
+                <span class="formula-tag">Base: ${req.composition.base}</span>
+            `;
+        } else if (req.formula) {
+            // Format baru (Multi-select)
+            // Kita potong string agar tidak terlalu panjang di kartu
+            const trunc = (str) => str.length > 20 ? str.substring(0, 18) + '..' : str;
+            formulaHtml = `
+                <span class="formula-tag">T: ${trunc(req.formula.top)}</span>
+                <span class="formula-tag">H: ${trunc(req.formula.heart)}</span>
+                <span class="formula-tag">B: ${trunc(req.formula.base)}</span>
+            `;
+        } else {
+            // Fallback
+            formulaHtml = `<span class="formula-tag">Base: ${req.base}</span>`;
+        }
+
+        const sizeDisplay = req.formula?.size || '50ml';
+
+        return `
+            <div class="service-card">
+                <div class="service-header">
+                    <span class="service-id">ID: ${req.id}</span>
+                    <span class="status-badge status-lab">${req.status}</span>
+                </div>
+                <div class="service-body">
+                    <div class="service-date-box" style="border-color: var(--gold);">
+                        <span class="date-day" style="font-size: 1.5rem;">🧪</span>
+                        <span class="date-month">BESPOKE</span>
+                    </div>
+                    <div class="service-details">
+                        <h4>"${req.name}" <span style="font-size:0.8rem; color:var(--gold); border:1px solid var(--gold); padding:1px 6px; border-radius:4px; margin-left:8px;">${sizeDisplay}</span></h4>
+                        <div class="formula-tags">
+                            ${formulaHtml}
+                        </div>
+                        <p style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">
+                            Submitted: ${new Date(req.date).toLocaleDateString()}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// Pastikan fungsi global tersedia
+window.switchProfileTab = switchProfileTab;
+
+// ============================================
+// 22. SERVICE TO PROFILE INTEGRATION (LOGIC)
+// ============================================
+
+// --- A. LOGIKA BOOKING KONSULTASI (Appointment) ---
+
+// 1. Fungsi Buka/Tutup Modal Booking
+function openBookingModal() {
+    const modal = document.getElementById('bookingModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Auto-fill jika user sudah ada data profile
+        const userProfile = JSON.parse(localStorage.getItem('userProfile'));
+        if (userProfile) {
+            if(document.getElementById('bookName')) document.getElementById('bookName').value = userProfile.firstName + ' ' + userProfile.lastName;
+            if(document.getElementById('bookEmail')) document.getElementById('bookEmail').value = userProfile.email;
+        }
+        
+        // Set tanggal minimal hari ini
+        const today = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('bookDate');
+        if(dateInput) dateInput.setAttribute('min', today);
+    }
+}
+
+function closeBookingModal() {
+    const modal = document.getElementById('bookingModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// 2. Handle Submit Form Booking -> Simpan ke LocalStorage 'appointments'
+document.addEventListener('DOMContentLoaded', () => {
+    const bookingForm = document.getElementById('bookingForm');
+    
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Ambil data dari input
+            const date = document.getElementById('bookDate').value;
+            const time = document.getElementById('bookTime').value;
+            const topicEl = document.querySelector('input[name="topic"]:checked');
+            const topic = topicEl ? topicEl.value : 'General Consultation';
+            
+            // Efek Loading
+            const submitBtn = bookingForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = "Booking Confirmed!";
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                // --- INTI LOGIKA PENYIMPANAN ---
+                const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+                
+                appointments.push({
+                    id: 'BK-' + Math.floor(1000 + Math.random() * 9000), // ID Unik
+                    date: date,
+                    time: time,
+                    topic: topic,
+                    status: 'Confirmed' // Status awal
+                });
+                
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+                // --------------------------------
+                
+                // Reset & Tutup
+                bookingForm.reset();
+                closeBookingModal();
+                
+                if (typeof showNotification === 'function') {
+                    showNotification(`Appointment booked for ${date} at ${time}`, 'success');
+                } else {
+                    alert('Appointment booked successfully!');
+                }
+                
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+            }, 1000);
+        });
+    }
+});
+
+
+// --- B. LOGIKA CUSTOM FRAGRANCE (Bespoke Request) ---
+
+// 1. Fungsi Buka/Tutup Modal Custom
+function openCustomModal() {
+    const modal = document.getElementById('customModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeCustomModal() {
+    const modal = document.getElementById('customModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// 2. Handle Submit Custom Fragrance -> Simpan ke LocalStorage 'customRequests'
+document.addEventListener('DOMContentLoaded', () => {
+    const customForm = document.getElementById('customFragranceForm');
+    
+    if (customForm) {
+        customForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Helper untuk ambil checkbox (multi-select)
+            const getSelectedValues = (name) => {
+                const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+                let values = Array.from(checkboxes).map(cb => cb.value);
+                return values.length > 0 ? values.join(', ') : 'Surprise Me';
+            };
+
+            // Gabungkan Pilihan Checkbox + Input Teks Manual
+            const topNotes = getSelectedValues('topNote');
+            const topCustom = document.getElementById('topNoteCustom').value;
+            const finalTop = topCustom ? `${topNotes} (+ ${topCustom})` : topNotes;
+
+            const heartNotes = getSelectedValues('heartNote');
+            const heartCustom = document.getElementById('heartNoteCustom').value;
+            const finalHeart = heartCustom ? `${heartNotes} (+ ${heartCustom})` : heartNotes;
+
+            const baseNotes = getSelectedValues('baseNote');
+            const baseCustom = document.getElementById('baseNoteCustom').value;
+            const finalBase = baseCustom ? `${baseNotes} (+ ${baseCustom})` : baseNotes;
+            
+            const bottleSize = document.querySelector('input[name="bottleSize"]:checked')?.value || '50ml';
+            const creationName = document.getElementById('creationName').value || 'My Signature Scent';
+            
+            // Efek Loading
+            const submitBtn = customForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = "Submitting to Lab...";
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                // --- INTI LOGIKA PENYIMPANAN ---
+                const customRequests = JSON.parse(localStorage.getItem('customRequests') || '[]');
+                
+                customRequests.push({
+                    id: 'REQ-' + Math.floor(1000 + Math.random() * 9000), // ID Unik
+                    date: new Date().toISOString(),
+                    formula: { // Struktur Formula
+                        top: finalTop,
+                        heart: finalHeart,
+                        base: finalBase,
+                        size: bottleSize 
+                    },
+                    name: creationName,
+                    status: 'In Process' // Status awal
+                });
+                
+                localStorage.setItem('customRequests', JSON.stringify(customRequests));
+                // --------------------------------
+                
+                // Reset & Tutup
+                customForm.reset();
+                closeCustomModal();
+                
+                if (typeof showNotification === 'function') {
+                    showNotification(`Request "${creationName}" sent to our perfumers!`, 'success');
+                } else {
+                    alert('Request sent successfully!');
+                }
+                
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+            }, 1500);
+        });
+    }
+});
+
+// Pastikan fungsi bisa dipanggil dari HTML (onclick)
+window.openBookingModal = openBookingModal;
+window.closeBookingModal = closeBookingModal;
+window.openCustomModal = openCustomModal;
+window.closeCustomModal = closeCustomModal;
+
+// ============================================
+// 24. WORKSHOP & EVENTS LOGIC
+// ============================================
+
+function openWorkshopModal() {
+    const modal = document.getElementById('workshopModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeWorkshopModal() {
+    const modal = document.getElementById('workshopModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+function registerWorkshop(eventName, eventDate) {
+    // 1. Cek apakah user sudah login (Opsional, tapi disarankan)
+    // const userLoggedIn = localStorage.getItem('userLoggedIn');
+    // if (!userLoggedIn) { alert("Please login first."); return; }
+
+    // 2. Konfirmasi User
+    if(!confirm(`Confirm registration for "${eventName}" on ${eventDate}?`)) return;
+
+    // 3. Simpan ke LocalStorage 'appointments' (Digabung dengan booking konsultasi)
+    const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+    
+    appointments.push({
+        id: 'WS-' + Math.floor(1000 + Math.random() * 9000), // ID Khusus Workshop
+        date: new Date().toISOString(), // Tanggal booking dibuat
+        eventDateDisplay: eventDate, // Tanggal acara (string)
+        time: 'Check Ticket',
+        topic: `Workshop: ${eventName}`,
+        status: 'Registered'
+    });
+    
+    localStorage.setItem('appointments', JSON.stringify(appointments));
+
+    // 4. Tutup Modal & Beri Notifikasi
+    closeWorkshopModal();
+    
+    if (typeof showNotification === 'function') {
+        showNotification(`Success! You are registered for ${eventName}.`, 'success');
+    } else {
+        alert(`Success! You are registered for ${eventName}.`);
+    }
+}
+
+// Pastikan fungsi global tersedia
+window.openWorkshopModal = openWorkshopModal;
+window.closeWorkshopModal = closeWorkshopModal;
+window.registerWorkshop = registerWorkshop;
+
+// ============================================
+// 25. BEAUTIFUL CONFIRMATION LOGIC
+// ============================================
+
+// Variabel sementara untuk menyimpan data event yang sedang dipilih
+let pendingEventData = null;
+
+function registerWorkshop(eventName, eventDate) {
+    // 1. Simpan data ke variabel global sementara
+    pendingEventData = { name: eventName, date: eventDate };
+
+    // 2. Update isi teks Modal secara dinamis
+    document.getElementById('confirmEventName').textContent = eventName;
+    document.getElementById('confirmEventDate').textContent = eventDate;
+
+    // 3. Tampilkan Modal Konfirmasi
+    const modal = document.getElementById('workshopConfirmModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeConfirmModal() {
+    const modal = document.getElementById('workshopConfirmModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+    pendingEventData = null; // Reset data
+}
+
+// Logic saat tombol "Confirm Registration" ditekan
+document.getElementById('btnConfirmReg')?.addEventListener('click', function() {
+    if (!pendingEventData) return;
+
+    // 1. Efek Loading pada tombol
+    const btn = this;
+    const originalText = btn.textContent;
+    btn.textContent = "Processing...";
+    btn.disabled = true;
+
+    setTimeout(() => {
+        // 2. Simpan ke LocalStorage 'appointments'
+        const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+        
+        appointments.push({
+            id: 'WS-' + Math.floor(1000 + Math.random() * 9000),
+            date: new Date().toISOString(),
+            eventDateDisplay: pendingEventData.date,
+            time: 'Check Ticket', // Bisa disesuaikan
+            topic: `Workshop: ${pendingEventData.name}`,
+            status: 'Registered'
+        });
+        
+        localStorage.setItem('appointments', JSON.stringify(appointments));
+
+        // 3. Tutup Modal Konfirmasi & Modal Workshop Utama
+        closeConfirmModal();
+        closeWorkshopModal(); // Tutup juga modal list workshop
+
+        // 4. Tampilkan Notifikasi Sukses
+        if (typeof showNotification === 'function') {
+            showNotification(`Success! Seat reserved for ${pendingEventData.name}.`, 'success');
+        } else {
+            alert(`Success! Seat reserved for ${pendingEventData.name}.`);
+        }
+
+        // 5. Reset Tombol
+        btn.textContent = originalText;
+        btn.disabled = false;
+
+    }, 1200); // Delay sedikit untuk efek proses
+});
+
+// Expose fungsi close ke window
+window.closeConfirmModal = closeConfirmModal;
+
+// ============================================
+// 27. GIFT CONCIERGE LOGIC
+// ============================================
+
+function openGiftModal() {
+    const modal = document.getElementById('giftModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeGiftModal() {
+    const modal = document.getElementById('giftModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    const giftForm = document.getElementById('giftForm');
+    
+    if (giftForm) {
+        giftForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const recipient = document.querySelector('input[name="recipient"]:checked')?.value || 'Someone Special';
+            const occasion = document.getElementById('giftOccasion').value;
+            const budget = document.getElementById('giftBudget').value;
+            const message = document.getElementById('giftMessage').value;
+            
+            // Loading Effect
+            const submitBtn = giftForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = "Curating...";
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                // Simpan Data
+                const giftRequests = JSON.parse(localStorage.getItem('giftRequests') || '[]');
+                giftRequests.push({
+                    id: 'GIFT-' + Math.floor(1000 + Math.random() * 9000),
+                    date: new Date().toISOString(),
+                    details: {
+                        recipient: recipient,
+                        occasion: occasion,
+                        budget: budget,
+                        message: message
+                    },
+                    status: 'Curating'
+                });
+                localStorage.setItem('giftRequests', JSON.stringify(giftRequests));
+                
+                // Reset & Close
+                giftForm.reset();
+                closeGiftModal();
+                
+                if (typeof showNotification === 'function') {
+                    showNotification(`We're finding the perfect gift for your ${recipient}!`, 'success');
+                } else {
+                    alert('Gift request submitted successfully!');
+                }
+                
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+            }, 1500);
+        });
+    }
+});
+
+// Export Global
+window.openGiftModal = openGiftModal;
+window.closeGiftModal = closeGiftModal;
+
+// ============================================
+// 26. STORE LOCATOR LOGIC
+// ============================================
+
+// Data Dummy Toko
+const storeData = [
+    {
+        id: 1,
+        city: "Paris",
+        name: "Lumière Flagship",
+        address: "125 Avenue des Champs-Élysées, 75008 Paris, France",
+        status: "Open Now",
+        phone: "+33 1 40 70 12 34",
+        image: "https://images.pexels.com/photos/10003534/pexels-photo-10003534.jpeg"
+    },
+    {
+        id: 2,
+        city: "New York",
+        name: "SoHo Boutique",
+        address: "102 Prince Street, New York, NY 10012, USA",
+        status: "Open Now",
+        phone: "+1 212-555-0199",
+        image: "https://images.pexels.com/photos/3965545/pexels-photo-3965545.jpeg"
+    },
+    {
+        id: 3,
+        city: "Tokyo",
+        name: "Ginza Six",
+        address: "6-10-1 Ginza, Chuo City, Tokyo 104-0061, Japan",
+        status: "Closed",
+        phone: "+81 3-1234-5678",
+        image: "https://images.pexels.com/photos/264507/pexels-photo-264507.jpeg"
+    },
+    {
+        id: 4,
+        city: "Jakarta",
+        name: "Plaza Indonesia",
+        address: "Jl. M.H. Thamrin No.28-30, Jakarta Pusat 10350",
+        status: "Open Now",
+        phone: "+62 21 2992 1234",
+        image: "https://images.pexels.com/photos/1884581/pexels-photo-1884581.jpeg"
+    },
+    {
+        id: 5,
+        city: "London",
+        name: "Bond Street",
+        address: "45 Old Bond St, Mayfair, London W1S 4QT, UK",
+        status: "Open Now",
+        phone: "+44 20 7123 4567",
+        image: "https://images.pexels.com/photos/2954405/pexels-photo-2954405.jpeg"
+    }
+];
+
+// Open/Close Modal
+function openStoreLocator() {
+    const modal = document.getElementById('storeLocatorModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        renderStoreList(storeData); // Render semua toko saat dibuka
+    }
+}
+
+function closeStoreLocator() {
+    const modal = document.getElementById('storeLocatorModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Render List
+function renderStoreList(stores) {
+    const container = document.getElementById('storeListContainer');
+    if (!container) return;
+
+    if (stores.length === 0) {
+        container.innerHTML = `<p style="color:#666; text-align:center; margin-top:2rem;">No boutiques found.</p>`;
+        return;
+    }
+
+    container.innerHTML = stores.map(store => `
+        <div class="store-item" onclick="selectStore(${store.id}, this)">
+            <div class="store-city">${store.city}</div>
+            <div class="store-name" style="color:var(--gold); font-size:0.9rem; margin-bottom:0.5rem;">${store.name}</div>
+            <div class="store-address">${store.address}</div>
+            <div class="store-status ${store.status === 'Closed' ? 'closed' : ''}">
+                ● ${store.status}
+            </div>
+        </div>
+    `).join('');
+}
+
+// Filter Function
+function filterStores() {
+    const query = document.getElementById('storeSearchInput').value.toLowerCase();
+    const filtered = storeData.filter(store => 
+        store.city.toLowerCase().includes(query) || 
+        store.name.toLowerCase().includes(query) ||
+        store.address.toLowerCase().includes(query)
+    );
+    renderStoreList(filtered);
+}
+
+// Select Store & Update Map View
+function selectStore(id, element) {
+    // 1. Update Active State di List
+    document.querySelectorAll('.store-item').forEach(el => el.classList.remove('active'));
+    if(element) element.classList.add('active');
+
+    // 2. Ambil Data
+    const store = storeData.find(s => s.id === id);
+    if (!store) return;
+
+    // 3. Update "Map" Image & Info Overlay
+    const mapImg = document.getElementById('storeMapImage');
+    const overlay = document.getElementById('mapOverlayInfo');
+
+    // Efek Fade Out -> Ganti Data -> Fade In
+    mapImg.style.opacity = '0';
+    
+    setTimeout(() => {
+        mapImg.src = store.image; // Ganti gambar simulasi lokasi
+        overlay.innerHTML = `
+            <h3>${store.name}</h3>
+            <p>${store.address}</p>
+            <p style="margin-top:0.5rem; color:var(--gold);">📞 ${store.phone}</p>
+            <a href="#" style="display:inline-block; margin-top:1rem; color:#fff; text-decoration:underline; font-size:0.8rem;">Get Directions →</a>
+        `;
+        mapImg.style.opacity = '0.6';
+    }, 300);
+}
+
+// Expose functions
+window.openStoreLocator = openStoreLocator;
+window.closeStoreLocator = closeStoreLocator;
+window.filterStores = filterStores;
+window.selectStore = selectStore;
+
 // ============================================
 // 10. PRODUCT DETAIL PAGE
 // ============================================
@@ -1264,7 +2009,7 @@ const products = {
         discoverMore: ['golden-aura', 'amber-elite', 'timeless-oud', 'diamond-aura'],
         ratingStars: "★★★★☆",
         ratingCount: "128"
-    } 
+        }
     };
 
     // Default data untuk produk yang tidak memiliki data lengkap
@@ -1295,10 +2040,10 @@ const products = {
         ]
     };
 
-    function loadProductData() {
+   function loadProductData() {
         const urlParams = new URLSearchParams(window.location.search);
         const productId = urlParams.get('id') || 'luxurious-elixir';
-        const product = allProductsData[productId];
+        const product = allProductsData[productId] || products[productId]; // Cek di kedua sumber data
 
         if (!product) {
             console.error('Product not found:', productId);
@@ -1343,6 +2088,41 @@ const products = {
 
         const overtureContent = document.getElementById('product-overture-content');
         if (overtureContent) overtureContent.textContent = product.overtureContent || defaultProductData.overtureContent;
+
+        // === LOGIKA BARU UNTUK GAMBAR GIFT SET ===
+        const mainImageWrapper = document.querySelector('.main-image-wrapper');
+        
+        if (mainImageWrapper) {
+            // Cek apakah ini Gift Set DAN punya data setItems
+            if (product.category === 'gift-set' && product.setItems) {
+                
+                // Render Tampilan Khusus Gift Set
+                mainImageWrapper.className = 'main-image-wrapper gift-set-mode'; // Tambah class khusus
+                mainImageWrapper.innerHTML = `
+                    <div class="gift-display-container">
+                        <div class="gift-main-view">
+                            <img src="${product.image}" alt="${product.name}" id="gift-main-img">
+                            <span class="gift-label">GIFT SET CONTENTS</span>
+                        </div>
+                        
+                        <div class="gift-contents-grid">
+                            ${product.setItems.map(item => `
+                                <div class="gift-item-card">
+                                    <div class="gift-item-thumb">
+                                        <img src="${item.image}" alt="${item.name}">
+                                    </div>
+                                    <span class="gift-item-name">${item.name}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Tampilan Produk Biasa (Standar)
+                mainImageWrapper.className = 'main-image-wrapper'; // Reset class
+                mainImageWrapper.innerHTML = `<img src="${product.image || product.mainImage}" alt="${product.name}" id="product-main-image">`;
+            }
+        }
 
         // Render key notes
         renderKeyNotes(product.keyNotes || defaultProductData.keyNotes);
@@ -1774,7 +2554,66 @@ const products = {
 
         // Load order summary on page load
         window.addEventListener('DOMContentLoaded', loadOrderSummary);
+
+// ============================================
+// 28. CHECKOUT GIFT LOGIC
+// ============================================
+
+document.addEventListener('DOMContentLoaded', () => {
+    
+    // 1. Toggle Tampilan Gift Details
+    const giftCheckbox = document.getElementById('isGift');
+    const giftDetails = document.getElementById('giftDetails');
+    
+    if (giftCheckbox && giftDetails) {
+        giftCheckbox.addEventListener('change', function() {
+            if (this.checked) {
+                giftDetails.style.display = 'block';
+                // Otomatis fokus ke input pesan
+                document.getElementById('giftMessageInput')?.focus();
+            } else {
+                giftDetails.style.display = 'none';
+            }
+        });
+    }
+
+    // 2. Update Logika Submit Order (Menimpa logic lama agar data kado masuk)
+    const placeOrderBtn = document.getElementById('placeOrderBtn');
+    
+    if (placeOrderBtn) {
+        // Hapus listener lama dengan cara clone node (trik cepat) atau timpa logic di dalamnya
+        // Di sini kita akan membiarkan logic lama berjalan tapi kita tambahkan data kado ke 'orders' storage manual
         
+        placeOrderBtn.addEventListener('click', function() {
+            // Ambil data kado segera saat tombol diklik
+            const isGift = document.getElementById('isGift')?.checked;
+            const giftMsg = document.getElementById('giftMessageInput')?.value;
+            const hidePrice = document.getElementById('hidePrice')?.checked;
+            
+            // Kita gunakan timeout kecil untuk menunggu logic pesanan utama (yang ada di main.js sebelumnya) selesai menulis ke localStorage
+            setTimeout(() => {
+                const orders = JSON.parse(localStorage.getItem('orders') || '[]');
+                
+                if (orders.length > 0) {
+                    // Ambil order terakhir (yang baru saja dibuat)
+                    const lastOrder = orders[orders.length - 1];
+                    
+                    // Tambahkan data kado ke order tersebut
+                    if (isGift) {
+                        lastOrder.giftDetails = {
+                            isGift: true,
+                            message: giftMsg,
+                            hidePrice: hidePrice
+                        };
+                        // Simpan kembali
+                        localStorage.setItem('orders', JSON.stringify(orders));
+                    }
+                }
+            }, 100); // Delay 100ms setelah order dibuat
+        });
+    }
+});        
+
 // ============================================
 // 15. UPDATED FILTER LOGIC & VIEW TOGGLE
 // ============================================
@@ -2736,6 +3575,375 @@ function initOfferSlider() {
     // Mulai Auto Slide saat halaman dimuat
     startAutoSlide();
 }
+
+// ============================================
+// 19. CONSULTATION BOOKING SYSTEM
+// ============================================
+
+function openBookingModal() {
+    const modal = document.getElementById('bookingModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden'; // Mencegah scroll background
+        
+        // Auto-fill nama/email jika user sudah login (simulasi)
+        const userProfile = JSON.parse(localStorage.getItem('userProfile'));
+        if (userProfile) {
+            if(document.getElementById('bookName')) document.getElementById('bookName').value = userProfile.firstName + ' ' + userProfile.lastName;
+            if(document.getElementById('bookEmail')) document.getElementById('bookEmail').value = userProfile.email;
+        }
+        
+        // Set min date to today
+        const today = new Date().toISOString().split('T')[0];
+        document.getElementById('bookDate').setAttribute('min', today);
+    }
+}
+
+function closeBookingModal() {
+    const modal = document.getElementById('bookingModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Handle Form Submission
+document.addEventListener('DOMContentLoaded', () => {
+    const bookingForm = document.getElementById('bookingForm');
+    
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // 1. Ambil data dari form
+            const name = document.getElementById('bookName').value;
+            const date = document.getElementById('bookDate').value;
+            const time = document.getElementById('bookTime').value;
+            const topic = document.querySelector('input[name="topic"]:checked').value;
+            
+            // 2. Simulasi Loading
+            const submitBtn = bookingForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = "Booking...";
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                // 3. Simpan ke LocalStorage (Simulasi Database)
+                const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+                appointments.push({
+                    id: 'BK-' + Math.floor(1000 + Math.random() * 9000),
+                    name: name,
+                    date: date,
+                    time: time,
+                    topic: topic,
+                    status: 'Confirmed'
+                });
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+                
+                // 4. Reset Form & Tutup Modal
+                bookingForm.reset();
+                closeBookingModal();
+                
+                // 5. Tampilkan Notifikasi Sukses
+                if (typeof showNotification === 'function') {
+                    showNotification(`Booking Confirmed! See you on ${date} at ${time}.`);
+                } else {
+                    alert(`Booking Confirmed! See you on ${date} at ${time}.`);
+                }
+                
+                // Reset tombol
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+            }, 1500); // Delay 1.5 detik agar terasa nyata
+        });
+    }
+});
+
+// Pastikan fungsi di-export ke window agar bisa dipanggil dari HTML onclick
+window.openBookingModal = openBookingModal;
+window.closeBookingModal = closeBookingModal;
+
+// ============================================
+// 20. CUSTOM FRAGRANCE WIZARD
+// ============================================
+
+function openCustomModal() {
+    const modal = document.getElementById('customModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeCustomModal() {
+    const modal = document.getElementById('customModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// Handle Custom Fragrance Form Submission (MULTI-SELECT SUPPORT)
+document.addEventListener('DOMContentLoaded', () => {
+    const customForm = document.getElementById('customFragranceForm');
+    
+    if (customForm) {
+        customForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Helper function untuk mengambil value checkbox yang dipilih
+            const getSelectedValues = (name) => {
+                const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+                let values = Array.from(checkboxes).map(cb => cb.value);
+                return values.length > 0 ? values.join(', ') : 'Surprise Me';
+            };
+
+            // 1. Ambil data gabungan (Pilihan Kartu + Input Manual)
+            const topNotes = getSelectedValues('topNote');
+            const topCustom = document.getElementById('topNoteCustom').value;
+            const finalTop = topCustom ? `${topNotes} (+ ${topCustom})` : topNotes;
+
+            const heartNotes = getSelectedValues('heartNote');
+            const heartCustom = document.getElementById('heartNoteCustom').value;
+            const finalHeart = heartCustom ? `${heartNotes} (+ ${heartCustom})` : heartNotes;
+
+            const baseNotes = getSelectedValues('baseNote');
+            const baseCustom = document.getElementById('baseNoteCustom').value;
+            const finalBase = baseCustom ? `${baseNotes} (+ ${baseCustom})` : baseNotes;
+            
+            const creationName = document.getElementById('creationName').value || 'My Signature Scent';
+            
+            // 2. Simulasi Loading UI
+            const submitBtn = customForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = "Analyzing Composition...";
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                // 3. Simpan data lengkap
+                const customRequests = JSON.parse(localStorage.getItem('customRequests') || '[]');
+                customRequests.push({
+                    id: 'BESPOKE-' + Math.floor(1000 + Math.random() * 9000),
+                    date: new Date().toISOString(),
+                    formula: {
+                        top: finalTop,
+                        heart: finalHeart,
+                        base: finalBase
+                    },
+                    name: creationName,
+                    status: 'Perfumer Reviewing'
+                });
+                localStorage.setItem('customRequests', JSON.stringify(customRequests));
+                
+                // 4. Feedback & Reset
+                customForm.reset();
+                closeCustomModal(); 
+                
+                if (typeof showNotification === 'function') {
+                    showNotification(`Masterpiece submitted! "${creationName}" is being processed.`, 'success');
+                } else {
+                    alert(`Request for "${creationName}" sent successfully!`);
+                }
+                
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+            }, 2000); 
+        });
+    }
+});
+
+// Export functions
+window.openCustomModal = openCustomModal;
+window.closeCustomModal = closeCustomModal;
+
+// ============================================
+// 22. SERVICE TO PROFILE INTEGRATION (LOGIC)
+// ============================================
+
+// --- A. LOGIKA BOOKING KONSULTASI (Appointment) ---
+
+// 1. Fungsi Buka/Tutup Modal Booking
+function openBookingModal() {
+    const modal = document.getElementById('bookingModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+        
+        // Auto-fill jika user sudah ada data profile
+        const userProfile = JSON.parse(localStorage.getItem('userProfile'));
+        if (userProfile) {
+            if(document.getElementById('bookName')) document.getElementById('bookName').value = userProfile.firstName + ' ' + userProfile.lastName;
+            if(document.getElementById('bookEmail')) document.getElementById('bookEmail').value = userProfile.email;
+        }
+        
+        // Set tanggal minimal hari ini
+        const today = new Date().toISOString().split('T')[0];
+        const dateInput = document.getElementById('bookDate');
+        if(dateInput) dateInput.setAttribute('min', today);
+    }
+}
+
+function closeBookingModal() {
+    const modal = document.getElementById('bookingModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// 2. Handle Submit Form Booking -> Simpan ke LocalStorage 'appointments'
+document.addEventListener('DOMContentLoaded', () => {
+    const bookingForm = document.getElementById('bookingForm');
+    
+    if (bookingForm) {
+        bookingForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Ambil data dari input
+            const date = document.getElementById('bookDate').value;
+            const time = document.getElementById('bookTime').value;
+            const topicEl = document.querySelector('input[name="topic"]:checked');
+            const topic = topicEl ? topicEl.value : 'General Consultation';
+            
+            // Efek Loading
+            const submitBtn = bookingForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = "Booking Confirmed!";
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                // --- INTI LOGIKA PENYIMPANAN ---
+                const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
+                
+                appointments.push({
+                    id: 'BK-' + Math.floor(1000 + Math.random() * 9000), // ID Unik
+                    date: date,
+                    time: time,
+                    topic: topic,
+                    status: 'Confirmed' // Status awal
+                });
+                
+                localStorage.setItem('appointments', JSON.stringify(appointments));
+                // --------------------------------
+                
+                // Reset & Tutup
+                bookingForm.reset();
+                closeBookingModal();
+                
+                if (typeof showNotification === 'function') {
+                    showNotification(`Appointment booked for ${date} at ${time}`, 'success');
+                } else {
+                    alert('Appointment booked successfully!');
+                }
+                
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+            }, 1000);
+        });
+    }
+});
+
+
+// --- B. LOGIKA CUSTOM FRAGRANCE (Bespoke Request) ---
+
+// 1. Fungsi Buka/Tutup Modal Custom
+function openCustomModal() {
+    const modal = document.getElementById('customModal');
+    if (modal) {
+        modal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+}
+
+function closeCustomModal() {
+    const modal = document.getElementById('customModal');
+    if (modal) {
+        modal.classList.remove('active');
+        document.body.style.overflow = '';
+    }
+}
+
+// 2. Handle Submit Custom Fragrance -> Simpan ke LocalStorage 'customRequests'
+document.addEventListener('DOMContentLoaded', () => {
+    const customForm = document.getElementById('customFragranceForm');
+    
+    if (customForm) {
+        customForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            // Helper untuk ambil checkbox (multi-select)
+            const getSelectedValues = (name) => {
+                const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
+                let values = Array.from(checkboxes).map(cb => cb.value);
+                return values.length > 0 ? values.join(', ') : 'Surprise Me';
+            };
+
+            // Gabungkan Pilihan Checkbox + Input Teks Manual
+            const topNotes = getSelectedValues('topNote');
+            const topCustom = document.getElementById('topNoteCustom').value;
+            const finalTop = topCustom ? `${topNotes} (+ ${topCustom})` : topNotes;
+
+            const heartNotes = getSelectedValues('heartNote');
+            const heartCustom = document.getElementById('heartNoteCustom').value;
+            const finalHeart = heartCustom ? `${heartNotes} (+ ${heartCustom})` : heartNotes;
+
+            const baseNotes = getSelectedValues('baseNote');
+            const baseCustom = document.getElementById('baseNoteCustom').value;
+            const finalBase = baseCustom ? `${baseNotes} (+ ${baseCustom})` : baseNotes;
+            
+            const creationName = document.getElementById('creationName').value || 'My Signature Scent';
+            
+            // Efek Loading
+            const submitBtn = customForm.querySelector('button[type="submit"]');
+            const originalText = submitBtn.textContent;
+            submitBtn.textContent = "Submitting to Lab...";
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                // --- INTI LOGIKA PENYIMPANAN ---
+                const customRequests = JSON.parse(localStorage.getItem('customRequests') || '[]');
+                
+                customRequests.push({
+                    id: 'REQ-' + Math.floor(1000 + Math.random() * 9000), // ID Unik
+                    date: new Date().toISOString(),
+                    formula: { // Struktur Formula
+                        top: finalTop,
+                        heart: finalHeart,
+                        base: finalBase
+                    },
+                    name: creationName,
+                    status: 'In Lab' // Status awal
+                });
+                
+                localStorage.setItem('customRequests', JSON.stringify(customRequests));
+                // --------------------------------
+                
+                // Reset & Tutup
+                customForm.reset();
+                closeCustomModal();
+                
+                if (typeof showNotification === 'function') {
+                    showNotification(`Request "${creationName}" sent to our perfumers!`, 'success');
+                } else {
+                    alert('Request sent successfully!');
+                }
+                
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+                
+            }, 1500);
+        });
+    }
+});
+
+// Pastikan fungsi bisa dipanggil dari HTML (onclick)
+window.openBookingModal = openBookingModal;
+window.closeBookingModal = closeBookingModal;
+window.openCustomModal = openCustomModal;
+window.closeCustomModal = closeCustomModal;
 
 // ============================================
 // 18. EXPORT FUNCTIONS TO WINDOW

@@ -450,6 +450,41 @@
         color: #000; 
     }
 
+    /* ===================================
+   GIFT SECTION STYLES
+   =================================== */
+
+    .gift-toggle-box {
+        background: linear-gradient(145deg, #121212, #0a0a0a);
+        border: 1px solid rgba(212, 165, 116, 0.2);
+        padding: 1.5rem;
+        border-radius: 8px;
+        margin-bottom: 1.5rem;
+        transition: all 0.3s ease;
+    }
+
+    .gift-toggle-box:hover {
+        border-color: var(--gold);
+    }
+
+    .gift-details-panel {
+        margin-left: 1rem;
+        padding-left: 1.5rem;
+        border-left: 2px solid var(--gold);
+        animation: slideDown 0.4s ease forwards;
+    }
+
+    @keyframes slideDown {
+        from { opacity: 0; transform: translateY(-10px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Mengubah warna checkbox khusus kado */
+    #isGift {
+        accent-color: var(--gold);
+        transform: scale(1.2); /* Sedikit lebih besar */
+    }
+
     /* ========================================
        RESPONSIVE DESIGN - Mobile & Tablet
        ======================================== */

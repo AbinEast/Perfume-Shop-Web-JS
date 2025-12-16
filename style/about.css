@@ -263,34 +263,42 @@
             padding: 1rem 3rem;
             border: 1px solid var(--gold);
             color: var(--gold);
+            
+            /* Properti Tambahan untuk <button> */
+            background: transparent;       /* Hilangkan background abu-abu default */
+            cursor: pointer;               /* Ubah kursor jadi telunjuk */
+            font-family: 'Montserrat', sans-serif; /* Pastikan font sama */
+            font-size: 0.9rem;             /* Ukuran font konsisten */
+            font-weight: 500;
+            
             text-transform: uppercase;
             letter-spacing: 3px;
             text-decoration: none;
             transition: all 0.4s;
             position: relative;
-            overflow: hidden;                        /* Clip filling animation */
+            overflow: hidden;
         }
-        
+
         /* Fill animation pseudo-element */
         .btn-gold::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 0;                                /* Start with no width */
+            width: 0;
             height: 100%;
             background: var(--gold);
             transition: 0.4s;
-            z-index: -1;                             /* Behind text */
+            z-index: -1;
         }
-        
+
         /* Expand fill on hover */
         .btn-gold:hover { 
             color: #000; 
         }
-        
+
         .btn-gold:hover::before { 
-            width: 100%;                             /* Fill entire button */
+            width: 100%;
         }
 
         /* ==================== ANIMATIONS ==================== */
@@ -381,5 +389,146 @@
                 font-size: 1.8rem; 
             }
         }
-        
+
+/* ===================================
+   STORE LOCATOR MODAL STYLES
+   =================================== */
+
+/* Menggunakan gaya overlay global, tapi mendefinisikan konten spesifik */
+.locator-modal-content {
+    background: linear-gradient(145deg, #121212 0%, #0a0a0a 100%);
+    padding: 3rem;
+    border: 1px solid rgba(212, 165, 116, 0.2);
+    width: 95%;
+    max-width: 1000px; /* Lebih lebar untuk peta */
+    height: 80vh; /* Tinggi fix */
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+}
+
+/* Header Styles (Copy dari Luxury Modal agar konsisten) */
+.modal-header-luxury { text-align: center; margin-bottom: 2rem; position: relative; flex-shrink: 0; }
+.modal-subtitle { font-family: 'Montserrat', sans-serif; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 3px; color: var(--gold); margin-bottom: 0.5rem; display: block; }
+.modal-title { font-family: 'Playfair Display', serif; font-size: 2.2rem; color: #fff; margin-bottom: 1rem; font-weight: 400; }
+.header-divider { width: 60px; height: 2px; background: var(--gold); margin: 0 auto; }
+.close-luxury { position: absolute; right: -1rem; top: -2rem; font-size: 2rem; background: none; border: none; color: #fff; cursor: pointer; transition: 0.3s; }
+.close-luxury:hover { color: var(--gold); transform: rotate(90deg); }
+
+/* Layout Grid Locator */
+/* Layout Grid Locator - PERBAIKAN SCROLL */
+.locator-layout {
+    display: grid;
+    grid-template-columns: 350px 1fr;
+    gap: 2rem;
+    
+    /* Ganti height: 100% dengan ini agar pas dengan sisa ruang header */
+    flex: 1; 
+    min-height: 0; /* KUNCI UTAMA: Ini memaksa flex child untuk tidak overflow */
+    
+    overflow: hidden; 
+}
+
+/* Sidebar List */
+.store-list-sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    border-right: 1px solid rgba(255,255,255,0.1);
+    padding-right: 1.5rem;
+    overflow: hidden; /* Pastikan sidebar tidak melebar keluar */
+}
+
+/* Container Scrollable untuk List */
+.store-items-container {
+    overflow-y: auto; /* Aktifkan scroll vertikal */
+    flex: 1;          /* Mengisi sisa ruang sidebar */
+    padding-right: 5px;
+    
+    /* Tambahan styling scrollbar agar terlihat */
+    scrollbar-width: thin; 
+    scrollbar-color: var(--gold) #1a1a1a;
+}
+
+.store-search-box {
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.store-search-box input {
+    width: 100%;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid #333;
+    padding: 0.8rem 1rem 0.8rem 2.5rem;
+    color: #fff;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 4px;
+}
+.store-search-box input:focus { outline: none; border-color: var(--gold); }
+
+.search-icon-sm {
+    position: absolute; left: 0.8rem; top: 50%; transform: translateY(-50%);
+    width: 16px; height: 16px; stroke: #666; fill: none; stroke-width: 2;
+}
+
+.store-items-container::-webkit-scrollbar { width: 4px; }
+.store-items-container::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+
+/* Item Toko */
+.store-item {
+    padding: 1.5rem;
+    border: 1px solid rgba(255,255,255,0.05);
+    margin-bottom: 1rem;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: linear-gradient(145deg, #0f0f0f, #121212);
+}
+
+.store-item:hover, .store-item.active {
+    border-color: var(--gold);
+    background: rgba(212, 165, 116, 0.05);
+}
+
+.store-city { font-family: 'Playfair Display', serif; font-size: 1.2rem; color: #fff; margin-bottom: 0.3rem; }
+.store-address { font-size: 0.85rem; color: #888; line-height: 1.6; margin-bottom: 0.8rem; }
+.store-status { font-size: 0.75rem; color: #32cd32; text-transform: uppercase; letter-spacing: 1px; display: block; }
+.store-status.closed { color: #ff4444; }
+
+/* --- Map Area --- */
+.store-map-wrapper {
+    position: relative;
+    background: #000;
+    border: 1px solid #333;
+    overflow: hidden;
+    height: 100%;
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.6;
+    transition: opacity 0.5s;
+}
+
+.map-overlay-info {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    background: rgba(0,0,0,0.8);
+    padding: 1.5rem;
+    border-left: 3px solid var(--gold);
+    backdrop-filter: blur(5px);
+    max-width: 300px;
+}
+
+.map-overlay-info h3 { color: var(--gold); margin-bottom: 0.5rem; font-family: 'Playfair Display', serif; }
+.map-overlay-info p { color: #ccc; font-size: 0.9rem; }
+
+/* Responsive */
+@media (max-width: 768px) {
+    .locator-layout { grid-template-columns: 1fr; grid-template-rows: 1fr 1fr; }
+    .store-list-sidebar { border-right: none; border-bottom: 1px solid #333; padding-right: 0; padding-bottom: 1rem; }
+    .locator-modal-content { height: 90vh; padding: 1.5rem; }
+}
     

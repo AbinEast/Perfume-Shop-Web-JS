@@ -208,7 +208,7 @@
     <section class="cta-section reveal-on-scroll">
         <h2>Want to be a part of our journey?</h2>
         <p style="color: #888; margin-bottom: 3rem;">Visit our store and immerse yourself in the world of Lumière Scents.</p>
-        <a href="shop.html" class="btn-gold">Shop Now</a>
+        <button class="btn-gold" onclick="openStoreLocator()">Find a Boutique</button>
     </section>
 
     <!-- ==================== FOOTER ==================== -->
@@ -256,7 +256,7 @@
                 <ul>
                     <li><a href="#">Email Us</a></li>
                     <li><a href="#">Call Us</a></li>
-                    <li><a href="#">Store Locator</a></li>
+                    <li><a href="#" onclick="openStoreLocator()">Store Locator</a></li>
                 </ul>
             </div>
             
@@ -326,6 +326,38 @@
          - Mobile menu toggle
          - Cart/wishlist badge updates
     -->
+         <div class="search-overlay" id="storeLocatorModal">
+<div class="search-container locator-modal-content">
+    
+        <div class="modal-header-luxury">
+            <h5 class="modal-subtitle">Global Presence</h5>
+            <h2 class="modal-title">Our Boutiques</h2>
+            <div class="header-divider"></div>
+            <button class="close-search close-luxury" onclick="closeStoreLocator()">×</button>
+        </div>
+
+        <div class="locator-layout">
+            <div class="store-list-sidebar">
+                <div class="store-search-box">
+                    <input type="text" id="storeSearchInput" placeholder="Search city or country..." onkeyup="filterStores()">
+                    <svg class="search-icon-sm" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </div>
+                
+                <div class="store-items-container" id="storeListContainer">
+                    </div>
+            </div>
+
+            <div class="store-map-wrapper">
+                <img id="storeMapImage" src="https://images.pexels.com/photos/10003534/pexels-photo-10003534.jpeg" alt="Store Map" class="map-image">
+                <div class="map-overlay-info" id="mapOverlayInfo">
+                    <h3>Select a store</h3>
+                    <p>to view details</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
     <script src="main.js"></script>
 </body>
 </html>

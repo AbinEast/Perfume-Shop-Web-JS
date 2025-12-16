@@ -192,6 +192,32 @@
                 </div>
             </div>
 
+            <div class="form-section">
+                <h2>Gift Options</h2>
+                
+                <div class="gift-toggle-box">
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="isGift">
+                        <label for="isGift" style="font-size: 1rem; color: #fff;">Send this order as a gift? 🎁</label>
+                    </div>
+                    <p style="font-size: 0.8rem; color: #888; margin-left: 1.8rem; margin-top: 0.5rem;">
+                        We will wrap it elegantly and include a card.
+                    </p>
+                </div>
+
+                <div id="giftDetails" class="gift-details-panel" style="display: none;">
+                    <div class="form-group">
+                        <label class="form-label">Personal Message (Printed on card)</label>
+                        <textarea id="giftMessageInput" class="form-input" rows="3" placeholder="Write a warm wish..."></textarea>
+                    </div>
+                    
+                    <div class="checkbox-group">
+                        <input type="checkbox" id="hidePrice" checked>
+                        <label for="hidePrice">Hide prices on packing slip</label>
+                    </div>
+                </div>
+            </div>
+
         </form>
     </div>
 

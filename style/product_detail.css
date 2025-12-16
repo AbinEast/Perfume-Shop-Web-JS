@@ -442,6 +442,108 @@
     }
 
 /* ===================================
+   GIFT SET DISPLAY STYLES
+   =================================== */
+
+/* Container Utama saat Mode Gift Set */
+.main-image-wrapper.gift-set-mode {
+    background: transparent;
+    overflow: visible; /* Agar shadow/hover tidak terpotong */
+    aspect-ratio: auto; /* Reset aspect ratio agar fleksibel */
+}
+
+.gift-display-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+/* Gambar Utama (Box Kemasan) */
+.gift-main-view {
+    position: relative;
+    width: 100%;
+    height: 300px; /* Tinggi fix untuk box utama */
+    border-radius: 8px;
+    overflow: hidden;
+    border: 1px solid rgba(212, 165, 116, 0.2);
+}
+
+.gift-main-view img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.gift-main-view:hover img {
+    transform: scale(1.05);
+}
+
+.gift-label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background: var(--gold);
+    color: #000;
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.3rem 0.8rem;
+    letter-spacing: 1px;
+    z-index: 2;
+}
+
+/* Grid Isi Paket */
+.gift-contents-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 Kolom */
+    gap: 10px;
+}
+
+/* Kartu Item Kecil */
+.gift-item-card {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 6px;
+    padding: 0.5rem;
+    text-align: center;
+    transition: all 0.3s;
+}
+
+.gift-item-card:hover {
+    border-color: var(--gold);
+    background: rgba(212, 165, 116, 0.05);
+    transform: translateY(-3px);
+}
+
+.gift-item-thumb {
+    width: 100%;
+    aspect-ratio: 1/1;
+    overflow: hidden;
+    border-radius: 4px;
+    margin-bottom: 0.5rem;
+}
+
+.gift-item-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.gift-item-name {
+    display: block;
+    font-size: 0.75rem;
+    color: #ccc;
+    font-family: 'Montserrat', sans-serif;
+    line-height: 1.2;
+}
+
+/* Responsive Mobile */
+@media (max-width: 480px) {
+    .gift-main-view { height: 250px; }
+    .gift-contents-grid { grid-template-columns: repeat(2, 1fr); /* 2 kolom di HP kecil */ }
+}
+
+/* ===================================
     NOTIFICATION
     =================================== */
     .notification {

@@ -99,6 +99,7 @@
                     <li>Scent wardrobe curation</li>
                     <li>Expert guidance</li>
                 </ul>
+                <button class="btn-gold" style="margin-top: 2rem;" onclick="openBookingModal()">Book Appointment</button>
             </div>
             <div class="service-image-box">
                 <img src="https://images.pexels.com/photos/8667527/pexels-photo-8667527.jpeg" alt="Personal Consultation" class="service-img">
@@ -115,6 +116,7 @@
                     <li>Rare ingredient sourcing</li>
                     <li>Personalized bottle design</li>
                 </ul>
+                <button class="btn-gold" style="margin-top: 2rem;" onclick="openCustomModal()">Create Custom Fragrance</button>
             </div>
             <div class="service-image-box">
                 <img src="https://images.pexels.com/photos/8450130/pexels-photo-8450130.jpeg" alt="Custom Fragrance" class="service-img">
@@ -131,6 +133,7 @@
                     <li>Elegant wrapping</li>
                     <li>Personalized messages</li>
                 </ul>
+                <button class="btn-gold" style="margin-top: 2rem;" onclick="window.location.href='shop.html'">Find the Perfect Gift</button>
             </div>
             <div class="service-image-box">
                 <img src="https://images.pexels.com/photos/29442212/pexels-photo-29442212.jpeg" alt="Gifting" class="service-img">
@@ -147,6 +150,7 @@
                     <li>Scent-tasting sessions</li>
                     <li>Educational seminars</li>
                 </ul>
+                <button class="btn-gold" style="margin-top: 2rem;" onclick="openWorkshopModal()">View Upcoming Events</button>
             </div>
             <div class="service-image-box">
                 <img src="https://images.pexels.com/photos/10512084/pexels-photo-10512084.jpeg" alt="Workshops" class="service-img">
@@ -156,22 +160,6 @@
         <div class="service-row reveal-on-scroll">
             <div class="service-content">
                 <div class="service-number">05</div>
-                <h2 class="service-title">Eco-friendly Initiatives</h2>
-                <p class="service-desc">We maintain sustainability without compromising luxury. Our ingredients are responsibly harvested, and our packaging is designed with the environment in mind.</p>
-                <ul class="service-list">
-                    <li>Ethical sourcing</li>
-                    <li>Recyclable packaging</li>
-                    <li>Sustainable practices</li>
-                </ul>
-            </div>
-            <div class="service-image-box">
-                <img src="https://images.pexels.com/photos/7796692/pexels-photo-7796692.jpeg" alt="Eco-friendly" class="service-img">
-            </div>
-        </div>
-
-        <div class="service-row reverse reveal-on-scroll">
-            <div class="service-content">
-                <div class="service-number">06</div>
                 <h2 class="service-title">Online Shopping</h2>
                 <p class="service-desc">Experience seamless shopping from the comfort of your home. Our online store offers detailed descriptions and virtual consultations for personalized recommendations.</p>
                 <ul class="service-list">
@@ -179,6 +167,7 @@
                     <li>Secure payments</li>
                     <li>Fast global shipping</li>
                 </ul>
+                <button class="btn-gold" style="margin-top: 2rem;" onclick="window.location.href='shop.html'">Shop Now</button>
             </div>
             <div class="service-image-box">
                 <img src="https://images.pexels.com/photos/6214471/pexels-photo-6214471.jpeg" alt="Online Shopping" class="service-img">
@@ -285,6 +274,407 @@
         <span>Account</span>
     </a>
 </nav>
+
+<div class="search-overlay luxury-modal-overlay" id="bookingModal">
+    <div class="search-container booking-modal-content luxury-modal">
+        
+        <div class="modal-header-luxury">
+            <h5 class="modal-subtitle">Exclusive Service</h5>
+            <h2 class="modal-title">Book Your Consultation</h2>
+            <div class="header-divider"></div>
+            <button class="close-search close-luxury" onclick="closeBookingModal()">×</button>
+        </div>
+
+        <form id="bookingForm" class="booking-form luxury-form">
+            <div class="form-grid">
+                <div class="form-group floating-group">
+                    <input type="text" id="bookName" class="form-input luxury-input" placeholder=" " required>
+                    <label class="floating-label">Full Name</label>
+                </div>
+                <div class="form-group floating-group">
+                    <input type="email" id="bookEmail" class="form-input luxury-input" placeholder=" " required>
+                    <label class="floating-label">Email Address</label>
+                </div>
+
+                <div class="form-group floating-group">
+                    <input type="date" id="bookDate" class="form-input luxury-input" required>
+                    <label class="floating-label static">Select Date</label> </div>
+                <div class="form-group floating-group">
+                    <select id="bookTime" class="form-input luxury-input select-luxury" required>
+                        <option value="" disabled selected></option> <option value="10:00">10:00 AM - 11:00 AM</option>
+                        <option value="11:00">11:00 AM - 12:00 PM</option>
+                        <option value="13:00">01:00 PM - 02:00 PM</option>
+                        <option value="14:00">02:00 PM - 03:00 PM</option>
+                        <option value="16:00">04:00 PM - 05:00 PM</option>
+                    </select>
+                    <label class="floating-label">Select Time slot</label>
+                </div>
+
+                <div class="form-group full topic-group">
+                    <label class="form-label static-label">Area of Interest</label>
+                    <div class="topic-options luxury-topics">
+                        <label class="topic-radio">
+                            <input type="radio" name="topic" value="Scent Profiling" checked>
+                            <span>Scent Profiling</span>
+                        </label>
+                        <label class="topic-radio">
+                            <input type="radio" name="topic" value="Gifting Advice">
+                            <span>Gifting Advice</span>
+                        </label>
+                        <label class="topic-radio">
+                            <input type="radio" name="topic" value="Layering Tips">
+                            <span>Layering Tips</span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group full floating-group">
+                    <textarea id="bookNotes" class="form-input luxury-input textarea-luxury" rows="1" placeholder=" "></textarea>
+                    <label class="floating-label">Special Requests (Optional)</label>
+                </div>
+            </div>
+
+            <div class="form-footer">
+                 <button type="submit" class="btn-gold btn-block">Confirm Booking</button>
+                 <p class="form-disclaimer">
+                    *By booking, you agree to receive a confirmation email with the virtual meeting details.
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="search-overlay luxury-modal-overlay" id="customModal">
+    <div class="search-container booking-modal-content luxury-modal">
+        
+        <div class="modal-header-luxury">
+            <h5 class="modal-subtitle">Bespoke Service</h5>
+            <h2 class="modal-title">Design Your Signature</h2>
+            <div class="header-divider"></div>
+            <button class="close-search close-luxury" onclick="closeCustomModal()">×</button>
+        </div>
+
+        <form id="customFragranceForm" class="booking-form luxury-form">
+    
+            <p style="text-align: center; color: var(--gold); font-size: 0.9rem; margin-bottom: 2rem;">
+                Select one or more notes for each layer to create your unique accord.
+            </p>
+
+            <div class="form-group full">
+                <label class="form-label static-label">1. Top Note (Select up to 2)</label>
+                
+                <div class="scent-family-grid three-col">
+                    <label class="scent-card-option">
+                        <input type="checkbox" name="topNote" value="Citrus">
+                        <span class="scent-card-content">
+                            <span class="scent-icon">🍋</span>
+                            <span class="scent-name">Citrus</span>
+                            <span class="scent-desc-mini">Zesty & Energetic</span>
+                        </span>
+                    </label>
+                    <label class="scent-card-option">
+                        <input type="checkbox" name="topNote" value="Fruity">
+                        <span class="scent-card-content">
+                            <span class="scent-icon">🍒</span>
+                            <span class="scent-name">Fruity</span>
+                            <span class="scent-desc-mini">Sweet & Playful</span>
+                        </span>
+                    </label>
+                    <label class="scent-card-option">
+                        <input type="checkbox" name="topNote" value="Herbal">
+                        <span class="scent-card-content">
+                            <span class="scent-icon">🌿</span>
+                            <span class="scent-name">Herbal</span>
+                            <span class="scent-desc-mini">Fresh & Aromatic</span>
+                        </span>
+                    </label>
+                </div>
+                <input type="text" id="topNoteCustom" class="form-input luxury-input mini-input" placeholder="Specific ingredient? (e.g. Yuzu, Basil)">
+            </div>
+
+            <div class="form-group full" style="margin-top: 2.5rem;">
+                <label class="form-label static-label">2. Heart Note (Select up to 2)</label>
+
+                <div class="scent-family-grid three-col">
+                    <label class="scent-card-option">
+                        <input type="checkbox" name="heartNote" value="Floral">
+                        <span class="scent-card-content">
+                            <span class="scent-icon">🌹</span>
+                            <span class="scent-name">Floral</span>
+                            <span class="scent-desc-mini">Romantic & Soft</span>
+                        </span>
+                    </label>
+                    <label class="scent-card-option">
+                        <input type="checkbox" name="heartNote" value="Spicy">
+                        <span class="scent-card-content">
+                            <span class="scent-icon">🌶️</span>
+                            <span class="scent-name">Spicy</span>
+                            <span class="scent-desc-mini">Warm & Exotic</span>
+                        </span>
+                    </label>
+                    <label class="scent-card-option">
+                        <input type="checkbox" name="heartNote" value="Green">
+                        <span class="scent-card-content">
+                            <span class="scent-icon">🍃</span>
+                            <span class="scent-name">Green</span>
+                            <span class="scent-desc-mini">Natural & Crisp</span>
+                        </span>
+                    </label>
+                </div>
+                <input type="text" id="heartNoteCustom" class="form-input luxury-input mini-input" placeholder="Specific ingredient? (e.g. Jasmine Sambac, Saffron)">
+            </div>
+
+            <div class="form-group full" style="margin-top: 2.5rem;">
+                <label class="form-label static-label">3. Base Note (Select up to 2)</label>
+
+                <div class="scent-family-grid three-col">
+                    <label class="scent-card-option">
+                        <input type="checkbox" name="baseNote" value="Woody">
+                        <span class="scent-card-content">
+                            <span class="scent-icon">🪵</span>
+                            <span class="scent-name">Woody</span>
+                            <span class="scent-desc-mini">Deep & Earthy</span>
+                        </span>
+                    </label>
+                    <label class="scent-card-option">
+                        <input type="checkbox" name="baseNote" value="Amber">
+                        <span class="scent-card-content">
+                            <span class="scent-icon">✨</span>
+                            <span class="scent-name">Amber</span>
+                            <span class="scent-desc-mini">Rich & Sweet</span>
+                        </span>
+                    </label>
+                    <label class="scent-card-option">
+                        <input type="checkbox" name="baseNote" value="Musk">
+                        <span class="scent-card-content">
+                            <span class="scent-icon">☁️</span>
+                            <span class="scent-name">Musk</span>
+                            <span class="scent-desc-mini">Sensual & Skin-like</span>
+                        </span>
+                    </label>
+                </div>
+                <input type="text" id="baseNoteCustom" class="form-input luxury-input mini-input" placeholder="Specific ingredient? (e.g. White Musk, Oud)">
+            </div>
+
+            <div class="form-group full" style="margin-top: 2.5rem;">
+                <label class="form-label static-label">4. Select Bottle Size</label>
+                
+                <div class="scent-family-grid three-col">
+                    <label class="scent-card-option">
+                        <input type="radio" name="bottleSize" value="30ml">
+                        <span class="scent-card-content">
+                            <span class="scent-icon" style="font-size: 1.5rem;">🧪</span>
+                            <span class="scent-name">30ml</span>
+                            <span class="scent-desc-mini">Travel Edition</span>
+                        </span>
+                    </label>
+                    <label class="scent-card-option">
+                        <input type="radio" name="bottleSize" value="50ml" checked>
+                        <span class="scent-card-content">
+                            <span class="scent-icon" style="font-size: 1.8rem;">⚗️</span>
+                            <span class="scent-name">50ml</span>
+                            <span class="scent-desc-mini">Standard Signature</span>
+                        </span>
+                    </label>
+                    <label class="scent-card-option">
+                        <input type="radio" name="bottleSize" value="100ml">
+                        <span class="scent-card-content">
+                            <span class="scent-icon" style="font-size: 2.2rem;">🏺</span>
+                            <span class="scent-name">100ml</span>
+                            <span class="scent-desc-mini">Grand Collector</span>
+                        </span>
+                    </label>
+                </div>    
+            </div>
+        
+
+            <div class="form-group full floating-group" style="margin-top: 3rem;">
+                <input type="text" id="creationName" class="form-input luxury-input" placeholder=" " required>
+                <label class="floating-label">Name Your Creation</label>
+            </div>            
+
+            <div class="form-footer">
+                    <button type="submit" class="btn-gold btn-block">Blend My Formula</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="search-overlay luxury-modal-overlay" id="giftModal">
+    <div class="search-container booking-modal-content luxury-modal">
+        
+        <div class="modal-header-luxury">
+            <h5 class="modal-subtitle">The Art of Gifting</h5>
+            <h2 class="modal-title">Gift Concierge</h2>
+            <div class="header-divider"></div>
+            <button class="close-search close-luxury" onclick="closeGiftModal()">×</button>
+        </div>
+
+        <form id="giftForm" class="booking-form luxury-form">
+            <div class="form-group full">
+                <label class="form-label static-label">Who is this gift for?</label>
+                <div class="scent-family-grid">
+                    <label class="scent-card-option">
+                        <input type="radio" name="recipient" value="Partner" checked>
+                        <span class="scent-card-content">
+                            <span class="scent-icon">❤️</span>
+                            <span class="scent-name">Partner</span>
+                        </span>
+                    </label>
+                    <label class="scent-card-option">
+                        <input type="radio" name="recipient" value="Parent">
+                        <span class="scent-card-content">
+                            <span class="scent-icon">👑</span>
+                            <span class="scent-name">Parent</span>
+                        </span>
+                    </label>
+                    <label class="scent-card-option">
+                        <input type="radio" name="recipient" value="Friend">
+                        <span class="scent-card-content">
+                            <span class="scent-icon">✨</span>
+                            <span class="scent-name">Friend</span>
+                        </span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="form-grid">
+                <div class="form-group floating-group">
+                    <select id="giftOccasion" class="form-input luxury-input select-luxury" required>
+                        <option value="" disabled selected></option>
+                        <option value="Birthday">Birthday</option>
+                        <option value="Anniversary">Anniversary</option>
+                        <option value="Wedding">Wedding</option>
+                        <option value="Thank You">Thank You</option>
+                        <option value="Just Because">Just Because</option>
+                    </select>
+                    <label class="floating-label">Occasion</label>
+                </div>
+                <div class="form-group floating-group">
+                    <select id="giftBudget" class="form-input luxury-input select-luxury" required>
+                        <option value="" disabled selected></option>
+                        <option value="$50 - $100">$50 - $100</option>
+                        <option value="$100 - $200">$100 - $200</option>
+                        <option value="$200+">$200+</option>
+                        <option value="No Limit">No Limit</option>
+                    </select>
+                    <label class="floating-label">Budget Range</label>
+                </div>
+            </div>
+
+            <div class="form-group full floating-group" style="margin-top: 1.5rem;">
+                <textarea id="giftMessage" class="form-input luxury-input textarea-luxury" rows="2" placeholder=" "></textarea>
+                <label class="floating-label">Personal Message for Card (Optional)</label>
+            </div>
+
+            <div class="form-footer">
+                 <button type="submit" class="btn-gold btn-block">Find the Perfect Gift</button>
+                 <p class="form-disclaimer">
+                    *Our concierge will email you 3 curated options within 24 hours.
+                </p>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div class="search-overlay luxury-modal-overlay" id="workshopModal">
+    <div class="search-container booking-modal-content luxury-modal" style="max-width: 700px;">
+        
+        <div class="modal-header-luxury">
+            <h5 class="modal-subtitle">Masterclass Series</h5>
+            <h2 class="modal-title">Upcoming Workshops</h2>
+            <div class="header-divider"></div>
+            <button class="close-search close-luxury" onclick="closeWorkshopModal()">×</button>
+        </div>
+
+        <div class="workshop-list">
+            
+            <div class="workshop-card">
+                <div class="workshop-date">
+                    <span class="w-day">15</span>
+                    <span class="w-month">OCT</span>
+                </div>
+                <div class="workshop-info">
+                    <h3 class="w-title">The Art of Layering</h3>
+                    <p class="w-desc">Learn how to combine scents like a pro. Includes a mini layering kit.</p>
+                    <div class="w-meta">
+                        <span>🕒 14:00 - 16:00</span>
+                        <span>📍 Paris Flagship Store</span>
+                        <span class="w-price">$150.00</span>
+                    </div>
+                </div>
+                <button class="btn-gold-sm" onclick="registerWorkshop('The Art of Layering', '15 Oct')">Register</button>
+            </div>
+
+            <div class="workshop-card">
+                <div class="workshop-date">
+                    <span class="w-day">28</span>
+                    <span class="w-month">OCT</span>
+                </div>
+                <div class="workshop-info">
+                    <h3 class="w-title">Scent & Psychology</h3>
+                    <p class="w-desc">Discover how fragrances influence mood and memory with Dr. Aris.</p>
+                    <div class="w-meta">
+                        <span>🕒 10:00 - 12:00</span>
+                        <span>📍 Virtual (Zoom)</span>
+                        <span class="w-price">$75.00</span>
+                    </div>
+                </div>
+                <button class="btn-gold-sm" onclick="registerWorkshop('Scent & Psychology', '28 Oct')">Register</button>
+            </div>
+
+            <div class="workshop-card">
+                <div class="workshop-date">
+                    <span class="w-day">05</span>
+                    <span class="w-month">NOV</span>
+                </div>
+                <div class="workshop-info">
+                    <h3 class="w-title">DIY Solid Perfume</h3>
+                    <p class="w-desc">Hands-on workshop creating your own solid perfume balm.</p>
+                    <div class="w-meta">
+                        <span>🕒 13:00 - 16:00</span>
+                        <span>📍 NY Pop-up Store</span>
+                        <span class="w-price">$120.00</span>
+                    </div>
+                </div>
+                <button class="btn-gold-sm" onclick="registerWorkshop('DIY Solid Perfume', '05 Nov')">Register</button>
+            </div>
+
+        </div>
+        
+        <p class="form-disclaimer" style="text-align: center; margin-top: 2rem;">
+            *Limited seats available. Registration is first-come, first-served.
+        </p>
+    </div>
+</div>
+
+<div class="search-overlay luxury-modal-overlay" id="workshopConfirmModal">
+    <div class="search-container booking-modal-content luxury-modal" style="max-width: 500px; text-align: center;">
+        
+        <div class="modal-header-luxury" style="margin-bottom: 2rem;">
+            <h5 class="modal-subtitle">Event Registration</h5>
+            <h2 class="modal-title">Secure Your Seat</h2>
+            <div class="header-divider"></div>
+        </div>
+
+        <div class="confirm-content">
+            <p style="color: #aaa; margin-bottom: 1rem;">You are about to register for:</p>
+            
+            <h3 id="confirmEventName" style="font-family: 'Playfair Display', serif; font-size: 2rem; color: var(--gold); margin-bottom: 0.5rem;">Event Name</h3>
+            <p id="confirmEventDate" style="font-family: 'Montserrat', sans-serif; font-size: 1.1rem; color: #fff; letter-spacing: 2px; text-transform: uppercase;">DATE</p>
+            
+            <p style="color: #666; font-size: 0.85rem; margin-top: 2rem; font-style: italic;">
+                *Payment of fees (if applicable) will be collected at the venue.
+            </p>
+        </div>
+
+        <div class="modal-actions" style="margin-top: 2.5rem; display: flex; gap: 1rem; justify-content: center;">
+            <button class="btn-ghost" onclick="closeConfirmModal()">Cancel</button>
+            <button class="btn-gold" id="btnConfirmReg">Confirm Registration</button>
+        </div>
+
+    </div>
+</div>
 
 <script src="main.js"></script>
 </body>
