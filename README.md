@@ -1,5 +1,5 @@
 # Local Face - Premium Fragrance Store
-**Local Face** is a luxurious, fully responsive front-end e-commerce website designed for a premium perfume brand. It features a modern dark-themed UI with gold accents, smooth scroll animations, and a fully functional shopping cart simulation using 
+**Local Face** is a luxurious, fully responsive front-end e-commerce website designed for a premium perfume brand. It features a modern dark-themed UI with gold accents, smooth scroll animations, and a fully functional shopping cart simulation using LocalStorage.
 
 ## Key Features
 
