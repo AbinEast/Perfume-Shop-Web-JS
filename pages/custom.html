@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Fragrance Modal Design</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+
+    <style>
+        /* ==================== RESET & VARIABLES ==================== */
+        :root {
+            --gold: #d4a574;
+            --dark-bg: #050505;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --text-main: #ffffff;
+            --text-muted: #888;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000;
+            color: var(--text-main);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ==================== MODAL OVERLAY ==================== */
+        .luxury-modal-overlay {
+            background-color: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(8px);
+            position: fixed; inset: 0; z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
+        }
+
+        /* ==================== MODAL CONTENT ==================== */
+        .custom-modal-content {
+            background: linear-gradient(145deg, #121212 0%, #0a0a0a 100%);
+            border: 1px solid rgba(212, 165, 116, 0.2);
+            width: 95%; max-width: 800px; /* Lebar untuk mengakomodasi 3 kolom */
+            height: 90vh;
+            border-radius: 4px;
+            
+            /* PENTING: Hilangkan padding atas agar sticky header menempel ke tepi */
+            padding: 0 3rem 3rem 3rem; 
+            
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8);
+            position: relative;
+            overflow-y: auto; /* Scrollable content */
+            
+            scrollbar-width: thin;
+            scrollbar-color: var(--gold) #121212;
+        }
+
+        /* Scrollbar Styling */
+        .custom-modal-content::-webkit-scrollbar { width: 6px; }
+        .custom-modal-content::-webkit-scrollbar-track { background: #121212; }
+        .custom-modal-content::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 4px; }
+
+        /* ==================== STICKY HEADER ==================== */
+        .modal-header-sticky {
+            position: sticky;
+            top: 0;
+            z-index: 10; /* Di atas konten form */
+            
+            /* Glassmorphism Background */
+            background: rgba(12, 12, 12, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            
+            text-align: center;
+            
+            /* Layout Spacing */
+            padding-top: 3rem;
+            padding-bottom: 1.5rem;
+            margin-bottom: 2rem;
+            
+            /* Negative margin untuk melebar menutupi padding modal */
+            margin-left: -3rem;
+            margin-right: -3rem;
+            padding-left: 3rem;
+            padding-right: 3rem;
+        }
+
+        .modal-subtitle {
+            font-family: 'Montserrat', sans-serif; font-size: 0.75rem;
+            text-transform: uppercase; letter-spacing: 3px;
+            color: var(--gold); margin-bottom: 0.5rem; display: block;
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif; font-size: 2.2rem;
+            color: #fff; margin: 0 0 1rem 0; font-weight: 400;
+        }
+
+        .header-divider { width: 60px; height: 2px; background: var(--gold); margin: 0 auto; }
+
+        .close-sticky {
+            position: absolute; right: 2rem; top: 2.5rem;
+            font-size: 2.5rem; background: none; border: none; color: #666;
+            cursor: pointer; line-height: 1; transition: 0.3s;
+        }
+        .close-sticky:hover { color: var(--gold); transform: rotate(90deg); }
+
+        /* ==================== FORM SECTIONS ==================== */
+        .form-section { margin-bottom: 2.5rem; }
+
+        .section-label {
+            display: block; font-size: 0.9rem; color: #fff;
+            margin-bottom: 0.2rem; text-transform: uppercase; letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .section-desc {
+            font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        /* ==================== SCENT CARDS GRID ==================== */
+        .scent-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1rem;
+        }
+
+        .scent-option { cursor: pointer; position: relative; }
+        
+        /* Hide native checkbox/radio */
+        .scent-option input { position: absolute; opacity: 0; cursor: pointer; width: 0; height: 0; }
+
+        .scent-card {
+            display: flex; flex-direction: column; align-items: center; text-align: center;
+            background: var(--card-bg);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            padding: 1.5rem 1rem;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .scent-icon { font-size: 2rem; margin-bottom: 0.8rem; filter: grayscale(0.8); transition: 0.3s; }
+        .scent-name { font-size: 0.9rem; color: #fff; font-weight: 500; margin-bottom: 0.3rem; }
+        .scent-desc-mini { font-size: 0.7rem; color: var(--text-muted); font-family: 'Montserrat', sans-serif; }
+
+        /* Card Hover & Active States */
+        .scent-option:hover .scent-card {
+            background: rgba(255, 255, 255, 0.06);
+            border-color: #666;
+            transform: translateY(-3px);
+        }
+
+        .scent-option input:checked + .scent-card {
+            background: rgba(212, 165, 116, 0.08);
+            border-color: var(--gold);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        .scent-option input:checked + .scent-card .scent-icon { filter: grayscale(0); transform: scale(1.1); }
+        .scent-option input:checked + .scent-card .scent-name { color: var(--gold); }
+        .scent-option input:checked + .scent-card .scent-desc-mini { color: #ccc; }
+
+        /* Custom Input Field (Mini) */
+        .mini-input {
+            width: 100%; margin-top: 1rem;
+            background: transparent; border: none;
+            border-bottom: 1px dashed #444;
+            padding: 0.5rem 0; color: var(--gold); font-size: 0.85rem;
+            font-family: 'Montserrat', sans-serif;
+            transition: 0.3s;
+        }
+        .mini-input::placeholder { color: #555; font-style: italic; }
+        .mini-input:focus { outline: none; border-bottom: 1px solid var(--gold); }
+
+        /* ==================== FINAL INPUTS ==================== */
+        .luxury-input {
+            width: 100%; background: rgba(255,255,255,0.03);
+            border: 1px solid rgba(255,255,255,0.1); padding: 1rem;
+            color: #fff; font-family: 'Montserrat', sans-serif;
+            font-size: 1rem; margin-top: 0.5rem;
+        }
+        .luxury-input:focus { outline: none; border-color: var(--gold); }
+
+        .btn-gold-block {
+            width: 100%; padding: 1.2rem; margin-top: 2rem;
+            background: var(--gold); color: #000; border: none;
+            font-family: 'Montserrat', sans-serif; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
+            transition: 0.3s;
+        }
+        .btn-gold-block:hover { background: #fff; }
+
+        /* ==================== RESPONSIVE ==================== */
+        @media (max-width: 650px) {
+            .custom-modal-content { padding: 0 1.5rem 2rem 1.5rem; width: 100%; height: 100%; border-radius: 0; }
+            .modal-header-sticky { 
+                padding-top: 2rem; padding-bottom: 1rem; 
+                margin-left: -1.5rem; margin-right: -1.5rem;
+                padding-left: 1.5rem; padding-right: 1.5rem;
+            }
+            .scent-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
+            .modal-title { font-size: 1.8rem; }
+            .close-sticky { top: 1.5rem; right: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="luxury-modal-overlay">
+        <div class="custom-modal-content">
+            
+            <div class="modal-header-sticky">
+                <span class="modal-subtitle">Bespoke Experience</span>
+                <h2 class="modal-title">Design Your Signature</h2>
+                <div class="header-divider"></div>
+                <button class="close-sticky">×</button>
+            </div>
+
+            <form id="customFragranceForm">
+                
+                <div class="form-section">
+                    <label class="section-label">1. Top Note (Select 1-2)</label>
+                    <p class="section-desc">The first impression. Fresh and volatile scents.</p>
+                    
+                    <div class="scent-grid">
+                        <label class="scent-option">
+                            <input type="checkbox" name="topNote" value="Citrus" checked>
+                            <span class="scent-card">
+                                <span class="scent-icon">🍋</span>
+                                <span class="scent-name">Citrus</span>
+                                <span class="scent-desc-mini">Bergamot, Lemon</span>
+                            </span>
+                        </label>
+                        <label class="scent-option">
+                            <input type="checkbox" name="topNote" value="Fruity">
+                            <span class="scent-card">
+                                <span class="scent-icon">🍒</span>
+                                <span class="scent-name">Fruity</span>
+                                <span class="scent-desc-mini">Berries, Pear</span>
+                            </span>
+                        </label>
+                        <label class="scent-option">
+                            <input type="checkbox" name="topNote" value="Herbal">
+                            <span class="scent-card">
+                                <span class="scent-icon">🌿</span>
+                                <span class="scent-name">Herbal</span>
+                                <span class="scent-desc-mini">Mint, Basil</span>
+                            </span>
+                        </label>
+                    </div>
+                    <input type="text" class="mini-input" placeholder="Specific top note ingredient? (e.g. Yuzu)">
+                </div>
+
+                <div class="form-section">
+                    <label class="section-label">2. Heart Note (Select 1-2)</label>
+                    <p class="section-desc">The soul of the perfume. Develops after a few minutes.</p>
+
+                    <div class="scent-grid">
+                        <label class="scent-option">
+                            <input type="checkbox" name="heartNote" value="Floral" checked>
+                            <span class="scent-card">
+                                <span class="scent-icon">🌹</span>
+                                <span class="scent-name">Floral</span>
+                                <span class="scent-desc-mini">Rose, Jasmine</span>
+                            </span>
+                        </label>
+                        <label class="scent-option">
+                            <input type="checkbox" name="heartNote" value="Spicy">
+                            <span class="scent-card">
+                                <span class="scent-icon">🌶️</span>
+                                <span class="scent-name">Spicy</span>
+                                <span class="scent-desc-mini">Cinnamon, Pepper</span>
+                            </span>
+                        </label>
+                        <label class="scent-option">
+                            <input type="checkbox" name="heartNote" value="Green">
+                            <span class="scent-card">
+                                <span class="scent-icon">🍃</span>
+                                <span class="scent-name">Green</span>
+                                <span class="scent-desc-mini">Tea, Bamboo</span>
+                            </span>
+                        </label>
+                    </div>
+                    <input type="text" class="mini-input" placeholder="Specific heart note ingredient? (e.g. Saffron)">
+                </div>
+
+                <div class="form-section">
+                    <label class="section-label">3. Base Note (Select 1-2)</label>
+                    <p class="section-desc">The lasting trail. Deep and rich scents.</p>
+
+                    <div class="scent-grid">
+                        <label class="scent-option">
+                            <input type="checkbox" name="baseNote" value="Woody" checked>
+                            <span class="scent-card">
+                                <span class="scent-icon">🪵</span>
+                                <span class="scent-name">Woody</span>
+                                <span class="scent-desc-mini">Sandalwood, Cedar</span>
+                            </span>
+                        </label>
+                        <label class="scent-option">
+                            <input type="checkbox" name="baseNote" value="Amber">
+                            <span class="scent-card">
+                                <span class="scent-icon">✨</span>
+                                <span class="scent-name">Amber</span>
+                                <span class="scent-desc-mini">Vanilla, Resin</span>
+                            </span>
+                        </label>
+                        <label class="scent-option">
+                            <input type="checkbox" name="baseNote" value="Musk">
+                            <span class="scent-card">
+                                <span class="scent-icon">☁️</span>
+                                <span class="scent-name">Musk</span>
+                                <span class="scent-desc-mini">Soft, Powdery</span>
+                            </span>
+                        </label>
+                    </div>
+                    <input type="text" class="mini-input" placeholder="Specific base note ingredient? (e.g. Oud)">
+                </div>
+
+                <div class="form-section" style="border-top: 1px dashed #333; padding-top: 2rem;">
+                    <label class="section-label">4. Select Bottle Size</label>
+                    <p class="section-desc">Choose the perfect volume for your creation.</p>
+                    
+                    <div class="scent-grid">
+                        <label class="scent-option">
+                            <input type="radio" name="bottleSize" value="30ml">
+                            <span class="scent-card">
+                                <span class="scent-icon">🧪</span>
+                                <span class="scent-name">30ml</span>
+                                <span class="scent-desc-mini">Travel Edition</span>
+                            </span>
+                        </label>
+                        <label class="scent-option">
+                            <input type="radio" name="bottleSize" value="50ml" checked>
+                            <span class="scent-card">
+                                <span class="scent-icon" style="font-size: 2.2rem;">⚗️</span>
+                                <span class="scent-name" style="color:var(--gold);">50ml</span>
+                                <span class="scent-desc-mini">Signature</span>
+                            </span>
+                        </label>
+                        <label class="scent-option">
+                            <input type="radio" name="bottleSize" value="100ml">
+                            <span class="scent-card">
+                                <span class="scent-icon">🏺</span>
+                                <span class="scent-name">100ml</span>
+                                <span class="scent-desc-mini">Grand Collector</span>
+                            </span>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <label class="section-label">5. Name Your Creation</label>
+                    <input type="text" class="luxury-input" placeholder="e.g. Midnight in Paris" required>
+                    <p style="text-align:center; margin-top:1rem; font-size:0.75rem; color:#666;">
+                        *Our master perfumers will analyze your blend and prepare a sample within 3 days.
+                    </p>
+                </div>
+
+                <button type="button" class="btn-gold-block">Submit Formula</button>
+
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
