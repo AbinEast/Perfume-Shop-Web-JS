@@ -977,7 +977,7 @@ const products = {
         
         if (!orderList) return;
 
-        // Hapus konten dummy (hardcoded HTML) terlebih dahulu
+        // Reset konten
         orderList.innerHTML = '';
 
         if (orders.length === 0) {
@@ -991,6 +991,12 @@ const products = {
         
         // Ambil 2 order terbaru
         const recentOrders = [...orders].reverse().slice(0, 2);
+
+        // --- DATA PENGGUNA & REVIEW UNTUK PENGECEKAN ---
+        const allReviews = JSON.parse(localStorage.getItem('product_reviews') || '{}');
+        const userProfile = JSON.parse(localStorage.getItem('userProfile')) || { firstName: 'Customer', lastName: '' };
+        const currentUser = `${userProfile.firstName} ${userProfile.lastName}`.trim() || 'Anonymous';
+        // -----------------------------------------------
         
         orderList.innerHTML = recentOrders.map(order => {
             const orderDate = new Date(order.date).toLocaleDateString('en-US', { 
@@ -999,16 +1005,44 @@ const products = {
             
             const itemsHtml = order.items.map(item => {
                 const product = products[item.id];
-                // Fallback jika produk tidak ditemukan di database js
                 const img = product ? product.image : 'https://via.placeholder.com/60';
                 const name = product ? product.name : 'Unknown Product';
                 
+                // --- LOGIKA BARU: CEK APAKAH SUDAH DI-REVIEW ---
+                const productReviews = allReviews[item.id] || [];
+                const hasReviewed = productReviews.some(r => r.author === currentUser);
+
+                let reviewBtn;
+                if (hasReviewed) {
+                    // Tampilan jika SUDAH review (Tombol Mati/Disabled)
+                    reviewBtn = `
+                        <button disabled 
+                                style="margin-top:0.5rem; padding:0.3rem 0.8rem; font-size:0.75rem; 
+                                       border:1px solid #444; background:#333; 
+                                       color:#888; cursor:not-allowed; border-radius:50px;">
+                            Reviewed ✓
+                        </button>
+                    `;
+                } else {
+                    // Tampilan jika BELUM review (Tombol Aktif)
+                    reviewBtn = `
+                        <button onclick="openReviewModal('${item.id}', '${name}', '${img}')" 
+                                style="margin-top:0.5rem; padding:0.3rem 0.8rem; font-size:0.75rem; 
+                                       border:1px solid var(--gold); background:transparent; 
+                                       color:var(--gold); cursor:pointer; border-radius:50px; transition:0.3s;">
+                            Write Review
+                        </button>
+                    `;
+                }
+                // -----------------------------------------------
+
                 return `
                     <div class="order-item">
                         <img src="${img}" class="item-img" alt="${name}">
                         <div class="item-info">
                             <h4>${name}</h4>
                             <p>${item.quantity} x ${item.size || '50ml'}</p>
+                            ${reviewBtn}
                         </div>
                     </div>
                 `;
@@ -1195,6 +1229,7 @@ function loadAppointments() {
 }
 
 // Render Request Parfum Kustom
+// Render Request Parfum Kustom (Updated with Price)
 function loadCustomRequests() {
     const requests = JSON.parse(localStorage.getItem('customRequests') || '[]');
     const container = document.getElementById('custom-requests-list');
@@ -1213,28 +1248,19 @@ function loadCustomRequests() {
     container.innerHTML = [...requests].reverse().map(req => {
         // Format Formula Display
         let formulaHtml = '';
-        if (req.composition) {
-            // Format lama (Radio button)
-            formulaHtml = `
-                <span class="formula-tag">Top: ${req.composition.top}</span>
-                <span class="formula-tag">Heart: ${req.composition.heart}</span>
-                <span class="formula-tag">Base: ${req.composition.base}</span>
-            `;
-        } else if (req.formula) {
-            // Format baru (Multi-select)
+        if (req.formula) {
             // Kita potong string agar tidak terlalu panjang di kartu
-            const trunc = (str) => str.length > 20 ? str.substring(0, 18) + '..' : str;
+            const trunc = (str) => str && str.length > 20 ? str.substring(0, 18) + '..' : str;
             formulaHtml = `
                 <span class="formula-tag">T: ${trunc(req.formula.top)}</span>
                 <span class="formula-tag">H: ${trunc(req.formula.heart)}</span>
                 <span class="formula-tag">B: ${trunc(req.formula.base)}</span>
             `;
-        } else {
-            // Fallback
-            formulaHtml = `<span class="formula-tag">Base: ${req.base}</span>`;
         }
 
         const sizeDisplay = req.formula?.size || '50ml';
+        // Ambil harga (fallback ke kosong jika data lama belum ada harga)
+        const priceDisplay = req.price ? req.price : '';
 
         return `
             <div class="service-card">
@@ -1247,8 +1273,22 @@ function loadCustomRequests() {
                         <span class="date-day" style="font-size: 1.5rem;">🧪</span>
                         <span class="date-month">BESPOKE</span>
                     </div>
-                    <div class="service-details">
-                        <h4>"${req.name}" <span style="font-size:0.8rem; color:var(--gold); border:1px solid var(--gold); padding:1px 6px; border-radius:4px; margin-left:8px;">${sizeDisplay}</span></h4>
+                    <div class="service-details" style="width: 100%;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+                            <h4 style="margin: 0; display: flex; align-items: center; gap: 8px;">
+                                "${req.name}" 
+                                <span style="font-size:0.7rem; color:var(--gold); border:1px solid var(--gold); padding:1px 6px; border-radius:4px;">
+                                    ${sizeDisplay}
+                                </span>
+                            </h4>
+                            
+                            ${priceDisplay ? `
+                                <span style="color: var(--gold); font-weight: 700; font-size: 1.1rem; font-family: 'Playfair Display', serif;">
+                                    ${priceDisplay}
+                                </span>
+                            ` : ''}
+                        </div>
+
                         <div class="formula-tags">
                             ${formulaHtml}
                         </div>
@@ -1377,18 +1417,67 @@ function closeCustomModal() {
 document.addEventListener('DOMContentLoaded', () => {
     const customForm = document.getElementById('customFragranceForm');
     
+    // --- 1. LOGIKA KALKULASI HARGA REAL-TIME ---
     if (customForm) {
+        const basePriceEl = document.getElementById('displayBasePrice');
+        const addonsPriceEl = document.getElementById('displayAddonsPrice');
+        const totalPriceEl = document.getElementById('displayTotalPrice');
+
+        // Fungsi Hitung
+        const calculateTotal = () => {
+            let basePrice = 0;
+            let addonsPrice = 0;
+
+            // 1. Cek Ukuran Botol (Radio Button)
+            const selectedBottle = customForm.querySelector('input[name="bottleSize"]:checked');
+            if (selectedBottle) {
+                basePrice = parseInt(selectedBottle.getAttribute('data-price')) || 0;
+            }
+
+            // 2. Cek Ingredients (Checkbox)
+            const checkboxes = customForm.querySelectorAll('input[type="checkbox"]:checked');
+            checkboxes.forEach(cb => {
+                addonsPrice += parseInt(cb.getAttribute('data-price')) || 0;
+            });
+
+            // 3. Cek Custom Input (Text)
+            const textInputs = customForm.querySelectorAll('.custom-note-input');
+            textInputs.forEach(input => {
+                if (input.value.trim() !== '') {
+                    addonsPrice += parseInt(input.getAttribute('data-price')) || 0;
+                }
+            });
+
+            // 4. Update Tampilan
+            if(basePriceEl) basePriceEl.textContent = `$${basePrice}`;
+            if(addonsPriceEl) addonsPriceEl.textContent = `+$${addonsPrice}`;
+            if(totalPriceEl) totalPriceEl.textContent = `$${basePrice + addonsPrice}`;
+            
+            return basePrice + addonsPrice;
+        };
+
+        // Pasang Event Listener ke semua input form agar update otomatis
+        customForm.querySelectorAll('input').forEach(input => {
+            input.addEventListener('change', calculateTotal);
+            input.addEventListener('input', calculateTotal); // Untuk text input
+        });
+
+        // Hitung saat awal load
+        calculateTotal();
+
+        // --- 2. LOGIKA SUBMIT FORM ---
         customForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            // Helper untuk ambil checkbox (multi-select)
+            const totalCost = calculateTotal(); // Ambil total akhir
+
+            // Helper ambil value checkbox
             const getSelectedValues = (name) => {
                 const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
                 let values = Array.from(checkboxes).map(cb => cb.value);
-                return values.length > 0 ? values.join(', ') : 'Surprise Me';
+                return values.length > 0 ? values.join(', ') : 'Standard Blend';
             };
 
-            // Gabungkan Pilihan Checkbox + Input Teks Manual
             const topNotes = getSelectedValues('topNote');
             const topCustom = document.getElementById('topNoteCustom').value;
             const finalTop = topCustom ? `${topNotes} (+ ${topCustom})` : topNotes;
@@ -1404,45 +1493,51 @@ document.addEventListener('DOMContentLoaded', () => {
             const bottleSize = document.querySelector('input[name="bottleSize"]:checked')?.value || '50ml';
             const creationName = document.getElementById('creationName').value || 'My Signature Scent';
             
-            // Efek Loading
+            // UI Loading
             const submitBtn = customForm.querySelector('button[type="submit"]');
             const originalText = submitBtn.textContent;
-            submitBtn.textContent = "Submitting to Lab...";
+            submitBtn.textContent = "Processing Order...";
             submitBtn.disabled = true;
             
             setTimeout(() => {
-                // --- INTI LOGIKA PENYIMPANAN ---
+                // Simpan Data
                 const customRequests = JSON.parse(localStorage.getItem('customRequests') || '[]');
                 
                 customRequests.push({
-                    id: 'REQ-' + Math.floor(1000 + Math.random() * 9000), // ID Unik
+                    id: 'BESPOKE-' + Math.floor(1000 + Math.random() * 9000),
                     date: new Date().toISOString(),
-                    formula: { // Struktur Formula
+                    formula: {
                         top: finalTop,
                         heart: finalHeart,
                         base: finalBase,
                         size: bottleSize 
                     },
                     name: creationName,
-                    status: 'In Process' // Status awal
+                    price: `$${totalCost}`, // Simpan harga
+                    status: 'Order Placed'
                 });
                 
                 localStorage.setItem('customRequests', JSON.stringify(customRequests));
-                // --------------------------------
                 
-                // Reset & Tutup
+                // Reset & Close
                 customForm.reset();
+                calculateTotal(); // Reset tampilan harga ke default
                 closeCustomModal();
                 
                 if (typeof showNotification === 'function') {
-                    showNotification(`Request "${creationName}" sent to our perfumers!`, 'success');
+                    showNotification(`Order placed for "${creationName}" ($${totalCost})`, 'success');
                 } else {
-                    alert('Request sent successfully!');
+                    alert(`Success! Total: $${totalCost}`);
                 }
                 
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
                 
+                // Jika sedang di halaman profile, refresh tab service agar pesanan muncul
+                if (typeof loadCustomRequests === 'function') {
+                    loadCustomRequests();
+                }
+
             }, 1500);
         });
     }
@@ -1510,6 +1605,185 @@ function registerWorkshop(eventName, eventDate) {
 window.openWorkshopModal = openWorkshopModal;
 window.closeWorkshopModal = closeWorkshopModal;
 window.registerWorkshop = registerWorkshop;
+
+// ============================================
+// DYNAMIC REVIEW SYSTEM
+// ============================================
+
+// 1. Fungsi Buka Modal Review
+function openReviewModal(productId, productName, productImage) {
+    const modal = document.getElementById('reviewModal');
+    if(!modal) return;
+
+    // Set data ke form
+    document.getElementById('reviewProductId').value = productId;
+    document.getElementById('reviewProductName').textContent = productName;
+    document.getElementById('reviewProductImg').src = productImage;
+    
+    // Reset form
+    document.getElementById('reviewRatingValue').value = '';
+    document.getElementById('reviewText').value = '';
+    document.querySelectorAll('.star-rating-input span').forEach(s => s.classList.remove('selected'));
+
+    modal.classList.add('active');
+}
+
+function closeReviewModal() {
+    const modal = document.getElementById('reviewModal');
+    if(modal) modal.classList.remove('active');
+}
+
+// 2. Setup Star Rating Interactive
+document.addEventListener('DOMContentLoaded', () => {
+    const stars = document.querySelectorAll('.star-rating-input span');
+    const ratingInput = document.getElementById('reviewRatingValue');
+
+    if(stars.length > 0) {
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const val = this.getAttribute('data-value');
+                ratingInput.value = val;
+                
+                // Visual update
+                stars.forEach(s => {
+                    if(s.getAttribute('data-value') <= val) s.classList.add('selected');
+                    else s.classList.remove('selected');
+                });
+            });
+        });
+    }
+
+    // 3. Handle Submit Review
+    const reviewForm = document.getElementById('reviewForm');
+    if(reviewForm) {
+        reviewForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const productId = document.getElementById('reviewProductId').value;
+            const rating = document.getElementById('reviewRatingValue').value;
+            const text = document.getElementById('reviewText').value;
+            
+            if(!rating) { alert("Please select a star rating."); return; }
+
+            // Ambil nama user dari profile (jika ada)
+            const userProfile = JSON.parse(localStorage.getItem('userProfile')) || { firstName: 'Customer', lastName: '' };
+            const authorName = `${userProfile.firstName} ${userProfile.lastName}`.trim() || 'Anonymous';
+
+            // Buat objek review baru
+            const newReview = {
+                id: Date.now(), // Unique ID
+                author: authorName,
+                avatar: "/images/profile_images/profile_image.webp",
+                rating: "★".repeat(rating) + "☆".repeat(5 - rating),
+                ratingNum: parseInt(rating),
+                body: text,
+                date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
+            };
+
+            // Simpan ke LocalStorage
+            // Struktur: { "productId1": [reviewA, reviewB], "productId2": [...] }
+            const allReviews = JSON.parse(localStorage.getItem('product_reviews') || '{}');
+            // --- LOGIKA BARU: CEK DUPLIKASI SEBELUM SIMPAN ---
+            const existingReviews = allReviews[productId] || [];
+            const isDuplicate = existingReviews.some(r => r.author === authorName);
+
+            if (isDuplicate) {
+                alert("You have already reviewed this product.");
+                closeReviewModal();
+                return; // Hentikan proses
+            }
+            
+            if(!allReviews[productId]) {
+                allReviews[productId] = [];
+            }
+            
+            allReviews[productId].unshift(newReview); // Tambahkan di paling atas
+            localStorage.setItem('product_reviews', JSON.stringify(allReviews));
+
+            showNotification('Review submitted successfully!', 'success');
+            closeReviewModal();
+
+            // 1. Jika di halaman Profile: Render ulang daftar order 
+            // agar tombol langsung berubah jadi "Reviewed" (abu-abu)
+            if (typeof loadRecentOrders === 'function') {
+                loadRecentOrders(); 
+            }
+            
+            // Jika user sedang di halaman product_detail, refresh review
+            if(window.location.pathname.includes('product_detail.html')) {
+                location.reload(); 
+            }
+        });
+    }
+});
+
+// ============================================
+// HELPER: CALCULATE DYNAMIC STATISTICS
+// ============================================
+
+function calculateReviewStats(reviews) {
+    // 1. Jika tidak ada review, kembalikan default 0
+    if (!reviews || reviews.length === 0) {
+        return {
+            score: "0.0",
+            stars: "☆☆☆☆☆",
+            recommendation: "0% of reviews recommend this product",
+            bars: [
+                { label: "5 Stars", width: "0%" },
+                { label: "4 Stars", width: "0%" },
+                { label: "3 Stars", width: "0%" },
+                { label: "2 Stars", width: "0%" },
+                { label: "1 Star", width: "0%" }
+            ]
+        };
+    }
+
+    // 2. Hitung Total Bintang & Distribusi
+    let totalStars = 0;
+    const counts = { 5: 0, 4: 0, 3: 0, 2: 0, 1: 0 };
+    let recommendCount = 0;
+
+    reviews.forEach(r => {
+        // Ambil angka rating (misal dari properti ratingNum atau hitung simbol bintang)
+        let rating = r.ratingNum;
+        if (!rating && r.rating) {
+            // Fallback jika data lama hanya punya string "★★★★★"
+            rating = (r.rating.match(/★/g) || []).length;
+        }
+        if (!rating) rating = 5; // Default safety
+
+        // Update hitungan
+        totalStars += rating;
+        if (counts[rating] !== undefined) counts[rating]++;
+        
+        // Anggap rating >= 4 sebagai "Recommended"
+        if (rating >= 4) recommendCount++;
+    });
+
+    // 3. Hitung Rata-rata
+    const average = (totalStars / reviews.length).toFixed(1);
+    
+    // 4. Generate String Bintang (misal 4.5 -> ★★★★☆)
+    // Logika sederhana: round ke integer terdekat untuk tampilan bintang
+    const roundedAvg = Math.round(average);
+    const starString = "★".repeat(roundedAvg) + "☆".repeat(5 - roundedAvg);
+
+    // 5. Hitung Persentase Rekomendasi
+    const recommendPercent = Math.round((recommendCount / reviews.length) * 100);
+
+    // 6. Hitung Lebar Bar Chart
+    const bars = [5, 4, 3, 2, 1].map(star => {
+        const percentage = Math.round((counts[star] / reviews.length) * 100);
+        return { label: `${star} Stars`, width: `${percentage}%` };
+    });
+
+    return {
+        score: average,
+        stars: starString,
+        recommendation: `${recommendPercent}% of reviews recommend this product`,
+        bars: bars
+    };
+}
 
 // ============================================
 // 25. BEAUTIFUL CONFIRMATION LOGIC
@@ -2073,8 +2347,7 @@ window.selectStore = selectStore;
         const productStars = document.getElementById('product-stars');
         if (productStars) productStars.textContent = product.ratingStars;
 
-        const productReviewCount = document.getElementById('product-review-count');
-        if (productReviewCount) productReviewCount.textContent = `(${product.ratingCount} Reviews)`;
+        
 
         const productPrice = document.getElementById('product-price');
         if (productPrice) productPrice.textContent = product.price;
@@ -2130,8 +2403,38 @@ window.selectStore = selectStore;
         // Render review summary
         renderReviewSummary(product.reviewSummary || defaultProductData.reviewSummary);
 
-        // Render reviews
-        renderReviews(product.reviews || defaultProductData.reviews);
+        // --- LOGIKA BARU: GABUNGKAN REVIEW STATIS & DINAMIS ---
+        
+        // 1. Ambil review statis (bawaan file)
+        const staticReviews = product.reviews || defaultProductData.reviews;
+        
+        // 2. Ambil review dinamis dari LocalStorage
+        const storedReviewsData = JSON.parse(localStorage.getItem('product_reviews') || '{}');
+        const dynamicReviews = storedReviewsData[productId] || [];
+        
+        // 3. Gabungkan (Dinamis ditaruh di atas)
+        const combinedReviews = [...dynamicReviews, ...staticReviews];
+
+        // Hitung statistik baru berdasarkan combinedReviews
+        const dynamicSummary = calculateReviewStats(combinedReviews);
+
+        // Render Review Summary dengan data baru, BUKAN data statis product.reviewSummary
+        renderReviewSummary(dynamicSummary);
+        
+        // 4. Update Jumlah Review di Header Produk
+        const productReviewCount = document.getElementById('product-review-count');
+        if (productReviewCount) {
+             productReviewCount.textContent = `(${combinedReviews.length} Reviews)`;
+        }
+
+        // Update juga Bintang Utama di sebelah nama produk (atas halaman)
+        const productMainStars = document.getElementById('product-stars');
+        if (productMainStars) {
+            productMainStars.textContent = dynamicSummary.stars;
+        }
+
+        // 5. Render Hasil Gabungan
+        renderReviews(combinedReviews);
 
         // Render discover more
         renderDiscoverMore(product.discoverMore || ['amber-elite', 'aroma-bliss', 'timeless-oud', 'golden-harmony']);
@@ -3237,7 +3540,7 @@ function toggleWishlist(productId, btnElement) {
     function startCountdown() {
         // Tentukan tanggal akhir promo (contoh: Black Friday, 24 November 2025 jam 23:59:59)
         // Sesuaikan tanggal ini sesuai tanggal promo yang Anda inginkan
-        const endDate = new Date("Dec 20, 2025 23:59:59").getTime();
+        const endDate = new Date("Jan 10, 2026 23:59:59").getTime();
         
         // Cek apakah elemen countdown ada di halaman (hanya berlaku di index.html)
         if (!document.getElementById("days")) return;
@@ -3757,187 +4060,6 @@ document.addEventListener('DOMContentLoaded', () => {
 // Export functions
 window.openCustomModal = openCustomModal;
 window.closeCustomModal = closeCustomModal;
-
-// ============================================
-// 22. SERVICE TO PROFILE INTEGRATION (LOGIC)
-// ============================================
-
-// --- A. LOGIKA BOOKING KONSULTASI (Appointment) ---
-
-// 1. Fungsi Buka/Tutup Modal Booking
-function openBookingModal() {
-    const modal = document.getElementById('bookingModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-        
-        // Auto-fill jika user sudah ada data profile
-        const userProfile = JSON.parse(localStorage.getItem('userProfile'));
-        if (userProfile) {
-            if(document.getElementById('bookName')) document.getElementById('bookName').value = userProfile.firstName + ' ' + userProfile.lastName;
-            if(document.getElementById('bookEmail')) document.getElementById('bookEmail').value = userProfile.email;
-        }
-        
-        // Set tanggal minimal hari ini
-        const today = new Date().toISOString().split('T')[0];
-        const dateInput = document.getElementById('bookDate');
-        if(dateInput) dateInput.setAttribute('min', today);
-    }
-}
-
-function closeBookingModal() {
-    const modal = document.getElementById('bookingModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-// 2. Handle Submit Form Booking -> Simpan ke LocalStorage 'appointments'
-document.addEventListener('DOMContentLoaded', () => {
-    const bookingForm = document.getElementById('bookingForm');
-    
-    if (bookingForm) {
-        bookingForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Ambil data dari input
-            const date = document.getElementById('bookDate').value;
-            const time = document.getElementById('bookTime').value;
-            const topicEl = document.querySelector('input[name="topic"]:checked');
-            const topic = topicEl ? topicEl.value : 'General Consultation';
-            
-            // Efek Loading
-            const submitBtn = bookingForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = "Booking Confirmed!";
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                // --- INTI LOGIKA PENYIMPANAN ---
-                const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
-                
-                appointments.push({
-                    id: 'BK-' + Math.floor(1000 + Math.random() * 9000), // ID Unik
-                    date: date,
-                    time: time,
-                    topic: topic,
-                    status: 'Confirmed' // Status awal
-                });
-                
-                localStorage.setItem('appointments', JSON.stringify(appointments));
-                // --------------------------------
-                
-                // Reset & Tutup
-                bookingForm.reset();
-                closeBookingModal();
-                
-                if (typeof showNotification === 'function') {
-                    showNotification(`Appointment booked for ${date} at ${time}`, 'success');
-                } else {
-                    alert('Appointment booked successfully!');
-                }
-                
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                
-            }, 1000);
-        });
-    }
-});
-
-
-// --- B. LOGIKA CUSTOM FRAGRANCE (Bespoke Request) ---
-
-// 1. Fungsi Buka/Tutup Modal Custom
-function openCustomModal() {
-    const modal = document.getElementById('customModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-}
-
-function closeCustomModal() {
-    const modal = document.getElementById('customModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-// 2. Handle Submit Custom Fragrance -> Simpan ke LocalStorage 'customRequests'
-document.addEventListener('DOMContentLoaded', () => {
-    const customForm = document.getElementById('customFragranceForm');
-    
-    if (customForm) {
-        customForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Helper untuk ambil checkbox (multi-select)
-            const getSelectedValues = (name) => {
-                const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
-                let values = Array.from(checkboxes).map(cb => cb.value);
-                return values.length > 0 ? values.join(', ') : 'Surprise Me';
-            };
-
-            // Gabungkan Pilihan Checkbox + Input Teks Manual
-            const topNotes = getSelectedValues('topNote');
-            const topCustom = document.getElementById('topNoteCustom').value;
-            const finalTop = topCustom ? `${topNotes} (+ ${topCustom})` : topNotes;
-
-            const heartNotes = getSelectedValues('heartNote');
-            const heartCustom = document.getElementById('heartNoteCustom').value;
-            const finalHeart = heartCustom ? `${heartNotes} (+ ${heartCustom})` : heartNotes;
-
-            const baseNotes = getSelectedValues('baseNote');
-            const baseCustom = document.getElementById('baseNoteCustom').value;
-            const finalBase = baseCustom ? `${baseNotes} (+ ${baseCustom})` : baseNotes;
-            
-            const creationName = document.getElementById('creationName').value || 'My Signature Scent';
-            
-            // Efek Loading
-            const submitBtn = customForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = "Submitting to Lab...";
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                // --- INTI LOGIKA PENYIMPANAN ---
-                const customRequests = JSON.parse(localStorage.getItem('customRequests') || '[]');
-                
-                customRequests.push({
-                    id: 'REQ-' + Math.floor(1000 + Math.random() * 9000), // ID Unik
-                    date: new Date().toISOString(),
-                    formula: { // Struktur Formula
-                        top: finalTop,
-                        heart: finalHeart,
-                        base: finalBase
-                    },
-                    name: creationName,
-                    status: 'In Lab' // Status awal
-                });
-                
-                localStorage.setItem('customRequests', JSON.stringify(customRequests));
-                // --------------------------------
-                
-                // Reset & Tutup
-                customForm.reset();
-                closeCustomModal();
-                
-                if (typeof showNotification === 'function') {
-                    showNotification(`Request "${creationName}" sent to our perfumers!`, 'success');
-                } else {
-                    alert('Request sent successfully!');
-                }
-                
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                
-            }, 1500);
-        });
-    }
-});
 
 // Pastikan fungsi bisa dipanggil dari HTML (onclick)
 window.openBookingModal = openBookingModal;

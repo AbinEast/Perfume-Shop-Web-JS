@@ -825,6 +825,50 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
 }
 .btn-gold-block:hover { background: #fff; }
 
+/* --- Styling Harga di Card --- */
+.scent-price {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gold, #d4af37);
+    background: rgba(212, 175, 55, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+}
+
+/* --- Tampilan Total Harga --- */
+.total-price-container {
+    background: #1a1a1a;
+    border: 1px solid #333;
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    margin-top: 1rem;
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    color: #aaa;
+    font-size: 0.9rem;
+}
+
+.price-row.total {
+    margin-top: 1rem;
+    padding-top: 1rem;
+    border-top: 1px solid #333;
+    color: #fff;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+.price-row.total span:last-child {
+    color: var(--gold, #d4af37);
+}
+
 /* Responsive adjustments for Modal */
 @media (max-width: 650px) {
     .custom-modal-content { padding: 0 1.5rem 2rem 1.5rem; width: 100%; height: 100%; border-radius: 0; }
@@ -836,3 +880,28 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover { opacity: 1; }
     .scent-grid { grid-template-columns: repeat(2, 1fr); gap: 0.8rem; }
     .modal-header-sticky .close-sticky { top: 1.5rem; right: 1rem; }
 }
+
+/* ===================================
+           NOTIFICATION
+           =================================== */
+        .notification {
+            position: fixed;
+            top: 9rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            color: #000;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 9999;
+            opacity: 0;
+            transform: translateX(400px);
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }

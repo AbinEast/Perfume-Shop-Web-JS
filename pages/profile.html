@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile - Lumière Scents</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style/global.css"> <link rel="stylesheet" href="style/profile.css">
+    <link rel="stylesheet" href="/style/global.css"> <link rel="stylesheet" href="/style/profile.css">
 </head>
 <body>
 
@@ -74,7 +74,7 @@
         
         <aside class="profile-sidebar fade-in">
             <div class="profile-avatar">
-                <img src="https://tr.rbxcdn.com/180DAY-d4a6d1564bf7c0e65447501bdb3cc584/420/420/FaceAccessory/Webp/noFilter" alt="User Avatar">
+                <img src="/images/profile_images/profile_image.webp" alt="User Avatar">
             </div>
             <h2 class="profile-name">John Doe</h2>
             <p class="profile-email">johndoe@email.com</p>
@@ -329,6 +329,50 @@
     </div>
 </div>
 
-<script src="main.js"></script>
+<div class="search-overlay" id="reviewModal">
+    <div class="search-container review-modal-content">
+        
+        <div class="search-header review-modal-header">
+            <h3>Write a Review</h3>
+            <button class="close-search close-review-btn" onclick="closeReviewModal()">×</button>
+        </div>
+        
+        <form id="reviewForm">
+            <input type="hidden" id="reviewProductId">
+            
+            <div class="review-product-preview">
+                <img id="reviewProductImg" src="" alt="Product Image">
+                <div class="review-product-info">
+                    <span>Reviewing:</span>
+                    <h4 id="reviewProductName">Product Name</h4>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="review-label">Rate Quality</label>
+                <div class="star-rating-input" id="starInput">
+                    <span data-value="1">★</span>
+                    <span data-value="2">★</span>
+                    <span data-value="3">★</span>
+                    <span data-value="4">★</span>
+                    <span data-value="5">★</span>
+                </div>
+                <input type="hidden" id="reviewRatingValue" required>
+            </div>
+
+            <div class="form-group review-text-group">
+                <label class="review-label">Your Experience</label>
+                <textarea id="reviewText" class="review-textarea" rows="4" 
+                    placeholder="Tell us about the scent, longevity, and your overall impression..." required></textarea>
+            </div>
+
+            <button type="submit" class="btn-primary btn-submit-review">
+                Submit Review
+            </button>
+        </form>
+    </div>
+</div>
+
+<script src="/main.js"></script>
 </body>
 </html>
