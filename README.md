@@ -33,25 +33,6 @@
 - **Fonts:** Playfair Display (Headings) & Montserrat (Body) via Google Fonts.
 - **Icons:** SVG Icons.
 
-## Project Structure
-
-```text
-Local-Face/
-│
-├── index.html          # Homepage (Hero, Best Sellers, Testimonials)
-├── shop.html           # Product listing with Filters & Sorting
-├── product_detail.html # Single product view with reviews
-├── cart.html           # Shopping Cart management
-├── checkout.html       # Checkout form & Order summary
-├── wishlist.html       # User wishlist
-├── profile.html        # User profile & Order history
-├── about.html          # Brand story
-├── service.html        # Services offered
-├── signup.html         # Login / Register page
-├── main.js             # Core logic (Product DB, Cart, UI interactions)
-└── README.md           # Project documentation
-```
-
 ## How to Run
 Since this is a static website, you don't need to install any dependencies or run a backend server.
 - Clone the repository (or download the ZIP):
