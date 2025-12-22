@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Desires - Lumière Scents</title>
+    <title>The Essence - Lumière Scents</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Montserrat:wght@200;300;400;500;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/style/global.css"> <link rel="stylesheet" href="/style/wishlist.css">
+    <link rel="stylesheet" href="/style/global.css"> <link rel="stylesheet" href="/style/product_detail.css">
 </head>
 <body>
 
     <header id="header">
         <nav>
-            <div class="logo" onclick="window.location.href='index.html'">Lumière Scents</div>
+            <div class="logo" onclick="window.location.href='/index.html'">Lumière Scents</div>
             <ul class="nav-links">
-                <li><a href="index.html">Home</a></li>
+                <li><a href="/index.html">Home</a></li>
                 <li><a href="shop.html">Collection</a></li>
                 <li><a href="about.html">About</a></li>
                 <li><a href="service.html">Service</a></li>
@@ -62,27 +62,99 @@
                 <div class="popular-searches">
                     <h3>Popular Searches</h3>
                     <div class="popular-tags">
-                        <span class="popular-tag">Amber</span>
-                        <span class="popular-tag">Oud</span>
-                        <span class="popular-tag">Floral</span>
-                        <span class="popular-tag">Citrus</span>
+                        <span class="popular-tag" data-search="amber">Amber</span>
+                        <span class="popular-tag" data-search="oud">Oud</span>
+                        <span class="popular-tag" data-search="floral">Floral</span>
+                        <span class="popular-tag" data-search="citrus">Citrus</span>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="page-header">
-        <div class="header-content fade-in">
-            <h1>Your <span>Desires</span></h1>
-            <div class="breadcrumb">
-                <a href="index.html">Home</a> &nbsp;/&nbsp; <span>Wishlist</span>
-            </div>
-        </div>
+    <div class="breadcrumb fade-in">
+        <a href="/index.html">Home</a> <span>/</span>
+        <a href="shop.html">Shop</a> <span>/</span>
+        <span id="breadcrumb-product-name">Loading...</span>
     </div>
 
-    <div class="wishlist-container">
-        <div id="wishlist-content"></div>
+    <div class="product-detail-container">
+        
+        <section class="product-main">
+            <div class="product-gallery fade-in">
+                <div class="main-image-wrapper">
+                    <img src="" alt="Loading..." id="product-main-image">
+                </div>
+            </div>
+
+            <div class="product-info-details fade-in" style="animation-delay: 0.2s;">
+                <span class="product-category">Eau de Parfum</span>
+                <h1 id="product-name">Loading...</h1>
+                
+                <div class="rating-section">
+                    <div class="stars" id="product-stars"></div>
+                    <span class="review-count" id="product-review-count"></span>
+                </div>
+
+                <p class="product-description-short" id="product-description-short">...</p>
+
+                <div class="price-wrapper">
+                    <div class="price" id="product-price"></div>
+                </div>
+
+                <div class="controls-wrapper">
+                    <div class="quantity-selector">
+                        <button class="quantity-btn" id="decrease-qty">-</button>
+                        <span class="quantity-display" id="qty-display">1</span>
+                        <button class="quantity-btn" id="increase-qty">+</button>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button class="btn-add-to-bag">Add to Bag</button>
+                        <button class="btn-wishlist">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="product-description-sections fade-in">
+            <div class="description-section">
+                <h2 id="product-overture-title">The Golden Overture</h2>
+                <p class="description-text" id="product-overture-content">Loading content...</p>
+                <br>
+                <h2>Product Details</h2>
+                <p class="description-text" id="product-details-content">Loading details...</p>
+            </div>
+
+            <div class="description-section">
+                <h2><span>Composition</span></h2>
+                <div class="key-notes-grid" id="key-notes-container">
+                    </div>
+            </div>
+        </section>
+
+        <section class="reviews-section fade-in">
+            <h2 class="reviews-title">Customer Reviews</h2>
+            
+            <div class="reviews-summary-grid" id="reviews-summary-container">
+                </div>
+
+            <div class="review-list" id="review-list-container">
+                </div>
+            
+            <div class="load-more-container">
+                <button class="btn-outline">Load More Reviews</button>
+            </div>
+        </section>
+
+        <section class="discover-more fade-in">
+            <h2><span>You May Also Like</span></h2>
+            <div class="product-grid" id="discover-more-grid">
+                </div>
+        </section>
+
     </div>
 
     <footer>
@@ -100,7 +172,7 @@
             <div class="footer-section">
                 <h3>Quick Links</h3>
                 <ul>
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="/index.html">Home</a></li>
                     <li><a href="shop.html">Collection</a></li>
                     <li><a href="about.html">About</a></li>
                     <li><a href="service.html">Service</a></li>
@@ -135,7 +207,7 @@
     </footer>
 
 <nav class="bottom-nav">
-    <a href="index.html" class="bottom-nav-item" id="nav-home">
+    <a href="/index.html" class="bottom-nav-item" id="nav-home">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
             <polyline points="9 22 9 12 15 12 15 22"></polyline>
