@@ -7,19 +7,19 @@
 ### Shopping Experience
 * **Product Catalog:** Browse perfumes with categories (Men, Women, Unisex) and search functionality.
 * **Dynamic Cart & Wishlist:** Add items to cart or wishlist with real-time badge updates (using `localStorage`).
-* **Product Details:** Detailed view with ingredients, size selection, and related products.
+* **Product Details:** Detailed view with ingredients, and related products.
 * **Checkout Flow:** streamlined checkout page with order summary.
 
-### Fragrance Builder (Unique Feature)
+### Fragrance Builder 
 * **Custom Scent Creation:** Users can design their own perfume by selecting Top, Heart, and Base notes.
 * **Dynamic Pricing:** Real-time price calculation based on selected bottle size and premium ingredients.
 * **Formula Submission:** Saves the custom formula to the user's profile for the lab to process.
 
 ### User Dashboard & Interactions
 * **Order History:** View past orders with status tracking.
-* **Review System:** Users can leave star ratings and reviews for purchased products. logic prevents duplicate reviews for the same item.
-* **Service Booking:** Book appointments for personal consultations, gifting concierge, or workshops.
-* **Custom Requests:** Track the status of bespoke fragrance orders.
+* **Review System:** Users can leave star ratings and reviews for purchased products. 
+* **Service Booking:** Book appointments for personal consultations, gifting, or workshops.
+* **Custom Requests:** Track the status of fragrance orders.
 
 ### UI/UX Design
 * **Responsive Design:** Fully optimized for Desktop, Tablet, and Mobile.
