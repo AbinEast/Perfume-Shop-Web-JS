@@ -53,6 +53,7 @@ Perfume_shop/
 │   ├── index.css           # Home specific styles
 │   ├── service.css         # Service & Modal styles
 │   └── ...
+├── video/                  # Video
 └── images/                 # Image 
 ```
 
