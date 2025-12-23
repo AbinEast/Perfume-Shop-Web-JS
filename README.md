@@ -23,7 +23,7 @@
 
 ### UI/UX Design
 * **Responsive Design:** Fully optimized for Desktop, Tablet, and Mobile.
-* **Luxury Aesthetic:** Gold and black color palette (`#d4af37`), elegant typography (Playfair Display & Montserrat), and smooth animations.
+* **Luxury Aesthetic:** Gold and black color palette, elegant typography (Playfair Display & Montserrat), and smooth animations.
 * **Toast Notifications:** Custom non-intrusive popup notifications for user actions (success/error messages).
 
 ## Tech Stack
