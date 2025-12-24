@@ -1,0 +1,45 @@
+# Workflow untuk deploy website Static HTML dengan struktur index.html di dalam folder pages/
+name: Deploy Static Site with Redirect
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy-process:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+
+      # --- BAGIAN PENTING 1: Membuat Redirect Otomatis ---
+      # Langkah ini akan membuat file index.html sementara di root
+      # hanya pada saat deploy, agar pengunjung tidak kena Error 404.
+      - name: Create Root Redirect
+        run: |
+          echo '<!DOCTYPE html><html><head><meta http-equiv="refresh" content="0; url=pages/index.html"></head><body>Redirecting...</body></html>' > index.html
+
+      # --- BAGIAN PENTING 2: Upload Semua File ---
+      # Kita upload folder saat ini ('.') yang sudah berisi folder pages, style, dll
+      # plus file redirect yang baru saja dibuat di atas.
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
