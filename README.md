@@ -65,3 +65,6 @@ git clone https://github.com/AbinEast/Perfume-Shop-Web-JS.git
 2. Open the project: Simply open the pages/index.html file in your web browser.
 
    Recommended: Use "Live Server" extension in VS Code for the best experience.
+   
+## Web Preview
+https://abineast.github.io/Perfume-Shop-Web-JS/
