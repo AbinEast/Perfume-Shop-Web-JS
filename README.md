@@ -37,7 +37,6 @@
 
 ```text
 Perfume_shop/
-├── index.html              # Landing Page (Redirects to pages/index.html or moves to root)
 ├── main.js                 # Core Logic (Cart, Reviews, Custom Fragrance, Auth)
 ├── pages/                  # HTML Pages
 │   ├── index.html          # Home
