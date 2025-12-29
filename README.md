@@ -37,7 +37,6 @@
 
 ```text
 Perfume_shop/
-├── index.html              # Landing Page (Redirects to pages/index.html or moves to root)
 ├── main.js                 # Core Logic (Cart, Reviews, Custom Fragrance, Auth)
 ├── pages/                  # HTML Pages
 │   ├── index.html          # Home
@@ -65,3 +64,6 @@ git clone https://github.com/AbinEast/Perfume-Shop-Web-JS.git
 2. Open the project: Simply open the pages/index.html file in your web browser.
 
    Recommended: Use "Live Server" extension in VS Code for the best experience.
+   
+## Web Preview
+https://abineast.github.io/Perfume-Shop-Web-JS/
