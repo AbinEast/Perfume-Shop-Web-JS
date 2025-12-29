@@ -29,7 +29,6 @@
         .hero-bg {
             position: absolute;
             inset: 0;                                /* Fill entire container */
-            background-image: url('https://images.pexels.com/photos/8667539/pexels-photo-8667539.jpeg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;            /* Parallax scroll effect */
@@ -201,7 +200,6 @@
         .quote-section {
             padding: 12rem 2rem;
             text-align: center;
-            background-image: url('https://images.pexels.com/photos/15233413/pexels-photo-15233413.jpeg');
             background-attachment: scroll;           /* Normal scroll (not parallax) */
             background-size: cover;
             background-position: center;
