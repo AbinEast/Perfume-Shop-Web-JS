@@ -1,244 +1,4 @@
 // ============================================
-// 1. GLOBAL VARIABLES & CONFIGURATION
-// ============================================
-
-const products = {
-    'floral-essence': {
-        name: "Floral Essence",
-        brand: "Gucci",
-        price: "$89.00",
-        priceNum: 89.00,
-        description: "A beautiful bouquet of fresh spring flowers",
-        image: "/images/product_images/product_1_Floral_Essence.jpeg",
-        category: "female",
-        scent: "floral",
-        ratingStars: "★★★★★",
-        ratingCount: "198"
-    },
-    'amber-nights': {
-        name: "Amber Nights",
-        brand: "Dior",
-        price: "$125.00",
-        priceNum: 125.00,
-        description: "A warm, mysterious, and seductive scent",
-        image: "/images/product_images/product_2_Amber_Nights.jpeg",
-        category: "unisex",
-        scent: "oriental",
-        ratingStars: "★★★★★",
-        ratingCount: "214"
-    },
-    'royal-rose': {
-        name: "Royal Rose",
-        brand: "Chanel",
-        price: "$95.00",
-        priceNum: 95.00,
-        description: "A modern interpretation of a classic rose",
-        image: "/images/product_images/product_3_Royal_Rose.jpeg",
-        category: "female",
-        scent: "floral",
-        ratingStars: "★★★★☆",
-        ratingCount: "156"
-    },
-    'golden-aura': {
-        name: "Golden Aura",
-        brand: "Versace",
-        price: "$110.00",
-        priceNum: 110.00,
-        description: "Radiate confidence with this luminous fragrance",
-        image: "/images/product_images/product_4_Golden_Aura.jpeg",
-        category: "male",
-        scent: "oriental",
-        ratingStars: "★★★★★",
-        ratingCount: "187"
-    },
-    'aroma-bliss': {
-        name: "Aroma Bliss",
-        brand: "Hermes",
-        price: "$175.00",
-        priceNum: 175.00,
-        description: "A calming and therapeutic blend",
-        image: "/images/product_images/product_5_Aroma_Bliss.jpeg",
-        category: "unisex",
-        scent: "floral",
-        ratingStars: "★★★★★",
-        ratingCount: "203"
-    },
-    'timeless-oud': {
-        name: "Timeless Oud",
-        brand: "Tom Ford",
-        price: "$225.00",
-        priceNum: 225.00,
-        description: "Deep, rich, and sophisticated oud wood",
-        image: "/images/product_images/product_6_Timeless_Oud.jpeg",
-        category: "male",
-        scent: "woody",
-        ratingStars: "★★★★★",
-        ratingCount: "312"
-    },
-    'velvet-petal': {
-        name: "Velvet Petal",
-        brand: "Bvlgari",
-        price: "$159.00",
-        priceNum: 159.00,
-        description: "A soft, powdery, and romantic floral scent",
-        image: "/images/product_images/product_7_Velvet_Petal.jpeg",
-        category: "female",
-        scent: "floral",
-        ratingStars: "★★★★☆",
-        ratingCount: "76"
-    },
-    'amber-elite': {
-        name: "Amber Elite",
-        brand: "Bvlgari",
-        price: "$195.00",
-        priceNum: 195.00,
-        description: "The ultimate expression of amber",
-        image: "/images/product_images/product_8_Amber_Elite.jpeg",
-        category: "male",
-        scent: "woody",
-        ratingStars: "★★★★★",
-        ratingCount: "189"
-    },
-    'diamond-aura': {
-        name: "Diamond Aura",
-        brand: "Chanel",
-        price: "$210.00",
-        priceNum: 210.00,
-        description: "A bright, sparkling, and crisp fragrance",
-        image: "/images/product_images/product_9_Diamond_Aura.jpeg",
-        category: "male",
-        scent: "fresh",
-        ratingStars: "★★★★★",
-        ratingCount: "245"
-    },
-    'citrus-harmony': {
-        name: "Citrus Harmony",
-        brand: "Dior",
-        price: "$138.00",
-        priceNum: 138.00,
-        description: "Zesty and uplifting grapefruit and lemon",
-        image: "/images/product_images/product_10_Citrus_Harmony.jpeg",
-        category: "unisex",
-        scent: "fresh",
-        ratingStars: "★★★★☆",
-        ratingCount: "92"
-    },
-    'sapphire-mystique': {
-        name: "Sapphire Mystique",
-        brand: "YSL",
-        price: "$182.00",
-        priceNum: 182.00,
-        description: "Deep, aquatic, and aromatic fragrance",
-        image: "/images/product_images/product_11_Sapphire_Mystique.jpeg",
-        category: "male",
-        scent: "fresh",
-        ratingStars: "★★★★★",
-        ratingCount: "167"
-    },
-    'golden-harmony': {
-        name: "Golden Harmony",
-        brand: "Versace",
-        price: "$205.00",
-        priceNum: 205.00,
-        description: "A balanced blend of spice, sweet, and wood",
-        image: "/images/product_images/product_12_Golden_Harmony.jpeg",
-        category: "unisex",
-        scent: "woody",
-        ratingStars: "★★★★★",
-        ratingCount: "278"
-    },
-    'black-mamba': {
-        name: "Black Mamba",
-        brand: "Chanel",
-        price: "$155.00",
-        priceNum: 155.00,
-        description: "A Balance Blend Of wood, and spice",
-        image: "/images/product_images/product_13_Black_Mamba.jpeg",
-        category: "Men",
-        scent: "oriental",
-        ratingStars: "★★★★★",
-        ratingCount: "253"
-    },
-    'golden-amber': {
-        name: "Golden Amber",
-        brand: 'Gucci',
-        price: "$250.00",
-        priceNum: 250.00,
-        description: "A Balance Blend Of floral and spice",
-        image: "/images/product_images/product_14_Golden_Amber.png",
-        category: "Unisex",
-        scent: "Floral",
-        ratingStars: "★★★★★",
-        ratingCount: "232"
-    },
-    'spicy-oud': {
-        name: "Spicy Oud",
-        brand: 'Versace',
-        price: "$100.00",
-        priceNum: 250.00,
-        description: "A Strong Blend Of Spice and little ounce of Wood",
-        image: "/images/product_images/product_15_Spicy_Oud.jpg",
-        category: "male",
-        scent: "oriental",
-        ratingStars: "★★★★☆",
-        ratingCount: "128"
-    },
-    'discovery-set': {
-        name: "Signature Discovery Set",
-        brand: "Lumière",
-        price: "$45.00",
-        priceNum: 45.00,
-        description: "Explore our 5 best-selling scents in 2ml vials.",
-        image: "/images/product_images/product_16_Signature_Discovery.jpeg",
-        category: "gift-set",
-        scent: "fresh",
-        ratingStars: "★★★★★",
-        ratingCount: "342",
-        // TAMBAHAN BARU: Definisi Isi Paket
-        setItems: [
-            { name: "Floral Essence", image: "/images/product_images/product_1_Floral_Essence.jpeg" },
-            { name: "Amber Nights", image: "/images/product_images/product_2_Amber_Nights.jpeg" },
-            { name: "Royal Rose", image: "/images/product_images/product_3_Royal_Rose.jpeg" },
-            { name: "Golden Aura", image: "/images/product_images/product_4_Golden_Aura.jpeg" },
-            { name: "Timeless Oud", image: "/images/product_images/product_6_Timeless_Oud.jpeg" }
-        ]
-    },
-    'luxury-gift-box': {
-        name: "The Golden Gift Box",
-        brand: "Lumière",
-        price: "$280.00",
-        priceNum: 280.00,
-        description: "A luxurious set containing Golden Aura and Amber Nights.",
-        image: "/images/product_images/product_17_Golden_Gift.jpeg",
-        category: "gift-set",
-        scent: "oriental",
-        ratingStars: "★★★★★",
-        ratingCount: "89",
-        setItems: [
-            { name: "Golden Aura (100ml)", image: "/images/product_images/product_4_Golden_Aura.jpeg" },
-            { name: "Amber Nights (100ml)", image: "/images/product_images/product_2_Amber_Nights.jpeg" }
-        ]
-    },
-    'travel-essentials': {
-        name: "Travel Essentials Kit",
-        brand: "Dior",
-        price: "$115.00",
-        priceNum: 115.00,
-        description: "Three 10ml sprays of your choice in a leather travel case.",
-        image: "/images/product_images/product_18_Travel_Essential.jpeg",
-        category: "gift-set",
-        scent: "woody",
-        ratingStars: "★★★★☆",
-        ratingCount: "120",
-        setItems: [
-            { name: "Floral Essence (100ml)", image: "/images/product_images/product_1_Floral_Essence.jpeg" },
-            { name: "Citrus Harmony (100ml)", image: "/images/product_images/product_10_Citrus_Harmony.jpeg" },
-            { name: "Sapphire Mystique (100ml)", image: "/images/product_images/product_11_Sapphire_Mystique.jpeg" }
-        ]
-    },
-};
-
-// ============================================
 // 2. UTILITY FUNCTIONS
 // ============================================
 
@@ -449,6 +209,13 @@ const products = {
     class ShoppingCartManager {
         constructor() {
             this.cart = this.loadCart();
+            
+            // --- [BARU] Load data diskon tersimpan ---
+            const savedDiscount = JSON.parse(localStorage.getItem('cart_discount') || '{"code": "", "percent": 0}');
+            this.discount = savedDiscount.percent;
+            this.appliedCode = savedDiscount.code;
+            // -----------------------------------------
+
             this.render();
             this.updateBadge();
         }
@@ -462,6 +229,18 @@ const products = {
             localStorage.setItem('cart', JSON.stringify(this.cart));
             this.updateBadge();
         }
+
+        // --- [BARU] Method untuk apply diskon ---
+        applyDiscount(code, percent) {
+            this.discount = percent;
+            this.appliedCode = code;
+            
+            // Simpan ke storage agar tidak hilang saat refresh
+            localStorage.setItem('cart_discount', JSON.stringify({ code, percent }));
+            
+            this.render();
+        }
+        // ----------------------------------------
 
         addToCart(productId, quantity = 1, size = '50ml') {
             const existingItem = this.cart.find(item => item.id === productId && item.size === size);
@@ -498,6 +277,11 @@ const products = {
         clearCart() {
             if (confirm('Are you sure you want to clear your cart?')) {
                 this.cart = [];
+                // Reset diskon juga saat cart di-clear
+                this.discount = 0;
+                this.appliedCode = '';
+                localStorage.removeItem('cart_discount');
+                
                 this.saveCart();
                 this.render();
             }
@@ -505,20 +289,30 @@ const products = {
 
         getSubtotal() {
             return this.cart.reduce((total, item) => {
-                const product = products[item.id];
+                // [FIX] Logika pengambilan data produk yang lebih aman (seperti fix sebelumnya)
+                let product = products[item.id];
+                if (!product && typeof allProductsData !== 'undefined') {
+                    product = allProductsData[item.id];
+                }
                 return total + (product ? product.priceNum * item.quantity : 0);
             }, 0);
         }
 
+        // --- [UPDATED] Hitung Total dengan Diskon ---
         getTotal() {
             const subtotal = this.getSubtotal();
+            const discountAmount = subtotal * (this.discount / 100);
+            const discountedSubtotal = subtotal - discountAmount;
+            
             const shipping = subtotal > 0 ? 10 : 0;
-            const tax = subtotal * 0.1;
-            return subtotal + shipping + tax;
+            const tax = discountedSubtotal * 0.1; // Pajak dari harga setelah diskon
+            
+            return discountedSubtotal + shipping + tax;
         }
+        // --------------------------------------------
 
         updateBadge() {
-            updateCartBadge();
+            if (typeof updateCartBadge === 'function') updateCartBadge();
         }
 
         render() {
@@ -538,12 +332,22 @@ const products = {
             }
 
             const itemsHtml = this.cart.map(item => {
-                const product = products[item.id];
+                let product = products[item.id];
+                // Fallback data logic
+                if (typeof allProductsData !== 'undefined' && allProductsData[item.id]) {
+                    if (!product) product = allProductsData[item.id];
+                    else if (!product.image && allProductsData[item.id].mainImage) {
+                         product.image = allProductsData[item.id].mainImage;
+                    }
+                }
+                
                 if (!product) return '';
+                
+                const imgSrc = product.image || product.mainImage || 'https://via.placeholder.com/80';
                 
                 return `
                     <div class="cart-item">
-                        <img src="${product.image}" alt="${product.name}" class="item-image" onclick="goToProduct('${item.id}')">
+                        <img src="${imgSrc}" alt="${product.name}" class="item-image" onclick="goToProduct('${item.id}')">
                         <div class="item-details">
                             <div class="item-name" onclick="goToProduct('${item.id}')">${product.name}</div>
                             <div class="item-size">Size: ${item.size}</div>
@@ -561,10 +365,15 @@ const products = {
                 `;
             }).join('');
 
+            // --- PERHITUNGAN UNTUK TAMPILAN ---
             const subtotal = this.getSubtotal();
+            const discountAmount = subtotal * (this.discount / 100);
+            const discountedSubtotal = subtotal - discountAmount;
+            
             const shipping = subtotal > 0 ? 10 : 0;
-            const tax = subtotal * 0.1;
-            const total = this.getTotal();
+            const tax = discountedSubtotal * 0.1;
+            const total = discountedSubtotal + shipping + tax;
+            // ----------------------------------
 
             container.innerHTML = `
                 <div class="cart-content fade-in">
@@ -579,6 +388,13 @@ const products = {
                             <span>Subtotal</span>
                             <span>$${subtotal.toFixed(2)}</span>
                         </div>
+                        
+                        ${this.discount > 0 ? `
+                        <div class="summary-row discount" style="color: var(--gold); font-weight: 500;">
+                            <span>Discount (${this.appliedCode} - ${this.discount}%)</span>
+                            <span>-$${discountAmount.toFixed(2)}</span>
+                        </div>
+                        ` : ''}
                         
                         <div class="summary-row">
                             <span>Shipping</span>
@@ -621,10 +437,25 @@ const products = {
         };
         
         if (validCodes[code]) {
-            alert(`Promo code applied! You saved ${validCodes[code]}%`);
-            input.value = '';
+            // Cek apakah cartManager tersedia
+            if (typeof cartManager !== 'undefined') {
+                cartManager.applyDiscount(code, validCodes[code]);
+                
+                // Gunakan showNotification jika ada, atau alert biasa
+                if (typeof showNotification === 'function') {
+                    showNotification(`Promo code ${code} applied! You saved ${validCodes[code]}%`, 'success');
+                } else {
+                    alert(`Promo code applied! You saved ${validCodes[code]}%`);
+                }
+                
+                input.value = '';
+            }
         } else if (code) {
-            alert('Invalid promo code. Try SAVE10, LUXURY20, or WELCOME15');
+            if (typeof showNotification === 'function') {
+                showNotification('Invalid promo code. Try SAVE10, LUXURY20, or WELCOME15', 'error');
+            } else {
+                alert('Invalid promo code. Try SAVE10, LUXURY20, or WELCOME15');
+            }
         }
     }
 
@@ -1002,18 +833,23 @@ const products = {
                 year: 'numeric', month: 'short', day: 'numeric' 
             });
             
+            // LOGIKA WARNA HIJAU: Jika status Ordered atau Delivered, tambahkan class 'delivered' (hijau)
+            const statusClass = (order.status === 'Delivered' || order.status === 'Ordered') ? 'delivered' : '';
+
             const itemsHtml = order.items.map(item => {
                 const product = products[item.id];
                 const img = product ? product.image : 'https://via.placeholder.com/60';
                 const name = product ? product.name : 'Unknown Product';
                 
-                // --- LOGIKA BARU: CEK APAKAH SUDAH DI-REVIEW ---
+                // --- LOGIKA BARU: CEK REVIEW BERDASARKAN ORDER ID ---
                 const productReviews = allReviews[item.id] || [];
-                const hasReviewed = productReviews.some(r => r.author === currentUser);
+                
+                // Cek: Apakah user ini sudah review produk ini PADA ORDER INI?
+                const hasReviewed = productReviews.some(r => r.author === currentUser && r.orderId === order.orderNumber);
 
                 let reviewBtn;
                 if (hasReviewed) {
-                    // Tampilan jika SUDAH review (Tombol Mati/Disabled)
+                    // Tampilan jika SUDAH review untuk order ini
                     reviewBtn = `
                         <button disabled 
                                 style="margin-top:0.5rem; padding:0.3rem 0.8rem; font-size:0.75rem; 
@@ -1023,9 +859,9 @@ const products = {
                         </button>
                     `;
                 } else {
-                    // Tampilan jika BELUM review (Tombol Aktif)
+                    // Tampilan jika BELUM review untuk order ini (Kirim Order ID ke fungsi modal)
                     reviewBtn = `
-                        <button onclick="openReviewModal('${item.id}', '${name}', '${img}')" 
+                        <button onclick="openReviewModal('${item.id}', '${name}', '${img}', '${order.orderNumber}')" 
                                 style="margin-top:0.5rem; padding:0.3rem 0.8rem; font-size:0.75rem; 
                                        border:1px solid var(--gold); background:transparent; 
                                        color:var(--gold); cursor:pointer; border-radius:50px; transition:0.3s;">
@@ -1051,7 +887,7 @@ const products = {
                 <div class="order-card">
                     <div class="order-header">
                         <span class="order-id">Order #${order.orderNumber}</span>
-                        <span class="order-status ${order.status === 'Delivered' ? 'delivered' : ''}">${order.status}</span>
+                        <span class="order-status ${statusClass}">${order.status}</span>
                     </div>
                     ${itemsHtml}
                     <div class="order-footer">
@@ -1071,9 +907,15 @@ const products = {
             return;
         }
         
+        // --- DATA PENGGUNA & REVIEW UNTUK PENGECEKAN ---
+        const allReviews = JSON.parse(localStorage.getItem('product_reviews') || '{}');
+        const userProfile = JSON.parse(localStorage.getItem('userProfile')) || { firstName: 'Customer', lastName: '' };
+        const currentUser = `${userProfile.firstName} ${userProfile.lastName}`.trim() || 'Anonymous';
+        // -----------------------------------------------
+
         // Create modal for all orders
         const modal = document.createElement('div');
-        modal.className = 'order-modal search-overlay active'; // Use search-overlay styles for consistency
+        modal.className = 'order-modal search-overlay active'; 
         modal.style.display = 'flex';
         
         modal.innerHTML = `
@@ -1088,22 +930,38 @@ const products = {
                             year: 'numeric', month: 'short', day: 'numeric' 
                         });
                         
+                        // LOGIKA WARNA HIJAU: Ordered atau Delivered = Hijau
+                        const statusClass = (order.status === 'Delivered' || order.status === 'Ordered') ? 'delivered' : '';
+
                         return `
                             <div class="order-card" style="margin-bottom: 2rem;">
                                 <div class="order-header">
                                     <span class="order-id">#${order.orderNumber}</span>
-                                    <span class="order-status">${order.status}</span>
+                                    <span class="order-status ${statusClass}">${order.status}</span>
                                 </div>
                                 ${order.items.map(item => {
                                     const product = products[item.id];
                                     const img = product ? product.image : '';
                                     const name = product ? product.name : 'Unknown';
+                                    
+                                    // --- LOGIKA REVIEW PER ORDER ---
+                                    const productReviews = allReviews[item.id] || [];
+                                    const hasReviewed = productReviews.some(r => r.author === currentUser && r.orderId === order.orderNumber);
+
+                                    let reviewBtn;
+                                    if (hasReviewed) {
+                                        reviewBtn = `<button disabled style="font-size:0.7rem; padding: 2px 8px; border:1px solid #444; background:#333; color:#888; border-radius:4px; margin-top:5px; cursor:not-allowed;">Reviewed ✓</button>`;
+                                    } else {
+                                        reviewBtn = `<button onclick="openReviewModal('${item.id}', '${name}', '${img}', '${order.orderNumber}')" style="font-size:0.7rem; padding: 2px 8px; border:1px solid var(--gold); background:transparent; color:var(--gold); border-radius:4px; margin-top:5px; cursor:pointer;">Write Review</button>`;
+                                    }
+
                                     return `
                                         <div class="order-item">
                                             <img src="${img}" class="item-img" alt="${name}">
                                             <div class="item-info">
                                                 <h4>${name}</h4>
                                                 <p>Qty: ${item.quantity}</p>
+                                                ${reviewBtn}
                                             </div>
                                         </div>
                                     `;
@@ -1610,7 +1468,8 @@ window.registerWorkshop = registerWorkshop;
 // ============================================
 
 // 1. Fungsi Buka Modal Review
-function openReviewModal(productId, productName, productImage) {
+// 1. Fungsi Buka Modal Review (Ditambah parameter orderId)
+function openReviewModal(productId, productName, productImage, orderId) {
     const modal = document.getElementById('reviewModal');
     if(!modal) return;
 
@@ -1619,6 +1478,14 @@ function openReviewModal(productId, productName, productImage) {
     document.getElementById('reviewProductName').textContent = productName;
     document.getElementById('reviewProductImg').src = productImage;
     
+    // SIMPAN ORDER ID SECARA SEMENTARA KE DATASET FORM
+    // Karena kita tidak mengubah HTML profile.html untuk menambah input hidden orderId,
+    // kita tempelkan datanya ke elemen form itu sendiri.
+    const form = document.getElementById('reviewForm');
+    if(form) {
+        form.setAttribute('data-order-id', orderId || '');
+    }
+    
     // Reset form
     document.getElementById('reviewRatingValue').value = '';
     document.getElementById('reviewText').value = '';
@@ -1626,6 +1493,92 @@ function openReviewModal(productId, productName, productImage) {
 
     modal.classList.add('active');
 }
+
+// 2. Setup Star Rating & Submit Listener (Update Logika Submit)
+document.addEventListener('DOMContentLoaded', () => {
+    const stars = document.querySelectorAll('.star-rating-input span');
+    const ratingInput = document.getElementById('reviewRatingValue');
+
+    if(stars.length > 0) {
+        stars.forEach(star => {
+            star.addEventListener('click', function() {
+                const val = this.getAttribute('data-value');
+                ratingInput.value = val;
+                stars.forEach(s => {
+                    if(s.getAttribute('data-value') <= val) s.classList.add('selected');
+                    else s.classList.remove('selected');
+                });
+            });
+        });
+    }
+
+    // 3. Handle Submit Review (UPDATED)
+    const reviewForm = document.getElementById('reviewForm');
+    if(reviewForm) {
+        reviewForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const productId = document.getElementById('reviewProductId').value;
+            const rating = document.getElementById('reviewRatingValue').value;
+            const text = document.getElementById('reviewText').value;
+            
+            // AMBIL ORDER ID DARI DATASET YANG KITA SET DI openReviewModal
+            const orderId = reviewForm.getAttribute('data-order-id');
+            
+            if(!rating) { alert("Please select a star rating."); return; }
+
+            const userProfile = JSON.parse(localStorage.getItem('userProfile')) || { firstName: 'Customer', lastName: '' };
+            const authorName = `${userProfile.firstName} ${userProfile.lastName}`.trim() || 'Anonymous';
+
+            // Buat objek review baru dengan Order ID
+            const newReview = {
+                id: Date.now(), 
+                author: authorName,
+                avatar: "/images/profile_images/profile_image.webp",
+                rating: "★".repeat(rating) + "☆".repeat(5 - rating),
+                ratingNum: parseInt(rating),
+                body: text,
+                date: new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' }),
+                orderId: orderId // Simpan ID Order
+            };
+
+            const allReviews = JSON.parse(localStorage.getItem('product_reviews') || '{}');
+            const existingReviews = allReviews[productId] || [];
+            
+            // Hanya tolak jika User SAMA dan Order ID SAMA
+            const isDuplicate = existingReviews.some(r => r.author === authorName && r.orderId === orderId);
+
+            if (isDuplicate) {
+                closeReviewModal();
+                return;
+            }
+            
+            if(!allReviews[productId]) {
+                allReviews[productId] = [];
+            }
+            
+            allReviews[productId].unshift(newReview);
+            localStorage.setItem('product_reviews', JSON.stringify(allReviews));
+
+            showNotification('Review submitted successfully!', 'success');
+            closeReviewModal();
+
+            if (typeof loadRecentOrders === 'function') loadRecentOrders(); 
+            if (typeof showAllOrders === 'function') {
+                // Jika modal 'All Orders' sedang terbuka, kita perlu refresh isinya (opsional/advanced handling)
+                const allOrderModal = document.querySelector('.order-modal');
+                if(allOrderModal) { 
+                    allOrderModal.remove(); // Tutup dulu lalu buka lagi atau biarkan user refresh
+                    showAllOrders(); 
+                }
+            }
+            
+            if(window.location.pathname.includes('product_detail.html')) {
+                location.reload(); 
+            }
+        });
+    }
+});
 
 function closeReviewModal() {
     const modal = document.getElementById('reviewModal');
@@ -1687,7 +1640,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const isDuplicate = existingReviews.some(r => r.author === authorName);
 
             if (isDuplicate) {
-                alert("You have already reviewed this product.");
                 closeReviewModal();
                 return; // Hentikan proses
             }
@@ -1942,54 +1894,6 @@ window.closeGiftModal = closeGiftModal;
 // 26. STORE LOCATOR LOGIC
 // ============================================
 
-// Data Dummy Toko
-const storeData = [
-    {
-        id: 1,
-        city: "Paris",
-        name: "Lumière Flagship",
-        address: "125 Avenue des Champs-Élysées, 75008 Paris, France",
-        status: "Open Now",
-        phone: "+33 1 40 70 12 34",
-        image: "https://images.pexels.com/photos/10003534/pexels-photo-10003534.jpeg"
-    },
-    {
-        id: 2,
-        city: "New York",
-        name: "SoHo Boutique",
-        address: "102 Prince Street, New York, NY 10012, USA",
-        status: "Open Now",
-        phone: "+1 212-555-0199",
-        image: "https://images.pexels.com/photos/3965545/pexels-photo-3965545.jpeg"
-    },
-    {
-        id: 3,
-        city: "Tokyo",
-        name: "Ginza Six",
-        address: "6-10-1 Ginza, Chuo City, Tokyo 104-0061, Japan",
-        status: "Closed",
-        phone: "+81 3-1234-5678",
-        image: "https://images.pexels.com/photos/264507/pexels-photo-264507.jpeg"
-    },
-    {
-        id: 4,
-        city: "Jakarta",
-        name: "Plaza Indonesia",
-        address: "Jl. M.H. Thamrin No.28-30, Jakarta Pusat 10350",
-        status: "Open Now",
-        phone: "+62 21 2992 1234",
-        image: "https://images.pexels.com/photos/1884581/pexels-photo-1884581.jpeg"
-    },
-    {
-        id: 5,
-        city: "London",
-        name: "Bond Street",
-        address: "45 Old Bond St, Mayfair, London W1S 4QT, UK",
-        status: "Open Now",
-        phone: "+44 20 7123 4567",
-        image: "https://images.pexels.com/photos/2954405/pexels-photo-2954405.jpeg"
-    }
-];
 
 // Open/Close Modal
 function openStoreLocator() {
@@ -2082,47 +1986,16 @@ window.selectStore = selectStore;
 // ============================================
 
     const allProductsData = {
-        'luxurious-elixir': {
-            name: "Luxurious Elixir",
-            price: "$250.00",
-            priceNum: 250.00,
-            ratingStars: "★★★★★",
-            ratingCount: "124",
-            shortDescription: "Step into a world of unparalleled opulence with Luxurious Elixir, an exquisite fragrance that captures the enchanting brilliance of gold and gemstones.",
-            mainImage: "https://images.pexels.com/photos/8823444/pexels-photo-8823444.jpeg",
-            productDetails: "Step into a world of unparalleled opulence with Luxurious Elixir, an exquisite fragrance that evokes the enchanting brilliance of gold and gemstones. This masterful blend opens with a radiant burst of citrus and sweet fruits, leading into a heart of golden gardenia and velvety silicone. The base notes of rich amber, creamy sandalwood, and mystical oudwood create a lasting impression of warmth, sophistication, and spirit.",
-            overtureTitle: "The Golden Overture",
-            overtureContent: "Luxurious Elixir opens with a grand flourish of radiant citrus and sun-kissed fruits, reminiscent of golden rays caressing your senses. This luminous beginning sets the stage for a heart of velvety gardenia and innovative silicone, adding a modern, smooth texture. As it settles, a harmonious blend of warm amber, creamy sandalwood, and exotic oudwood unfurls, enveloping you in a serene embrace of ultimate luxury and refinement.",
-            keyNotes: [
-                { title: "Top Note", notes: "Citrus Accord, Sweetened Fruits", img: "https://plus.unsplash.com/premium_photo-1671379086168-a5d018d583cf?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZnJ1aXR8ZW58MHx8MHx8fDA%3D&fm=jpg&q=60&w=3000" },
-                { title: "Heart Note", notes: "Golden Gardenia, Silicone", img: "https://cdn.pixabay.com/photo/2022/04/17/00/21/white-flower-7137170_960_720.jpg" },
-                { title: "Base Note", notes: "Amber, Sandalwood, Oudwood", img: "https://www.thespruceeats.com/thmb/FYBg5VkZqQ6yHm1HF_nqWVbtqd8=/1500x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-121141406-5755c349c5a34222b81d72c07a112c76.jpg" }
-            ],
-            reviewSummary: {
-                score: "4.5",
-                stars: "★★★★☆",
-                recommendation: "90% of reviews recommend this product",
-                bars: [
-                    { label: "5 Stars", width: "75%" },
-                    { label: "4 Stars", width: "15%" },
-                    { label: "3 Stars", width: "5%" },
-                    { label: "2 Stars", width: "3%" },
-                    { label: "1 Star", width: "2%" }
-                ]
-            },
-            reviews: [
-                { author: "Jessica M.", avatar: "https://i.pravatar.cc/150?img=11", rating: "★★★★★", body: "This is wonderful. I was interested in this selection, looking for a combination of sweetness and elegance in a perfume. I like this perfume, and this scent is lovely.", date: "October 30, 2025" },
-                { author: "David K.", avatar: "https://i.pravatar.cc/150?img=25", rating: "★★★☆☆", body: "The scent is ok, and nice way to finish it's not overpowering. Just pleasant scent. I am happy with purchase.", date: "October 28, 2025" },
-                { author: "Sarah L.", avatar: "https://i.pravatar.cc/150?img=33", rating: "★★★★★", body: "I had a sample and fell in love with this fragrance so I had to buy my first bottle. This fragrance is my treat for me. Makes me create a game to get my things done to get this treat.", date: "October 24, 2025" }
-            ],
-            discoverMore: ['amber-elite', 'aroma-bliss', 'timeless-oud', 'golden-harmony']
-        },
         'floral-essence': {
             name: "Floral Essence",
+            brand: "Gucci",
             price: "$89.00",
             priceNum: 89.00,
+            size: "50ml",
             ratingStars: "★★★★★",
             ratingCount: "198",
+            category: "female",
+            scent: "floral",
             shortDescription: "A beautiful bouquet of fresh spring flowers, captured in a bottle.",
             mainImage: "https://images.pexels.com/photos/8747310/pexels-photo-8747310.jpeg",
             productDetails: "Floral Essence captures the vibrant, uplifting spirit of a garden in full bloom. It's an elegant and timeless fragrance designed for those who appreciate classic beauty. Light, airy, and unmistakably feminine.",
@@ -2137,10 +2010,14 @@ window.selectStore = selectStore;
         },
         'amber-nights': {
             name: "Amber Nights",
+            brand: "Dior",
             price: "$125.00",
             priceNum: 125.00,
+            size: "75ml",
             ratingStars: "★★★★★",
             ratingCount: "214",
+            category: "unisex",
+            scent: "oriental",
             shortDescription: "A warm, mysterious, and seductive scent for unforgettable evenings.",
             mainImage: "https://images.pexels.com/photos/29801749/pexels-photo-29801749.jpeg",
             productDetails: "Amber Nights wraps you in warmth and mystery. Perfect for evening wear, this sophisticated fragrance combines rich amber with exotic spices and woods.",
@@ -2155,133 +2032,237 @@ window.selectStore = selectStore;
         },
         'royal-rose': {
             name: "Royal Rose",
+            brand: "Chanel",
             price: "$95.00",
             priceNum: 95.00,
+            size: "50ml",
             ratingStars: "★★★★☆",
             ratingCount: "156",
+            category: "female",
+            scent: "floral",
             shortDescription: "A modern interpretation of a classic rose, elegant and timeless.",
             mainImage: "https://images.pexels.com/photos/724635/pexels-photo-724635.jpeg",
             discoverMore: ['floral-essence', 'velvet-petal', 'diamond-aura', 'golden-aura']
         },
         'golden-aura': {
             name: "Golden Aura",
+            brand: "Versace",
             price: "$110.00",
             priceNum: 110.00,
+            size: "75ml",
             ratingStars: "★★★★★",
             ratingCount: "187",
+            category: "male",
+            scent: "oriental",
             shortDescription: "Radiate confidence with this luminous and warm solar fragrance.",
             mainImage: "https://images.pexels.com/photos/20282244/pexels-photo-20282244.jpeg",
             discoverMore: ['diamond-aura', 'citrus-harmony', 'sapphire-mystique', 'golden-harmony']
         },
         'aroma-bliss': {
             name: "Aroma Bliss",
+            brand: "Hermes",
             price: "$175.00",
             priceNum: 175.00,
+            size: "100ml",
             ratingStars: "★★★★★",
             ratingCount: "203",
+            category: "unisex",
+            scent: "floral",
             shortDescription: "A calming and therapeutic blend of lavender, chamomile, and sage.",
             mainImage: "https://images.pexels.com/photos/965730/pexels-photo-965730.jpeg",
             discoverMore: ['floral-essence', 'velvet-petal', 'royal-rose', 'citrus-harmony']
         },
         'timeless-oud': {
             name: "Timeless Oud",
+            brand: "Tom Ford",
             price: "$225.00",
             priceNum: 225.00,
+            size: "100ml",
             ratingStars: "★★★★★",
             ratingCount: "312",
+            category: "male",
+            scent: "woody",
             shortDescription: "A deep, rich, and sophisticated fragrance built around precious oud wood.",
             mainImage: "https://images.pexels.com/photos/4925692/pexels-photo-4925692.jpeg",
             discoverMore: ['amber-elite', 'amber-nights', 'sapphire-mystique', 'golden-harmony']
         },
         'velvet-petal': {
             name: "Velvet Petal Night",
+            brand: "Bvlgari",
             price: "$159.00",
             priceNum: 159.00,
+            size: "50ml",
             ratingStars: "★★★★☆",
             ratingCount: "76",
+            category: "female",
+            scent: "floral",
             shortDescription: "A soft, powdery, and romantic floral scent with a hint of musk.",
             mainImage: "https://images.pexels.com/photos/14496154/pexels-photo-14496154.jpeg",
             discoverMore: ['floral-essence', 'royal-rose', 'aroma-bliss', 'diamond-aura']
         },
         'amber-elite': {
             name: "Amber Elite",
+            brand: "Bvlgari",
             price: "$195.00",
             priceNum: 195.00,
+            size: "100ml",
             ratingStars: "★★★★★",
             ratingCount: "189",
+            category: "male",
+            scent: "woody",
             shortDescription: "The ultimate expression of amber, refined with incense and patchouli.",
             mainImage: "https://images.pexels.com/photos/31847826/pexels-photo-31847826.jpeg",
             discoverMore: ['amber-nights', 'timeless-oud', 'golden-harmony', 'sapphire-mystique']
         },
         'diamond-aura': {
             name: "Diamond Aura",
+             brand: "Chanel",
             price: "$210.00",
             priceNum: 210.00,
+            size: "100ml",
             ratingStars: "★★★★★",
             ratingCount: "245",
+            category: "male",
+            scent: "fresh",
             shortDescription: "A bright, sparkling, and crisp fragrance that feels effervescent.",
             mainImage: "https://images.pexels.com/photos/28460123/pexels-photo-28460123.jpeg",
             discoverMore: ['golden-aura', 'citrus-harmony', 'floral-essence', 'royal-rose']
         },
         'citrus-harmony': {
             name: "Citrus Harmony",
+            brand: "Lumiere Scents",
             price: "$138.00",
             priceNum: 138.00,
+            size: "50ml",
             ratingStars: "★★★★☆",
             ratingCount: "92",
+            category: "unisex",
+            scent: "fresh",
             shortDescription: "A zesty and uplifting chorus of grapefruit, lemon, and vetiver.",
             mainImage: "https://images.pexels.com/photos/12528067/pexels-photo-12528067.jpeg",
             discoverMore: ['diamond-aura', 'golden-aura', 'sapphire-mystique', 'aroma-bliss']
         },
         'sapphire-mystique': {
             name: "Sapphire Mystique",
+            brand: "YSL",
             price: "$182.00",
             priceNum: 182.00,
+            size: "75ml",
             ratingStars: "★★★★★",
             ratingCount: "167",
+            category: "male",
+            scent: "fresh",
             shortDescription: "A deep, aquatic, and aromatic fragrance with a touch of spice.",
             mainImage: "https://images.pexels.com/photos/11920479/pexels-photo-11920479.jpeg",
             discoverMore: ['timeless-oud', 'amber-elite', 'golden-harmony', 'citrus-harmony']
         },
         'golden-harmony': {
             name: "Golden Harmony",
+            brand: "Versace",
             price: "$205.00",
             priceNum: 205.00,
+            size: "100ml",
             ratingStars: "★★★★★",
             ratingCount: "278",
+            category: "unisex",
+            cent: "woody",
             shortDescription: "A perfectly balanced blend of spice, sweet, and wood.",
             mainImage: "https://images.pexels.com/photos/11711829/pexels-photo-11711829.jpeg",
             discoverMore: ['golden-aura', 'amber-elite', 'timeless-oud', 'diamond-aura']
         },
         'black-mamba': {
             name: "Black Mamba",
+            brand: "Chanel",
             price: "$95.00",
             priceNum: 95.00,
+            size: "50ml",
             ratingStars: "★★★★☆",
             ratingCount: "253",
+            category: "Men",
+            scent: "oriental",
             shortdescription: "A Balance Blend Of wood, and spice",
             mainImage: "https://images.pexels.com/photos/9202888/pexels-photo-9202888.jpeg",
             discoverMore: ['golden-aura', 'amber-elite', 'timeless-oud', 'diamond-aura']
        },
        'golden-amber': {
             name: "Golden Amber",
+            brand: 'Gucci',
             price: "$250.00",
             priceNum: 250.00,
+            size: "100ml",
             ratingStars: "★★★★★",
             ratingCount: "232",
+            category: "Unisex",
+            scent: "Floral",
             shortdescription: "A Balance Blend Of floral and spice",
             mainImage: "https://perfumedubai.com/cdn/shop/files/54_a9d80a87-1ae2-41fd-a2ed-a5570571b341_1024x1024.png?v=1736493530",
             discoverMore: ['golden-aura', 'amber-elite', 'timeless-oud', 'diamond-aura']
        },
        'spicy-oud': {
         name: "Spicy Oud",
+        name: "Spicy Oud",
         price: "$100.00",
         priceNum: 250.00,
+        size: "50ml",
+        category: "male",
+        scent: "oriental",
         shortdescription: "A Strong Blend Of Spice and little ounce of Wood",
         mainImage: "https://media.theperfumeshop.com/medias/sys_master/images/h32/hec/10060882575390/Forhim/Forhim.jpg",
         discoverMore: ['golden-aura', 'amber-elite', 'timeless-oud', 'diamond-aura'],
         ratingStars: "★★★★☆",
         ratingCount: "128"
+        },
+        'discovery-set': {
+        name: "Signature Discovery Set",
+        brand: "Lumière",
+        price: "$45.00",
+        priceNum: 45.00,
+        description: "Explore our 5 best-selling scents in 2ml vials.",
+        mainImage: "/images/product_images/product_16_Signature_Discovery.jpeg",
+        category: "gift-set",
+        scent: "fresh",
+        ratingStars: "★★★★★",
+        ratingCount: "342",
+        setItems: [
+            { name: "Floral Essence", image: "/images/product_images/product_1_Floral_Essence.jpeg" },
+            { name: "Amber Nights", image: "/images/product_images/product_2_Amber_Nights.jpeg" },
+            { name: "Royal Rose", image: "/images/product_images/product_3_Royal_Rose.jpeg" },
+            { name: "Golden Aura", image: "/images/product_images/product_4_Golden_Aura.jpeg" },
+            { name: "Timeless Oud", image: "/images/product_images/product_6_Timeless_Oud.jpeg" }
+        ]
+        },
+        'luxury-gift-box': {
+            name: "The Golden Gift Box",
+            brand: "Lumière",
+            price: "$280.00",
+            priceNum: 280.00,
+            description: "A luxurious set containing Golden Aura and Amber Nights.",
+            mainImage: "/images/product_images/product_17_Golden_Gift.jpeg",
+            category: "gift-set",
+            scent: "oriental",
+            ratingStars: "★★★★★",
+            ratingCount: "89",
+            setItems: [
+                { name: "Golden Aura (100ml)", image: "/images/product_images/product_4_Golden_Aura.jpeg" },
+                { name: "Amber Nights (100ml)", image: "/images/product_images/product_2_Amber_Nights.jpeg" }
+            ]
+        },
+        'travel-essentials': {
+            name: "Travel Essentials Kit",
+            brand: "Dior",
+            price: "$115.00",
+            priceNum: 115.00,
+            description: "Three 10ml sprays of your choice in a leather travel case.",
+            mainImage: "/images/product_images/product_18_Travel_Essential.jpeg",
+            category: "gift-set",
+            scent: "woody",
+            ratingStars: "★★★★☆",
+            ratingCount: "120",
+            setItems: [
+                { name: "Floral Essence (100ml)", image: "/images/product_images/product_1_Floral_Essence.jpeg" },
+                { name: "Citrus Harmony (100ml)", image: "/images/product_images/product_10_Citrus_Harmony.jpeg" },
+                { name: "Sapphire Mystique (100ml)", image: "/images/product_images/product_11_Sapphire_Mystique.jpeg" }
+            ]
         }
     };
 
@@ -2351,6 +2332,12 @@ window.selectStore = selectStore;
         const productPrice = document.getElementById('product-price');
         if (productPrice) productPrice.textContent = product.price;
 
+        const productSize = document.getElementById('product-size');
+        if (productSize) {
+            // Gunakan data size dari produk, atau default '50ml' jika kosong
+            productSize.textContent = "Size: " + (product.size || "50ml"); 
+        }
+
         // Update product details sections
         const detailsContent = document.getElementById('product-details-content');
         if (detailsContent) detailsContent.textContent = product.productDetails || defaultProductData.productDetails;
@@ -2368,12 +2355,15 @@ window.selectStore = selectStore;
             // Cek apakah ini Gift Set DAN punya data setItems
             if (product.category === 'gift-set' && product.setItems) {
                 
+                // [FIX] Gunakan fallback: Cek 'image' lalu 'mainImage'
+                const giftMainImg = product.image || product.mainImage || 'https://via.placeholder.com/500';
+
                 // Render Tampilan Khusus Gift Set
-                mainImageWrapper.className = 'main-image-wrapper gift-set-mode'; // Tambah class khusus
+                mainImageWrapper.className = 'main-image-wrapper gift-set-mode'; 
                 mainImageWrapper.innerHTML = `
                     <div class="gift-display-container">
                         <div class="gift-main-view">
-                            <img src="${product.image}" alt="${product.name}" id="gift-main-img">
+                            <img src="${giftMainImg}" alt="${product.name}" id="gift-main-img">
                             <span class="gift-label">GIFT SET CONTENTS</span>
                         </div>
                         
@@ -2381,7 +2371,7 @@ window.selectStore = selectStore;
                             ${product.setItems.map(item => `
                                 <div class="gift-item-card">
                                     <div class="gift-item-thumb">
-                                        <img src="${item.image}" alt="${item.name}">
+                                        <img src="${item.image || item.mainImage || ''}" alt="${item.name}">
                                     </div>
                                     <span class="gift-item-name">${item.name}</span>
                                 </div>
@@ -2391,7 +2381,7 @@ window.selectStore = selectStore;
                 `;
             } else {
                 // Tampilan Produk Biasa (Standar)
-                mainImageWrapper.className = 'main-image-wrapper'; // Reset class
+                mainImageWrapper.className = 'main-image-wrapper'; 
                 mainImageWrapper.innerHTML = `<img src="${product.image || product.mainImage}" alt="${product.name}" id="product-main-image">`;
             }
         }
@@ -2426,6 +2416,32 @@ window.selectStore = selectStore;
              productReviewCount.textContent = `(${combinedReviews.length} Reviews)`;
         }
 
+        // --- SOLD COUNT DI DETAIL PRODUK ---
+             const salesData = JSON.parse(localStorage.getItem('product_sales') || '{}');
+             const soldCount = (salesData[productId] || 0) + 2; // Default 2 terjual
+
+             // Cek apakah elemen sold sudah ada (agar tidak duplikat)
+             let soldEl = document.getElementById('detail-sold-count');
+             
+             if (!soldEl) {
+                 // Jika belum ada, buat elemen baru via JS
+                 soldEl = document.createElement('span');
+                 soldEl.id = 'detail-sold-count';
+                 
+                 // Styling sederhana agar rapi
+                 soldEl.style.marginLeft = '10px';
+                 soldEl.style.paddingLeft = '10px';
+                 soldEl.style.borderLeft = '1px solid #ccc';
+                 soldEl.style.color = '#666';
+                 soldEl.style.fontSize = '0.9rem';
+                 soldEl.style.fontWeight = '500';
+                 
+                 // Masukkan elemen ini ke dalam container rating (setelah review count)
+                 productReviewCount.parentNode.appendChild(soldEl);
+                }
+             
+             soldEl.textContent = `${soldCount} Sold`;
+        
         // Update juga Bintang Utama di sebelah nama produk (atas halaman)
         const productMainStars = document.getElementById('product-stars');
         if (productMainStars) {
@@ -2800,7 +2816,8 @@ window.selectStore = selectStore;
         });
 
         // Form submission
-        document.getElementById('placeOrderBtn').addEventListener('click', function(e) {
+        // Form submission (Checkout) - UPDATED WITH SALES TRACKING
+        document.getElementById('placeOrderBtn')?.addEventListener('click', function(e) {
             e.preventDefault();
             
             const form = document.getElementById('checkoutForm');
@@ -2821,41 +2838,52 @@ window.selectStore = selectStore;
             this.textContent = 'Processing...';
             
             setTimeout(() => {
-                // Generate order number
                 const orderNum = 'LF-' + Math.floor(100000 + Math.random() * 900000);
                 document.getElementById('orderNumber').textContent = 'Order #' + orderNum;
                 
-                // --- PERBAIKAN DIMULAI DI SINI ---
-                
-                // 1. AMBIL data cart dulu SEBELUM dihapus
+                // 1. AMBIL data cart
                 const cart = JSON.parse(localStorage.getItem('cart') || '[]');
                 
-                // 2. BARU Hapus cart dari storage
+                // --- [BARU] UPDATE DATA PENJUALAN (SALES TRACKING) ---
+                const salesData = JSON.parse(localStorage.getItem('product_sales') || '{}');
+                
+                cart.forEach(item => {
+                    // Tambahkan quantity beli ke total penjualan produk tersebut
+                    salesData[item.id] = (salesData[item.id] || 0) + item.quantity;
+                });
+                
+                // Simpan kembali data sales
+                localStorage.setItem('product_sales', JSON.stringify(salesData));
+                // -----------------------------------------------------
+
+                // 2. Hapus cart
                 localStorage.removeItem('cart');
                 
-                // 3. Simpan ke riwayat order (menggunakan variabel 'cart' yang sudah diamankan di langkah 1)
+                // 3. Simpan ke riwayat order
                 const orders = JSON.parse(localStorage.getItem('orders') || '[]');
                 
+                // Cek fitur Gift
+                const isGift = document.getElementById('isGift')?.checked;
+                const giftMsg = document.getElementById('giftMessageInput')?.value;
+                const hidePrice = document.getElementById('hidePrice')?.checked;
+                const giftDetails = isGift ? { isGift: true, message: giftMsg, hidePrice: hidePrice } : null;
+
                 orders.push({
                     orderNumber: orderNum,
                     date: new Date().toISOString(),
-                    items: cart, // Sekarang data ini tidak akan kosong
+                    items: cart,
                     total: document.getElementById('summaryTotal').textContent,
-                    status: 'Processing'
+                    status: 'Ordered', // Status awal Ordered (Hijau)
+                    giftDetails: giftDetails
                 });
                 
                 localStorage.setItem('orders', JSON.stringify(orders));
                 
-                // --- PERBAIKAN SELESAI ---
-
                 // Show success modal
                 document.getElementById('successModal').classList.add('active');
                 
             }, 2000);
         });
-
-        // Load order summary on page load
-        window.addEventListener('DOMContentLoaded', loadOrderSummary);
 
 // ============================================
 // 28. CHECKOUT GIFT LOGIC
@@ -2917,7 +2945,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });        
 
 // ============================================
-// 15. UPDATED FILTER LOGIC & VIEW TOGGLE
+// FILTER LOGIC & VIEW TOGGLE
 // ============================================
 
 function initShopFilters() {
@@ -2934,39 +2962,45 @@ function initShopFilters() {
     const categoryCheckboxes = document.querySelectorAll('input[name="category"]');
     const brandCheckboxes = document.querySelectorAll('input[name="brand"]');
     const scentCheckboxes = document.querySelectorAll('input[name="scent"]'); 
+    
+    // --- SELECTOR SIZE (BARU) ---
+    const sizeCheckboxes = document.querySelectorAll('input[name="size"]');
+    
     const ratingCheckboxes = document.querySelectorAll('input[name="rating"]');
     
     // Price Inputs
     const minPriceInput = document.getElementById('min-price');
     const maxPriceInput = document.getElementById('max-price');
 
-    if (!grid) return; // Guard clause jika elemen tidak ada
+    if (!grid) return; 
 
     // State Variables
     let currentPage = 1;
     let itemsPerPage = 6; 
     let currentFilteredProducts = []; 
 
-    // Konversi object 'products' global menjadi array agar mudah difilter
-    const productArray = Object.entries(products).map(([id, item]) => ({ id, ...item }));
+    // Konversi Data: Gunakan allProductsData agar Brand & Size terbaca
+    // Fallback ke variable 'products' jika allProductsData belum ter-load
+    const sourceData = (typeof allProductsData !== 'undefined') ? allProductsData : products;
+    
+    // Ubah object menjadi array untuk memudahkan filtering
+    const productArray = Object.entries(sourceData).map(([id, item]) => ({ id, ...item }));
 
     // --- 2. LOGIKA GANTI TAMPILAN (GRID / LIST) ---
     viewButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Hapus class active dari semua tombol
             viewButtons.forEach(b => b.classList.remove('active'));
-            // Tambahkan class active ke tombol yang diklik
             btn.classList.add('active');
             
             const viewType = btn.getAttribute('data-view');
             if (viewType === 'list') {
                 grid.classList.add('list-view');
-                itemsPerPage = 4; // List view lebih besar, kurangi item per halaman
+                itemsPerPage = 4; 
             } else {
                 grid.classList.remove('list-view');
-                itemsPerPage = 6; // Grid view default
+                itemsPerPage = 6; 
             }
-            currentPage = 1; // Reset ke halaman 1
+            currentPage = 1; 
             renderGrid();
         });
     });
@@ -2976,14 +3010,14 @@ function initShopFilters() {
         const totalItems = currentFilteredProducts.length;
         if (resultCount) resultCount.textContent = `Showing ${totalItems} results`;
 
-        // Empty State (Jika tidak ada produk)
+        // Empty State
         if (totalItems === 0) {
             grid.innerHTML = `<div class="no-products" style="grid-column: 1/-1; text-align: center; padding: 3rem; color: #888;"><h3>No products found matching your selection.</h3></div>`;
             paginationContainer.innerHTML = '';
             return;
         }
 
-        // Logika Paginasi
+        // Pagination Logic
         const totalPages = Math.ceil(totalItems / itemsPerPage);
         if (currentPage > totalPages) currentPage = totalPages;
         if (currentPage < 1) currentPage = 1;
@@ -2992,21 +3026,52 @@ function initShopFilters() {
         const endIndex = startIndex + itemsPerPage;
         const productsToDisplay = currentFilteredProducts.slice(startIndex, endIndex);
         
-        // Ambil data wishlist untuk menandai hati merah/putih
+        // Data Pendukung (Wishlist & Reviews)
         const currentWishlist = JSON.parse(localStorage.getItem('wishlist') || '[]');
+        const storedReviewsData = JSON.parse(localStorage.getItem('product_reviews') || '{}');
 
-        // Generate HTML
+        // Render HTML
         grid.innerHTML = productsToDisplay.map((product, index) => {
-            // Logika Badge Diskon / Baru
+            // Badge Diskon / New
             const isDiscount = product.priceNum > 150;
             const oldPrice = isDiscount ? (product.priceNum * 1.2).toFixed(2) : null;
             const badgeHtml = isDiscount 
                 ? `<span class="card-badge">-20%</span>` 
                 : (index % 3 === 0 ? `<span class="card-badge new">NEW</span>` : '');
 
-            // Cek apakah produk ada di wishlist
+            // Status Wishlist
             const isWishlisted = currentWishlist.includes(product.id);
             const activeClass = isWishlisted ? 'active' : '';
+
+            // --- Logika Review (Sync) ---
+            let displayStars = product.ratingStars || '★★★★★';
+            let displayCount = product.ratingCount || 0;
+            
+            const dynamicReviews = storedReviewsData[product.id] || [];
+            let staticReviews = product.reviews || [];
+            
+            // Fallback default jika kosong
+            if (staticReviews.length === 0 && typeof defaultProductData !== 'undefined') {
+                 staticReviews = defaultProductData.reviews || [];
+            }
+
+            const combinedReviews = [...dynamicReviews, ...staticReviews];
+            
+            if (combinedReviews.length > 0) {
+                 if (typeof calculateReviewStats === 'function') {
+                    const stats = calculateReviewStats(combinedReviews);
+                    displayStars = stats.stars;
+                    displayCount = combinedReviews.length;
+                }
+            }
+
+            // Tampilkan Size di Card
+            const sizeLabel = product.size ? `<div style="font-size:0.75rem; color:#888; margin-top:4px;">${product.size}</div>` : '';
+
+            // --- TAMBAHAN BARU: SOLD COUNT ---
+            // Ambil data penjualan, jika tidak ada anggap 0, lalu tambah default 2
+            const salesData = JSON.parse(localStorage.getItem('product_sales') || '{}');
+            const soldCount = (salesData[product.id] || 0) + 2; 
 
             return `
             <div class="product-card fade-in-up" style="animation-delay: ${index * 0.05}s;" onclick="goToProduct('${product.id}')">
@@ -3026,17 +3091,59 @@ function initShopFilters() {
                         </svg>
                     </button>
 
-                    <div class="product-image" style="background-image: url('${product.image}');"></div>
+                    <div class="product-image" style="background-image: url('${product.image || product.mainImage}');"></div>
                 </div>
                 <div class="product-info">
-                    <span class="product-brand">${product.brand}</span>
+                    <span class="product-brand">${product.brand || 'Lumière Scents'}</span>
                     <h3 class="product-name">${product.name}</h3>
+                    ${sizeLabel}
+                    
                     <div class="product-rating">
-                        <span class="stars">${product.ratingStars || '★★★★★'}</span>
-                        <span class="rating-count">(${product.ratingCount || 50})</span>
+                        <span class="stars">${displayStars}</span>
+                        <span class="rating-count">(${displayCount})</span>
+                    </div>
+
+                    <div class="product-sold" style="font-size: 0.75rem; color: #888; margin-top: 2px;">
+                        ${soldCount} sold
                     </div>
                     <div class="product-price-box">
-                        <span class="current-price">$${product.priceNum}</span>
+                        <span class="current-price">${product.price}</span>
+                        ${oldPrice ? `<span class="old-price">$${oldPrice}</span>` : ''}
+                    </div>
+                </div>
+            </div>
+            `;
+
+            return `
+            <div class="product-card fade-in-up" style="animation-delay: ${index * 0.05}s;" onclick="goToProduct('${product.id}')">
+                <div class="product-image-wrapper">
+                    ${badgeHtml}
+                    
+                    <button class="card-wishlist-btn ${activeClass}" onclick="event.stopPropagation(); toggleWishlist('${product.id}', this)" title="Add to Wishlist">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path></svg>
+                    </button>
+
+                    <button class="card-quick-add-btn" onclick="event.stopPropagation(); quickAddToCart('${product.id}')" title="Quick Add to Cart">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
+                            <line x1="3" y1="6" x2="21" y2="6"></line>
+                            <path d="M16 10a4 4 0 0 1-8 0"></path>
+                            <line x1="12" y1="12" x2="12" y2="16"></line> <line x1="10" y1="14" x2="14" y2="14"></line>
+                        </svg>
+                    </button>
+
+                    <div class="product-image" style="background-image: url('${product.image || product.mainImage}');"></div>
+                </div>
+                <div class="product-info">
+                    <span class="product-brand">${product.brand || 'Lumière Scents'}</span>
+                    <h3 class="product-name">${product.name}</h3>
+                    ${sizeLabel}
+                    <div class="product-rating">
+                        <span class="stars">${displayStars}</span>
+                        <span class="rating-count">(${displayCount})</span>
+                    </div>
+                    <div class="product-price-box">
+                        <span class="current-price">${product.price}</span>
                         ${oldPrice ? `<span class="old-price">$${oldPrice}</span>` : ''}
                     </div>
                 </div>
@@ -3047,7 +3154,7 @@ function initShopFilters() {
         renderPagination(totalPages);
     }
 
-    // --- 4. RENDER KONTROL PAGINASI ---
+    // --- 4. RENDER PAGINASI ---
     function renderPagination(totalPages) {
         if (!paginationContainer) return;
         if (totalPages <= 1) {
@@ -3056,18 +3163,14 @@ function initShopFilters() {
         }
         
         let html = '';
-        
-        // Tombol Prev
         if (currentPage > 1) {
             html += `<button class="page-btn prev-page" onclick="changePage(${currentPage - 1})"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg></button>`;
         } else { 
-            html += `<div style="width: 45px;"></div>`; // Spacer agar layout tetap rapi
+            html += `<div style="width: 45px;"></div>`; 
         }
         
-        // Info Halaman
         html += `<span class="page-info">Page ${currentPage} of ${totalPages}</span>`;
         
-        // Tombol Next
         if (currentPage < totalPages) {
             html += `<button class="page-btn next-page" onclick="changePage(${currentPage + 1})"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg></button>`;
         } else { 
@@ -3081,52 +3184,79 @@ function initShopFilters() {
     function applyFilters() {
         let filtered = [...productArray];
 
-        // A. Filter Kategori
+        // A. Filter Category
         const checkedCats = Array.from(categoryCheckboxes).filter(cb => cb.checked).map(cb => cb.value.toLowerCase());
         if (checkedCats.length > 0) {
-            filtered = filtered.filter(p => checkedCats.includes(p.category.toLowerCase()));
+            filtered = filtered.filter(p => checkedCats.includes((p.category || '').toLowerCase()));
         }
 
         // B. Filter Brand
         const checkedBrands = Array.from(brandCheckboxes).filter(cb => cb.checked).map(cb => cb.value.toLowerCase());
         if (checkedBrands.length > 0) {
-            filtered = filtered.filter(p => checkedBrands.includes(p.brand.toLowerCase()));
+            filtered = filtered.filter(p => checkedBrands.includes((p.brand || '').toLowerCase()));
         }
 
-        // C. Filter Scent (Wangi)
+        // C. Filter Scent
         const checkedScents = Array.from(scentCheckboxes).filter(cb => cb.checked).map(cb => cb.value.toLowerCase());
         if (checkedScents.length > 0) {
-            filtered = filtered.filter(p => checkedScents.includes(p.scent.toLowerCase()));
+            filtered = filtered.filter(p => checkedScents.includes((p.scent || '').toLowerCase()));
         }
 
-        // D. Filter Rating (Exact Match)
+        // D. Filter Size (Ukuran Botol)
+        const checkedSizes = Array.from(sizeCheckboxes).filter(cb => cb.checked).map(cb => cb.value.toLowerCase());
+        if (checkedSizes.length > 0) {
+            filtered = filtered.filter(p => {
+                const productSize = (p.size || '50ml').toLowerCase(); // Default 50ml jika kosong
+                return checkedSizes.includes(productSize);
+            });
+        }
+
+        // E. Filter Rating (Bintang Real-time)
         const checkedRatings = Array.from(ratingCheckboxes).filter(cb => cb.checked).map(cb => parseInt(cb.value));
         if (checkedRatings.length > 0) {
             filtered = filtered.filter(p => {
-                const starCount = (p.ratingStars.match(/★/g) || []).length;
+                // Hitung bintang aktual
+                const dynamicReviews = (JSON.parse(localStorage.getItem('product_reviews') || '{}'))[p.id] || [];
+                const staticReviews = p.reviews || (typeof defaultProductData !== 'undefined' ? defaultProductData.reviews : []) || [];
+                const combined = [...dynamicReviews, ...staticReviews];
+                
+                let starCount = 5; 
+                if (combined.length > 0) {
+                     let total = 0;
+                     combined.forEach(r => {
+                        let n = r.ratingNum;
+                        if (!n && r.rating) n = (r.rating.match(/★/g) || []).length;
+                        total += (n || 5);
+                     });
+                     starCount = Math.round(total / combined.length);
+                }
                 return checkedRatings.includes(starCount);
             });
         }
 
-        // E. Filter Harga
+        // F. Filter Harga
         const min = parseFloat(minPriceInput.value) || 0;
         const max = parseFloat(maxPriceInput.value) || 10000;
         filtered = filtered.filter(p => p.priceNum >= min && p.priceNum <= max);
 
-        // F. Sorting (Urutan)
+        // G. Sorting
         const sortVal = sortSelect ? sortSelect.value : 'default';
         if (sortVal === 'price-low') filtered.sort((a, b) => a.priceNum - b.priceNum);
         else if (sortVal === 'price-high') filtered.sort((a, b) => b.priceNum - a.priceNum);
-        else if (sortVal === 'rating') filtered.sort((a, b) => parseFloat(b.ratingCount || 0) - parseFloat(a.ratingCount || 0));
+        else if (sortVal === 'rating') {
+            filtered.sort((a, b) => {
+                 // Sort rating sederhana berdasarkan jumlah count
+                 return (parseFloat(b.ratingCount||0)) - (parseFloat(a.ratingCount||0));
+            });
+        }
 
         currentFilteredProducts = filtered;
         currentPage = 1; 
         renderGrid();
     }
 
-    // --- 6. FUNGSI BANTUAN (RESET & PINDAH HALAMAN) ---
+    // --- 6. EVENT LISTENERS & HELPERS ---
     
-    // Fungsi Global agar bisa dipanggil dari onclick HTML
     window.changePage = function(newPage) {
         currentPage = newPage;
         grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -3134,13 +3264,12 @@ function initShopFilters() {
     }
 
     function resetFilters() {
-        // Uncheck semua checkbox
         categoryCheckboxes.forEach(cb => cb.checked = false);
         brandCheckboxes.forEach(cb => cb.checked = false);
         scentCheckboxes.forEach(cb => cb.checked = false);
+        sizeCheckboxes.forEach(cb => cb.checked = false); // Reset Size
         ratingCheckboxes.forEach(cb => cb.checked = false);
         
-        // Reset input harga & sorting
         minPriceInput.value = '';
         maxPriceInput.value = '';
         if(sortSelect) sortSelect.value = 'default';
@@ -3148,64 +3277,45 @@ function initShopFilters() {
         applyFilters();
     }
 
-    // --- 7. EVENT LISTENERS ---
-    // Pasang listener 'change' ke semua input agar filter langsung aktif saat diklik
+    // Attach Listeners
     categoryCheckboxes.forEach(cb => cb.addEventListener('change', applyFilters));
     brandCheckboxes.forEach(cb => cb.addEventListener('change', applyFilters));
     scentCheckboxes.forEach(cb => cb.addEventListener('change', applyFilters));
+    sizeCheckboxes.forEach(cb => cb.addEventListener('change', applyFilters)); // Size Listener
     ratingCheckboxes.forEach(cb => cb.addEventListener('change', applyFilters));
 
     if (filterBtn) filterBtn.addEventListener('click', applyFilters);
     if (sortSelect) sortSelect.addEventListener('change', applyFilters);
     if (resetBtn) resetBtn.addEventListener('click', resetFilters);
 
-    // --- 8. PENANGANAN URL PARAMETER (Bagian "Magic") ---
-    // Ini menangani request user: Klik kategori di home -> Filter otomatis aktif di shop
+    // --- 7. URL PARAMETER HANDLING ---
     const urlParams = new URLSearchParams(window.location.search);
     let hasActiveFilter = false;
 
-    // Handle ?category=male
-    const catParam = urlParams.get('category');
-    if (catParam) {
-        categoryCheckboxes.forEach(cb => {
-            if(cb.value.toLowerCase() === catParam.toLowerCase()) {
-                cb.checked = true;
-                hasActiveFilter = true;
-            }
-        });
-    }
+    const checkAndFilter = (paramName, checkboxList) => {
+        const param = urlParams.get(paramName);
+        if (param) {
+            checkboxList.forEach(cb => {
+                if(cb.value.toLowerCase() === param.toLowerCase()) {
+                    cb.checked = true;
+                    hasActiveFilter = true;
+                }
+            });
+        }
+    };
 
-    // Handle ?search=amber (misal dari popular tags)
-    const searchParam = urlParams.get('search');
-    if (searchParam) {
-        scentCheckboxes.forEach(cb => {
-            if(cb.value.toLowerCase() === searchParam.toLowerCase()) {
-                cb.checked = true;
-                hasActiveFilter = true;
-            }
-        });
-    }
-
-    // Handle ?brand=dior
-    const brandParam = urlParams.get('brand');
-    if (brandParam) {
-        brandCheckboxes.forEach(cb => {
-            if(cb.value.toLowerCase() === brandParam.toLowerCase()) {
-                cb.checked = true;
-                hasActiveFilter = true;
-            }
-        });
-    }
+    checkAndFilter('category', categoryCheckboxes);
+    checkAndFilter('search', scentCheckboxes); // 'search' param maps to scents/tags
+    checkAndFilter('brand', brandCheckboxes);
 
     // Jalankan filter pertama kali
     applyFilters();
 
-    // FITUR UX: Auto-scroll ke produk jika ada filter dari URL (khususnya di Mobile)
-    // Agar user tidak bingung "mana produknya?" karena tertutup header/hero
+    // Auto-scroll jika ada filter dari URL
     if (hasActiveFilter) {
         setTimeout(() => {
             grid.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 800); // Delay sedikit menunggu animasi loading selesai
+        }, 800);
     }
 }
 
@@ -3251,51 +3361,57 @@ function toggleWishlist(productId, btnElement) {
 // ============================================
 
     function showWishlistModal() {
-        // 1. Ambil data wishlist dari LocalStorage
+        // 1. Ambil data wishlist
         const wishlistIds = JSON.parse(localStorage.getItem('wishlist') || '[]');
         
-        // 2. Jika kosong, tampilkan notifikasi saja
         if (wishlistIds.length === 0) {
             showNotification('Your wishlist is currently empty.', 'info');
             return;
         }
         
-        // 3. Buat Modal (Menggunakan style yang sama dengan Order History / Search Overlay)
         const modal = document.createElement('div');
-        modal.className = 'wishlist-modal search-overlay active'; // Gunakan class search-overlay agar style sama
+        modal.className = 'wishlist-modal search-overlay active'; 
         modal.style.display = 'flex';
         
-        // 4. Generate Konten HTML
-        // Kita menggunakan style 'order-card' agar konsisten, tapi disesuaikan isinya untuk produk
+        // 2. Generate Konten HTML (Produk)
         const itemsHtml = wishlistIds.map(id => {
-            const product = products[id];
-            if (!product) return ''; // Skip jika produk tidak ditemukan
+            let product = products[id];
+            
+            // Fallback cari di allProductsData jika di products tidak ada
+            if (!product && typeof allProductsData !== 'undefined') {
+                product = allProductsData[id];
+            }
+
+            if (!product) return ''; 
+
+            // Fallback gambar
+            const imgSrc = product.image || product.mainImage || 'https://via.placeholder.com/80';
 
             return `
-                <div class="order-card" style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem;">
+                <div class="order-card" style="margin-bottom: 1.5rem; display: flex; align-items: center; justify-content: space-between; gap: 1rem; border-bottom: 1px solid #222; padding-bottom: 1rem;">
                     
-                    <div style="display: flex; align-items: center; gap: 1.5rem; flex: 1;">
-                        <img src="${product.image}" class="item-img" alt="${product.name}" 
+                    <div style="display: flex; align-items: center; gap: 1rem; flex: 1;">
+                        <img src="${imgSrc}" class="item-img" alt="${product.name}" 
                             onclick="window.location.href='product_detail.html?id=${id}'" 
-                            style="cursor: pointer; width: 80px; height: 80px;">
+                            style="cursor: pointer; width: 70px; height: 70px; object-fit: cover; border-radius: 8px;">
                         
                         <div class="item-info">
                             <h4 onclick="window.location.href='product_detail.html?id=${id}'" 
-                                style="cursor: pointer; font-size: 1.1rem; margin-bottom: 0.2rem;">
+                                style="cursor: pointer; font-size: 1rem; margin-bottom: 0.2rem; color: #fff;">
                                 ${product.name}
                             </h4>
-                            <p style="color: var(--gold); margin-bottom: 0.5rem;">${product.price}</p>
-                            <div style="font-size: 0.8rem; color: #666;">${product.ratingStars} (${product.ratingCount})</div>
+                            <p style="color: var(--gold); margin-bottom: 0.3rem; font-weight:500;">${product.price}</p>
+                            <div style="font-size: 0.75rem; color: #888;">${product.ratingStars || '★★★★★'}</div>
                         </div>
                     </div>
 
                     <div style="display: flex; flex-direction: column; gap: 0.5rem; align-items: flex-end;">
                         <button onclick="quickAddToCart('${id}')" 
-                                style="background: var(--gold); color: #000; border: none; padding: 0.5rem 1rem; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 0.8rem;">
+                                style="background: var(--gold); color: #000; border: none; padding: 0.4rem 0.8rem; border-radius: 50px; cursor: pointer; font-weight: 600; font-size: 0.75rem; min-width: 90px;">
                             Add to Cart
                         </button>
                         <button onclick="removeFromWishlistModal('${id}', this)" 
-                                style="background: transparent; border: 1px solid #333; color: #888; padding: 0.4rem 0.8rem; border-radius: 50px; cursor: pointer; font-size: 0.75rem;">
+                                style="background: transparent; border: 1px solid #444; color: #888; padding: 0.3rem 0.8rem; border-radius: 50px; cursor: pointer; font-size: 0.7rem; min-width: 90px; transition: 0.3s;">
                             Remove
                         </button>
                     </div>
@@ -3304,21 +3420,26 @@ function toggleWishlist(productId, btnElement) {
             `;
         }).join('');
 
-        // 5. Susun Struktur Modal
+        // 3. Susun Struktur Modal (PERBAIKAN LAYOUT SCROLL)
+        // Menggunakan Flex Column: Header tetap, Body yang scroll
         modal.innerHTML = `
-            <div class="search-container" style="background: #000; padding: 2rem; border-radius: 20px; border: 1px solid var(--gold-dark); max-height: 80vh; overflow-y: auto; width: 100%; max-width: 700px;">
-                <div class="search-header" style="position: sticky; top: 0; background: #000; z-index: 10; padding-bottom: 1rem; border-bottom: 1px solid #222;">
-                    <h2 style="font-family: 'Playfair Display', serif; color: var(--gold);">My Wishlist</h2>
-                    <button class="close-search" onclick="closeWishlistModal()">×</button>
+            <div class="search-container" style="background: #000; padding: 0; border-radius: 20px; border: 1px solid var(--gold-dark); max-height: 80vh; width: 100%; max-width: 600px; display: flex; flex-direction: column; overflow: hidden;">
+                
+                <div class="search-header" style="padding: 1.5rem 2rem; border-bottom: 1px solid #222; display: flex; justify-content: space-between; align-items: center; background: #000; flex-shrink: 0;">
+                    <h2 style="font-family: 'Playfair Display', serif; color: var(--gold); margin: 0; font-size: 1.5rem;">My Wishlist</h2>
+                    <button class="close-search" onclick="closeWishlistModal()" style="background: transparent; border: none; color: #fff; font-size: 2rem; cursor: pointer; line-height: 1; padding: 0;">×</button>
                 </div>
-                <div class="order-list" style="margin-top: 1rem;">
-                    ${itemsHtml}
+
+                <div class="search-body" style="overflow-y: auto; padding: 1.5rem 2rem; flex: 1;">
+                    <div class="order-list">
+                        ${itemsHtml}
+                    </div>
                 </div>
             </div>
         `;
         
         document.body.appendChild(modal);
-        document.body.style.overflow = 'hidden'; // Mencegah scroll background
+        document.body.style.overflow = 'hidden'; 
     }
 
     // Fungsi Menutup Modal
@@ -3622,67 +3743,170 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // ============================================
-// INFINITE BEST SELLER SLIDER (Seamless Loop)
+// DYNAMIC BEST SELLER SLIDER (SALES BASED)
 // ============================================
 function initBestSellerSlider() {
     const track = document.getElementById('bs-track');
-    let slides = document.querySelectorAll('.wide-product-card');
+    if (!track) return;
+
+    // --- 1. AMBIL TOP 5 PRODUK TERLARIS ---
+    const salesData = JSON.parse(localStorage.getItem('product_sales') || '{}');
+    
+    // Konversi object sales ke array dan urutkan dari terbesar
+    let sortedSales = Object.keys(salesData).map(id => ({
+        id: id,
+        count: salesData[id]
+    }));
+    sortedSales.sort((a, b) => b.count - a.count); // Descending
+
+    // Ambil ID produk teratas
+    let topProductIds = sortedSales.map(s => s.id);
+    
+    // Fallback Default: Jika belum ada penjualan, gunakan daftar default ini
+    const defaultBestSellers = ['floral-essence', 'amber-nights', 'royal-rose', 'golden-aura', 'timeless-oud'];
+    
+    // Gabungkan: Sales teratas + Default (untuk mengisi slot kosong jika penjualan < 5)
+    // Set digunakan untuk menghilangkan duplikat
+    topProductIds = [...new Set([...topProductIds, ...defaultBestSellers])].slice(0, 5);
+
+    // --- 2. GENERATE HTML SECARA DINAMIS ---
+    track.innerHTML = ''; // Kosongkan track lama (HTML statis)
+
+    // Siapkan data review & fallback
+    const storedReviewsData = JSON.parse(localStorage.getItem('product_reviews') || '{}');
+    const fallbackDefaultReviews = [
+        { rating: "★★★★★", ratingNum: 5 },
+        { rating: "★★★★☆", ratingNum: 4 }
+    ];
+
+    topProductIds.forEach(id => {
+        // Ambil data detail produk dari allProductsData
+        const product = (typeof allProductsData !== 'undefined' && allProductsData[id]) ? allProductsData[id] : null;
+        
+        if (!product) return; // Skip jika data produk tidak ditemukan
+
+        // --- Logika Hitung Bintang (Sync) ---
+        const dynamicReviews = storedReviewsData[id] || [];
+        let staticReviews = product.reviews || [];
+        
+        if (staticReviews.length === 0 && typeof defaultProductData !== 'undefined') {
+             staticReviews = defaultProductData.reviews || fallbackDefaultReviews;
+        }
+
+        const combinedReviews = [...dynamicReviews, ...staticReviews];
+        
+        let starsStr = "★★★★★";
+        let reviewCountDisplay = "(0 Reviews)";
+
+        if (combinedReviews.length > 0) {
+            let totalStars = 0;
+            combinedReviews.forEach(r => {
+                let rNum = r.ratingNum;
+                if (!rNum && r.rating) rNum = (r.rating.match(/★/g) || []).length;
+                if (!rNum) rNum = 5;
+                totalStars += rNum;
+            });
+            const avg = Math.round(totalStars / combinedReviews.length);
+            starsStr = "★".repeat(avg) + "☆".repeat(5 - avg);
+            reviewCountDisplay = `(${combinedReviews.length} Reviews)`;
+        }
+
+        // --- [BARU] HITUNG TERJUAL ---
+        const soldCount = (salesData[id] || 0) + 2; // Default 2
+        
+        // Label Kategori
+        let categoryLabel = "Best Seller";
+        if(id.includes('floral')) categoryLabel = "Floral • Fresh • Iconic";
+        else if(id.includes('amber')) categoryLabel = "Amber • Spicy • Warm";
+        else if(id.includes('oud')) categoryLabel = "Woody • Rich • Royal";
+        else if(id.includes('rose')) categoryLabel = "Rose • Musk • Timeless";
+        
+        // [BARU] UPDATE HTML CARD DENGAN SOLD COUNT
+        const cardHTML = `
+            <div class="wide-product-card">
+                <div class="wide-card-image" style="background-image: url('${product.mainImage || product.image}');"></div>
+                <div class="wide-card-content">
+                    <span class="scent-category">${categoryLabel}</span>
+                    <h3 class="wide-product-name">${product.name}</h3>
+                    <p class="wide-product-desc">${product.shortDescription || product.productDetails?.substring(0, 100) + '...' || ''}</p>
+                    
+                    <div class="wide-meta">
+                        <span class="price">${product.price}</span>
+                        <div class="rating">
+                            <span class="stars">${starsStr}</span>
+                            <span class="count">${reviewCountDisplay}</span>
+                        </div>
+                        
+                        <div class="bs-sold-count" style="font-size: 0.8rem; color: #888; margin-top: 5px; font-weight: 500;">
+                            ${soldCount} Sold
+                        </div>
+                    </div>
+
+                    <div class="wide-actions">
+                        <button class="btn-primary" onclick="quickAddToCart('${id}')">Add to Bag</button>
+                        <a href="product_detail.html?id=${id}" class="btn-details">View Details</a>
+                    </div>
+                </div>
+            </div>
+        `;
+        track.insertAdjacentHTML('beforeend', cardHTML);
+    });
+
+    // --- 3. INISIALISASI SLIDER LOGIC (Sama seperti sebelumnya) ---
+    // (Kode di bawah ini mengatur animasi slider infinite loop)
+    
+    let slides = track.querySelectorAll('.wide-product-card');
     const nextBtn = document.getElementById('bs-next');
     const prevBtn = document.getElementById('bs-prev');
     const dotsContainer = document.getElementById('bs-dots');
 
-    if (!track || slides.length === 0) return;
+    if (slides.length === 0) return;
 
-    // 1. Setup Dots (Hanya untuk jumlah slide asli)
-    dotsContainer.innerHTML = ''; // Reset dots
-    slides.forEach((_, idx) => {
-        const dot = document.createElement('div');
-        dot.classList.add('dot');
-        if (idx === 0) dot.classList.add('active');
-        dot.addEventListener('click', () => moveToSlide(idx + 1)); // +1 karena ada clone
-        dotsContainer.appendChild(dot);
-    });
-    const dots = document.querySelectorAll('.dot');
+    // Setup Dots
+    if (dotsContainer) {
+        dotsContainer.innerHTML = '';
+        slides.forEach((_, idx) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (idx === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => moveToSlide(idx + 1)); 
+            dotsContainer.appendChild(dot);
+        });
+    }
+    const dots = document.querySelectorAll('#bs-dots .dot');
 
-    // 2. Cloning Logic untuk Efek Infinite
+    // Cloning
     const firstClone = slides[0].cloneNode(true);
     const lastClone = slides[slides.length - 1].cloneNode(true);
 
-    firstClone.id = 'first-clone';
-    lastClone.id = 'last-clone';
+    firstClone.id = 'bs-first-clone';
+    lastClone.id = 'bs-last-clone';
 
     track.append(firstClone);
     track.prepend(lastClone);
 
-    // Update list slide setelah cloning
-    const allSlides = document.querySelectorAll('.wide-product-card'); 
-    
-    // 3. State Variables
-    let counter = 1; // Mulai dari 1 karena 0 adalah lastClone
+    const allSlides = track.querySelectorAll('.wide-product-card'); 
+    let counter = 1;
     let isTransitioning = false;
-    const size = 100; // Karena width css 100%
+    const size = 100;
 
-    // Posisi awal (langsung ke slide asli pertama)
     track.style.transform = `translateX(${-size * counter}%)`;
 
-    // 4. Fungsi Navigasi Utama
     function updateSlider() {
         if (isTransitioning) return;
         isTransitioning = true;
-        track.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)'; // Animasi Smooth
+        track.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
         track.style.transform = `translateX(${-size * counter}%)`;
-        
         updateDots();
     }
 
     function updateDots() {
-        // Hapus active dari semua dots
+        if (!dotsContainer) return;
         dots.forEach(d => d.classList.remove('active'));
         
-        // Hitung index dot yang sesuai (koreksi clone)
         let dotIndex = counter - 1;
-        if (counter === 0) dotIndex = slides.length - 1; // Jika di clone terakhir
-        if (counter === allSlides.length - 1) dotIndex = 0; // Jika di clone pertama
+        if (counter === 0) dotIndex = slides.length - 1; 
+        if (counter === allSlides.length - 1) dotIndex = 0; 
         
         if(dots[dotIndex]) dots[dotIndex].classList.add('active');
     }
@@ -3693,99 +3917,152 @@ function initBestSellerSlider() {
         updateSlider();
     }
 
-    // 5. Event Listeners Buttons
-    nextBtn.addEventListener('click', () => {
-        if (isTransitioning) return;
-        if (counter >= allSlides.length - 1) return;
-        counter++;
-        updateSlider();
-    });
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            if (isTransitioning) return;
+            if (counter >= allSlides.length - 1) return;
+            counter++;
+            updateSlider();
+        });
+    }
 
-    prevBtn.addEventListener('click', () => {
-        if (isTransitioning) return;
-        if (counter <= 0) return;
-        counter--;
-        updateSlider();
-    });
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            if (isTransitioning) return;
+            if (counter <= 0) return;
+            counter--;
+            updateSlider();
+        });
+    }
 
-    // 6. Transition End - Magic Loop happens here
     track.addEventListener('transitionend', () => {
         isTransitioning = false;
-        
-        // Jika kita berada di Clone Terakhir (copy dari slide terakhir), lompat ke Slide Terakhir Asli
-        if (allSlides[counter].id === 'last-clone') {
-            track.style.transition = 'none'; // Matikan animasi agar instan
+        if (allSlides[counter].id === 'bs-last-clone') {
+            track.style.transition = 'none';
             counter = allSlides.length - 2;
             track.style.transform = `translateX(${-size * counter}%)`;
         }
-        
-        // Jika kita berada di Clone Pertama (copy dari slide pertama), lompat ke Slide Pertama Asli
-        if (allSlides[counter].id === 'first-clone') {
-            track.style.transition = 'none'; // Matikan animasi agar instan
+        if (allSlides[counter].id === 'bs-first-clone') {
+            track.style.transition = 'none';
             counter = 1;
             track.style.transform = `translateX(${-size * counter}%)`;
         }
     });
-
-    // 7. Touch / Swipe Support
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    track.addEventListener('touchstart', e => {
-        touchStartX = e.changedTouches[0].screenX;
-    });
-
-    track.addEventListener('touchend', e => {
-        touchEndX = e.changedTouches[0].screenX;
-        if (touchStartX - touchEndX > 50) {
-            // Swipe Left -> Next
-            if (!isTransitioning) {
-                counter++;
-                updateSlider();
-            }
-        } else if (touchEndX - touchStartX > 50) {
-            // Swipe Right -> Prev
-            if (!isTransitioning) {
-                counter--;
-                updateSlider();
-            }
-        }
-    });
 }
-
-// Mobile Filter Toggle Logic
-document.addEventListener('DOMContentLoaded', () => {
-    const filterToggleBtn = document.getElementById('mobile-filter-toggle');
-    const shopSidebar = document.getElementById('shopSidebar');
-
-    if (filterToggleBtn && shopSidebar) {
-        filterToggleBtn.addEventListener('click', () => {
-            shopSidebar.classList.toggle('active');
-            
-            // Ubah teks tombol biar interaktif
-            const isClosed = !shopSidebar.classList.contains('active');
-            const spanText = filterToggleBtn.querySelector('span');
-            if(spanText) {
-                spanText.textContent = isClosed ? 'Filter Products' : 'Close Filters';
-            }
-        });
-    }
-});
 
 // ============================================
 // OFFER SLIDER (Untuk Halaman Shop)
 // ============================================
+
 function initOfferSlider() {
     const track = document.getElementById('offer-track');
     if (!track) return;
 
+    // --- 1. DATA DEFAULT MANUAL (Jaga-jaga) ---
+    const fallbackDefaultReviews = [
+        { rating: "★★★★★", ratingNum: 5 },
+        { rating: "★★★★☆", ratingNum: 4 }
+    ];
+
+    // --- 2. UPDATE KARTU (SEBELUM CLONING) ---
+    const rawSlides = track.querySelectorAll('.wide-product-card');
+    const storedReviewsData = JSON.parse(localStorage.getItem('product_reviews') || '{}');
+    const salesData = JSON.parse(localStorage.getItem('product_sales') || '{}');
+
+    rawSlides.forEach(card => {
+        let productId = null;
+
+        // PERBAIKAN 1: Cara mengambil Product ID di Slider
+        // Cek tombol 'Add to Bag' karena ID ada di fungsi quickAddToCart('id-nya')
+        const addBtn = card.querySelector('button[onclick*="quickAddToCart"]');
+        if (addBtn) {
+            const match = addBtn.getAttribute('onclick').match(/quickAddToCart\(['"]([^'"]+)['"]\)/);
+            if (match) productId = match[1];
+        }
+
+        // Fallback: Jika tidak ketemu, cek link 'View Details'
+        if (!productId) {
+            const linkBtn = card.querySelector('a.btn-details');
+            if (linkBtn && linkBtn.href.includes('id=')) {
+                productId = linkBtn.href.split('id=')[1];
+            }
+        }
+
+        if (!productId) return; // Skip jika ID tetap tidak ketemu
+
+        // --- PROSES DATA REVIEW ---
+        const dynamicReviews = storedReviewsData[productId] || [];
+        let staticReviews = [];
+
+        // Cek Data Global
+        if (typeof allProductsData !== 'undefined' && allProductsData[productId] && allProductsData[productId].reviews) {
+            staticReviews = allProductsData[productId].reviews;
+        } else if (typeof defaultProductData !== 'undefined' && defaultProductData.reviews) {
+            staticReviews = defaultProductData.reviews;
+        } else {
+            staticReviews = fallbackDefaultReviews;
+        }
+
+        const combinedReviews = [...dynamicReviews, ...staticReviews];
+
+        // --- PERBAIKAN 2: Selector CSS (.count bukan .rating-count) ---
+        if (combinedReviews.length > 0) {
+            // Hitung Bintang
+            let totalStars = 0;
+            combinedReviews.forEach(r => {
+                let rNum = r.ratingNum;
+                if (!rNum && r.rating) rNum = (r.rating.match(/★/g) || []).length;
+                if (!rNum) rNum = 5;
+                totalStars += rNum;
+            });
+
+            const avg = Math.round(totalStars / combinedReviews.length);
+            const starsStr = "★".repeat(avg) + "☆".repeat(5 - avg);
+
+            // Update DOM
+            const starEl = card.querySelector('.stars');
+            
+            // Perhatikan selector ini: Di shop.html slider menggunakan class "count", bukan "rating-count"
+            const countEl = card.querySelector('.count') || card.querySelector('.rating-count');
+
+            if (starEl) starEl.textContent = starsStr;
+            if (countEl) countEl.textContent = `(${combinedReviews.length} Reviews)`;
+        }
+
+        // --- [BARU] UPDATE SOLD COUNT (OFFER SLIDER) ---
+        const soldCount = (salesData[productId] || 0) + 2; 
+        
+        // Cek apakah elemen sold sudah ada di card ini
+        let soldEl = card.querySelector('.offer-sold-count');
+        
+        if (!soldEl) {
+            // Jika belum ada, buat baru via JS
+            soldEl = document.createElement('div');
+            soldEl.className = 'offer-sold-count';
+            
+            // Styling agar sesuai tampilan Offer (background gelap)
+            soldEl.style.fontSize = '0.85rem';
+            soldEl.style.color = 'rgba(255, 255, 255, 0.6)'; // Warna abu terang
+            soldEl.style.marginTop = '5px';
+            soldEl.style.fontWeight = '500';
+            
+            // Masukkan elemen ini tepat setelah elemen .rating
+            const ratingContainer = card.querySelector('.rating');
+            if (ratingContainer && ratingContainer.parentNode) {
+                ratingContainer.parentNode.insertBefore(soldEl, ratingContainer.nextSibling);
+            }
+        }
+        
+        // Set teks terjual
+        soldEl.textContent = `${soldCount} sold`;
+    });
+    // --- 3. LOGIKA SLIDER (Sama seperti sebelumnya) ---
     let slides = track.querySelectorAll('.wide-product-card');
     const nextBtn = document.getElementById('offer-next');
     const prevBtn = document.getElementById('offer-prev');
     
     if (slides.length === 0) return;
 
-    // --- Cloning Logic (Infinite Loop) ---
     const firstClone = slides[0].cloneNode(true);
     const lastClone = slides[slides.length - 1].cloneNode(true);
 
@@ -3799,11 +4076,10 @@ function initOfferSlider() {
     let counter = 1;
     let isTransitioning = false;
     const size = 100;
-    let slideInterval; // Variabel untuk menyimpan timer
+    let slideInterval; 
 
     track.style.transform = `translateX(${-size * counter}%)`;
 
-    // --- Fungsi Update Posisi Slider ---
     function updateSlider() {
         if (isTransitioning) return;
         isTransitioning = true;
@@ -3811,44 +4087,39 @@ function initOfferSlider() {
         track.style.transform = `translateX(${-size * counter}%)`;
     }
 
-    // --- Fungsi Pindah ke Slide Berikutnya ---
     function nextSlide() {
         if (counter >= allSlides.length - 1) return;
         counter++;
         updateSlider();
     }
 
-    // --- Fungsi Pindah ke Slide Sebelumnya ---
     function prevSlide() {
         if (counter <= 0) return;
         counter--;
         updateSlider();
     }
 
-    // --- Fungsi Timer Otomatis (5 Detik) ---
     function startAutoSlide() {
-        clearInterval(slideInterval); // Hapus timer lama agar tidak tumpang tindih
+        clearInterval(slideInterval);
         slideInterval = setInterval(() => {
             nextSlide();
-        }, 3500); // 5000ms = 5 detik
+        }, 3500); 
     }
 
-    // --- Event Listeners Tombol (Reset Timer saat diklik) ---
     if (nextBtn) {
         nextBtn.addEventListener('click', () => {
             nextSlide();
-            startAutoSlide(); // Reset waktu tunggu jadi 5 detik lagi
+            startAutoSlide();
         });
     }
 
     if (prevBtn) {
         prevBtn.addEventListener('click', () => {
             prevSlide();
-            startAutoSlide(); // Reset waktu tunggu jadi 5 detik lagi
+            startAutoSlide();
         });
     }
 
-    // --- Infinite Loop Logic (Saat Transisi Selesai) ---
     track.addEventListener('transitionend', () => {
         isTransitioning = false;
         if (allSlides[counter].id === 'offer-last-clone') {
@@ -3863,18 +4134,17 @@ function initOfferSlider() {
         }
     });
 
-    // --- Fitur Tambahan: Pause saat Mouse Hover ---
-    // Agar user bisa membaca promo tanpa slide bergeser tiba-tiba
     const sliderContainer = track.parentElement;
-    sliderContainer.addEventListener('mouseenter', () => {
-        clearInterval(slideInterval);
-    });
-    
-    sliderContainer.addEventListener('mouseleave', () => {
-        startAutoSlide();
-    });
+    if (sliderContainer) {
+        sliderContainer.addEventListener('mouseenter', () => {
+            clearInterval(slideInterval);
+        });
+        
+        sliderContainer.addEventListener('mouseleave', () => {
+            startAutoSlide();
+        });
+    }
 
-    // Mulai Auto Slide saat halaman dimuat
     startAutoSlide();
 }
 
