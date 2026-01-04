@@ -2696,6 +2696,10 @@ window.selectStore = selectStore;
             setupProfilePage();
         }
 
+        if (document.getElementById('checkoutForm')) {
+            loadOrderSummary();
+        }
+
         // Mobile Toggle Logic
         const filterToggleBtn = document.getElementById('mobile-filter-toggle');
         const shopSidebar = document.getElementById('shopSidebar');
@@ -2710,110 +2714,102 @@ window.selectStore = selectStore;
     });
 
 // ============================================
-// 14. Checkout
+// UPDATE: Load Order Summary (Checkout Page)
 // ============================================
- // Load cart and display order summary
-        function loadOrderSummary() {
-            const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-            const orderItems = document.getElementById('orderItems');
-            
-            if (cart.length === 0) {
-                window.location.href = 'cart.html';
-                return;
-            }
 
-            // Display items
-            orderItems.innerHTML = cart.map(item => {
-                const product = products[item.id];
-                if (!product) return '';
-                
-                return `
-                    <div class="order-item">
-                        <img src="${product.image}" alt="${product.name}" class="item-image">
-                        <div class="item-details">
-                            <div class="item-name">${product.name}</div>
-                            <div class="item-size">Size: ${item.size}</div>
-                            <div class="item-quantity">Qty: ${item.quantity}</div>
-                        </div>
-                        <div class="item-price">$${(product.priceNum * item.quantity).toFixed(2)}</div>
-                    </div>
-                `;
-            }).join('');
+function loadOrderSummary() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    const orderItems = document.getElementById('orderItems');
+    
+    // 1. Ambil Data Diskon yang tersimpan dari Cart
+    const savedDiscount = JSON.parse(localStorage.getItem('cart_discount') || '{"code": "", "percent": 0}');
+    const discountPercent = savedDiscount.percent || 0;
+    const discountCode = savedDiscount.code || '';
 
-            // Calculate totals
-            const subtotal = cart.reduce((total, item) => {
-                const product = products[item.id];
-                return total + (product ? product.priceNum * item.quantity : 0);
-            }, 0);
+    if (cart.length === 0) {
+        // Jika cart kosong, kembalikan ke halaman cart
+        window.location.href = 'cart.html';
+        return;
+    }
 
-            const shipping = 10;
-            const tax = subtotal * 0.1;
-            const total = subtotal + shipping + tax;
-
-            document.getElementById('summarySubtotal').textContent = `$${subtotal.toFixed(2)}`;
-            document.getElementById('summaryShipping').textContent = `$${shipping.toFixed(2)}`;
-            document.getElementById('summaryTax').textContent = `$${tax.toFixed(2)}`;
-            document.getElementById('summaryTotal').textContent = `$${total.toFixed(2)}`;
+    // 2. Render Item Produk (dengan Fallback Data)
+    orderItems.innerHTML = cart.map(item => {
+        // Cek data di 'products' dulu, jika tidak ada cari di 'allProductsData'
+        let product = products[item.id];
+        if (!product && typeof allProductsData !== 'undefined') {
+            product = allProductsData[item.id];
         }
+        
+        if (!product) return '';
+        
+        // Pastikan gambar ada (fallback jika kosong)
+        const imgSrc = product.image || product.mainImage || 'https://via.placeholder.com/80';
+        
+        return `
+            <div class="order-item">
+                <img src="${imgSrc}" alt="${product.name}" class="item-image">
+                <div class="item-details">
+                    <div class="item-name">${product.name}</div>
+                    <div class="item-size">Size: ${item.size}</div>
+                    <div class="item-quantity">Qty: ${item.quantity}</div>
+                </div>
+                <div class="item-price">$${(product.priceNum * item.quantity).toFixed(2)}</div>
+            </div>
+        `;
+    }).join('');
 
-        // Payment method selection logic
-        document.querySelectorAll('.payment-option').forEach(option => {
-            option.addEventListener('click', function() {
-                // 1. Hapus kelas 'selected' dari semua opsi
-                document.querySelectorAll('.payment-option').forEach(opt => opt.classList.remove('selected'));
-                
-                // 2. Tambahkan kelas 'selected' ke opsi yang diklik
-                this.classList.add('selected');
-                
-                const method = this.getAttribute('data-method');
-                const cardDetails = document.getElementById('cardDetails');
-                const paypalDetails = document.getElementById('paypalDetails');
-                
-                // Reset tampilan & validasi dulu (sembunyikan semua)
-                cardDetails.style.display = 'none';
-                paypalDetails.style.display = 'none';
-                
-                // Reset required inputs (agar form tidak error saat submit)
-                if(document.getElementById('cardNumber')) document.getElementById('cardNumber').required = false;
-                if(document.getElementById('expiryDate')) document.getElementById('expiryDate').required = false;
-                if(document.getElementById('cvv')) document.getElementById('cvv').required = false;
-                if(document.getElementById('paypalEmail')) document.getElementById('paypalEmail').required = false;
+    // 3. Hitung Subtotal
+    const subtotal = cart.reduce((total, item) => {
+        let product = products[item.id];
+        if (!product && typeof allProductsData !== 'undefined') {
+            product = allProductsData[item.id];
+        }
+        return total + (product ? product.priceNum * item.quantity : 0);
+    }, 0);
 
-                // 3. Tampilkan input sesuai metode yang dipilih
-                if (method === 'credit-card' || method === 'debit-card') {
-                    // Jika Kartu Kredit/Debit
-                    cardDetails.style.display = 'block';
-                    document.getElementById('cardNumber').required = true;
-                    document.getElementById('expiryDate').required = true;
-                    document.getElementById('cvv').required = true;
-                } else if (method === 'paypal') {
-                    // ⭐ Jika PayPal
-                    paypalDetails.style.display = 'block';
-                    document.getElementById('paypalEmail').required = true;
-                }
-            });
-        });
+    // 4. Hitung Diskon & Total
+    const discountAmount = subtotal * (discountPercent / 100);
+    const discountedSubtotal = subtotal - discountAmount;
+    
+    const shipping = subtotal > 0 ? 10 : 0;
+    const tax = discountedSubtotal * 0.1; // Pajak 10% dihitung dari harga setelah diskon
+    const total = discountedSubtotal + shipping + tax;
 
-        // Card number formatting
-        document.getElementById('cardNumber')?.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\s/g, '');
-            let formattedValue = value.match(/.{1,4}/g)?.join(' ') || value;
-            e.target.value = formattedValue;
-        });
+    // 5. Update Tampilan Angka
+    const elSubtotal = document.getElementById('summarySubtotal');
+    const elShipping = document.getElementById('summaryShipping');
+    const elTax = document.getElementById('summaryTax');
+    const elTotal = document.getElementById('summaryTotal');
 
-        // Expiry date formatting
-        document.getElementById('expiryDate')?.addEventListener('input', function(e) {
-            let value = e.target.value.replace(/\D/g, '');
-            if (value.length >= 2) {
-                value = value.slice(0, 2) + '/' + value.slice(2, 4);
-            }
-            e.target.value = value;
-        });
+    if (elSubtotal) elSubtotal.textContent = `$${subtotal.toFixed(2)}`;
+    if (elShipping) elShipping.textContent = `$${shipping.toFixed(2)}`;
+    if (elTax) elTax.textContent = `$${tax.toFixed(2)}`;
+    if (elTotal) elTotal.textContent = `$${total.toFixed(2)}`;
 
-        // CVV validation
-        document.getElementById('cvv')?.addEventListener('input', function(e) {
-            e.target.value = e.target.value.replace(/\D/g, '');
-        });
+    // 6. Tampilkan Baris Diskon (Jika ada)
+    // Hapus baris diskon lama jika ada (untuk mencegah duplikasi saat reload)
+    const oldDiscountRow = document.getElementById('summaryDiscountRow');
+    if(oldDiscountRow) oldDiscountRow.remove();
+
+    if (discountPercent > 0) {
+        const discountRow = document.createElement('div');
+        discountRow.className = 'summary-row';
+        discountRow.id = 'summaryDiscountRow';
+        // Styling agar sesuai tema Gold
+        discountRow.style.color = 'var(--gold)'; 
+        discountRow.style.fontWeight = '500';
+        
+        discountRow.innerHTML = `
+            <span>Discount (${discountCode} - ${discountPercent}%)</span>
+            <span>-$${discountAmount.toFixed(2)}</span>
+        `;
+        
+        // Sisipkan baris diskon SEBELUM baris Shipping
+        if (elShipping && elShipping.parentElement) {
+            elShipping.parentElement.before(discountRow);
+        }
+    }
+}
 
         // Form submission
         // Form submission (Checkout) - UPDATED WITH SALES TRACKING
