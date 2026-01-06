@@ -1,0 +1,406 @@
+/* =========================================
+   LUMIERE ADMIN - ISOLATED THEME
+   ========================================= */
+
+:root {
+    --adm-bg: #050505;
+    --adm-sidebar: #0a0a0a;
+    --adm-panel: #111111;
+    --adm-border: #222;
+    --adm-text: #fff;
+    --adm-muted: #888;
+    --adm-gold: #d4a574;
+    
+    --sidebar-w: 260px;
+    --topbar-h: 70px;
+}
+
+/* Reset Khusus Halaman Admin */
+body.admin-body {
+    background-color: var(--adm-bg);
+    color: var(--adm-text);
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+/* Hindari padding dari global.css */
+a { text-decoration: none; color: inherit; }
+ul { list-style: none; padding: 0; margin: 0; }
+
+/* LAYOUT GRID */
+.admin-layout {
+    display: flex;
+    min-height: 100vh;
+}
+
+/* SIDEBAR (FIXED) */
+.sidebar-panel {
+    width: var(--sidebar-w);
+    background: var(--adm-sidebar);
+    border-right: 1px solid var(--adm-border);
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    height: 100vh;
+    z-index: 999;
+}
+
+.sidebar-header {
+    height: var(--topbar-h);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 1.5rem;
+    border-bottom: 1px solid var(--adm-border);
+}
+
+.brand-text {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    color: #fff;
+    margin: 0;
+}
+.brand-text span { color: var(--adm-gold); }
+.brand-badge { font-size: 0.7rem; color: var(--adm-gold); letter-spacing: 2px; margin: 0; }
+
+.sidebar-menu { flex: 1; padding: 1.5rem 0; overflow-y: auto; }
+
+.menu-link {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    color: var(--adm-muted);
+    font-size: 0.9rem;
+    border-left: 3px solid transparent;
+    transition: 0.3s;
+}
+
+.menu-link:hover, .menu-link.active {
+    background: rgba(212, 165, 116, 0.05);
+    color: var(--adm-gold);
+    border-left-color: var(--adm-gold);
+}
+
+.menu-link .icon { width: 24px; margin-right: 10px; text-align: center; }
+
+.sidebar-footer { padding: 1.5rem; border-top: 1px solid var(--adm-border); }
+
+/* MAIN PANEL */
+.main-panel {
+    margin-left: var(--sidebar-w);
+    width: calc(100% - var(--sidebar-w));
+    display: flex;
+    flex-direction: column;
+}
+
+/* TOP BAR */
+.admin-topbar {
+    height: var(--topbar-h);
+    background: rgba(5, 5, 5, 0.95);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--adm-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 900;
+}
+
+.page-info h2 { font-family: 'Playfair Display', serif; font-size: 1.4rem; margin: 0; }
+.date-display { color: var(--adm-muted); font-size: 0.8rem; }
+
+.admin-profile {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 5px 15px;
+    border: 1px solid var(--adm-border);
+    border-radius: 50px;
+}
+.profile-text { text-align: right; }
+.profile-text .name { display: block; font-size: 0.85rem; font-weight: 600; }
+.profile-text .role { display: block; font-size: 0.7rem; color: var(--adm-gold); }
+
+.profile-avatar {
+    width: 32px; height: 32px;
+    background: var(--adm-gold);
+    color: #000;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold;
+    font-size: 0.8rem;
+}
+
+/* CONTENT */
+/* CONTENT ANIMATION FIX */
+.content-container { padding: 2rem; }
+
+.view-section { 
+    display: none; 
+    opacity: 0; /* Default hidden state */
+}
+
+.view-section.active { 
+    display: block; 
+    opacity: 1; /* PASTIKAN INI 1 AGAR TIDAK HILANG */
+    animation: fadeIn 0.4s ease forwards; 
+}
+
+@keyframes fadeIn { 
+    from { opacity: 0; transform: translateY(10px); } 
+    to { opacity: 1; transform: translateY(0); } 
+}
+
+/* STATS */
+.stats-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.stat-box {
+    background: var(--adm-panel);
+    border: 1px solid var(--adm-border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stat-icon {
+    width: 45px; height: 45px;
+    border-radius: 10px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+}
+.gold { background: rgba(212, 165, 116, 0.1); color: var(--adm-gold); }
+.blue { background: rgba(52, 152, 219, 0.1); color: #3498db; }
+.green { background: rgba(46, 204, 113, 0.1); color: #2ecc71; }
+.purple { background: rgba(155, 89, 182, 0.1); color: #9b59b6; }
+
+.stat-box h3 { font-size: 0.75rem; color: var(--adm-muted); margin: 0 0 5px 0; text-transform: uppercase; }
+.stat-box p { font-size: 1.4rem; margin: 0; font-family: 'Playfair Display', serif; }
+
+/* TABLES */
+.data-card {
+    background: var(--adm-panel);
+    border: 1px solid var(--adm-border);
+    border-radius: 10px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.card-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem; }
+.card-head h3 { font-family: 'Playfair Display', serif; margin: 0; color: var(--adm-gold); }
+
+.table-scroll { overflow-x: auto; }
+.clean-table { width: 100%; border-collapse: collapse; white-space: nowrap; }
+
+.clean-table th {
+    text-align: left; padding: 1rem;
+    color: var(--adm-muted); font-size: 0.75rem; text-transform: uppercase;
+    border-bottom: 1px solid var(--adm-border);
+}
+.clean-table td {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    font-size: 0.9rem; color: #eee;
+}
+.clean-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+/* UTILS */
+.btn-link { background: none; border: none; color: var(--adm-gold); cursor: pointer; }
+.btn-danger { background: transparent; border: 1px solid #d33; color: #d33; padding: 5px 12px; border-radius: 4px; cursor: pointer; }
+.btn-danger:hover { background: #d33; color: #fff; }
+
+.status-badge { padding: 4px 10px; border-radius: 20px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; }
+.status-ordered { background: rgba(255,193,7,0.1); color: #ffc107; }
+.status-shipped { background: rgba(23,162,184,0.1); color: #17a2b8; }
+.status-delivered { background: rgba(40,167,69,0.1); color: #28a745; }
+.status-cancelled { background: rgba(220,53,69,0.1); color: #dc3545; }
+
+/* GRID CARDS */
+.grid-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1rem; }
+.req-card { background: var(--adm-panel); border: 1px solid var(--adm-border); padding: 1.5rem; border-radius: 10px; border-left: 3px solid var(--adm-gold); }
+
+/* ... CSS Admin lainnya ... */
+
+/* BENTO GRID LAYOUT */
+.section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    color: var(--adm-muted);
+    margin: 2rem 0 1rem 0;
+    letter-spacing: 1px;
+}
+
+.bento-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.bento-card {
+    background: var(--adm-panel);
+    border: 1px solid var(--adm-border);
+    border-radius: 16px; /* Lebih bulat untuk style bento */
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    transition: transform 0.3s ease;
+}
+
+.bento-card:hover {
+    border-color: var(--adm-gold);
+    transform: translateY(-2px);
+}
+
+.bento-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.2rem;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    padding-bottom: 0.8rem;
+}
+
+.bento-header h4 {
+    margin: 0;
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    color: #fff;
+}
+
+.btn-icon-link {
+    background: rgba(255,255,255,0.05);
+    border: none;
+    color: var(--adm-gold);
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    font-size: 1rem;
+    display: flex; align-items: center; justify-content: center;
+    transition: 0.3s;
+}
+.btn-icon-link:hover {
+    background: var(--adm-gold);
+    color: #000;
+}
+
+/* Bento List Items */
+.bento-list {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+    max-height: 250px; /* Batasi tinggi agar rapi */
+}
+
+.mini-item {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.8rem;
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+    transition: 0.2s;
+}
+
+.mini-item:hover {
+    background: rgba(255,255,255,0.05);
+}
+
+.mini-icon {
+    width: 40px; height: 40px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+}
+
+.mini-info { flex: 1; }
+.mini-title { display: block; font-size: 0.9rem; font-weight: 600; color: #eee; margin-bottom: 2px; }
+.mini-sub { display: block; font-size: 0.75rem; color: var(--adm-muted); }
+
+.mini-status {
+    font-size: 0.7rem;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background: rgba(255,255,255,0.1);
+}
+
+/* Responsive adjustment */
+@media (max-width: 768px) {
+    .bento-grid { grid-template-columns: 1fr; }
+}
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+    .sidebar-panel { width: 70px; }
+    .main-panel { margin-left: 70px; width: calc(100% - 70px); }
+    .brand-text, .brand-badge, .menu-link span:not(.icon), .profile-text { display: none; }
+    .menu-link { justify-content: center; padding: 1.5rem 0; }
+    .menu-link .icon { margin: 0; font-size: 1.4rem; }
+}
+
+@media (max-width: 600px) {
+    .sidebar-panel { display: none; }
+    .main-panel { margin-left: 0; width: 100%; }
+    .content-container { padding: 1rem; }
+    .admin-topbar { padding: 0 1rem; }
+}
+
+/* [File: style/admin.css] - Tambahkan di baris paling bawah */
+
+.btn-edit-stock {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 4px 8px;
+    border-radius: 4px;
+    transition: all 0.2s;
+    opacity: 0.7;
+    filter: grayscale(100%);
+}
+
+.btn-edit-stock:hover {
+    opacity: 1;
+    background-color: rgba(255, 255, 255, 0.1);
+    transform: scale(1.1);
+    filter: grayscale(0%);
+}
+
+/* ===================================
+           NOTIFICATION
+           =================================== */
+        .notification {
+            position: fixed;
+            top: 9rem;
+            right: 2rem;
+            background: linear-gradient(135deg, var(--gold-dark), var(--gold));
+            color: #000;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 9999;
+            opacity: 0;
+            transform: translateX(400px);
+            transition: all 0.4s ease;
+            box-shadow: 0 10px 30px rgba(212, 165, 116, 0.4);
+        }
+
+        .notification.show {
+            opacity: 1;
+            transform: translateX(0);
+        }

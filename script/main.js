@@ -707,6 +707,7 @@
         
         if (isEditing) {
             // --- SAVE MODE ---
+            
             const profileData = {
                 firstName: document.getElementById('profile-fname').value,
                 lastName: document.getElementById('profile-lname').value,
@@ -714,39 +715,63 @@
                 phone: document.getElementById('profile-phone').value,
                 address: document.getElementById('addr-street').value,
                 city: document.getElementById('addr-city').value,
-                postalCode: document.getElementById('addr-postal').value,
+                postalCode: document.getElementById('addr-postal').value, // Ambil input postal code
                 country: document.getElementById('addr-country').value,
                 bio: document.getElementById('profile-bio').value
             };
             
-            // Simpan ke localStorage
+            // Simpan ke Session Profile
             localStorage.setItem('userProfile', JSON.stringify(profileData));
             
-            // Disable inputs kembali
-            inputs.forEach(input => input.readOnly = true);
-            inputs.forEach(input => input.style.borderBottom = '1px solid #333'); // Reset style
+            // Simpan ke Database Users (Untuk Admin)
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            const currentSessionEmail = localStorage.getItem('userEmail');
             
-            // Ubah tombol kembali ke Edit
+            const userIndex = users.findIndex(u => u.email === currentSessionEmail);
+            
+            if (userIndex !== -1) {
+                users[userIndex].name = `${profileData.firstName} ${profileData.lastName}`.trim();
+                users[userIndex].email = profileData.email;
+                users[userIndex].phone = profileData.phone;
+                
+                // Simpan Postal Code secara terpisah agar bisa dibaca Admin
+                users[userIndex].postalCode = profileData.postalCode; 
+                
+                const fullAddr = [
+                    profileData.address,
+                    profileData.city,
+                    profileData.country
+                ].filter(Boolean).join(', ');
+                
+                users[userIndex].address = fullAddr;
+                
+                localStorage.setItem('users', JSON.stringify(users));
+                
+                if (currentSessionEmail !== profileData.email) {
+                    localStorage.setItem('userEmail', profileData.email);
+                }
+            }
+            
+            // ... (Kode reset tampilan input & tombol tetap sama) ...
+            inputs.forEach(input => {
+                input.readOnly = true;
+                input.style.borderBottom = '1px solid #333';
+            });
+            
             editBtn.textContent = 'Edit Profile';
             editBtn.style.background = '';
             editBtn.style.color = '';
             
-            // Update tampilan nama di Sidebar secara realtime
             updateProfileName(profileData.firstName, profileData.lastName, profileData.email);
-            
             showNotification('Profile updated successfully!', 'success');
             
         } else {
-            // --- EDIT MODE ---
+            // ... (Mode Edit tetap sama) ...
             inputs.forEach(input => {
                 input.readOnly = false;
-                input.style.borderBottom = '1px solid var(--gold)'; // Visual cue
+                input.style.borderBottom = '1px solid var(--gold)';
             });
-            
-            // Fokus ke nama depan
             document.getElementById('profile-fname').focus();
-            
-            // Ubah tombol menjadi Save
             editBtn.textContent = 'Save Changes';
             editBtn.style.background = 'var(--gold)';
             editBtn.style.color = '#000';
@@ -1056,11 +1081,41 @@ function loadAppointments() {
     
     // Urutkan dari yang terbaru (reverse)
     container.innerHTML = [...appointments].reverse().map(app => {
-        // Format Tanggal Cantik (Contoh: "24 DEC")
-        const dateObj = new Date(app.date);
-        const day = dateObj.getDate();
-        const month = dateObj.toLocaleString('default', { month: 'short' });
         
+        // --- LOGIKA TANGGAL BARU (Agar support Workshop & Consultation) ---
+        let day, month;
+        
+        // Cek 1: Apakah formatnya teks pendek dengan spasi? (Contoh: "15 Oct")
+        if (app.date && app.date.indexOf(' ') > -1) {
+            const parts = app.date.split(' ');
+            day = parts[0];   // Ambil angka "15"
+            month = parts[1]; // Ambil bulan "Oct"
+        } 
+        // Cek 2: Format standar ISO YYYY-MM-DD (Dari booking konsultasi biasa)
+        else {
+            const dateObj = new Date(app.date);
+            if (!isNaN(dateObj)) {
+                day = dateObj.getDate();
+                month = dateObj.toLocaleString('default', { month: 'short' });
+            } else {
+                // Fallback jika tanggal error
+                day = "--"; 
+                month = "---";
+            }
+        }
+        
+        // --- LOGIKA LOKASI (Agar tidak selalu "Virtual Meeting") ---
+        let displayLocation = "Virtual Meeting (Zoom)"; // Default Konsultasi
+        
+        // Jika data lokasi tersimpan, gunakan itu
+        if (app.location) {
+            displayLocation = app.location;
+        }
+        // Jika tidak ada lokasi tapi ini Workshop, ganti teksnya
+        else if ((app.topic || '').toLowerCase().includes('workshop')) {
+            displayLocation = "Event Venue / Store";
+        }
+
         return `
             <div class="service-card">
                 <div class="service-header">
@@ -1073,10 +1128,10 @@ function loadAppointments() {
                         <span class="date-month">${month}</span>
                     </div>
                     <div class="service-details">
-                        <h4>${app.topic} Session</h4>
+                        <h4>${app.topic}</h4>
                         <div class="service-meta">
                             <span>🕒 ${app.time}</span>
-                            <span>📍 Virtual Meeting (Zoom)</span>
+                            <span>📍 ${displayLocation}</span>
                         </div>
                     </div>
                 </div>
@@ -1087,77 +1142,131 @@ function loadAppointments() {
 
 // Render Request Parfum Kustom
 // Render Request Parfum Kustom (Updated with Price)
-function loadCustomRequests() {
-    const requests = JSON.parse(localStorage.getItem('customRequests') || '[]');
-    const container = document.getElementById('custom-requests-list');
+function loadCustom() {
+    const container = document.getElementById('custom-grid');
+    if(!container) return;
     
-    if (!container) return;
+    const reqs = JSON.parse(localStorage.getItem('customRequests') || '[]');
     
-    if (requests.length === 0) {
-        container.innerHTML = `
-            <div class="empty-service">
-                <p>No custom fragrance requests yet.</p>
-                <a href="service.html" onclick="window.location.href='service.html';">Create Your Scent</a>
-            </div>`;
+    if(reqs.length === 0) {
+        container.innerHTML = '<p style="text-align:center; width:100%; grid-column:1/-1; color:#666; padding: 2rem;">No custom requests found.</p>';
         return;
     }
-    
-    container.innerHTML = [...requests].reverse().map(req => {
-        // Format Formula Display
-        let formulaHtml = '';
-        if (req.formula) {
-            // Kita potong string agar tidak terlalu panjang di kartu
-            const trunc = (str) => str && str.length > 20 ? str.substring(0, 18) + '..' : str;
-            formulaHtml = `
-                <span class="formula-tag">T: ${trunc(req.formula.top)}</span>
-                <span class="formula-tag">H: ${trunc(req.formula.heart)}</span>
-                <span class="formula-tag">B: ${trunc(req.formula.base)}</span>
-            `;
-        }
 
-        const sizeDisplay = req.formula?.size || '50ml';
-        // Ambil harga (fallback ke kosong jika data lama belum ada harga)
-        const priceDisplay = req.price ? req.price : '';
+    container.innerHTML = reqs.reverse().map(r => {
+        // 1. Tentukan Status & Warna
+        const currentStatus = r.status || 'Order Placed';
+        const isSel = (val) => currentStatus === val ? 'selected' : '';
+        
+        let statusColor = '#f1c40f'; // Kuning (Default)
+        if(currentStatus === 'Shipped') statusColor = '#3498db'; // Biru
+        if(currentStatus === 'Delivered') statusColor = '#2ecc71'; // Hijau
+        if(currentStatus === 'Cancelled') statusColor = '#e74c3c'; // Merah
+
+        // 2. Data User (Fallback ke 'Guest' jika data lama belum punya nama)
+        const uName = r.customerName || 'Guest User';
+        const uEmail = r.customerEmail || '-';
 
         return `
-            <div class="service-card">
-                <div class="service-header">
-                    <span class="service-id">ID: ${req.id}</span>
-                    <span class="status-badge status-lab">${req.status}</span>
+        <div class="req-card" style="background: #121212; border: 1px solid #333; border-radius: 8px; padding: 1.2rem; display: flex; flex-direction: column; gap: 1rem;">
+            
+            <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid #2a2a2a; padding-bottom:10px;">
+                <div>
+                    <h4 style="margin:0; color:var(--adm-gold); font-size: 1.1rem; font-family: 'Playfair Display', serif;">${r.name}</h4>
+                    <span style="color:#666; font-family:monospace; font-size: 0.8rem;">ID: ${r.id}</span>
                 </div>
-                <div class="service-body">
-                    <div class="service-date-box" style="border-color: var(--gold);">
-                        <span class="date-day" style="font-size: 1.5rem;">🧪</span>
-                        <span class="date-month">BESPOKE</span>
-                    </div>
-                    <div class="service-details" style="width: 100%;">
-                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
-                            <h4 style="margin: 0; display: flex; align-items: center; gap: 8px;">
-                                "${req.name}" 
-                                <span style="font-size:0.7rem; color:var(--gold); border:1px solid var(--gold); padding:1px 6px; border-radius:4px;">
-                                    ${sizeDisplay}
-                                </span>
-                            </h4>
-                            
-                            ${priceDisplay ? `
-                                <span style="color: var(--gold); font-weight: 700; font-size: 1.1rem; font-family: 'Playfair Display', serif;">
-                                    ${priceDisplay}
-                                </span>
-                            ` : ''}
-                        </div>
-
-                        <div class="formula-tags">
-                            ${formulaHtml}
-                        </div>
-                        <p style="font-size: 0.8rem; color: #666; margin-top: 0.5rem;">
-                            Submitted: ${new Date(req.date).toLocaleDateString()}
-                        </p>
-                    </div>
+                <div style="text-align:right;">
+                    <strong style="display:block; font-size:1.1rem; color: #fff;">${r.price || '$0'}</strong>
+                    <small style="color:#888; font-size: 0.75rem;">${new Date(r.date).toLocaleDateString()}</small>
                 </div>
             </div>
-        `;
-    }).join('');
+
+            <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px; border: 1px dashed #333;">
+                <div style="color: #eee; font-weight: 600; font-size: 0.9rem; margin-bottom: 2px;">
+                    👤 ${uName}
+                </div>
+                <div style="color: #888; font-size: 0.8rem;">
+                    📧 ${uEmail}
+                </div>
+            </div>
+
+            <div style="font-size: 0.85rem; color: #ccc; line-height: 1.6;">
+                <div style="display:flex;"><span style="color:#666; width: 60px;">Top:</span> <span>${r.formula.top}</span></div>
+                <div style="display:flex;"><span style="color:#666; width: 60px;">Heart:</span> <span>${r.formula.heart}</span></div>
+                <div style="display:flex;"><span style="color:#666; width: 60px;">Base:</span> <span>${r.formula.base}</span></div>
+                <div style="margin-top: 5px; padding-top:5px; border-top: 1px solid #222; color: #888;">
+                    Bottle Size: <span style="color: #fff;">${r.formula.size || '50ml'}</span>
+                </div>
+            </div>
+            
+            <div style="margin-top: auto;">
+                <label style="font-size: 0.7rem; color: #555; display: block; margin-bottom: 4px; text-transform:uppercase; letter-spacing:1px;">Update Status</label>
+                <select onchange="updateCustomStatus('${r.id}', this.value)" 
+                        style="width:100%; padding: 8px 12px; background: #000; border: 1px solid ${statusColor}; color: ${statusColor}; border-radius: 4px; font-weight: 600; cursor: pointer; outline: none;">
+                    <option value="Order Placed" ${isSel('Order Placed')}>Order Placed</option>
+                    <option value="In Review" ${isSel('In Review')}>In Review</option>
+                    <option value="Blending" ${isSel('Blending')}>Blending</option>
+                    <option value="Shipped" ${isSel('Shipped')}>Shipped</option>
+                    <option value="Delivered" ${isSel('Delivered')}>Delivered</option>
+                    <option value="Cancelled" ${isSel('Cancelled')}>Cancelled</option>
+                </select>
+            </div>
+        </div>
+    `}).join('');
 }
+
+// FUNGSI HELPER BARU: UPDATE STATUS KE STORAGE
+window.updateCustomStatus = function(id, newStatus) {
+    const reqs = JSON.parse(localStorage.getItem('customRequests') || '[]');
+    const index = reqs.findIndex(r => r.id === id);
+    
+    if(index > -1) {
+        reqs[index].status = newStatus;
+        localStorage.setItem('customRequests', JSON.stringify(reqs));
+        
+        // Refresh tampilan agar warna dropdown berubah
+        loadCustom(); 
+        
+        // Update statistik dashboard jika ada
+        if(typeof loadStats === 'function') loadStats();
+        if(typeof loadBentoActivity === 'function') loadBentoActivity();
+    }
+};
+
+// FUNGSI HELPER BARU UNTUK UPDATE STATUS
+window.updateCustomStatus = function(id, newStatus) {
+    const reqs = JSON.parse(localStorage.getItem('customRequests') || '[]');
+    const index = reqs.findIndex(r => r.id === id);
+    
+    if(index > -1) {
+        reqs[index].status = newStatus;
+        localStorage.setItem('customRequests', JSON.stringify(reqs));
+        
+        // Refresh tampilan agar warna berubah
+        loadCustom(); 
+        
+        // Update juga statistik di dashboard
+        if(typeof loadStats === 'function') loadStats();
+        if(typeof loadBentoActivity === 'function') loadBentoActivity();
+    }
+};
+
+// FUNGSI BARU: UPDATE STATUS BESPOKE
+window.updateCustomStatus = function(id, newStatus) {
+    const reqs = JSON.parse(localStorage.getItem('customRequests') || '[]');
+    const index = reqs.findIndex(r => r.id === id);
+    
+    if(index > -1) {
+        reqs[index].status = newStatus;
+        localStorage.setItem('customRequests', JSON.stringify(reqs));
+        
+        // Refresh tampilan dashboard & grid
+        refreshAll(); 
+        
+        // Opsional: Notif kecil (console log)
+        console.log(`Custom Request ${id} updated to ${newStatus}`);
+    }
+};
 
 // Pastikan fungsi global tersedia
 window.switchProfileTab = switchProfileTab;
@@ -1204,48 +1313,59 @@ document.addEventListener('DOMContentLoaded', () => {
     if (bookingForm) {
         bookingForm.addEventListener('submit', (e) => {
             e.preventDefault();
+
+            // 1. LOGIKA NAMA
+            const userProfile = JSON.parse(localStorage.getItem('userProfile') || '{}');
+            let nameInput = document.getElementById('bookName') || bookingForm.querySelector('input[type="text"]'); // Perbaikan selector ID
             
-            // Ambil data dari input
-            const date = document.getElementById('bookDate').value;
-            const time = document.getElementById('bookTime').value;
-            const topicEl = document.querySelector('input[name="topic"]:checked');
-            const topic = topicEl ? topicEl.value : 'General Consultation';
+            let finalName = 'Guest';
+            if (nameInput && nameInput.value.trim() !== '') {
+                finalName = nameInput.value;
+            } else if (userProfile.firstName) {
+                finalName = `${userProfile.firstName} ${userProfile.lastName || ''}`;
+            }
+            finalName = finalName.trim();
+
+            // 2. LOGIKA WAKTU (Ambil dari ID bookTime)
+            const timeElement = document.getElementById('bookTime');
+            const selectedTime = timeElement ? timeElement.value : '10:00';
+
+            // 3. LOGIKA TOPIC (PERBAIKAN UTAMA DI SINI)
+            // Kita mengambil value dari Radio Button yang sedang dipilih (checked)
+            const topicElement = bookingForm.querySelector('input[name="topic"]:checked');
+            // Jika ada yang dipilih ambil valuenya, jika tidak default ke General Consultation
+            const selectedTopic = topicElement ? topicElement.value : 'General Consultation';
+
+            // 4. Ambil Tanggal
+            const dateInput = document.getElementById('bookDate');
+            const dateVal = dateInput ? dateInput.value : new Date().toLocaleDateString();
+
+            // 5. SIMPAN DATA
+            const newApp = {
+                id: 'APP-' + Date.now(),
+                name: finalName,
+                email: document.getElementById('bookEmail') ? document.getElementById('bookEmail').value : (localStorage.getItem('userEmail') || '-'),
+                date: dateVal,
+                time: selectedTime,
+                topic: selectedTopic, // <--- Data ini sekarang sudah benar (Scent Profiling, dll)
+                status: 'Confirmed'
+            };
+
+            const apps = JSON.parse(localStorage.getItem('appointments') || '[]');
+            apps.push(newApp);
+            localStorage.setItem('appointments', JSON.stringify(apps));
+
+            // 6. Notifikasi & Tutup Modal
+            if (typeof closeBookingModal === 'function') closeBookingModal();
             
-            // Efek Loading
-            const submitBtn = bookingForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = "Booking Confirmed!";
-            submitBtn.disabled = true;
+            // Tampilkan alert atau notifikasi
+            if (typeof showNotification === 'function') {
+                showNotification(`Booking Confirmed: ${selectedTopic} for ${finalName}`, 'success');
+            } else {
+                alert(`Booking Confirmed: ${selectedTopic} for ${finalName}`);
+            }
             
-            setTimeout(() => {
-                // --- INTI LOGIKA PENYIMPANAN ---
-                const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
-                
-                appointments.push({
-                    id: 'BK-' + Math.floor(1000 + Math.random() * 9000), // ID Unik
-                    date: date,
-                    time: time,
-                    topic: topic,
-                    status: 'Confirmed' // Status awal
-                });
-                
-                localStorage.setItem('appointments', JSON.stringify(appointments));
-                // --------------------------------
-                
-                // Reset & Tutup
-                bookingForm.reset();
-                closeBookingModal();
-                
-                if (typeof showNotification === 'function') {
-                    showNotification(`Appointment booked for ${date} at ${time}`, 'success');
-                } else {
-                    alert('Appointment booked successfully!');
-                }
-                
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                
-            }, 1000);
+            bookingForm.reset();
         });
     }
 });
@@ -1326,7 +1446,7 @@ document.addEventListener('DOMContentLoaded', () => {
         customForm.addEventListener('submit', (e) => {
             e.preventDefault();
             
-            const totalCost = calculateTotal(); // Ambil total akhir
+            const totalCost = calculateTotal(); 
 
             // Helper ambil value checkbox
             const getSelectedValues = (name) => {
@@ -1357,12 +1477,38 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.disabled = true;
             
             setTimeout(() => {
-                // Simpan Data
+                // --- BAGIAN BARU: AMBIL IDENTITAS USER ---
+                let userName = 'Guest';
+                let userEmail = 'guest@example.com';
+                
+                try {
+                    const profileStr = localStorage.getItem('userProfile');
+                    if (profileStr) {
+                        const p = JSON.parse(profileStr);
+                        if (p.firstName) userName = `${p.firstName} ${p.lastName || ''}`.trim();
+                        else if (p.name) userName = p.name;
+                        if (p.email) userEmail = p.email;
+                    } else {
+                        const sessionEmail = localStorage.getItem('userEmail');
+                        if (sessionEmail) {
+                            userEmail = sessionEmail;
+                            userName = sessionEmail.split('@')[0];
+                        }
+                    }
+                } catch (e) { console.error("User data error", e); }
+                // -----------------------------------------
+
+                // Simpan Data ke LocalStorage
                 const customRequests = JSON.parse(localStorage.getItem('customRequests') || '[]');
                 
                 customRequests.push({
                     id: 'BESPOKE-' + Math.floor(1000 + Math.random() * 9000),
                     date: new Date().toISOString(),
+                    
+                    // DATA PENTING: Identitas user disimpan di sini
+                    customerName: userName,
+                    customerEmail: userEmail,
+                    
                     formula: {
                         top: finalTop,
                         heart: finalHeart,
@@ -1370,7 +1516,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         size: bottleSize 
                     },
                     name: creationName,
-                    price: `$${totalCost}`, // Simpan harga
+                    price: `$${totalCost}`, 
                     status: 'Order Placed'
                 });
                 
@@ -1378,22 +1524,20 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 // Reset & Close
                 customForm.reset();
-                calculateTotal(); // Reset tampilan harga ke default
+                calculateTotal(); 
                 closeCustomModal();
                 
                 if (typeof showNotification === 'function') {
-                    showNotification(`Order placed for "${creationName}" ($${totalCost})`, 'success');
+                    showNotification(`Order placed for "${creationName}"`, 'success');
                 } else {
-                    alert(`Success! Total: $${totalCost}`);
+                    alert(`Success! Order placed.`);
                 }
                 
                 submitBtn.textContent = originalText;
                 submitBtn.disabled = false;
                 
-                // Jika sedang di halaman profile, refresh tab service agar pesanan muncul
-                if (typeof loadCustomRequests === 'function') {
-                    loadCustomRequests();
-                }
+                // Refresh list jika ada di halaman profile
+                if (typeof loadCustomRequests === 'function') loadCustomRequests();
 
             }, 1500);
         });
@@ -1426,35 +1570,73 @@ function closeWorkshopModal() {
     }
 }
 
-function registerWorkshop(eventName, eventDate) {
-    // 1. Cek apakah user sudah login (Opsional, tapi disarankan)
+function registerWorkshop(eventName, eventDate, eventTime, eventLocation) {
+    // 1. Cek Login (Opsional)
     // const userLoggedIn = localStorage.getItem('userLoggedIn');
     // if (!userLoggedIn) { alert("Please login first."); return; }
 
-    // 2. Konfirmasi User
-    if(!confirm(`Confirm registration for "${eventName}" on ${eventDate}?`)) return;
+    // 2. Konfirmasi
+    if(!confirm(`Confirm registration for "${eventName}" on ${eventDate} (${eventTime}) at ${eventLocation}?`)) return;
 
-    // 3. Simpan ke LocalStorage 'appointments' (Digabung dengan booking konsultasi)
+    // --- [PERBAIKAN UTAMA DI SINI] ---
+    // Kita buat logika pencarian nama yang berlapis
+    let finalName = 'Guest'; // Default jika semua gagal
+    
+    try {
+        // Coba ambil dari userProfile (Logic utama)
+        const profileStr = localStorage.getItem('userProfile');
+        if (profileStr) {
+            const p = JSON.parse(profileStr);
+            // Cek apakah firstName ada? Jika tidak cek 'name', jika tidak cek 'email'
+            if (p.firstName) {
+                finalName = `${p.firstName} ${p.lastName || ''}`;
+            } else if (p.name) {
+                finalName = p.name;
+            }
+        } 
+        // Jika userProfile gagal, coba ambil dari email login
+        else {
+            const email = localStorage.getItem('userEmail');
+            if (email) finalName = email.split('@')[0]; // Ambil nama dari email
+        }
+    } catch (e) {
+        console.error("Error reading user data", e);
+        finalName = 'Guest Error';
+    }
+    
+    // Bersihkan spasi berlebih
+    finalName = finalName.trim();
+    // ---------------------------------
+
+    // 3. Simpan
     const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
     
     appointments.push({
-        id: 'WS-' + Math.floor(1000 + Math.random() * 9000), // ID Khusus Workshop
-        date: new Date().toISOString(), // Tanggal booking dibuat
-        eventDateDisplay: eventDate, // Tanggal acara (string)
-        time: 'Check Ticket',
+        id: 'WS-' + Math.floor(1000 + Math.random() * 9000),
+        name: finalName, 
+        
+        // UPDATE DI SINI:
+        // Gunakan eventDate sebagai tanggal utama agar muncul benar di admin
+        date: eventDate, 
+        // Gunakan waktu spesifik yang dikirim dari HTML
+        time: eventTime, 
+        // Tambahkan properti lokasi
+        location: eventLocation, 
+        
         topic: `Workshop: ${eventName}`,
-        status: 'Registered'
+        status: 'Registered',
+        type: 'Event' // Penanda bahwa ini event
     });
     
     localStorage.setItem('appointments', JSON.stringify(appointments));
 
-    // 4. Tutup Modal & Beri Notifikasi
-    closeWorkshopModal();
+    // 4. Tutup & Notif (Kode asli tetap sama)
+    if (typeof closeWorkshopModal === 'function') closeWorkshopModal();
     
     if (typeof showNotification === 'function') {
-        showNotification(`Success! You are registered for ${eventName}.`, 'success');
+        showNotification(`Success! Registered for ${eventName}.`, 'success');
     } else {
-        alert(`Success! You are registered for ${eventName}.`);
+        alert(`Success! Registered for ${eventName}.`);
     }
 }
 
@@ -1742,22 +1924,6 @@ function calculateReviewStats(reviews) {
 
 // Variabel sementara untuk menyimpan data event yang sedang dipilih
 let pendingEventData = null;
-
-function registerWorkshop(eventName, eventDate) {
-    // 1. Simpan data ke variabel global sementara
-    pendingEventData = { name: eventName, date: eventDate };
-
-    // 2. Update isi teks Modal secara dinamis
-    document.getElementById('confirmEventName').textContent = eventName;
-    document.getElementById('confirmEventDate').textContent = eventDate;
-
-    // 3. Tampilkan Modal Konfirmasi
-    const modal = document.getElementById('workshopConfirmModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden';
-    }
-}
 
 function closeConfirmModal() {
     const modal = document.getElementById('workshopConfirmModal');
@@ -2819,6 +2985,7 @@ function loadOrderSummary() {
             const form = document.getElementById('checkoutForm');
             const selectedPayment = document.querySelector('.payment-option.selected');
             
+            
             if (!form.checkValidity()) {
                 form.reportValidity();
                 return;
@@ -2839,21 +3006,34 @@ function loadOrderSummary() {
                 
                 // 1. AMBIL data cart
                 const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+                // --- LOGIKA BARU: PENGURANGAN STOK ---
+                const stocks = JSON.parse(localStorage.getItem('product_stock') || '{}');
                 
                 // --- [BARU] UPDATE DATA PENJUALAN (SALES TRACKING) ---
-                const salesData = JSON.parse(localStorage.getItem('product_sales') || '{}');
+                const sales = JSON.parse(localStorage.getItem('product_sales') || '{}');
                 
                 cart.forEach(item => {
-                    // Tambahkan quantity beli ke total penjualan produk tersebut
-                    salesData[item.id] = (salesData[item.id] || 0) + item.quantity;
-                });
+                // 1. Ambil stok saat ini (Default 10 jika belum ada record)
+                let currentStock = stocks[item.id] !== undefined ? stocks[item.id] : 10;
                 
-                // Simpan kembali data sales
-                localStorage.setItem('product_sales', JSON.stringify(salesData));
-                // -----------------------------------------------------
+                // 2. Kurangi stok dengan jumlah yang dibeli
+                let newStock = currentStock - item.quantity;
+                
+                // (Opsional) Mencegah stok minus
+                if (newStock < 0) newStock = 0; 
+                
+                // 3. Simpan nilai baru
+                stocks[item.id] = newStock;
+                
+                // 4. Update Sales Count (Agar kolom Sold di admin juga nambah)
+                let currentSold = sales[item.id] !== undefined ? sales[item.id] : 2;
+                sales[item.id] = currentSold + item.quantity;
+                });
 
-                // 2. Hapus cart
-                localStorage.removeItem('cart');
+                // Simpan kembali ke LocalStorage
+                localStorage.setItem('product_stock', JSON.stringify(stocks));
+                localStorage.setItem('product_sales', JSON.stringify(sales));
                 
                 // 3. Simpan ke riwayat order
                 const orders = JSON.parse(localStorage.getItem('orders') || '[]');
@@ -3179,6 +3359,18 @@ function initShopFilters() {
     // --- 5. LOGIKA FILTER UTAMA ---
     function applyFilters() {
         let filtered = [...productArray];
+
+        // --- [BARU] FILTER STOK KOSONG ---
+        // Ambil data stok dari LocalStorage
+        const stocks = JSON.parse(localStorage.getItem('product_stock') || '{}');
+
+        filtered = filtered.filter(p => {
+            // Ambil stok produk ini (Default 10 jika belum ada data di admin)
+            const currentStock = stocks[p.id] !== undefined ? stocks[p.id] : 10;
+            
+            // Hanya kembalikan produk yang stoknya LEBIH DARI 0
+            return currentStock > 0;
+        });
 
         // A. Filter Category
         const checkedCats = Array.from(categoryCheckboxes).filter(cb => cb.checked).map(cb => cb.value.toLowerCase());
@@ -3592,61 +3784,134 @@ function toggleWishlist(productId, btnElement) {
     function handleLogin(e) {
         e.preventDefault();
         
-        const email = e.target.querySelector('input[type="email"]').value;
-        const password = e.target.querySelector('input[type="password"]').value;
+        const emailEl = document.getElementById('loginEmail');
+        const passEl = document.getElementById('loginPassword');
+
+        if (!emailEl || !passEl) return;
+
+        const emailInput = emailEl.value.trim();
+        const passwordInput = passEl.value;
         
-        // Simple validation
-        if (email && password) {
-            // Save user session
-            localStorage.setItem('userLoggedIn', 'true');
-            localStorage.setItem('userEmail', email);
+        // Ambil database users
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        
+        // Cari user
+        const userIndex = users.findIndex(u => u.email === emailInput && u.password === passwordInput);
+
+        if (userIndex !== -1) {
+            const validUser = users[userIndex];
             
-            showNotification('Login successful! Redirecting...', 'success');
+            // --- UPDATE LAST LOGIN (BARU) ---
+            // Catat waktu sekarang sebagai 'lastLogin'
+            const now = new Date();
+            // Format waktu yang cantik (misal: 24 Oct 2025, 14:30)
+            const timeString = now.toLocaleDateString('en-US', { 
+                day: 'numeric', month: 'short', year: 'numeric', 
+                hour: '2-digit', minute: '2-digit' 
+            });
+            
+            users[userIndex].lastLogin = timeString;
+            // Simpan kembali ke database agar admin bisa melihatnya
+            localStorage.setItem('users', JSON.stringify(users));
+            // --------------------------------
+
+            // Login Berhasil (Lanjut seperti biasa)
+            localStorage.setItem('userLoggedIn', 'true');
+            localStorage.setItem('userEmail', emailInput);
+            
+            const fullName = validUser.name || 'User';
+            const nameParts = fullName.split(' ');
+            
+            const profileData = {
+                firstName: nameParts[0],
+                lastName: nameParts.slice(1).join(' ') || '',
+                email: validUser.email,
+                phone: validUser.phone || '', 
+                address: validUser.address || '', 
+                city: '', postalCode: validUser.postalCode || '', country: '', bio: ''
+            };
+            
+            localStorage.setItem('userProfile', JSON.stringify(profileData));
+            
+            if (typeof showNotification === 'function') {
+                showNotification(`Welcome back, ${nameParts[0]}!`, 'success');
+            } else {
+                alert(`Welcome back, ${nameParts[0]}!`);
+            }
             
             setTimeout(() => {
-                window.location.href = 'index.html';
+                if (emailInput.toLowerCase().includes('admin')) {
+                    window.location.href = 'pages/admin.html'; 
+                } else {
+                    window.location.href = 'index.html';
+                }
             }, 1500);
+            
+        } else {
+            if (typeof showNotification === 'function') {
+                showNotification('Invalid email or password!', 'error');
+            } else {
+                alert('Invalid email or password!');
+            }
         }
     }
 
     function handleSignup(e) {
         e.preventDefault();
         
-        const fullName = e.target.querySelector('input[type="text"]').value;
-        const email = e.target.querySelector('input[type="email"]').value;
-        const password = document.getElementById('signupPassword').value;
-        const confirmPassword = document.getElementById('confirmPassword').value;
+        // 1. Ambil value dari form
+        const nameEl = document.getElementById('signupName');
+        const emailEl = document.getElementById('signupEmail');
+        const passEl = document.getElementById('signupPassword');
+        const confirmEl = document.getElementById('confirmPassword');
+
+        // Fallback selector jika ID tidak ditemukan
+        const fullName = nameEl ? nameEl.value : e.target.querySelector('input[type="text"]').value;
+        const email = emailEl ? emailEl.value : e.target.querySelector('input[type="email"]').value;
+        const password = passEl ? passEl.value : document.getElementById('signupPassword').value;
+        const confirmPassword = confirmEl ? confirmEl.value : document.getElementById('confirmPassword').value;
         
-        // Validate passwords match
+        // 2. Validasi Password
         if (password !== confirmPassword) {
             showNotification('Passwords do not match!', 'error');
             return;
         }
         
-        // Validate password strength
         if (password.length < 3) {
             showNotification('Password must be at least 3 characters!', 'error');
             return;
         }
+
+        // 3. Cek Email Duplikat
+        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        if (users.some(u => u.email === email)) {
+            showNotification('Email is already registered!', 'error');
+            return;
+        }
+
+        // 4. Simpan Data User Baru
+        const newUser = {
+            id: 'USER-' + Date.now(),
+            name: fullName,
+            email: email,
+            password: password, // Password disimpan untuk login nanti
+            role: 'Customer',
+            joinedDate: new Date().toLocaleDateString()
+        };
+
+        users.push(newUser);
+        localStorage.setItem('users', JSON.stringify(users));
         
-        // Save user data
-        localStorage.setItem('userLoggedIn', 'true');
-        localStorage.setItem('userEmail', email);
-        localStorage.setItem('userProfile', JSON.stringify({
-            firstName: fullName.split(' ')[0],
-            lastName: fullName.split(' ').slice(1).join(' '),
-            email: email
-        }));
+        // 5. PENTING: Jangan auto-login.
+        // Kita tidak menyimpan 'userLoggedIn' di sini agar user harus login manual.
         
-        showNotification('Account created successfully! Redirecting...', 'success');
+        // 6. Tampilkan Notifikasi & Redirect ke signup.html
+        showNotification('Account created! Redirecting to login...', 'success');
         
         setTimeout(() => {
-            window.location.href = 'index.html';
+            // Mengarahkan kembali ke halaman ini (signup.html) agar user bisa Login
+            window.location.href = 'signup.html';
         }, 1500);
-    }
-
-    function socialLogin(provider) {
-        showNotification(`${provider} login feature coming soon!`, 'success');
     }
 
 // ============================================
@@ -3745,7 +4010,7 @@ function initBestSellerSlider() {
     const track = document.getElementById('bs-track');
     if (!track) return;
 
-    // --- 1. AMBIL TOP 5 PRODUK TERLARIS ---
+    // --- 1. AMBIL TOP PRODUK TERLARIS ---
     const salesData = JSON.parse(localStorage.getItem('product_sales') || '{}');
     
     // Konversi object sales ke array dan urutkan dari terbesar
@@ -3758,15 +4023,28 @@ function initBestSellerSlider() {
     // Ambil ID produk teratas
     let topProductIds = sortedSales.map(s => s.id);
     
-    // Fallback Default: Jika belum ada penjualan, gunakan daftar default ini
+    // Fallback Default
     const defaultBestSellers = ['floral-essence', 'amber-nights', 'royal-rose', 'golden-aura', 'timeless-oud'];
     
-    // Gabungkan: Sales teratas + Default (untuk mengisi slot kosong jika penjualan < 5)
-    // Set digunakan untuk menghilangkan duplikat
-    topProductIds = [...new Set([...topProductIds, ...defaultBestSellers])].slice(0, 5);
+    // Gabungkan semua kandidat (Sales + Default)
+    let combinedIds = [...new Set([...topProductIds, ...defaultBestSellers])];
+
+    // --- [BARU] FILTER STOCK KOSONG ---
+    // Jangan tampilkan produk jika stoknya 0
+    const stocks = JSON.parse(localStorage.getItem('product_stock') || '{}');
+    
+    combinedIds = combinedIds.filter(id => {
+        // Default stok 10 jika belum ada data
+        const currentStock = stocks[id] !== undefined ? stocks[id] : 10;
+        return currentStock > 0;
+    });
+    // ----------------------------------
+
+    // Ambil maksimal 5 produk SETELAH difilter
+    topProductIds = combinedIds.slice(0, 5);
 
     // --- 2. GENERATE HTML SECARA DINAMIS ---
-    track.innerHTML = ''; // Kosongkan track lama (HTML statis)
+    track.innerHTML = ''; 
 
     // Siapkan data review & fallback
     const storedReviewsData = JSON.parse(localStorage.getItem('product_reviews') || '{}');
@@ -3779,9 +4057,9 @@ function initBestSellerSlider() {
         // Ambil data detail produk dari allProductsData
         const product = (typeof allProductsData !== 'undefined' && allProductsData[id]) ? allProductsData[id] : null;
         
-        if (!product) return; // Skip jika data produk tidak ditemukan
+        if (!product) return; 
 
-        // --- Logika Hitung Bintang (Sync) ---
+        // --- Logika Hitung Bintang ---
         const dynamicReviews = storedReviewsData[id] || [];
         let staticReviews = product.reviews || [];
         
@@ -3807,8 +4085,8 @@ function initBestSellerSlider() {
             reviewCountDisplay = `(${combinedReviews.length} Reviews)`;
         }
 
-        // --- [BARU] HITUNG TERJUAL ---
-        const soldCount = (salesData[id] || 0) + 2; // Default 2
+        // Hitung Terjual
+        const soldCount = (salesData[id] || 0) + 2; 
         
         // Label Kategori
         let categoryLabel = "Best Seller";
@@ -3817,7 +4095,6 @@ function initBestSellerSlider() {
         else if(id.includes('oud')) categoryLabel = "Woody • Rich • Royal";
         else if(id.includes('rose')) categoryLabel = "Rose • Musk • Timeless";
         
-        // [BARU] UPDATE HTML CARD DENGAN SOLD COUNT
         const cardHTML = `
             <div class="wide-product-card">
                 <div class="wide-card-image" style="background-image: url('${product.mainImage || product.image}');"></div>
@@ -3848,15 +4125,18 @@ function initBestSellerSlider() {
         track.insertAdjacentHTML('beforeend', cardHTML);
     });
 
-    // --- 3. INISIALISASI SLIDER LOGIC (Sama seperti sebelumnya) ---
-    // (Kode di bawah ini mengatur animasi slider infinite loop)
+    // --- 3. INISIALISASI SLIDER LOGIC ---
     
     let slides = track.querySelectorAll('.wide-product-card');
     const nextBtn = document.getElementById('bs-next');
     const prevBtn = document.getElementById('bs-prev');
     const dotsContainer = document.getElementById('bs-dots');
 
-    if (slides.length === 0) return;
+    // Jika tidak ada slide (karena semua stok habis), sembunyikan container slider atau biarkan kosong
+    if (slides.length === 0) {
+        if(dotsContainer) dotsContainer.innerHTML = '';
+        return;
+    }
 
     // Setup Dots
     if (dotsContainer) {
@@ -3871,7 +4151,7 @@ function initBestSellerSlider() {
     }
     const dots = document.querySelectorAll('#bs-dots .dot');
 
-    // Cloning
+    // Cloning (Infinite Loop Logic)
     const firstClone = slides[0].cloneNode(true);
     const lastClone = slides[slides.length - 1].cloneNode(true);
 
@@ -3913,8 +4193,12 @@ function initBestSellerSlider() {
         updateSlider();
     }
 
+    // Event Listeners (Hapus listener lama jika perlu, tapi overwrite function aman)
+    // Clone node trick untuk menghapus event listener lama
     if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
+        const newNext = nextBtn.cloneNode(true);
+        nextBtn.parentNode.replaceChild(newNext, nextBtn);
+        newNext.addEventListener('click', () => {
             if (isTransitioning) return;
             if (counter >= allSlides.length - 1) return;
             counter++;
@@ -3923,7 +4207,226 @@ function initBestSellerSlider() {
     }
 
     if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
+        const newPrev = prevBtn.cloneNode(true);
+        prevBtn.parentNode.replaceChild(newPrev, prevBtn);
+        newPrev.addEventListener('click', () => {
+            if (isTransitioning) return;
+            if (counter <= 0) return;
+            counter--;
+            updateSlider();
+        });
+    }
+
+    track.addEventListener('transitionend', () => {
+        isTransitioning = false;
+        if (allSlides[counter].id === 'bs-last-clone') {
+            track.style.transition = 'none';
+            counter = allSlides.length - 2;
+            track.style.transform = `translateX(${-size * counter}%)`;
+        }
+        if (allSlides[counter].id === 'bs-first-clone') {
+            track.style.transition = 'none';
+            counter = 1;
+            track.style.transform = `translateX(${-size * counter}%)`;
+        }
+    });
+}function initBestSellerSlider() {
+    const track = document.getElementById('bs-track');
+    if (!track) return;
+
+    // 1. SIAPKAN DATA
+    // Ambil semua ID produk dari database utama
+    const allIds = (typeof allProductsData !== 'undefined') ? Object.keys(allProductsData) : [];
+    
+    // Ambil data penjualan & stok terkini
+    const salesData = JSON.parse(localStorage.getItem('product_sales') || '{}');
+    const stocks = JSON.parse(localStorage.getItem('product_stock') || '{}');
+
+    // 2. BUAT DAFTAR KANDIDAT LENGKAP
+    // Petakan setiap produk dengan jumlah penjualannya
+    let candidates = allIds.map(id => {
+        return {
+            id: id,
+            // Jika tidak ada data sales, anggap 0. 
+            // Kita tambah sedikit random (0-0.9) agar urutan produk 0 sales tidak selalu sama (opsional)
+            sales: (salesData[id] || 0), 
+            // Cek stok (Default 10 jika belum di-set admin)
+            stock: (stocks[id] !== undefined ? stocks[id] : 10)
+        };
+    });
+
+    // 3. SORTING: URUTKAN BERDASARKAN PENJUALAN TERTINGGI
+    candidates.sort((a, b) => b.sales - a.sales);
+
+    // 4. FILTER: HANYA PRODUK DENGAN STOK > 0
+    // Ini langkah kuncinya: produk kosong langsung dibuang dari antrian
+    const availableCandidates = candidates.filter(p => p.stock > 0);
+
+    // 5. AMBIL TOP 5
+    // Karena sudah disortir & difilter, ini otomatis mengambil 
+    // "5 produk terlaris yang stoknya ada"
+    const topProductIds = availableCandidates.slice(0, 5).map(p => p.id);
+
+    // --- GENERATE HTML (Sama seperti sebelumnya) ---
+    track.innerHTML = ''; 
+
+    // Jika tidak ada produk sama sekali (semua stok habis)
+    if (topProductIds.length === 0) {
+        track.innerHTML = '<div style="text-align:center; width:100%; padding:2rem;">All items sold out!</div>';
+        return;
+    }
+
+    const storedReviewsData = JSON.parse(localStorage.getItem('product_reviews') || '{}');
+    // Fallback review statis
+    const fallbackDefaultReviews = [
+        { rating: "★★★★★", ratingNum: 5 },
+        { rating: "★★★★☆", ratingNum: 4 }
+    ];
+
+    topProductIds.forEach(id => {
+        const product = allProductsData[id];
+        if (!product) return; 
+
+        // Hitung Bintang
+        const dynamicReviews = storedReviewsData[id] || [];
+        let staticReviews = product.reviews || [];
+        if (staticReviews.length === 0 && typeof defaultProductData !== 'undefined') {
+             staticReviews = defaultProductData.reviews || fallbackDefaultReviews;
+        }
+        const combinedReviews = [...dynamicReviews, ...staticReviews];
+        
+        let starsStr = "★★★★★";
+        let reviewCountDisplay = "(0 Reviews)";
+
+        if (combinedReviews.length > 0) {
+            let totalStars = 0;
+            combinedReviews.forEach(r => {
+                let rNum = r.ratingNum;
+                if (!rNum && r.rating) rNum = (r.rating.match(/★/g) || []).length;
+                if (!rNum) rNum = 5;
+                totalStars += rNum;
+            });
+            const avg = Math.round(totalStars / combinedReviews.length);
+            starsStr = "★".repeat(avg) + "☆".repeat(5 - avg);
+            reviewCountDisplay = `(${combinedReviews.length} Reviews)`;
+        }
+
+        // Tampilkan 'Sold' count (Data asli + angka pemanis biar terlihat ramai)
+        const soldCount = (salesData[id] || 0) + (id.length % 5); 
+
+        // Tentukan Label Kategori secara dinamis
+        let categoryLabel = "Best Seller";
+        const cat = (product.category || '').toLowerCase();
+        if(cat.includes('floral')) categoryLabel = "Floral • Fresh • Iconic";
+        else if(cat.includes('amber')) categoryLabel = "Amber • Spicy • Warm";
+        else if(cat.includes('wood') || cat.includes('oud')) categoryLabel = "Woody • Rich • Royal";
+        else categoryLabel = "Signature Scent";
+        
+        const cardHTML = `
+            <div class="wide-product-card">
+                <div class="wide-card-image" style="background-image: url('${product.mainImage || product.image}');"></div>
+                <div class="wide-card-content">
+                    <span class="scent-category">${categoryLabel}</span>
+                    <h3 class="wide-product-name">${product.name}</h3>
+                    <p class="wide-product-desc">${product.shortDescription || (product.productDetails||'').substring(0, 80) + '...'}</p>
+                    
+                    <div class="wide-meta">
+                        <span class="price">${product.price}</span>
+                        <div class="rating">
+                            <span class="stars">${starsStr}</span>
+                            <span class="count">${reviewCountDisplay}</span>
+                        </div>
+                        <div class="bs-sold-count" style="font-size: 0.8rem; color: #666; margin-top: 5px;">
+                            🔥 ${soldCount} Sold recently
+                        </div>
+                    </div>
+
+                    <div class="wide-actions">
+                        <button class="btn-primary" onclick="quickAddToCart('${id}')">Add to Bag</button>
+                        <a href="product_detail.html?id=${id}" class="btn-details">View Details</a>
+                    </div>
+                </div>
+            </div>
+        `;
+        track.insertAdjacentHTML('beforeend', cardHTML);
+    });
+
+    // --- INISIALISASI SLIDER (Logic Geser) ---
+    // Pastikan kode di bawah ini ada untuk mengaktifkan fungsi geser (Next/Prev)
+    
+    let slides = track.querySelectorAll('.wide-product-card');
+    const nextBtn = document.getElementById('bs-next');
+    const prevBtn = document.getElementById('bs-prev');
+    const dotsContainer = document.getElementById('bs-dots');
+
+    if (slides.length === 0) return;
+
+    // Reset Dots
+    if (dotsContainer) {
+        dotsContainer.innerHTML = '';
+        slides.forEach((_, idx) => {
+            const dot = document.createElement('div');
+            dot.classList.add('dot');
+            if (idx === 0) dot.classList.add('active');
+            dot.addEventListener('click', () => moveToSlide(idx + 1)); 
+            dotsContainer.appendChild(dot);
+        });
+    }
+    const dots = document.querySelectorAll('#bs-dots .dot');
+
+    // Clone untuk efek infinite loop
+    const firstClone = slides[0].cloneNode(true);
+    const lastClone = slides[slides.length - 1].cloneNode(true);
+    firstClone.id = 'bs-first-clone';
+    lastClone.id = 'bs-last-clone';
+    track.append(firstClone);
+    track.prepend(lastClone);
+
+    const allSlides = track.querySelectorAll('.wide-product-card'); 
+    let counter = 1;
+    let isTransitioning = false;
+    const size = 100;
+
+    track.style.transform = `translateX(${-size * counter}%)`;
+
+    function updateSlider() {
+        if (isTransitioning) return;
+        isTransitioning = true;
+        track.style.transition = 'transform 0.6s cubic-bezier(0.25, 1, 0.5, 1)';
+        track.style.transform = `translateX(${-size * counter}%)`;
+        
+        // Update dots visual
+        if (dotsContainer) {
+            dots.forEach(d => d.classList.remove('active'));
+            let realIdx = counter - 1;
+            if(counter === 0) realIdx = slides.length - 1;
+            if(counter === allSlides.length - 1) realIdx = 0;
+            if(dots[realIdx]) dots[realIdx].classList.add('active');
+        }
+    }
+
+    function moveToSlide(index) {
+        if (isTransitioning) return;
+        counter = index;
+        updateSlider();
+    }
+
+    // Refresh Event Listeners (Clone node trick)
+    if (nextBtn) {
+        const newNext = nextBtn.cloneNode(true);
+        nextBtn.parentNode.replaceChild(newNext, nextBtn);
+        newNext.addEventListener('click', () => {
+            if (isTransitioning) return;
+            if (counter >= allSlides.length - 1) return;
+            counter++;
+            updateSlider();
+        });
+    }
+
+    if (prevBtn) {
+        const newPrev = prevBtn.cloneNode(true);
+        prevBtn.parentNode.replaceChild(newPrev, prevBtn);
+        newPrev.addEventListener('click', () => {
             if (isTransitioning) return;
             if (counter <= 0) return;
             counter--;
@@ -4144,93 +4647,85 @@ function initOfferSlider() {
     startAutoSlide();
 }
 
-// ============================================
-// 19. CONSULTATION BOOKING SYSTEM
-// ============================================
-
-function openBookingModal() {
-    const modal = document.getElementById('bookingModal');
-    if (modal) {
-        modal.classList.add('active');
-        document.body.style.overflow = 'hidden'; // Mencegah scroll background
-        
-        // Auto-fill nama/email jika user sudah login (simulasi)
-        const userProfile = JSON.parse(localStorage.getItem('userProfile'));
-        if (userProfile) {
-            if(document.getElementById('bookName')) document.getElementById('bookName').value = userProfile.firstName + ' ' + userProfile.lastName;
-            if(document.getElementById('bookEmail')) document.getElementById('bookEmail').value = userProfile.email;
-        }
-        
-        // Set min date to today
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('bookDate').setAttribute('min', today);
-    }
-}
-
-function closeBookingModal() {
-    const modal = document.getElementById('bookingModal');
-    if (modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = '';
-    }
-}
-
-// Handle Form Submission
-document.addEventListener('DOMContentLoaded', () => {
-    const bookingForm = document.getElementById('bookingForm');
-    
-    if (bookingForm) {
-        bookingForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // 1. Ambil data dari form
-            const name = document.getElementById('bookName').value;
-            const date = document.getElementById('bookDate').value;
-            const time = document.getElementById('bookTime').value;
-            const topic = document.querySelector('input[name="topic"]:checked').value;
-            
-            // 2. Simulasi Loading
-            const submitBtn = bookingForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = "Booking...";
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                // 3. Simpan ke LocalStorage (Simulasi Database)
-                const appointments = JSON.parse(localStorage.getItem('appointments') || '[]');
-                appointments.push({
-                    id: 'BK-' + Math.floor(1000 + Math.random() * 9000),
-                    name: name,
-                    date: date,
-                    time: time,
-                    topic: topic,
-                    status: 'Confirmed'
-                });
-                localStorage.setItem('appointments', JSON.stringify(appointments));
-                
-                // 4. Reset Form & Tutup Modal
-                bookingForm.reset();
-                closeBookingModal();
-                
-                // 5. Tampilkan Notifikasi Sukses
-                if (typeof showNotification === 'function') {
-                    showNotification(`Booking Confirmed! See you on ${date} at ${time}.`);
-                } else {
-                    alert(`Booking Confirmed! See you on ${date} at ${time}.`);
-                }
-                
-                // Reset tombol
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                
-            }, 1500); // Delay 1.5 detik agar terasa nyata
-        });
-    }
-});
-
 // Pastikan fungsi di-export ke window agar bisa dipanggil dari HTML onclick
 window.openBookingModal = openBookingModal;
 window.closeBookingModal = closeBookingModal;
+
+// --- LOGIKA SIGN UP (PENDAFTARAN) ---
+    const signupForm = document.getElementById('signupForm');
+    
+    if (signupForm) {
+        signupForm.addEventListener('submit', (e) => {
+            e.preventDefault(); // Mencegah reload halaman
+
+            // 1. Ambil nilai dari input
+            const nameVal = document.getElementById('signupName').value;
+            const emailVal = document.getElementById('signupEmail').value;
+            const passVal = document.getElementById('signupPassword').value;
+
+            // 2. Buat Objek User Baru
+            const newUser = {
+                id: 'USER-' + Date.now(), // ID Unik
+                name: nameVal,
+                email: emailVal,
+                password: passVal,
+                role: 'Customer', // Default role
+                joinedDate: new Date().toLocaleDateString()
+            };
+
+            // 3. Ambil data 'users' yang sudah ada di LocalStorage
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+
+            // Cek apakah email sudah terdaftar (Opsional)
+            const exists = users.find(u => u.email === emailVal);
+            if (exists) {
+                showNotification('Email is already registered!');
+                return;
+            }
+
+            // 4. Tambahkan user baru ke array
+            users.push(newUser);
+
+            // 5. Simpan kembali ke LocalStorage (INI YANG PENTING UNTUK ADMIN)
+            localStorage.setItem('users', JSON.stringify(users));
+
+            // 6. Set user yang sedang login (Session)
+            localStorage.setItem('currentUser', JSON.stringify(newUser));
+
+            // 7. Redirect ke halaman Profile atau Home
+            showNotification('Account created successfully!');
+            window.location.href = 'signup.html'; 
+        });
+    }
+
+    // --- LOGIKA LOGIN (OPSIONAL: Agar User bisa masuk setelah logout) ---
+    const loginForm = document.getElementById('loginForm');
+    if (loginForm) {
+        loginForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Sesuaikan ID input login Anda di html
+            const emailInput = document.getElementById('loginEmail').value; 
+            const passInput = document.getElementById('loginPassword').value;
+
+            const users = JSON.parse(localStorage.getItem('users') || '[]');
+            
+            // Cari user yang cocok
+            const validUser = users.find(u => u.email === emailInput && u.password === passInput);
+
+            if (validUser) {
+                localStorage.setItem('currentUser', JSON.stringify(validUser));
+                
+                // Cek Role (Jika Admin ke halaman Admin, jika Customer ke Profile)
+                if(validUser.email.includes('admin')) { // Logika sederhana cek admin
+                    window.location.href = 'admin.html';
+                } else {
+                    window.location.href = 'index.html';
+                }
+            } else {
+                showNotification('Invalid email or password!');
+            }
+        });
+    }
 
 // ============================================
 // 20. CUSTOM FRAGRANCE WIZARD
@@ -4251,76 +4746,6 @@ function closeCustomModal() {
         document.body.style.overflow = '';
     }
 }
-
-// Handle Custom Fragrance Form Submission (MULTI-SELECT SUPPORT)
-document.addEventListener('DOMContentLoaded', () => {
-    const customForm = document.getElementById('customFragranceForm');
-    
-    if (customForm) {
-        customForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            // Helper function untuk mengambil value checkbox yang dipilih
-            const getSelectedValues = (name) => {
-                const checkboxes = document.querySelectorAll(`input[name="${name}"]:checked`);
-                let values = Array.from(checkboxes).map(cb => cb.value);
-                return values.length > 0 ? values.join(', ') : 'Surprise Me';
-            };
-
-            // 1. Ambil data gabungan (Pilihan Kartu + Input Manual)
-            const topNotes = getSelectedValues('topNote');
-            const topCustom = document.getElementById('topNoteCustom').value;
-            const finalTop = topCustom ? `${topNotes} (+ ${topCustom})` : topNotes;
-
-            const heartNotes = getSelectedValues('heartNote');
-            const heartCustom = document.getElementById('heartNoteCustom').value;
-            const finalHeart = heartCustom ? `${heartNotes} (+ ${heartCustom})` : heartNotes;
-
-            const baseNotes = getSelectedValues('baseNote');
-            const baseCustom = document.getElementById('baseNoteCustom').value;
-            const finalBase = baseCustom ? `${baseNotes} (+ ${baseCustom})` : baseNotes;
-            
-            const creationName = document.getElementById('creationName').value || 'My Signature Scent';
-            
-            // 2. Simulasi Loading UI
-            const submitBtn = customForm.querySelector('button[type="submit"]');
-            const originalText = submitBtn.textContent;
-            submitBtn.textContent = "Analyzing Composition...";
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                // 3. Simpan data lengkap
-                const customRequests = JSON.parse(localStorage.getItem('customRequests') || '[]');
-                customRequests.push({
-                    id: 'BESPOKE-' + Math.floor(1000 + Math.random() * 9000),
-                    date: new Date().toISOString(),
-                    formula: {
-                        top: finalTop,
-                        heart: finalHeart,
-                        base: finalBase
-                    },
-                    name: creationName,
-                    status: 'Perfumer Reviewing'
-                });
-                localStorage.setItem('customRequests', JSON.stringify(customRequests));
-                
-                // 4. Feedback & Reset
-                customForm.reset();
-                closeCustomModal(); 
-                
-                if (typeof showNotification === 'function') {
-                    showNotification(`Masterpiece submitted! "${creationName}" is being processed.`, 'success');
-                } else {
-                    alert(`Request for "${creationName}" sent successfully!`);
-                }
-                
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-                
-            }, 2000); 
-        });
-    }
-});
 
 // Export functions
 window.openCustomModal = openCustomModal;
