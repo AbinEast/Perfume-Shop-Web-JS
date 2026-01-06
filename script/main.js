@@ -1142,77 +1142,82 @@ function loadAppointments() {
 
 // Render Request Parfum Kustom
 // Render Request Parfum Kustom (Updated with Price)
-function loadCustom() {
-    const container = document.getElementById('custom-grid');
-    if(!container) return;
+function loadCustomRequests() {
+    const container = document.getElementById('custom-requests-list');
+    if (!container) return;
     
-    const reqs = JSON.parse(localStorage.getItem('customRequests') || '[]');
+    // 1. Ambil Data dari LocalStorage
+    const requests = JSON.parse(localStorage.getItem('customRequests') || '[]');
     
-    if(reqs.length === 0) {
-        container.innerHTML = '<p style="text-align:center; width:100%; grid-column:1/-1; color:#666; padding: 2rem;">No custom requests found.</p>';
+    // 2. Ambil Email User yang Sedang Login
+    const currentUserEmail = localStorage.getItem('userEmail');
+    
+    // 3. Filter: Hanya tampilkan request milik user ini
+    // (Jika user belum login/email kosong, maka list akan kosong untuk keamanan privasi)
+    const myRequests = requests.filter(req => req.customerEmail === currentUserEmail);
+
+    // 4. Tampilan Jika Kosong
+    if (myRequests.length === 0) {
+        container.innerHTML = `
+            <div class="empty-service">
+                <p>No custom fragrance requests found.</p>
+                <a href="service.html" onclick="window.location.href='service.html';">Create Your Scent</a>
+            </div>`;
         return;
     }
-
-    container.innerHTML = reqs.reverse().map(r => {
-        // 1. Tentukan Status & Warna
-        const currentStatus = r.status || 'Order Placed';
-        const isSel = (val) => currentStatus === val ? 'selected' : '';
+    
+    // 5. Render Daftar Pesanan
+    container.innerHTML = [...myRequests].reverse().map(req => {
+        // Helper untuk memotong teks panjang
+        const trunc = (str) => (str && str.length > 20) ? str.substring(0, 18) + '..' : (str || '-');
         
-        let statusColor = '#f1c40f'; // Kuning (Default)
-        if(currentStatus === 'Shipped') statusColor = '#3498db'; // Biru
-        if(currentStatus === 'Delivered') statusColor = '#2ecc71'; // Hijau
-        if(currentStatus === 'Cancelled') statusColor = '#e74c3c'; // Merah
-
-        // 2. Data User (Fallback ke 'Guest' jika data lama belum punya nama)
-        const uName = r.customerName || 'Guest User';
-        const uEmail = r.customerEmail || '-';
+        // Ambil data formula dengan aman (fallback jika data lama tidak lengkap)
+        const f = req.formula || {};
+        const top = f.top || '-';
+        const heart = f.heart || '-';
+        const base = f.base || '-';
+        const size = f.size || '50ml';
+        const displayPrice = req.price || '';
 
         return `
-        <div class="req-card" style="background: #121212; border: 1px solid #333; border-radius: 8px; padding: 1.2rem; display: flex; flex-direction: column; gap: 1rem;">
-            
-            <div style="display:flex; justify-content:space-between; align-items:flex-start; border-bottom:1px solid #2a2a2a; padding-bottom:10px;">
-                <div>
-                    <h4 style="margin:0; color:var(--adm-gold); font-size: 1.1rem; font-family: 'Playfair Display', serif;">${r.name}</h4>
-                    <span style="color:#666; font-family:monospace; font-size: 0.8rem;">ID: ${r.id}</span>
+            <div class="service-card">
+                <div class="service-header">
+                    <span class="service-id">ID: ${req.id}</span>
+                    <span class="status-badge status-lab">${req.status || 'Order Placed'}</span>
                 </div>
-                <div style="text-align:right;">
-                    <strong style="display:block; font-size:1.1rem; color: #fff;">${r.price || '$0'}</strong>
-                    <small style="color:#888; font-size: 0.75rem;">${new Date(r.date).toLocaleDateString()}</small>
-                </div>
-            </div>
+                <div class="service-body">
+                    <div class="service-date-box" style="border-color: var(--gold); color: var(--gold);">
+                        <span class="date-day" style="font-size: 1.5rem;">🧪</span>
+                        <span class="date-month" style="font-size: 0.6rem;">BESPOKE</span>
+                    </div>
+                    
+                    <div class="service-details" style="width: 100%;">
+                        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+                            <h4 style="margin: 0; font-size: 1rem; display: flex; align-items: center; gap: 8px;">
+                                "${req.name || 'My Signature Scent'}" 
+                                <span style="font-size:0.65rem; color:var(--gold); border:1px solid var(--gold); padding:1px 6px; border-radius:4px;">
+                                    ${size}
+                                </span>
+                            </h4>
+                            <span style="color: var(--gold); font-weight: 700; font-family: 'Playfair Display', serif;">
+                                ${displayPrice}
+                            </span>
+                        </div>
 
-            <div style="background: rgba(255,255,255,0.03); padding: 10px; border-radius: 6px; border: 1px dashed #333;">
-                <div style="color: #eee; font-weight: 600; font-size: 0.9rem; margin-bottom: 2px;">
-                    👤 ${uName}
-                </div>
-                <div style="color: #888; font-size: 0.8rem;">
-                    📧 ${uEmail}
-                </div>
-            </div>
-
-            <div style="font-size: 0.85rem; color: #ccc; line-height: 1.6;">
-                <div style="display:flex;"><span style="color:#666; width: 60px;">Top:</span> <span>${r.formula.top}</span></div>
-                <div style="display:flex;"><span style="color:#666; width: 60px;">Heart:</span> <span>${r.formula.heart}</span></div>
-                <div style="display:flex;"><span style="color:#666; width: 60px;">Base:</span> <span>${r.formula.base}</span></div>
-                <div style="margin-top: 5px; padding-top:5px; border-top: 1px solid #222; color: #888;">
-                    Bottle Size: <span style="color: #fff;">${r.formula.size || '50ml'}</span>
+                        <div class="formula-tags">
+                            <span class="formula-tag" title="${top}">T: ${trunc(top)}</span>
+                            <span class="formula-tag" title="${heart}">H: ${trunc(heart)}</span>
+                            <span class="formula-tag" title="${base}">B: ${trunc(base)}</span>
+                        </div>
+                        
+                        <p style="font-size: 0.75rem; color: #888; margin-top: 0.8rem;">
+                            Ordered on: ${new Date(req.date).toLocaleDateString()}
+                        </p>
+                    </div>
                 </div>
             </div>
-            
-            <div style="margin-top: auto;">
-                <label style="font-size: 0.7rem; color: #555; display: block; margin-bottom: 4px; text-transform:uppercase; letter-spacing:1px;">Update Status</label>
-                <select onchange="updateCustomStatus('${r.id}', this.value)" 
-                        style="width:100%; padding: 8px 12px; background: #000; border: 1px solid ${statusColor}; color: ${statusColor}; border-radius: 4px; font-weight: 600; cursor: pointer; outline: none;">
-                    <option value="Order Placed" ${isSel('Order Placed')}>Order Placed</option>
-                    <option value="In Review" ${isSel('In Review')}>In Review</option>
-                    <option value="Blending" ${isSel('Blending')}>Blending</option>
-                    <option value="Shipped" ${isSel('Shipped')}>Shipped</option>
-                    <option value="Delivered" ${isSel('Delivered')}>Delivered</option>
-                    <option value="Cancelled" ${isSel('Cancelled')}>Cancelled</option>
-                </select>
-            </div>
-        </div>
-    `}).join('');
+        `;
+    }).join('');
 }
 
 // FUNGSI HELPER BARU: UPDATE STATUS KE STORAGE
@@ -1362,7 +1367,7 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typeof showNotification === 'function') {
                 showNotification(`Booking Confirmed: ${selectedTopic} for ${finalName}`, 'success');
             } else {
-                alert(`Booking Confirmed: ${selectedTopic} for ${finalName}`);
+                showNotification(`Booking Confirmed: ${selectedTopic} for ${finalName}`);
             }
             
             bookingForm.reset();
@@ -1530,7 +1535,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof showNotification === 'function') {
                     showNotification(`Order placed for "${creationName}"`, 'success');
                 } else {
-                    alert(`Success! Order placed.`);
+                    showNotification(`Success! Order placed.`);
                 }
                 
                 submitBtn.textContent = originalText;
@@ -1636,7 +1641,7 @@ function registerWorkshop(eventName, eventDate, eventTime, eventLocation) {
     if (typeof showNotification === 'function') {
         showNotification(`Success! Registered for ${eventName}.`, 'success');
     } else {
-        alert(`Success! Registered for ${eventName}.`);
+        showNotification(`Success! Registered for ${eventName}.`);
     }
 }
 
@@ -1707,7 +1712,7 @@ document.addEventListener('DOMContentLoaded', () => {
             // AMBIL ORDER ID DARI DATASET YANG KITA SET DI openReviewModal
             const orderId = reviewForm.getAttribute('data-order-id');
             
-            if(!rating) { alert("Please select a star rating."); return; }
+            if(!rating) { showNotification("Please select a star rating."); return; }
 
             const userProfile = JSON.parse(localStorage.getItem('userProfile')) || { firstName: 'Customer', lastName: '' };
             const authorName = `${userProfile.firstName} ${userProfile.lastName}`.trim() || 'Anonymous';
@@ -1797,7 +1802,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const rating = document.getElementById('reviewRatingValue').value;
             const text = document.getElementById('reviewText').value;
             
-            if(!rating) { alert("Please select a star rating."); return; }
+            if(!rating) { showNotification("Please select a star rating."); return; }
 
             // Ambil nama user dari profile (jika ada)
             const userProfile = JSON.parse(localStorage.getItem('userProfile')) || { firstName: 'Customer', lastName: '' };
@@ -1967,7 +1972,7 @@ document.getElementById('btnConfirmReg')?.addEventListener('click', function() {
         if (typeof showNotification === 'function') {
             showNotification(`Success! Seat reserved for ${pendingEventData.name}.`, 'success');
         } else {
-            alert(`Success! Seat reserved for ${pendingEventData.name}.`);
+            showNotification(`Success! Seat reserved for ${pendingEventData.name}.`);
         }
 
         // 5. Reset Tombol
@@ -2041,7 +2046,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (typeof showNotification === 'function') {
                     showNotification(`We're finding the perfect gift for your ${recipient}!`, 'success');
                 } else {
-                    alert('Gift request submitted successfully!');
+                    showNotification('Gift request submitted successfully!');
                 }
                 
                 submitBtn.textContent = originalText;
@@ -2985,7 +2990,6 @@ function loadOrderSummary() {
             const form = document.getElementById('checkoutForm');
             const selectedPayment = document.querySelector('.payment-option.selected');
             
-            
             if (!form.checkValidity()) {
                 form.reportValidity();
                 return;
@@ -2996,46 +3000,35 @@ function loadOrderSummary() {
                 return;
             }
             
-            // Simulate processing
+            // Simulate processing UI
             this.disabled = true;
             this.textContent = 'Processing...';
             
             setTimeout(() => {
                 const orderNum = 'LF-' + Math.floor(100000 + Math.random() * 900000);
-                document.getElementById('orderNumber').textContent = 'Order #' + orderNum;
+                const orderNumEl = document.getElementById('orderNumber');
+                if(orderNumEl) orderNumEl.textContent = 'Order #' + orderNum;
                 
-                // 1. AMBIL data cart
+                // 1. AMBIL data cart untuk diproses
                 const cart = JSON.parse(localStorage.getItem('cart') || '[]');
-
-                // --- LOGIKA BARU: PENGURANGAN STOK ---
                 const stocks = JSON.parse(localStorage.getItem('product_stock') || '{}');
-                
-                // --- [BARU] UPDATE DATA PENJUALAN (SALES TRACKING) ---
                 const sales = JSON.parse(localStorage.getItem('product_sales') || '{}');
                 
+                // 2. Update Stok & Sales Tracking
                 cart.forEach(item => {
-                // 1. Ambil stok saat ini (Default 10 jika belum ada record)
-                let currentStock = stocks[item.id] !== undefined ? stocks[item.id] : 10;
-                
-                // 2. Kurangi stok dengan jumlah yang dibeli
-                let newStock = currentStock - item.quantity;
-                
-                // (Opsional) Mencegah stok minus
-                if (newStock < 0) newStock = 0; 
-                
-                // 3. Simpan nilai baru
-                stocks[item.id] = newStock;
-                
-                // 4. Update Sales Count (Agar kolom Sold di admin juga nambah)
-                let currentSold = sales[item.id] !== undefined ? sales[item.id] : 2;
-                sales[item.id] = currentSold + item.quantity;
+                    let currentStock = stocks[item.id] !== undefined ? stocks[item.id] : 10;
+                    let newStock = currentStock - item.quantity;
+                    if (newStock < 0) newStock = 0; 
+                    stocks[item.id] = newStock;
+                    
+                    let currentSold = sales[item.id] !== undefined ? sales[item.id] : 2;
+                    sales[item.id] = currentSold + item.quantity;
                 });
 
-                // Simpan kembali ke LocalStorage
                 localStorage.setItem('product_stock', JSON.stringify(stocks));
                 localStorage.setItem('product_sales', JSON.stringify(sales));
                 
-                // 3. Simpan ke riwayat order
+                // 3. Simpan ke Riwayat Order
                 const orders = JSON.parse(localStorage.getItem('orders') || '[]');
                 
                 // Cek fitur Gift
@@ -3044,19 +3037,33 @@ function loadOrderSummary() {
                 const hidePrice = document.getElementById('hidePrice')?.checked;
                 const giftDetails = isGift ? { isGift: true, message: giftMsg, hidePrice: hidePrice } : null;
 
+                const totalEl = document.getElementById('summaryTotal');
+                const totalText = totalEl ? totalEl.textContent : '$0.00';
+
                 orders.push({
                     orderNumber: orderNum,
                     date: new Date().toISOString(),
-                    items: cart,
-                    total: document.getElementById('summaryTotal').textContent,
-                    status: 'Ordered', // Status awal Ordered (Hijau)
+                    items: cart, // Simpan item yang dibeli
+                    total: totalText,
+                    status: 'Ordered',
                     giftDetails: giftDetails
                 });
                 
                 localStorage.setItem('orders', JSON.stringify(orders));
                 
+                // --- [PERBAIKAN] KOSONGKAN KERANJANG SETELAH PESANAN SUKSES ---
+                localStorage.removeItem('cart');          // Hapus item cart
+                localStorage.removeItem('cart_discount'); // Hapus kode promo
+                
+                // Update badge cart di header jadi 0
+                if (typeof updateCartBadge === 'function') {
+                    updateCartBadge();
+                }
+                // -------------------------------------------------------------
+                
                 // Show success modal
-                document.getElementById('successModal').classList.add('active');
+                const successModal = document.getElementById('successModal');
+                if(successModal) successModal.classList.add('active');
                 
             }, 2000);
         });
@@ -3792,30 +3799,79 @@ function toggleWishlist(productId, btnElement) {
         const emailInput = emailEl.value.trim();
         const passwordInput = passEl.value;
         
-        // Ambil database users
-        const users = JSON.parse(localStorage.getItem('users') || '[]');
+        // Ambil data users dari database lokal
+        let users = JSON.parse(localStorage.getItem('users') || '[]');
         
-        // Cari user
+        // --- 1. CEK KHUSUS ADMIN (MASTER LOGIN) ---
+        // Ini memastikan Anda BISA login sebagai admin meskipun belum terdaftar di database
+        if (emailInput === 'admin@lumiere.com' && passwordInput === 'admin123') {
+            
+            // Cek apakah data admin ini sudah tersimpan di 'users'?
+            // Jika belum, kita tambahkan otomatis agar muncul di User Management
+            let adminIndex = users.findIndex(u => u.email === 'admin@lumiere.com');
+            
+            if (adminIndex === -1) {
+                const newAdmin = {
+                    id: 'ADMIN-MASTER',
+                    name: 'Super Admin',
+                    email: 'admin@lumiere.com',
+                    password: 'admin123',
+                    role: 'Admin', // Role penting!
+                    joinedDate: new Date().toLocaleDateString(),
+                    lastLogin: new Date().toLocaleString()
+                };
+                users.push(newAdmin);
+            } else {
+                // Jika sudah ada, update last login-nya saja
+                users[adminIndex].lastLogin = new Date().toLocaleString();
+            }
+            
+            // Simpan perubahan ke database
+            localStorage.setItem('users', JSON.stringify(users));
+            
+            // SET SESI LOGIN
+            localStorage.setItem('userLoggedIn', 'true');
+            localStorage.setItem('userEmail', 'admin@lumiere.com');
+            localStorage.setItem('userProfile', JSON.stringify({
+                firstName: 'Super',
+                lastName: 'Admin',
+                email: 'admin@lumiere.com',
+                role: 'Admin'
+            }));
+
+            // NOTIFIKASI & REDIRECT
+            if (typeof showNotification === 'function') {
+                showNotification('Welcome, Administrator!', 'success');
+            } else {
+                alert('Welcome, Administrator!');
+            }
+            
+            setTimeout(() => {
+                // Deteksi folder untuk redirect yang benar
+                if (window.location.pathname.includes('/pages/')) {
+                    window.location.href = 'admin.html'; // Jika di folder pages
+                } else {
+                    window.location.href = 'pages/admin.html'; // Jika di root
+                }
+            }, 1000);
+            
+            return; // Berhenti di sini, tidak perlu cek user biasa
+        }
+
+        // --- 2. CEK USER BIASA ---
         const userIndex = users.findIndex(u => u.email === emailInput && u.password === passwordInput);
 
         if (userIndex !== -1) {
             const validUser = users[userIndex];
             
-            // --- UPDATE LAST LOGIN (BARU) ---
-            // Catat waktu sekarang sebagai 'lastLogin'
-            const now = new Date();
-            // Format waktu yang cantik (misal: 24 Oct 2025, 14:30)
-            const timeString = now.toLocaleDateString('en-US', { 
+            // Update Last Login User
+            users[userIndex].lastLogin = new Date().toLocaleString('en-US', { 
                 day: 'numeric', month: 'short', year: 'numeric', 
                 hour: '2-digit', minute: '2-digit' 
             });
-            
-            users[userIndex].lastLogin = timeString;
-            // Simpan kembali ke database agar admin bisa melihatnya
             localStorage.setItem('users', JSON.stringify(users));
-            // --------------------------------
 
-            // Login Berhasil (Lanjut seperti biasa)
+            // Set Session
             localStorage.setItem('userLoggedIn', 'true');
             localStorage.setItem('userEmail', emailInput);
             
@@ -3840,10 +3896,13 @@ function toggleWishlist(productId, btnElement) {
             }
             
             setTimeout(() => {
-                if (emailInput.toLowerCase().includes('admin')) {
-                    window.location.href = 'pages/admin.html'; 
+                // Cek apakah user ini punya role Admin di databasenya (jika ada admin lain)
+                if (validUser.role === 'Admin' || validUser.email.toLowerCase().includes('admin')) {
+                    if (window.location.pathname.includes('/pages/')) window.location.href = 'admin.html'; 
+                    else window.location.href = 'pages/admin.html';
                 } else {
-                    window.location.href = 'index.html';
+                    if (window.location.pathname.includes('/pages/')) window.location.href = 'index.html';
+                    else window.location.href = 'index.html';
                 }
             }, 1500);
             
