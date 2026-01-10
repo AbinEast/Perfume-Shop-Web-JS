@@ -648,28 +648,6 @@
     }
 
 // ============================================
-// 8. PRELOADER Animation
-// ============================================
-
-    function initPreloaderAnimations() {
-        // PRELOADER LOGIC
-        // Menghilangkan preloader setelah halaman sepenuhnya dimuat
-        window.addEventListener('load', () => {
-            const preloader = document.getElementById('preloader');
-            if (preloader) {
-                setTimeout(() => {
-                    preloader.style.opacity = '0';
-                    preloader.style.visibility = 'hidden';
-                    
-                    // Mulai animasi teks Hero setelah preloader hilang
-                    const heroTitle = document.querySelector('.hero h1');
-                    if(heroTitle) heroTitle.style.animationPlayState = 'running';
-                }, 1500); // Durasi tampil preloader (1.5 detik)
-            }
-        });
-    }
-
-// ============================================
 // 9. PROFILE PAGE FUNCTIONALITY 
 // ============================================
 
