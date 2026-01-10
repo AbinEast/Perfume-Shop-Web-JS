@@ -648,7 +648,7 @@
     }
 
 // ============================================
-// 8. PRELOADER Animation
+// 8. PRELOAD Animation
 // ============================================
 
     function initPreloaderAnimations() {
