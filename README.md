@@ -66,4 +66,4 @@ git clone https://github.com/AbinEast/Perfume-Shop-Web-JS.git
    Recommended: Use "Live Server" extension in VS Code for the best experience.
    
 ## Web Preview
-https://abineast.github.io/Perfume-Shop-Web-JS/
+https://abineast.github.io/Perfume-Shop-Web-JS/pages/index.html
